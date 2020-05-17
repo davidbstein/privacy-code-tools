@@ -1,5 +1,7 @@
 # personal ignores
 .env
+zappa_settings.json
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
