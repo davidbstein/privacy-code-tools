@@ -20,11 +20,11 @@ class CodingInstance(models.Model):
   coding_values = postgres_fields.JSONField()
 
 class Policy(models.Model):
-  company_name = models.CharField()
-  site_name = models.CharField()
+  company_name = models.CharField(max_length=255)
+  site_name = models.CharField(max_length=255)
   alexa_rank = models.BigIntegerField()
-  policy_type = models.CharField()
-  url = models.CharField()
+  policy_type = models.CharField(max_length=255)
+  url = models.TextField()
   start_date = models.DateField()
   end_date = models.DateField()
   last_scan_dt = models.DateTimeField()
