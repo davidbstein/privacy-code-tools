@@ -1,4 +1,6 @@
 # personal ignores
+*.ipynb
+.idea
 .env
 zappa_settings.json
 *.zip
