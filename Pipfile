@@ -11,6 +11,10 @@ django = "*"
 django-rest-framework = "*"
 awscli = "*"
 django-environ = "*"
+djangorestframework = "*"
+aws-psycopg2 = "*"
+django-extensions = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.7"

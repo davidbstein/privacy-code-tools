@@ -1,0 +1,17 @@
+{% load socialaccount %}
+<html>
+  <head>
+    <title>Privacy Policy Coder</title>
+  </head>
+  <body>
+  {% if user.is_authenticated %}
+  <p>Welcome, {{ user.email }} !</p>
+
+  {% else %}
+  <script>
+    window.location="{% provider_login_url 'google' %}"
+   </script>
+  {% endif %}
+
+  </body>
+</html>
