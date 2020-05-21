@@ -22,8 +22,13 @@ from rest_framework import routers
 from coder.api import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r'coder', views.CoderViewSet)
+router.register(r'coding', views.CodingViewSet)
+router.register(r'coding_instance', views.CodingInstanceViewSet)
+router.register(r'policy', views.PolicyViewSet)
+router.register(r'policy_instance', views.PolicyInstanceViewSet)
+router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
+
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='coder/index.html')),
