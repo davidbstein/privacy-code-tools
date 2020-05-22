@@ -16,6 +16,7 @@ aws-psycopg2 = "*"
 django-extensions = "*"
 django-allauth = "*"
 django-filter = "*"
+bs4 = "*"
 
 [requires]
 python_version = "3.7"

@@ -45,7 +45,7 @@ class CodingInstanceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
-    filterset_fields = ['id', 'coder_id', 'policy_instance_id', 'coding_id', 'created_dt', 'coding_values']
+    filterset_fields = ['id', 'coder_id', 'policy_instance_id', 'coding_id', 'created_dt']
 
 class PolicyViewSet(viewsets.ModelViewSet):
     queryset = Policy.objects.all()
@@ -62,7 +62,7 @@ class PolicyInstanceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
-    filterset_fields = ['id', 'policy_id', 'scan_dt', 'content']
+    filterset_fields = ['id', 'policy_id', 'scan_dt']
 
 class RawPolicyInstanceViewSet(viewsets.ModelViewSet):
     queryset = RawPolicyInstance.objects.all()
@@ -70,4 +70,4 @@ class RawPolicyInstanceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
-    filterset_fields = ['id', 'policy_id', 'raw_content', 'capture_date', 'capture_source']
+    filterset_fields = ['id', 'policy_id', 'capture_date', 'capture_source']

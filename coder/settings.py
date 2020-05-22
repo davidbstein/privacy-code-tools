@@ -95,6 +95,9 @@ INSTALLED_APPS = [
 
     'coder',
     'coder.api',
+
+    #shellplus, ect.
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
