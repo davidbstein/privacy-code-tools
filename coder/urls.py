@@ -31,7 +31,7 @@ router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='coder/index.html')),
+    path('', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),

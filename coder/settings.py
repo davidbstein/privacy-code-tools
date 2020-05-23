@@ -95,6 +95,7 @@ INSTALLED_APPS = [
 
     'coder',
     'coder.api',
+    'coder.frontend',
 
     #shellplus, ect.
     'django_extensions',

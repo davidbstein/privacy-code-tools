@@ -37,7 +37,7 @@ class CodingViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
-    filterset_fields = ['id', 'parent', 'created_dt', 'questions']
+    filterset_fields = ['id', 'parent', 'created_dt']
 
 class CodingInstanceViewSet(viewsets.ModelViewSet):
     queryset = CodingInstance.objects.all()

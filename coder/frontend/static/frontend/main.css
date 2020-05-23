@@ -1,0 +1,75 @@
+.policy-browser-container {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  left: 0;
+}
+
+.policy-browser-paragraph {
+  padding: 8px;
+}
+.policy-browser-paragraph:hover {
+  background-color: #ffd;
+  cursor: default;
+}
+.policy-browser-paragraph-sentence {
+  padding: 2px;
+}
+.policy-browser-paragraph-sentence:hover {
+  background-color: #ff0;
+}
+.policy-browser-paragraph-sentence.selected {
+  background-color: #afc;
+}
+.policy-browser-paragraph-sentence.selected:hover {
+  background-color: #8eas;
+}
+
+.coding-form-container {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  right:0;
+  padding: 8px;
+}
+
+.coding-form-question-container {
+  padding: 8px 0;
+}
+
+.coding-form-question {
+  border: 1px solid #ccc;
+}
+
+.coding-form-question-title {
+  background-color: #aaa;
+  color: white;
+  padding: 4px;
+}
+
+.coding-form-question-info {
+  display: none;
+}
+
+.coding-form-question-value-selector {
+  padding: 4px;
+  padding-bottom: 8px;
+}
+
+.active-question .coding-form-question-info {
+  display: block;
+  padding:4px;
+  color: #333;
+}
+
+.active-question .coding-form-question-title {
+  background-color: #57068c;
+  font-weight: bolder;
+}
+
+.active-question .coding-form-question {
+  border: 1px solid #57068c;
+}
+

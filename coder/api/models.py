@@ -10,7 +10,7 @@ class Coder(models.Model):
 
 
 class Coding(models.Model):
-    parent = models.BigIntegerField()
+    parent = models.BigIntegerField(null=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     questions = postgres_fields.JSONField()
 

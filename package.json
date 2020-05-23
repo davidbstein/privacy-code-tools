@@ -1,0 +1,42 @@
+{
+  "name": "privacy-code-tools",
+  "version": "1.0.0",
+  "description": "Some helper tools to avoid using a spreadsheet",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-form": "^8.3.5",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "dev": "webpack --mode development --watch ./coder/frontend/src/index.js --output ./coder/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./coder/frontend/src/index.js --output ./coder/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidbstein/privacy-code-tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidbstein/privacy-code-tools/issues"
+  },
+  "homepage": "https://github.com/davidbstein/privacy-code-tools#readme"
+}

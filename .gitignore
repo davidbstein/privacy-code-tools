@@ -1,9 +1,11 @@
 # personal ignores
+.DS_store
 *.ipynb
 .idea
 .env
 zappa_settings.json
 *.zip
+node_modules
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
