@@ -16,13 +16,13 @@ class Coding(models.Model):
 
 
 class CodingInstance(models.Model):
-    coder_id = models.BigIntegerField(db_index=True)
+    coder_email = models.CharField(max_length=255, db_index=True, default="unknown")
     policy_instance_id = models.BigIntegerField(db_index=True)
     coding_id = models.BigIntegerField(db_index=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     coding_values = postgres_fields.JSONField()
     class Meta:
-        unique_together = ('coder_id', 'policy_instance_id')
+        unique_together = ('coder_email', 'policy_instance_id')
 
 
 class Policy(models.Model):
