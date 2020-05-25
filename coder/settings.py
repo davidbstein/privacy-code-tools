@@ -38,7 +38,11 @@ SECRET_KEY = '-1wxeqek!k&=zpab%r+968%d(!xvbal9c=!l(nepot+3@7m)2n'
 DEBUG = env('DEBUG')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'curuw61zuf.execute-api.us-east-1.amazonaws.com',
+    'policycoding.com',
+    'PrivacyPolicyCodingInterfacce-env.eba-kygmrstn.us-east-2.elasticbeanstalk.com',
+]
 
 # Rest framework stuff
 

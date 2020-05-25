@@ -1,22 +1,36 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
+{% if user.is_authenticated %}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- semantic-ui CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <title>Privacy Policy Labeller - {{ user.email }} </title>
+    <link rel="stylesheet" href="{% static 'frontend/main.css' %}"></script>
+    <script> var CURRENT_USER = "{{ user.email }}"; </script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- semantic-ui CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-  <title>Privacy Policy Labeller - {{ user.email }} </title>
-  <link rel="stylesheet" href="{% static 'frontend/main.css' %}"></script>
-  <script> var CURRENT_USER = "{{ user.email }}"; </script>
-</head>
+  <body>
 
-<body>
-  <div id='app'>loading...</div>
+    <div id='app'>loading...</div>
 
-  <script src="{% static 'frontend/main.js' %}"></script>
-</body>
+    <script src="{% static 'frontend/main.js' %}"></script>
+  </body>
+
+{% else %}
+  <head>
+    <script>
+      window.location="{% provider_login_url 'google' %}";
+    </script>
+  </head>
+  <body>
+    you are not logged in and are being redirected.
+    If you can read this, <a href="{% provider_login_url 'google' %}"> click here </a>
+  </body>
+{% endif %}
 
 </html>
