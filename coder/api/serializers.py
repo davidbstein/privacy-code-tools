@@ -28,6 +28,11 @@ class PolicyInstanceSerializer(serializers.HyperlinkedModelSerializer):
         model = api_models.PolicyInstance
         fields = ['id', 'policy_id', 'scan_dt', 'content']
 
+class PolicyInstanceInfoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = api_models.PolicyInstance
+        fields = ['id', 'policy_id', 'scan_dt']
+
 class RawPolicyInstanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.RawPolicyInstance

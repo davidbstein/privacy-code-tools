@@ -21,6 +21,8 @@ class CodingInstance(models.Model):
     coding_id = models.BigIntegerField(db_index=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     coding_values = postgres_fields.JSONField()
+    class Meta:
+        unique_together = ('coder_id', 'policy_instance_id')
 
 
 class Policy(models.Model):

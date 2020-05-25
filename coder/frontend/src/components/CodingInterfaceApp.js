@@ -4,10 +4,10 @@ import { apiGetPolicy, apiGetPolicyInstance, apiGetCoding } from '../actions/api
 import CodingForm from './coding_interface/CodingForm'
 import PolicyBrowser from './coding_interface/PolicyBrowser'
 
+
 class CodingInterfaceApp extends Component {
   constructor(props) {
     super(props);
-    this.props.apiGetPolicy(this.props.policy_id);
     this.props.apiGetPolicyInstance(this.props.policy_instance_id);
     this.props.apiGetCoding(this.props.coding_id);
   }

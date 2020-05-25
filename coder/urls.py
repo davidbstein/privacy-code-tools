@@ -27,11 +27,14 @@ router.register(r'coding', views.CodingViewSet)
 router.register(r'coding_instance', views.CodingInstanceViewSet)
 router.register(r'policy', views.PolicyViewSet)
 router.register(r'policy_instance', views.PolicyInstanceViewSet)
+router.register(r'policy_instance_info', views.PolicyInstanceInfoViewSet)
 router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
 
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='frontend/index.html')),
+    path('code-policy/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),

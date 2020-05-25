@@ -1,3 +1,11 @@
+/*
+
+
+POLICY BROWSER
+
+
+*/
+
 .policy-browser-container {
   width: 50%;
   height: 100%;
@@ -5,7 +13,6 @@
   overflow-y: scroll;
   left: 0;
 }
-
 .policy-browser-paragraph {
   padding: 8px;
 }
@@ -25,22 +32,55 @@
 .policy-browser-paragraph-sentence.selected:hover {
   background-color: #8eas;
 }
+.policy-browser-overview {
+  border: 1px solid black;
+  width: 100%;
+  background: #fdf;
+  padding: 16px;
+}
 
-.coding-form-container {
+
+/*
+
+
+CODING FORM
+
+
+*/
+
+
+.coding-form-pane {
   width: 50%;
   height: 100%;
   position: fixed;
   overflow-y: scroll;
   right:0;
+}
+
+.coding-form-container {
   padding: 8px;
+}
+
+.coding-form-overview {
+  border: 1px solid black;
+  width: 100%;
+  background: #fdf;
+  padding: 16px;
+}
+
+
+.coding-form-question-sentence-count {
+  padding: 4px;
 }
 
 .coding-form-question-container {
   padding: 8px 0;
+  transition: all .5s linear;
 }
 
 .coding-form-question {
   border: 1px solid #ccc;
+  transition: all .5s linear;
 }
 
 .coding-form-question-title {
@@ -51,6 +91,14 @@
 
 .coding-form-question-info {
   display: none;
+}
+
+.coding-form-comment-box {
+  display: none;
+}
+
+.active-question .coding-form-comment-box {
+  display: block;
 }
 
 .coding-form-question-value-selector {
@@ -72,4 +120,16 @@
 .active-question .coding-form-question {
   border: 1px solid #57068c;
 }
+
+.coding-form-comment-box {
+  padding: 4px;
+  width: 100%;
+}
+
+textarea.coding-form-comment-box-textarea {
+  border: 1px solid #aaa;
+  width: 100%;
+  padding: 4px 8px;
+}
+
 

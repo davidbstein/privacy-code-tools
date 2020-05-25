@@ -49,13 +49,19 @@ const QuestionBox = connect(
     }
 
     render() {
+      const sentences = ((this.props.localState.localCoding[this.props.idx]||{}).sentences||[]);
+      const number_of_sentences = _.sum(_.values(sentences).map((e)=>e.length));
+      const classes = "coding-form-question" + (
+        this.props.idx == this.props.localState.selectedQuestion ?
+        " active-question" : ""
+      )
       return <div className="coding-form-question-container">
-        <div
-          className={"coding-form-question" + (this.props.idx == this.props.localState.selectedQuestion ? " active-question" : "")}
-          onClick={this.handleClick}
-        >
+        <div className={classes} onClick={this.handleClick}>
           <div className="coding-form-question-title">
             {this.props.content.question}
+          </div>
+          <div className="coding-form-question-sentence-count">
+            {number_of_sentences} sentence{number_of_sentences == 1 ? "" : "s"} marked relevant
           </div>
           <div className="coding-form-question-info">
             {this.props.content.info}
@@ -63,14 +69,35 @@ const QuestionBox = connect(
           <QuestionValueSelector
             values={this.props.content.values}
             question_idx={this.props.idx}
-          />
-          <textarea/>
+            />
+          <div className="coding-form-comment-box" >
+            <textarea className="coding-form-comment-box-textarea"
+              placeholder="additional comments" />
+          </div>
         </div>
       </div>
     }
   }
 )
 
+
+const CodingOverview = connect(
+  mapStateToProps,
+  {}
+)(
+  class extends Component {
+    render() {
+      if (!true) {
+        return <div />
+      }
+      return <div className="policy-browser-overview">
+        <h1> Coding </h1>
+        <div> Coding will be attributed to {CURRENT_USER} </div>
+        <div> Please highlight the sentences in the privacy policy that informed the answer to each of the coding values. </div>
+      </div>
+    }
+  }
+)
 
 
 class CodingForm extends Component {
@@ -82,16 +109,19 @@ class CodingForm extends Component {
       </div>
     }
     return (
-      <div className="coding-form-container">
-        {coding.questions.map( (question_content, i) => {
-          return <QuestionBox key={i}
-            idx={i}
-            content={question_content}
-          />
-        }
-        )}
-        <div className="coding-form-button-container">
-          <button onClick={this.props.userClickSave}> Save! </button>
+      <div className="coding-form-pane">
+        <CodingOverview />
+        <div className="coding-form-container">
+          {coding.questions.map( (question_content, i) => {
+            return <QuestionBox key={i}
+              idx={i}
+              content={question_content}
+            />
+          }
+          )}
+          <div className="coding-form-button-container">
+            <button onClick={this.props.userClickSave}> Save! </button>
+          </div>
         </div>
       </div>
     );

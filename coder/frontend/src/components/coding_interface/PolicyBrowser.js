@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
   localState: state.localState
 });
 
+
 const PolicySentence = connect(
   mapStateToProps,
   {userToggleSentence}
@@ -44,6 +45,7 @@ const PolicySentence = connect(
 )
 
 
+
 class PolicyParagraph extends Component {
   render() {
     return <div className="policy-browser-paragraph">
@@ -59,6 +61,28 @@ class PolicyParagraph extends Component {
   }
 }
 
+
+const PolicyOverview = connect(
+  mapStateToProps,
+  {userToggleSentence}
+)(
+  class extends Component {
+    render() {
+      const policy = this.props.model.policies[this.props.policy_id];
+      if (!policy) {
+        return <div />
+      }
+      return <div className="policy-browser-overview">
+        <h1> {policy.company_name} </h1>
+        <div> alexa rank: {policy.alexa_rank} </div>
+        <div> policy type: {policy.policy_type} </div>
+        <div> text retrieved from: <a href={policy.url}>{policy.url}</a> </div>
+      </div>
+    }
+  }
+)
+
+
 class PolicyBrowser extends Component {
   render() {
     const policy_instance = this.props.model.policy_instances[this.props.policy_instance_id];
@@ -69,6 +93,8 @@ class PolicyBrowser extends Component {
     }
     return (
       <div className="policy-browser-container">
+        <PolicyOverview policy_id={policy_instance.policy_id}
+          policy_instance={policy_instance}/>
         {policy_instance.content.map( (paragraph_content, i) => {
           return <PolicyParagraph
             idx={i}

@@ -8,8 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- semantic-ui CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-  <title>Privacy Policy Labeller</title>
+  <title>Privacy Policy Labeller - {{ user.email }} </title>
   <link rel="stylesheet" href="{% static 'frontend/main.css' %}"></script>
+  <script> var CURRENT_USER = "{{ user.email }}"; </script>
 </head>
 
 <body>

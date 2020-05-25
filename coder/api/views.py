@@ -19,6 +19,7 @@ from coder.api.serializers import (
     CodingSerializer,
     PolicyInstanceSerializer,
     PolicySerializer,
+    PolicyInstanceInfoSerializer,
     RawPolicyInstanceSerializer,
 )
 
@@ -59,6 +60,14 @@ class PolicyViewSet(viewsets.ModelViewSet):
 class PolicyInstanceViewSet(viewsets.ModelViewSet):
     queryset = PolicyInstance.objects.all()
     serializer_class = PolicyInstanceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = '__all__'
+    filterset_fields = ['id', 'policy_id', 'scan_dt']
+
+class PolicyInstanceInfoViewSet(viewsets.ModelViewSet):
+    queryset = PolicyInstance.objects.all()
+    serializer_class = PolicyInstanceInfoSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
