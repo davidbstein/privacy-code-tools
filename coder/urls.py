@@ -20,9 +20,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-# ... the rest of your URLconf here ...
+from frontend.views import get_static
 
 router = routers.DefaultRouter()
 router.register(r'coder', views.CoderViewSet)
@@ -42,5 +40,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('static/<str:file_name>', get_static)
 ]
-urlpatterns += staticfiles_urlpatterns()
