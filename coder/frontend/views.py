@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 import pathlib
-# Create your views here.
+
 
 def get_static(request, file_name):
   assert file_name in ('main.css', 'main.js')
