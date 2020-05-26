@@ -8,10 +8,10 @@ export const userSelectQuestion = (question_idx) => async dispatch => {
   })
 }
 
-export const userChangeValue = (question_idx, value) => async dispatch => {
+export const userChangeValue = (question_idx, values) => async dispatch => {
   dispatch({
     type: USER_CHANGE_VALUE,
-    payload: { question_idx, value }
+    payload: { question_idx, values }
   })
 }
 

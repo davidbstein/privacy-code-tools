@@ -96,6 +96,10 @@ CODING FORM
 .coding-form-comment-box {
   display: none;
 }
+.coding-form-question-checkbox {
+  display:none;
+}
+
 
 .active-question .coding-form-comment-box {
   display: block;
@@ -126,6 +130,34 @@ CODING FORM
   width: 100%;
 }
 
+.active-question .coding-form-question-checkbox {
+  border: 1px solid #57068c;
+  display: inline-block;
+  margin: 4px;
+  padding: 2px 4px;
+  cursor: default;
+}
+.coding-form-question-checkbox:hover {
+  background-color: #ebf;
+}
+.coding-form-question-checkbox.selected:hover {
+  background-color: #bc9;
+}
+.coding-form-question-checkbox.selected {
+  background-color: #7aff7e;
+  box-shadow: 0px 0px 5px 0px #128235;
+}
+.coding-form-question-checkbox.selected .coding-form-question-other{
+  background-color: #7aff7e;
+}
+.coding-form-question-other {
+  border: none;
+  cursor: default;
+  outline: none;
+}
+.coding-form-question-checkbox:hover .coding-form-question-other{
+  background-color: #ebf;
+}
 textarea.coding-form-comment-box-textarea {
   border: 1px solid #aaa;
   width: 100%;

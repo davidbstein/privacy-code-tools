@@ -42,7 +42,6 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'curuw61zuf.execute-api.us-east-1.amazonaws.com',
     'policycoding.com',
     'policy-coder-web.eba-9sxfr9sk.us-east-1.elasticbeanstalk.com',
 ]
