@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
-from coder.frontend import view as frontend_views
+from coder.frontend import views as frontend_views
 
 router = routers.DefaultRouter()
 router.register(r'coder', views.CoderViewSet)
