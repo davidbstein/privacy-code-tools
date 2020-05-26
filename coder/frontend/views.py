@@ -5,5 +5,5 @@ import os
 
 def get_static(request, file_name):
   assert file_name in ('main.css', 'main.js')
-  print('running static request' + os.path.abspath())
+  print('running static request' + os.getcwd())
   return serve(request, '/var/app/current/coder/frontend/static/frontend/' + file_name)
