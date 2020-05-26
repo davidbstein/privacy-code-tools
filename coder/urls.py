@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
+from coder.frontend import view as frontend_views
 
 router = routers.DefaultRouter()
 router.register(r'coder', views.CoderViewSet)
@@ -39,4 +40,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('static/<str:file_name>', frontend_views.get_static)
 ]
