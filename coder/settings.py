@@ -41,7 +41,7 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = [
     'curuw61zuf.execute-api.us-east-1.amazonaws.com',
     'policycoding.com',
-    'PrivacyPolicyCodingInterfacce-env.eba-kygmrstn.us-east-2.elasticbeanstalk.com',
+    'django-env.eba-9sxfr9sk.us-east-1.elasticbeanstalk.com',
 ]
 
 # Rest framework stuff
