@@ -10,4 +10,4 @@ def get_static(request, file_name):
       return HttpResponse(f.read(), content_type="text/css")
   if (file_name == 'main.js'):
     with open(path + file_name) as f:
-      return HttpResponse(f.read(), content_type="text/javascript")
+      return HttpResponse(f.read(), content_type="application/javascript")
