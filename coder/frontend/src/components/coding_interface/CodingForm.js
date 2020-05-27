@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userSelectQuestion, userChangeValue, userClickSave } from '../../actions/userActions';
+import QuestionValueSelector from './coding-form/QuestionValueSelector'
+import {
+  userSelectQuestion,
+  userChangeValue,
+  userClickSave
+} from '../../actions/userActions';
+import {
+  apiPostCodingInstance
+} from '../../actions/api';
 
 
 const mapStateToProps = state => ({
@@ -8,132 +16,6 @@ const mapStateToProps = state => ({
   localState: state.localState
 });
 
-const QuestionCheckbox = connect(
-  mapStateToProps,
-  {} // functions
-)(
-  class QuestionCheckbox extends Component {
-    constructor(props, context){
-      super(props, context)
-      this.toggle = this.toggle.bind(this);
-    }
-    is_selected(){
-      const cur_values = (this.props.localState.localCoding[this.props.localState.selectedQuestion] || {}).values || [];
-      return cur_values[this.props.value];
-    }
-    toggle() {
-      this.props.toggle(this.props.value, this.is_selected());
-    }
-    render() {
-      return <div
-        className={"coding-form-question-checkbox " + (this.is_selected() ? "selected" : "unselected")}
-        onClick={this.toggle}>
-        {this.props.display || this.props.value}
-      </div>
-    }
-  }
-)
-
-const OtherField = connect(
-  mapStateToProps,
-  {} // functions
-)(
-  class OtherField extends Component {
-    constructor(props, context){
-      super(props, context);
-      this.onClick = this.onClick.bind(this);
-      this.onChange = this.onChange.bind(this);
-    }
-    is_selected(){
-      const cur_values = (this.props.localState.localCoding[this.props.localState.selectedQuestion] || {}).values || [];
-      return cur_values["OTHER"];
-    }
-    onClick(e){
-      if (this.is_selected() || !e.target.value)
-        this.props.setter(false);
-      else
-        this.props.setter(e.target.value);
-    }
-    onChange(e){
-      this.props.setter(e.target.value);
-    }
-    render() {
-        return <div
-          className={"coding-form-question-checkbox " + (this.is_selected() ? "selected" : "unselected")}>
-        <input
-          className='coding-form-question-other'
-          type='text'
-          placeholder='other (enter here)'
-          onChange={this.onChange}
-          onClick={this.onClick}/>
-        </div>
-    }
-  }
-)
-
-
-const QuestionValueSelector = connect(
-  mapStateToProps,
-  {userChangeValue} // functions
-)(
-  class QuestionValueSelector extends Component {
-    constructor(props, context){
-      super(props);
-      this.toggle = this.toggle.bind(this);
-      this.silence = this.silence.bind(this);
-      this.otherChanged = this.otherChanged.bind(this);
-    }
-
-    toggle(value, is_selected) {
-      const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
-      const new_values = {
-        ...(cur_coding.values || {}),
-        ...{[value]: !is_selected},
-        ...{["SILENT"]: false}
-      }
-      this.props.userChangeValue(this.props.question_idx, new_values)
-    }
-
-    silence(value, selected) {
-      const new_values = {["SILENT"]: !selected};
-      this.props.userChangeValue(this.props.question_idx, new_values)
-    }
-
-    otherChanged(value) {
-      const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
-      const new_values = {
-        ...(cur_coding.values || {}),
-        ...{["OTHER"]: value},
-      };
-      this.props.userChangeValue(this.props.question_idx, new_values);
-    }
-
-    render() {
-      return <div
-        className="coding-form-question-value-selector"
-        onClick={this.handleClick} >
-        <div>
-          {this.props.values.map((val, i) =>
-            <QuestionCheckbox key={i}
-              value={val}
-              question_idx={this.props.question_idx}
-              toggle={this.toggle} />
-          )}
-          <OtherField
-            setter={this.otherChanged} />
-        </div>
-        <div>
-          <QuestionCheckbox
-            value="SILENT"
-            display={"policy is silent"}
-            question_idx={this.props.question_idx}
-            toggle={this.silence}
-            />
-        </div>
-      </div>
-    }
-  }
-)
 
 const QuestionBox = connect(
   mapStateToProps,
@@ -167,7 +49,11 @@ const QuestionBox = connect(
           <div className="coding-form-question-sentence-count">
             {number_of_sentences} sentence{number_of_sentences == 1 ? "" : "s"} marked relevant.
             <br/>
-            coding: {value_strings.length > 0 ? value_strings.map((s, i)=><span key={i}>{s}, </span>) : "(uncoded)"}
+            coding: {
+              value_strings.length > 0 ?
+              value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>) :
+              <span className='coding-form-uncoded-marker'>(blank)</span>
+            }
           </div>
           <div className="coding-form-question-info">
             {this.props.content.info}
@@ -178,7 +64,7 @@ const QuestionBox = connect(
             />
           <div className="coding-form-comment-box" >
             <textarea className="coding-form-comment-box-textarea"
-              placeholder="additional comments" />
+              placeholder="additional comments" /> <i> note: commenting is not yet implemented -stein </i>
           </div>
         </div>
       </div>
@@ -200,42 +86,54 @@ const CodingOverview = connect(
         <h1> Coding </h1>
         <div> Coding will be attributed to {CURRENT_USER} </div>
         <div> Please highlight the sentences in the privacy policy that informed the answer to each of the coding values. </div>
+        <div> This form will auto-save regularly, but you should still press the "save" button at the bottom to confirm your work is saved. </div>
       </div>
     }
   }
 )
 
 
-class CodingForm extends Component {
-  render() {
-    const coding = this.props.model.codings[this.props.coding_id];
-    if (coding == undefined) {
-      return <div className="coding-form-container">
-        loading...
-      </div>
-    }
-    return (
-      <div className="coding-form-pane">
-        <CodingOverview />
-        <div className="coding-form-container">
-          {coding.questions.map( (question_content, i) => {
-            return <QuestionBox key={i}
-              idx={i}
-              content={question_content}
-            />
-          }
-          )}
-          <div className="coding-form-button-container">
-            <button onClick={this.props.userClickSave}> Save! </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
 
 export default connect(
   mapStateToProps,
-  { userClickSave } // functions
-)(CodingForm);
+  { apiPostCodingInstance } // functions
+)(
+  class CodingForm extends Component {
+    constructor(props, context){
+      super(props, context);
+      this.userSave = this.userSave.bind(this);
+    }
+    userSave() {
+      this.props.apiPostCodingInstance(
+        this.props.policy_instance_id,
+        this.props.coding_id,
+        this.props.localState.localCoding
+      )
+    }
+    render() {
+      const coding = this.props.model.codings[this.props.coding_id];
+      if (coding == undefined) {
+        return <div className="coding-form-container">
+          loading...
+        </div>
+      }
+      return (
+        <div className="coding-form-pane">
+          <CodingOverview />
+          <div className="coding-form-container">
+            {coding.questions.map( (question_content, i) => {
+              return <QuestionBox key={i}
+                idx={i}
+                content={question_content}
+              />
+            }
+            )}
+            <div className="coding-form-button-container">
+              <button onClick={this.userSave}> Save! </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+);

@@ -3,6 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import filters
+from rest_framework.response import Response
 # from rest_framework import generics
 
 from coder.api.models import (
@@ -46,7 +47,19 @@ class CodingInstanceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
-    filterset_fields = ['id', 'coder_id', 'policy_instance_id', 'coding_id', 'created_dt']
+    filterset_fields = ['id', 'coder_email', 'policy_instance_id', 'coding_id', 'created_dt']
+
+    def create(self, validated_data):
+        instance = CodingInstance.objects.filter(
+            coder_email=validated_data.data['coder_email'],
+            policy_instance_id=validated_data.data['policy_instance_id'],
+            ).first()  # uniqueness avoids needs for limit
+        if instance:
+            instance.coding_values = validated_data.data['coding_values']
+        else:
+            instance = CodingInstance.objects.create(**validated_data.data)
+        instance.save()
+        return Response(CodingInstanceSerializer(instance).data)
 
 class PolicyViewSet(viewsets.ModelViewSet):
     queryset = Policy.objects.all()

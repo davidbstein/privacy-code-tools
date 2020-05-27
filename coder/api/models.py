@@ -22,7 +22,7 @@ class CodingInstance(models.Model):
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     coding_values = postgres_fields.JSONField()
     class Meta:
-        unique_together = ('coder_email', 'policy_instance_id')
+        unique_together = ('coder_email', 'coding_id', 'policy_instance_id')
 
 
 class Policy(models.Model):

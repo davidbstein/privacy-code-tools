@@ -1,6 +1,13 @@
 
 import _ from 'lodash';
-import { USER_SELECT_QUESTION, USER_CHANGE_VALUE, USER_TOGGLE_SENTENCE, USER_CLICK_SAVE, USER_CLICK_RESET } from '../actions/types';
+import {
+  API_GET_CODING_INSTANCE,
+  USER_CHANGE_VALUE,
+  USER_CLICK_RESET,
+  USER_CLICK_SAVE,
+  USER_SELECT_QUESTION,
+  USER_TOGGLE_SENTENCE
+} from '../actions/types';
 
 const defaultState = {
   "selectedQuestion": 0,
@@ -94,6 +101,21 @@ function selectQuestion(state, action){
   };
 }
 
+/**
+ * overrides the local state with the server's last saved coding`
+ *
+ * action.payload = {}
+ */
+function loadSavedCoding(state, action){
+  if (!action.payload.coding_values) {
+    return state;
+  }
+  return {
+    ...state,
+    ...{localCoding: action.payload.coding_values}
+  }
+}
+
 export default (state = defaultState, action) => {
   //TODO auto-populator might need removal
   switch (action.type) {
@@ -103,6 +125,8 @@ export default (state = defaultState, action) => {
       return toggleSentence(state, action)
     case USER_CHANGE_VALUE:
       return changeValue(state, action)
+    case API_GET_CODING_INSTANCE:
+      return loadSavedCoding(state, action)
     default:
       return state;
   }

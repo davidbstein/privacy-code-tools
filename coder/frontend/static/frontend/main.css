@@ -1,6 +1,21 @@
 /*
 
 
+home
+
+
+*/
+
+#demo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/*
+
+
 POLICY BROWSER
 
 
@@ -55,6 +70,16 @@ CODING FORM
   position: fixed;
   overflow-y: scroll;
   right:0;
+}
+
+.coding-form-response {
+  box-shadow: 0 0 3px 0 #57068c;
+  margin: 0 4px;
+  padding: 0 2px;
+}
+
+.coding-form-uncoded-marker {
+  background-color: #ffa5a5;
 }
 
 .coding-form-container {

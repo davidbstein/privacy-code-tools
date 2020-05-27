@@ -16,7 +16,7 @@ class CodingSerializer(serializers.HyperlinkedModelSerializer):
 class CodingInstanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.CodingInstance
-        fields = ['id', 'coder_id', 'policy_instance_id', 'coding_id', 'created_dt', 'coding_values']
+        fields = ['id', 'coder_email', 'policy_instance_id', 'coding_id', 'created_dt', 'coding_values']
 
 class PolicySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
