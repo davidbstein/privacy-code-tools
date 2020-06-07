@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionValueSelector from './coding-form/QuestionValueSelector'
+import QuestionValueCommentBox from './coding-form/QuestionValueCommentBox'
 import {
   userSelectQuestion,
   userChangeValue,
   userClickSave
 } from '../../actions/userActions';
 import {
-  apiPostCodingInstance
+  apiPostCodingInstance,
+  apiAutoSave,
 } from '../../actions/api';
 
 
@@ -28,7 +30,7 @@ const QuestionBox = connect(
     }
 
     handleClick() {
-      this.props.userSelectQuestion(this.props.idx)
+      this.props.userSelectQuestion(this.props.idx);
     }
 
     render() {
@@ -62,10 +64,9 @@ const QuestionBox = connect(
             values={this.props.content.values}
             question_idx={this.props.idx}
             />
-          <div className="coding-form-comment-box" >
-            <textarea className="coding-form-comment-box-textarea"
-              placeholder="additional comments" /> <i> note: commenting is not yet implemented -stein </i>
-          </div>
+          <QuestionValueCommentBox
+            question_idx={this.props.idx}
+            />
         </div>
       </div>
     }
@@ -102,6 +103,7 @@ export default connect(
     constructor(props, context){
       super(props, context);
       this.userSave = this.userSave.bind(this);
+      this.userSubmit = this.userSubmit.bind(this);
     }
     userSave() {
       this.props.apiPostCodingInstance(
@@ -109,6 +111,14 @@ export default connect(
         this.props.coding_id,
         this.props.localState.localCoding
       )
+    }
+    userSubmit() {
+      this.props.apiPostCodingInstance(
+        this.props.policy_instance_id,
+        this.props.coding_id,
+        this.props.localState.localCoding
+      )
+      window.location.assign('/')
     }
     render() {
       const coding = this.props.model.codings[this.props.coding_id];
@@ -129,7 +139,8 @@ export default connect(
             }
             )}
             <div className="coding-form-button-container">
-              <button onClick={this.userSave}> Save! </button>
+              <button onClick={this.userSave} className="coding-form-submit-button"> Save </button>
+              <button onClick={this.userSubmit} className="coding-form-submit-button"> Submit and return home </button>
             </div>
           </div>
         </div>

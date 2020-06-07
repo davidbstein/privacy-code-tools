@@ -21,7 +21,9 @@ class CodingInstanceSerializer(serializers.HyperlinkedModelSerializer):
 class PolicySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.Policy
-        fields = ['id', 'company_name', 'site_name', 'alexa_rank', 'policy_type', 'url', 'start_date', 'end_date', 'last_scan_dt', 'scan_count']
+        fields = [
+            'id', 'company_name', 'site_name', 'alexa_rank', 'categories',
+            'urls', 'start_date', 'end_date', 'last_scan_dt', 'scan_count']
 
 class PolicyInstanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -37,3 +39,4 @@ class RawPolicyInstanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.RawPolicyInstance
         fields = ['id', 'policy_id', 'raw_content', 'capture_date', 'capture_source']
+

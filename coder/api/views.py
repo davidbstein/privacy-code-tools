@@ -1,4 +1,3 @@
-
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -67,7 +66,10 @@ class PolicyViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     ordering_fields = '__all__'
-    filterset_fields = ['id', 'company_name', 'site_name', 'alexa_rank', 'policy_type', 'url', 'start_date', 'end_date', 'last_scan_dt', 'scan_count']
+    filterset_fields = [
+        'id', 'company_name', 'site_name', 'alexa_rank',
+        'start_date', 'end_date', 'last_scan_dt', 'scan_count'
+        ]
     search_fields = ['company_name', 'site_name']
 
 class PolicyInstanceViewSet(viewsets.ModelViewSet):

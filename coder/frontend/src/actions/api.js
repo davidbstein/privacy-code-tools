@@ -1,5 +1,14 @@
+import _ from 'lodash';
 import axios from 'axios';
-import { API_GET_POLICY, API_GET_POLICY_INSTANCE, API_GET_CODING, API_POST_CODING_INSTANCE, API_GET_CODING_INSTANCE } from './types';
+import {
+  API_AUTO_SAVE,
+  API_GET_CODING,
+  API_GET_CODING_INSTANCE,
+  API_GET_POLICY,
+  API_GET_POLICY_INSTANCE,
+  API_POST_CODING_INSTANCE,
+} from './types';
+import store from '../store'
 
 function getCookie(name) {
     var cookieValue = null;
@@ -61,15 +70,57 @@ export const apiGetCodingInstance = (policy_instance_id, coding_id) => async dis
 }
 
 
-export const apiPostCodingInstance = (policy_instance_id, coding_id, coding_values) => async dispatch => {
+export const apiPostCodingInstance = () => async dispatch => {
+  _save_fn(store, dispatch, API_POST_CODING_INSTANCE);
+}
+
+
+
+/*
+ * AUTO SAVE FUNCTION AND BACCKGROUND LISTENERS
+ */
+var _LAST_AUTO_SAVE = 0;
+const _JUMP = 10000;
+
+const _apiAutoSave = (override=false) => async dispatch => {
+  const cur_time = new Date().getTime();
+  if (override || (_LAST_AUTO_SAVE + _JUMP < cur_time)) {
+    _LAST_AUTO_SAVE = cur_time;
+  } else {
+    console.log("not saving...")
+    return;
+  }
+  console.log('saving...')
+  _save_fn(store, dispatch, API_AUTO_SAVE);
+}
+
+const _save_fn = async function(store=store, dispatch=store.dispatch, actionName=API_AUTO_SAVE) {
+  const state = store.getState();
+  const policy_instance_id = state.localState.policyInstanceId;
+  const coding_id = state.localState.codingId;
+  const coding_values = state.localState.localCoding;
   const coder_email = CURRENT_USER;
-  const res = await axios.post(`/api/coding_instance/`, {
+  const request_params = {
     policy_instance_id, coding_id, coder_email, coding_values
-  }, {
+  }
+  const res = await axios.post(`/api/coding_instance/`, request_params, {
     headers: {'X-CSRFToken': CSRF_TOKEN}
   });
-  dispatch({
-    type: API_POST_CODING_INSTANCE,
+  store.dispatch({
+    type: actionName,
     payload: res.data
   })
 }
+const _limited_save_fn = _.debounce(_save_fn, 1000, {leading:true});
+//AUTO SAVE MAGIC!
+setInterval(_save_fn, 60*1000*5 /*five minutes*/)
+const _manual_auto_save = (async function(e) {
+  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+    e.preventDefault();
+    console.log("SAVE");
+    _limited_save_fn(store, store.dispatch)
+  }
+});
+document.addEventListener("keydown", _manual_auto_save, false);
+
+export const apiAutoSave = _apiAutoSave;

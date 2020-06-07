@@ -1,23 +1,33 @@
 
 import _ from 'lodash';
 import {
+  API_AUTO_SAVE,
   API_GET_CODING_INSTANCE,
+  API_POST_CODING_INSTANCE,
+  APP_SET_CURRENT_VIEW,
+  USER_CHANGE_QUESTION_META,
   USER_CHANGE_VALUE,
   USER_CLICK_RESET,
   USER_CLICK_SAVE,
   USER_SELECT_QUESTION,
-  USER_TOGGLE_SENTENCE
+  USER_TOGGLE_SENTENCE,
 } from '../actions/types';
 
 const defaultState = {
   "selectedQuestion": 0,
   "localCoding": {},
+  "updateSinceLastSave": true,
 }
 
 function get_default_question(){
   return {
     values: {},
-    sentences: {}
+    sentences: {
+      privacy_policy: {},
+      tos: {},
+      ccpa_policy: {},
+      gdpr_policy: {}
+    }
   }
 }
 
@@ -66,18 +76,21 @@ function toggleSentence(state, action){
     current_value = get_default_question();
   }
 
-  var new_sentences = {...current_value.sentences};
-  if (!new_sentences[action.payload.paragraph_idx]) {
-    new_sentences[action.payload.paragraph_idx] = [action.payload.sentence_idx]
-  } else if (new_sentences[action.payload.paragraph_idx].indexOf(action.payload.sentence_idx) < 0){
-    new_sentences[action.payload.paragraph_idx].push(action.payload.sentence_idx);
+  var new_policy_sentences = {...current_value.sentences[action.payload.policy_type]};
+  if (!new_policy_sentences[action.payload.paragraph_idx]) {
+    new_policy_sentences[action.payload.paragraph_idx] = [action.payload.sentence_idx]
+  } else if (new_policy_sentences[action.payload.paragraph_idx].indexOf(action.payload.sentence_idx) < 0){
+    new_policy_sentences[action.payload.paragraph_idx].push(action.payload.sentence_idx);
   } else {
-    new_sentences[action.payload.paragraph_idx] = new_sentences[action.payload.paragraph_idx].filter((e) => e !== action.payload.sentence_idx);
+    new_policy_sentences[action.payload.paragraph_idx] = new_policy_sentences[action.payload.paragraph_idx].filter((e) => e !== action.payload.sentence_idx);
   }
 
   const new_value = {
     ...current_value,
-    ...{sentences: new_sentences}
+    ...{sentences: {
+      ...current_value.sentences,
+      ...{[action.payload.policy_type]: new_policy_sentences}
+    }}
   }
   return {
     ...state,
@@ -116,17 +129,40 @@ function loadSavedCoding(state, action){
   }
 }
 
+function setCurrentView(state, action){
+  return {...state,
+    ...{
+      policyInstanceId: action.payload.policy_instance_id,
+      codingId: action.payload.coding_id,
+    }
+  }
+}
+
 export default (state = defaultState, action) => {
-  //TODO auto-populator might need removal
+  const new_state = {...state, ...{updateSinceLastSave: false}}
   switch (action.type) {
-    case USER_SELECT_QUESTION:
-      return selectQuestion(state, action)
-    case USER_TOGGLE_SENTENCE:
-      return toggleSentence(state, action)
-    case USER_CHANGE_VALUE:
-      return changeValue(state, action)
+
+    // updates that don't mutate user input state.
+    case APP_SET_CURRENT_VIEW:
+      return setCurrentView(state, action)
+    case API_AUTO_SAVE:
+    case API_POST_CODING_INSTANCE:
+      new_state.updateSinceLastSave = true;
+      return new_state;
     case API_GET_CODING_INSTANCE:
-      return loadSavedCoding(state, action)
+      return loadSavedCoding(new_state, action)
+
+    // updates that mutate user's input
+    case USER_SELECT_QUESTION:
+      return selectQuestion(new_state, action)
+    case USER_CHANGE_QUESTION_META:
+      return changeQuestionMeta(new_state, action)
+    case USER_TOGGLE_SENTENCE:
+      return toggleSentence(new_state, action)
+    case USER_CHANGE_VALUE:
+      return changeValue(new_state, action)
+
+    // null action
     default:
       return state;
   }

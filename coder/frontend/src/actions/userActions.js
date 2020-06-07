@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { USER_SELECT_QUESTION, USER_CHANGE_VALUE, USER_TOGGLE_SENTENCE, USER_CLICK_SAVE, USER_CLICK_RESET } from './types';
+import {
+USER_AUTO_SAVE,
+USER_CHANGE_QUESTION_META,
+USER_CHANGE_VALUE,
+USER_CLICK_RESET,
+USER_CLICK_SAVE,
+USER_SELECT_QUESTION,
+USER_TOGGLE_SENTENCE,
+} from './types';
+import _ from 'lodash';
 
 export const userSelectQuestion = (question_idx) => async dispatch => {
   dispatch({
@@ -15,10 +24,17 @@ export const userChangeValue = (question_idx, values) => async dispatch => {
   })
 }
 
-export const userToggleSentence = (paragraph_idx, sentence_idx) => async dispatch => {
+export const userToggleSentence = (policy_type, paragraph_idx, sentence_idx) => async dispatch => {
   dispatch({
     type: USER_TOGGLE_SENTENCE,
-    payload: { paragraph_idx, sentence_idx }
+    payload: { policy_type, paragraph_idx, sentence_idx }
+  })
+}
+
+export const userChangeQuestionMeta = (question_idx, field, value) => async dispatch => {
+  dispatch({
+    type: USER_CHANGE_QUESTION_META,
+    payload: {question_idx, field, value}
   })
 }
 
@@ -28,7 +44,6 @@ export const userClickSave = () => async dispatch => {
     payload: { }
   })
 }
-
 
 export const userClickReset = () => async dispatch => {
   dispatch({

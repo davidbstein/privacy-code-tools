@@ -28,8 +28,13 @@ POLICY BROWSER
   overflow-y: scroll;
   left: 0;
 }
-.policy-browser-paragraph {
+.policy-browser-major-section {
+  border: 1px solid #ccc;
+  margin: 8px;
   padding: 8px;
+}
+.policy-browser-paragraph {
+  padding: 8px 0;
 }
 .policy-browser-paragraph:hover {
   background-color: #ffd;
@@ -45,13 +50,46 @@ POLICY BROWSER
   background-color: #afc;
 }
 .policy-browser-paragraph-sentence.selected:hover {
-  background-color: #8eas;
+  background-color: #8ea;
 }
 .policy-browser-overview {
   border: 1px solid black;
   width: 100%;
   background: #fdf;
   padding: 16px;
+}
+/* .policy-browser-paragraph-num:before{
+  content:"¶";
+  white-space: pre;
+} */
+.policy-browser-paragraph-num{
+  user-select:none;
+  width: 25px;
+  font-family: monospace;
+  font-size: 10px;
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+  color: #aaa;
+}
+.policy-browser-paragraph-content{
+  display: inline-block;
+  width: calc(100% - 80px);
+}
+
+.policy-browser-section-overview {
+  border: 1px solid #63749e;
+  width: 100%;
+  background: #ddfcff;
+  padding: 16px;
+  margin-top: 16px
+}
+.policy-browser-overview-token {
+  border: 1px solid #608dff;
+  background-color: #e3d6ff;
+  padding: 0 2px;
+  margin: 0 2px;
+  border-radius: 2px;
 }
 
 
@@ -189,4 +227,18 @@ textarea.coding-form-comment-box-textarea {
   padding: 4px 8px;
 }
 
-
+.coding-form-submit-button{
+   width: 100%;
+   font-size: calc(min(3vw, 32px));
+   padding: 16px;
+   border: 1px solid #571a8c;
+   color: #571a8c;
+   background-color: #fff1ff;
+   margin-bottom: 8px;
+}
+.coding-form-submit-button:hover{
+  box-shadow: 1px 1px 3px 0px #571a8c;
+}
+.coding-form-submit-button:active{
+  box-shadow: 0 0 0 0;
+}

@@ -6,9 +6,9 @@ import {
   apiGetPolicy,
   apiGetPolicyInstance,
   apiGetCoding,
-  apiGetCodingInstance
+  apiGetCodingInstance,
 } from '../actions/api';
-
+import { appSetCurrentView } from '../actions/appActions'
 
 class CodingInterfaceApp extends Component {
   constructor(props) {
@@ -16,12 +16,15 @@ class CodingInterfaceApp extends Component {
     this.props.apiGetPolicyInstance(this.props.policy_instance_id);
     this.props.apiGetCoding(this.props.coding_id);
     this.props.apiGetCodingInstance(this.props.policy_instance_id, this.props.coding_id);
+    this.props.appSetCurrentView(this.props.policy_instance_id, this.props.coding_id);
   }
 
   render() {
     return (
       <div className="container">
-        <PolicyBrowser policy_instance_id={this.props.policy_instance_id} />
+        <PolicyBrowser
+          coding_id={this.props.coding_id}
+          policy_instance_id={this.props.policy_instance_id} />
         <CodingForm
           coding_id={this.props.coding_id}
           policy_instance_id={this.props.policy_instance_id} />
@@ -36,5 +39,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { apiGetPolicy, apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance }
+  { apiGetPolicy, apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance, appSetCurrentView }
 )(CodingInterfaceApp);

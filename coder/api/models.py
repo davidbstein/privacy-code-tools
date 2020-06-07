@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres import fields as postgres_fields
 import datetime
 
+
 # Create your models here.
 class Coder(models.Model):
     name = models.CharField(max_length=255)
@@ -29,12 +30,12 @@ class Policy(models.Model):
     company_name = models.CharField(max_length=255)
     site_name = models.CharField(max_length=255)
     alexa_rank = models.BigIntegerField()
-    policy_type = models.CharField(max_length=255)
-    url = models.TextField()
+    urls = postgres_fields.JSONField(default={})
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     last_scan_dt = models.DateTimeField(null=True)
     scan_count = models.BigIntegerField(default=0)
+    categories = postgres_fields.JSONField(default=[])
 
 
 class PolicyInstance(models.Model):
