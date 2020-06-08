@@ -30,12 +30,12 @@ class Policy(models.Model):
     company_name = models.CharField(max_length=255)
     site_name = models.CharField(max_length=255)
     alexa_rank = models.BigIntegerField()
-    urls = postgres_fields.JSONField(default={})
+    urls = postgres_fields.JSONField(default=dict)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     last_scan_dt = models.DateTimeField(null=True)
     scan_count = models.BigIntegerField(default=0)
-    categories = postgres_fields.JSONField(default=[])
+    categories = postgres_fields.JSONField(default=list)
 
 
 class PolicyInstance(models.Model):

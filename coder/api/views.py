@@ -24,10 +24,34 @@ from coder.api.serializers import (
 )
 
 
+EMAIL_SAFELIST = (
+    "aet414@nyu.edu",
+    "agk382@nyu.edu",
+    "amm1837@nyu.edu",
+    "ams1987@nyu.edu",
+    "cv729@nyu.edu",
+    "dbs438@nyu.edu",
+    "jmb1407@nyu.edu",
+    "kmm1153@nyu.edu",
+    "lav345@nyu.edu",
+    "msr634@nyu.edu",
+    "ns4649@nyu.edu",
+    "pb2444@nyu.edu",
+    "saz312@nyu.edu",
+    "spk376@nyu.edu",
+    "yt1722@nyu.edu",
+)
+class GroupPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.email in EMAIL_SAFELIST:
+            return True
+        return request.user.groups.filter(name="APIUser").exists()
+
+
 class CoderViewSet(viewsets.ModelViewSet):
     queryset = Coder.objects.all()
     serializer_class = CoderSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'name', 'email', 'permission']
@@ -35,7 +59,7 @@ class CoderViewSet(viewsets.ModelViewSet):
 class CodingViewSet(viewsets.ModelViewSet):
     queryset = Coding.objects.all()
     serializer_class = CodingSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'parent', 'created_dt']
@@ -43,7 +67,7 @@ class CodingViewSet(viewsets.ModelViewSet):
 class CodingInstanceViewSet(viewsets.ModelViewSet):
     queryset = CodingInstance.objects.all()
     serializer_class = CodingInstanceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'coder_email', 'policy_instance_id', 'coding_id', 'created_dt']
@@ -63,7 +87,7 @@ class CodingInstanceViewSet(viewsets.ModelViewSet):
 class PolicyViewSet(viewsets.ModelViewSet):
     queryset = Policy.objects.all()
     serializer_class = PolicySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = [
@@ -75,7 +99,7 @@ class PolicyViewSet(viewsets.ModelViewSet):
 class PolicyInstanceViewSet(viewsets.ModelViewSet):
     queryset = PolicyInstance.objects.all()
     serializer_class = PolicyInstanceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'scan_dt']
@@ -83,7 +107,7 @@ class PolicyInstanceViewSet(viewsets.ModelViewSet):
 class PolicyInstanceInfoViewSet(viewsets.ModelViewSet):
     queryset = PolicyInstance.objects.all()
     serializer_class = PolicyInstanceInfoSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'scan_dt']
@@ -91,7 +115,7 @@ class PolicyInstanceInfoViewSet(viewsets.ModelViewSet):
 class RawPolicyInstanceViewSet(viewsets.ModelViewSet):
     queryset = RawPolicyInstance.objects.all()
     serializer_class = RawPolicyInstanceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [GroupPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'capture_date', 'capture_source']
