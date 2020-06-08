@@ -94,7 +94,7 @@ const _apiAutoSave = (override=false) => async dispatch => {
   _save_fn(store, dispatch, API_AUTO_SAVE);
 }
 
-const _save_fn = async function(store=store, dispatch=store.dispatch, actionName=API_AUTO_SAVE) {
+const _save_fn = async function(store, dispatch, actionName=API_AUTO_SAVE) {
   const state = store.getState();
   const policy_instance_id = state.localState.policyInstanceId;
   const coding_id = state.localState.codingId;
@@ -111,9 +111,11 @@ const _save_fn = async function(store=store, dispatch=store.dispatch, actionName
     payload: res.data
   })
 }
-const _limited_save_fn = _.debounce(_save_fn, 1000, {leading:true});
+const _limited_save_fn = _.debounce(_save_fn, 500)
 //AUTO SAVE MAGIC!
-setInterval(_save_fn, 60*1000*5 /*five minutes*/)
+setInterval((function(){
+  _save_fn(store, store.dispatch);
+}).bind(this), 1000*60*5/*five minutes*/)
 const _manual_auto_save = (async function(e) {
   if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
     e.preventDefault();

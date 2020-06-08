@@ -141,9 +141,39 @@ CODING FORM
   transition: all .5s linear;
 }
 
+.coding-form-confidence-options-container {
+  margin: 8px;
+}
+.coding-form-confidence-options {
+  display: flex;
+  justify-content: space-evenly
+}
+.coding-form-confidence-options input[type="radio"] {
+  display: none;
+}
+.coding-form-confidence-options input[type="radio"]:checked+label {
+  font-weight: bold;
+  background-color: #ffddff
+}
+.coding-form-confidence-options label {
+  border: 1px solid #571a8c;
+  background-color: #ffedff
+  margin: 2px;
+  flex-grow: 1;
+  text-align: center;
+  padding: 2px;
+  cursor: default;
+}
+
+.coding-form-confidence-options label:hover {
+  box-shadow: 1px 1px 1px 0px #571a8c;
+  background-color: #fff4ff;
+}
+
+
 .coding-form-question {
   border: 1px solid #ccc;
-  transition: all .5s linear;
+  color: #888;
 }
 
 .coding-form-question-title {
@@ -152,19 +182,8 @@ CODING FORM
   padding: 4px;
 }
 
-.coding-form-question-info {
-  display: none;
-}
 
 .coding-form-comment-box {
-  display: none;
-}
-.coding-form-question-checkbox {
-  display:none;
-}
-
-
-.active-question .coding-form-comment-box {
   display: block;
 }
 
@@ -173,7 +192,7 @@ CODING FORM
   padding-bottom: 8px;
 }
 
-.active-question .coding-form-question-info {
+.coding-form-question-info {
   display: block;
   padding:4px;
   color: #333;
@@ -184,16 +203,30 @@ CODING FORM
   font-weight: bolder;
 }
 
-.active-question .coding-form-question {
+.active-question.coding-form-question {
+  border: 1px solid #57068c;
+  color: #333;
+}
+.inactive-question.coding-form-question:hover {
+  cursor: pointer;
   border: 1px solid #57068c;
 }
-
+.active-selection-area, .inactive-selection-area {
+  transition: max-height .2s;
+}
+.active-selection-area {
+  max-height: 400px;
+}
+.inactive-selection-area {
+  max-height: 0;
+  overflow: hidden;
+}
 .coding-form-comment-box {
   padding: 4px;
   width: 100%;
 }
 
-.active-question .coding-form-question-checkbox {
+.coding-form-question-checkbox {
   border: 1px solid #57068c;
   display: inline-block;
   margin: 4px;
@@ -223,8 +256,9 @@ CODING FORM
 }
 textarea.coding-form-comment-box-textarea {
   border: 1px solid #aaa;
-  width: 100%;
+  width: calc(100% - 16px);
   padding: 4px 8px;
+  margin: 8px;
 }
 
 .coding-form-submit-button{

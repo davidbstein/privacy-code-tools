@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import QuestionValueSelector from './coding-form/QuestionValueSelector'
 import QuestionValueCommentBox from './coding-form/QuestionValueCommentBox'
 import {
-  userSelectQuestion,
   userChangeValue,
-  userClickSave
+  userClickSave,
+  userSelectQuestion,
 } from '../../actions/userActions';
 import {
   apiPostCodingInstance,
@@ -34,14 +34,15 @@ const QuestionBox = connect(
     }
 
     render() {
-      const sentences = ((this.props.localState.localCoding[this.props.idx]||{}).sentences||[]);
-      const number_of_sentences = _.sum(_.values(sentences).map((e)=>e.length));
+      const sentences = ((this.props.localState.localCoding[this.props.idx]||{}).sentences||{});
+      const number_of_sentences = _.sum(_.values(sentences).map(e=>_.sum(_.values(e).map(ee=>ee.length))));
       const is_active = this.props.idx == this.props.localState.selectedQuestion;
-      const cur_values = (this.props.localState.localCoding[this.props.idx] || {}).values || {};
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || {});
+      const cur_values = cur_question.values || {};
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
-      const classes = "coding-form-question" + (is_active ? " active-question" : "")
+      const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
 
       return <div className="coding-form-question-container">
         <div className={classes} onClick={is_active ? null : this.handleClick}>
@@ -57,16 +58,20 @@ const QuestionBox = connect(
               <span className='coding-form-uncoded-marker'>(blank)</span>
             }
           </div>
-          <div className="coding-form-question-info">
-            {this.props.content.info}
+          <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
+            <hr/>
+            <div className="coding-form-question-info">
+              {this.props.content.info}
+            </div>
+            <QuestionValueSelector
+              values={this.props.content.values}
+              question_idx={this.props.idx}
+              />
+            <QuestionValueCommentBox
+              question_idx={this.props.idx}
+              values={cur_question}
+              />
           </div>
-          <QuestionValueSelector
-            values={this.props.content.values}
-            question_idx={this.props.idx}
-            />
-          <QuestionValueCommentBox
-            question_idx={this.props.idx}
-            />
         </div>
       </div>
     }
@@ -140,7 +145,7 @@ export default connect(
             )}
             <div className="coding-form-button-container">
               <button onClick={this.userSave} className="coding-form-submit-button"> Save </button>
-              <button onClick={this.userSubmit} className="coding-form-submit-button"> Submit and return home </button>
+              <button onClick={this.userSubmit} className="coding-form-submit-button"> Save and return home </button>
             </div>
           </div>
         </div>

@@ -51,7 +51,6 @@ const PolicySentence = connect(
 )
 
 
-
 class PolicyParagraph extends Component {
   render() {
     return <div className="policy-browser-paragraph">
@@ -70,6 +69,7 @@ class PolicyParagraph extends Component {
     </div>
   }
 }
+
 
 const PolicyPage = connect(
   mapStateToProps,
@@ -106,6 +106,7 @@ const PolicyPage = connect(
     }
   }
 )
+
 
 const PolicyOverview = connect(
   mapStateToProps,
