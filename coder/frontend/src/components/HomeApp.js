@@ -14,7 +14,11 @@ class HomeApp extends Component {
       <div>
         you are logged in as: {CURRENT_USER}. <br />
         Data will be loaded shortly. <br />
-        Check out <a href="/code-policy/20"> the match.com policy </a> for now.
+        Check out <ul>
+        <li><a href="/code-policy/20"> match.com </a></li>
+        <li><a href="/code-policy/21"> 2018 Google archive </a></li>
+        <li><a href="/code-policy/22"> 2018 Facebook archive </a></li>
+        </ul>
       </div>
       </div>
     </div>

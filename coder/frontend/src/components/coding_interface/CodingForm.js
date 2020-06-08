@@ -61,7 +61,7 @@ const QuestionBox = connect(
       return <div className="coding-form-question-container">
         <div className={classes} onClick={is_active ? null : this.handleClick}>
           <div className="coding-form-question-title">
-            {this.props.content.question}
+            {this.props.idx+1}. {this.props.content.question}
           </div>
           <div className="coding-form-question-sentence-count">
             {number_of_sentences} sentence{number_of_sentences == 1 ? "" : "s"} marked relevant.
