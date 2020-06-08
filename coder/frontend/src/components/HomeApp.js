@@ -10,8 +10,12 @@ class HomeApp extends Component {
 
   render() {
     return <div id='demo-container'><div id='demo-box'>
-      <h1> privacy policy coding tools </h1>
-      <div> If there are already saved codings stored for {CURRENT_USER}, those codings will be loaded. </div>
+      <h1> Hello! </h1>
+      <div>
+        you are logged in as: {CURRENT_USER}. <br />
+        Data will be loaded shortly. <br />
+        Check out <a href="/code-policy/20"> the match.com policy </a> for now.
+      </div>
       </div>
     </div>
   }

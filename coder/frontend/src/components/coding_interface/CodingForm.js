@@ -43,6 +43,20 @@ const QuestionBox = connect(
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
       const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
+      const selection_area = <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
+            <hr/>
+            <div className="coding-form-question-info">
+              {this.props.content.info}
+            </div>
+            <QuestionValueSelector
+              values={this.props.content.values}
+              question_idx={this.props.idx}
+              />
+            <QuestionValueCommentBox
+              question_idx={this.props.idx}
+              values={cur_question}
+              />
+          </div>
 
       return <div className="coding-form-question-container">
         <div className={classes} onClick={is_active ? null : this.handleClick}>
@@ -58,20 +72,7 @@ const QuestionBox = connect(
               <span className='coding-form-uncoded-marker'>(blank)</span>
             }
           </div>
-          <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
-            <hr/>
-            <div className="coding-form-question-info">
-              {this.props.content.info}
-            </div>
-            <QuestionValueSelector
-              values={this.props.content.values}
-              question_idx={this.props.idx}
-              />
-            <QuestionValueCommentBox
-              question_idx={this.props.idx}
-              values={cur_question}
-              />
-          </div>
+          {is_active ? selection_area : <div className="inactive-selection-area"/>}
         </div>
       </div>
     }
@@ -90,9 +91,8 @@ const CodingOverview = connect(
       }
       return <div className="policy-browser-overview">
         <h1> Coding </h1>
-        <div> Coding will be attributed to {CURRENT_USER} </div>
-        <div> Please highlight the sentences in the privacy policy that informed the answer to each of the coding values. </div>
-        <div> This form will auto-save regularly, but you should still press the "save" button at the bottom to confirm your work is saved. </div>
+        <div> Coding will be attributed to <b>{CURRENT_USER}</b> </div>
+        <div> This form will auto-save. You can also press <tt>ctrl+s</tt> (windows), <tt>⌘+s</tt> (mac), or hit the "save" button at the bottom of this form. </div>
       </div>
     }
   }
@@ -137,7 +137,7 @@ export default connect(
           <CodingOverview />
           <div className="coding-form-container">
             {coding.questions.map( (question_content, i) => {
-              return <QuestionBox key={i}
+              return <QuestionBox key={"question-box-"+i}
                 idx={i}
                 content={question_content}
               />
