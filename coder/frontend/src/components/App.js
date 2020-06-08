@@ -18,7 +18,7 @@ import store from '../store';
 
 function CodingAppWrapper() {
   let { policy_instance_id } = useParams();
-  const coding_id = 1;
+  const coding_id = 2;
   return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id}/>
 }
 

@@ -82,7 +82,8 @@ POLICY BROWSER
   width: 100%;
   background: #ddfcff;
   padding: 16px;
-  margin-top: 16px
+  margin-top: 16px;
+  overflow-x: scroll;
 }
 .policy-browser-overview-token {
   border: 1px solid #608dff;
@@ -196,6 +197,11 @@ CODING FORM
   display: block;
   padding:4px;
   color: #333;
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #a771a7;
+  margin: 8px;
 }
 
 .active-question .coding-form-question-title {
@@ -215,7 +221,7 @@ CODING FORM
   transition: max-height .2s;
 }
 .active-selection-area {
-  max-height: 400px;
+  max-height: 600px;
 }
 .inactive-selection-area {
   max-height: 0;
