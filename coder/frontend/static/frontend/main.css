@@ -219,9 +219,10 @@ CODING FORM
 }
 .active-selection-area, .inactive-selection-area {
   transition: max-height .2s;
+  overflow: hidden;
 }
 .active-selection-area {
-  max-height: 600px;
+  max-height: 645px;
 }
 .inactive-selection-area {
   max-height: 0;

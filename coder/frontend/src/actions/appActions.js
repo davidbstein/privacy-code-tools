@@ -1,0 +1,11 @@
+import axios from 'axios';
+import { APP_SET_CURRENT_VIEW } from './types';
+import _ from 'lodash';
+
+export const appSetCurrentView = (policy_instance_id, coding_id) => async dispatch => {
+  dispatch({
+    type: APP_SET_CURRENT_VIEW,
+    payload: { policy_instance_id, coding_id }
+  })
+}
+
