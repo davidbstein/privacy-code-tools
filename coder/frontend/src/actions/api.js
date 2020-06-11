@@ -69,6 +69,16 @@ export const apiGetCodingInstance = (policy_instance_id, coding_id) => async dis
   })
 }
 
+export const apiGetAllCodingInstances = (policy_instance_id, coding_id) => async dispatch => {
+  const res = await axios.get(`/api/coding_instance/`, {
+    params: {policy_instance_id, coding_id }
+  });
+  dispatch({
+    type: API_GET_ALL_CODING_INSTANCE,
+    payload: res.data.results || {}
+  })
+}
+
 
 export const apiPostCodingInstance = () => async dispatch => {
   _save_fn(store, dispatch, API_POST_CODING_INSTANCE);

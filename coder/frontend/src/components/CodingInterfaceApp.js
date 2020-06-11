@@ -7,8 +7,13 @@ import {
   apiGetPolicyInstance,
   apiGetCoding,
   apiGetCodingInstance,
+  apiGetAllCodingInstances,
 } from '../actions/api';
 import { appSetCurrentView } from '../actions/appActions'
+
+const mapStateToProps = state => ({
+  model: state.model
+});
 
 class CodingInterfaceApp extends Component {
   constructor(props) {
@@ -16,7 +21,7 @@ class CodingInterfaceApp extends Component {
     this.props.apiGetPolicyInstance(this.props.policy_instance_id);
     this.props.apiGetCoding(this.props.coding_id);
     this.props.apiGetCodingInstance(this.props.policy_instance_id, this.props.coding_id);
-    this.props.appSetCurrentView(this.props.policy_instance_id, this.props.coding_id);
+    this.props.appSetCurrentView(this.props.policy_instance_id, this.props.coding_id, this.props.merge_mode);
   }
 
   render() {
@@ -32,10 +37,6 @@ class CodingInterfaceApp extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  model: state.model
-});
 
 export default connect(
   mapStateToProps,

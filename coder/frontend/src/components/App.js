@@ -12,14 +12,14 @@ import {
 
 import CodingInterfaceApp from './CodingInterfaceApp'
 import HomeApp from './HomeApp'
-import MergeApp from './MergeApp'
 import { Provider } from 'react-redux';
 import store from '../store';
 
-function CodingAppWrapper() {
+function CodingAppWrapper(props) {
   let { policy_instance_id, coding_id } = useParams();
+  const merge_mode = props.merge_mode == true;
   coding_id = coding_id || 2;
-  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id}/>
+  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode}/>
 }
 
 class App extends Component {
@@ -34,8 +34,11 @@ class App extends Component {
             <Route path="/code-policy/:policy_instance_id/:coding_id">
               <CodingAppWrapper />
             </Route>
-            <Route path="/code-merge/{}">
-              <MergeApp />
+            <Route path="/code-merge/:policy_instance_id">
+              <CodingAppWrapper merge_mode={true} />
+            </Route>
+            <Route path="/code-merge/:policy_instance_id/:coding_id">
+              <CodingAppWrapper merge_mode={true} />
             </Route>
             <Route path="">
               <HomeApp />

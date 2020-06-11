@@ -19,6 +19,18 @@ const mapStateToProps = state => ({
 });
 
 
+
+const MergeTool = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class MergeTool extends Component {
+    render () {
+      return <div> MERGE TOOL </div>
+    }
+  }
+);
+
 const QuestionBox = connect(
   mapStateToProps,
   { userSelectQuestion } // functions
@@ -48,6 +60,8 @@ const QuestionBox = connect(
             <div className="coding-form-question-info">
               {this.props.content.info}
             </div>
+            { this.props.localState.merge_mode ?
+              <MergeTool question_idx={this.props.idx} /> : <div /> }
             <QuestionValueSelector
               values={this.props.content.values}
               question_idx={this.props.idx}

@@ -30,7 +30,7 @@ const PolicySentence = connect(
       this.props.apiAutoSave();
     }
 
-    render() {
+    _basicHighlightTest() {
       const selected_sentences = (
         (this.props.localState.localCoding[this.props.localState.selectedQuestion] || {})
         .sentences || {})[this.props.policy_type];
@@ -40,6 +40,32 @@ const PolicySentence = connect(
         selected_sentences[this.props.paragraph_idx] &&
         (selected_sentences[this.props.paragraph_idx].indexOf(this.props.idx) >= 0))
         extra_class="selected"
+      return extra_class;
+    }
+
+    _mergeHighlightTest() {
+      // TODO: count the number of people who have highlighted this sentence
+      const sentence_selection_count = {}
+      var extra_class = ''
+      if (true) {
+        if (true) {
+          extra_class="all-selected"
+        } else {
+          extra_class="some-selected"
+        }
+      }
+      return extra_class;
+    }
+
+    _highlightTest() {
+      var extra_class = this._basicHighlightTest();
+      if (this.props.localState.merge_mode)
+        extra_class += " " + this._mergeHighlightTest();
+      return extra_class;
+    }
+
+    render() {
+      const extra_class = this._highlightTest()
       return <span
         className={"policy-browser-paragraph-sentence " + extra_class}
         onClick={this.handleClick}

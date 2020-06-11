@@ -146,6 +146,7 @@ function setCurrentView(state, action){
     ...{
       policyInstanceId: action.payload.policy_instance_id,
       codingId: action.payload.coding_id,
+      merge_mode: action.payload.merge_mode == true
     }
   }
 }
