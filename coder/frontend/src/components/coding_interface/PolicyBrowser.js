@@ -85,7 +85,7 @@ const PolicyPage = connect(
         return <div />
       }
       const href = policy.urls[this.props.policy_type];
-      return <div>
+      return <div className="policy-browser-section-container">
         <div className="policy-browser-section-overview">
           <h3 id={this.props.policy_type}> {this.props.policy_type} </h3>
           <div> URL of source document: <a href={href} target="_blank">{href}</a> </div>
@@ -133,10 +133,27 @@ const PolicyOverview = connect(
 
 
 class PolicyBrowser extends Component {
+  componentDidMount() {
+    const pbc = document.getElementById('policy-browser-container');
+    pbc.onscroll = _.throttle(
+      function(e){
+        const headings = document.getElementsByClassName("policy-browser-section-container");
+        const idx = _.sum(_.map(headings, (h) => pbc.scrollTop - h.offsetTop > 0)) - 1;
+        for (var _i=0; _i < headings.length; _i++) {
+          const h = headings[_i];
+          if (_i === idx) {
+            h.classList.add("active-policy");
+          } else {
+            h.classList.remove("active-policy");
+          }
+        }
+      }.bind(this), 100, {leading: true}
+    )
+  }
   render() {
     const policy_instance = this.props.model.policy_instances[this.props.policy_instance_id];
     if (policy_instance == undefined) {
-      return <div className="policy-browser-container">
+      return <div className="policy-browser-container" id="policy-browser-container">
         loading...
       </div>
     }
@@ -155,7 +172,7 @@ class PolicyBrowser extends Component {
       }
     }
     return (
-      <div className="policy-browser-container">
+      <div className="policy-browser-container" id="policy-browser-container">
         <PolicyOverview
           policy_id={policy_instance.policy_id}
           policy_instance={policy_instance}

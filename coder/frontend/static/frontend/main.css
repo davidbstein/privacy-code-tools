@@ -77,6 +77,12 @@ POLICY BROWSER
   width: calc(100% - 80px);
 }
 
+.policy-browser-section-container {
+  padding-top:120px;
+  position: relative;
+}
+.active-policy {
+}
 .policy-browser-section-overview {
   border: 1px solid #63749e;
   width: 100%;
@@ -84,6 +90,13 @@ POLICY BROWSER
   padding: 16px;
   margin-top: 16px;
   overflow-x: scroll;
+  position: absolute;
+  top: 0px;
+}
+.active-policy .policy-browser-section-overview {
+  position: fixed;
+  top: 0;
+  margin-top: 0;
 }
 .policy-browser-overview-token {
   border: 1px solid #608dff;
