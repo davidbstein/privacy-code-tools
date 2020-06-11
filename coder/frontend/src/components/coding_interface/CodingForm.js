@@ -31,8 +31,8 @@ class MergeItem extends Component {
       this.props.values,
       (v,k) => v?k:undefined
       ).filter(e=>e);
-    console.log(this.props.sentences);
     return <div className="merge-tool-response">
+      {this.props.fmw_answer?<b>"FMW's response"</b>:""}
       <div className="merge-tool-response-values">
         {selectedValues.map(value=> <span>{value}</span>)}
       </div>
@@ -102,7 +102,7 @@ const QuestionBox = connect(
       const selection_area = <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
             <hr/>
             <div className="coding-form-question-info">
-              {this.props.content.info}
+              {this.props.content.details || ""}
             </div>
             { this.props.localState.merge_mode ?
               <MergeTool question_idx={this.props.idx} /> : <div /> }
@@ -129,6 +129,10 @@ const QuestionBox = connect(
               value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>) :
               <span className='coding-form-uncoded-marker'>(blank)</span>
             }
+            <hr/>
+            <div className="coding-form-question-info">
+              {this.props.content.info}
+            </div>
           </div>
           {is_active ? selection_area : <div className="inactive-selection-area"/>}
         </div>

@@ -4,6 +4,7 @@ import { userToggleSentence } from '../../actions/userActions';
 import {
   apiAutoSave
 } from '../../actions/api';
+import _ from 'lodash';
 
 const mapStateToProps = state => ({
   model: state.model,
@@ -30,25 +31,38 @@ const PolicySentence = connect(
       this.props.apiAutoSave();
     }
 
+    _checkSentence(selected_sentences){
+        return (
+          selected_sentences &&
+          selected_sentences[this.props.paragraph_idx] &&
+          (selected_sentences[this.props.paragraph_idx].indexOf(this.props.idx) >= 0)
+        )
+    }
+
     _basicHighlightTest() {
       const selected_sentences = (
         (this.props.localState.localCoding[this.props.localState.selectedQuestion] || {})
         .sentences || {})[this.props.policy_type];
       var extra_class = 'unselected'
-      if (
-        selected_sentences &&
-        selected_sentences[this.props.paragraph_idx] &&
-        (selected_sentences[this.props.paragraph_idx].indexOf(this.props.idx) >= 0))
+      if (this._checkSentence(selected_sentences))
         extra_class="selected"
       return extra_class;
     }
 
     _mergeHighlightTest() {
       // TODO: count the number of people who have highlighted this sentence
-      const sentence_selection_count = {}
+      var count = 0
+      var highlight_count = 0
+      for (var ci of _.values(this.props.model.coding_instances)){
+        count++;
+        const sentences = ((ci.coding_values[this.props.localState.selectedQuestion] || {}).sentences || {})[this.props.policy_type];
+        if (this._checkSentence(sentences))
+          highlight_count++;
+      }
       var extra_class = ''
-      if (true) {
-        if (true) {
+      if (highlight_count > 0) {
+        console.log(this.props)
+        if (highlight_count == count) {
           extra_class="all-selected"
         } else {
           extra_class="some-selected"

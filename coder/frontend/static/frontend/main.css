@@ -43,6 +43,12 @@ POLICY BROWSER
 .policy-browser-paragraph-sentence {
   padding: 2px;
 }
+.policy-browser-paragraph-sentence.some-selected {
+  background-color: #ffce75;
+}
+.policy-browser-paragraph-sentence.all-selected {
+  background-color: #00b5ad;
+}
 .policy-browser-paragraph-sentence:hover {
   background-color: #ff0;
 }
@@ -210,13 +216,11 @@ CODING FORM
 
 .coding-form-question-info {
   display: block;
-  padding:4px;
   color: #333;
   white-space: pre-wrap;
   max-height: 200px;
   overflow-y: scroll;
-  border: 1px solid #a771a7;
-  margin: 8px;
+  margin: 4px;
 }
 
 .active-question .coding-form-question-title {
@@ -330,7 +334,7 @@ textarea.coding-form-comment-box-textarea {
   flex-grow: 2;
   padding-top: 4px;
 }
-.merge-tool-confidence {
+ .merge-tool-confidence {
   flex-grow: 1;
 }
 

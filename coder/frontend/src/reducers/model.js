@@ -18,7 +18,6 @@ const defaultState = {
 
 
 function _wrapCodingList(codingList){
-  console.log(codingList);
   const to_ret = {}
   for (var c of codingList){
     to_ret[c.id] = c;
