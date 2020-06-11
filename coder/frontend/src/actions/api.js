@@ -2,6 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import {
   API_AUTO_SAVE,
+  API_GET_ALL_CODING_INSTANCE,
   API_GET_CODING,
   API_GET_CODING_INSTANCE,
   API_GET_POLICY,

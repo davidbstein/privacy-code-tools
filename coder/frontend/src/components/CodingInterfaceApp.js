@@ -22,6 +22,9 @@ class CodingInterfaceApp extends Component {
     this.props.apiGetCoding(this.props.coding_id);
     this.props.apiGetCodingInstance(this.props.policy_instance_id, this.props.coding_id);
     this.props.appSetCurrentView(this.props.policy_instance_id, this.props.coding_id, this.props.merge_mode);
+    if (this.props.merge_mode) {
+      this.props.apiGetAllCodingInstances(this.props.policy_instance_id, this.props.coding_id);
+    }
   }
 
   render() {
@@ -40,5 +43,5 @@ class CodingInterfaceApp extends Component {
 
 export default connect(
   mapStateToProps,
-  { apiGetPolicy, apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance, appSetCurrentView }
+  { apiGetPolicy, apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance, appSetCurrentView, apiGetAllCodingInstances }
 )(CodingInterfaceApp);

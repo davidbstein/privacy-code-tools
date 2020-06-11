@@ -298,3 +298,47 @@ textarea.coding-form-comment-box-textarea {
 .coding-form-submit-button:active{
   box-shadow: 0 0 0 0;
 }
+
+.merge-tool-response-list {
+  padding: 8px;
+  background-color: #fff0ff;
+  max-height: 200px;
+  overflow-y: hidden;
+  overflow-y: scroll;
+  margin: 8px;
+  border: 1px solid #ff46ff
+}
+
+.merge-tool-response {
+  border-top: 1px solid #ff86ff;
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.merge-tool-response div {
+  margin: 0px 8px;
+}
+.merge-tool-response-values span {
+  background-color: #571a8c;
+  color: #eee;
+  padding: 2px 9px;
+  margin: 2px;
+}
+
+.merge-tool-response-values {
+  flex-grow: 2;
+  padding-top: 4px;
+}
+.merge-tool-confidence {
+  flex-grow: 1;
+}
+
+.merge-tool-sentence-count {
+  flex-grow: 1;
+}
+
+.merge-tool-comment {
+  width: 100%;
+  display: block;
+}

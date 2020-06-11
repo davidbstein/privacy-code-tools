@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionValueSelector from './coding-form/QuestionValueSelector'
 import QuestionValueCommentBox from './coding-form/QuestionValueCommentBox'
+import _ from 'lodash';
 import {
   userChangeValue,
   userClickSave,
@@ -19,6 +20,34 @@ const mapStateToProps = state => ({
 });
 
 
+const _sentenceCount = (sentences_by_doc) => {
+  return _.sum(_.values(sentences_by_doc).map(e=>_.sum(_.values(e).map(ee=>ee.length))));
+}
+
+
+class MergeItem extends Component {
+  render() {
+    const selectedValues = _.map(
+      this.props.values,
+      (v,k) => v?k:undefined
+      ).filter(e=>e);
+    console.log(this.props.sentences);
+    return <div className="merge-tool-response">
+      <div className="merge-tool-response-values">
+        {selectedValues.map(value=> <span>{value}</span>)}
+      </div>
+      <div className="merge-tool-sentence-count">
+        {_sentenceCount(this.props.sentences)} sentences flagged
+      </div>
+      <div className="merge-tool-confidence">
+        confidence: {this.props.confidence || ""}
+      </div>
+      <div className="merge-tool-comment">
+        {this.props.comment ? this.props.comment : ""}
+      </div>
+    </div>
+  }
+}
 
 const MergeTool = connect(
   mapStateToProps,
@@ -26,7 +55,22 @@ const MergeTool = connect(
 )(
   class MergeTool extends Component {
     render () {
-      return <div> MERGE TOOL </div>
+      const responses = []
+      for (var ci of _.values(this.props.model.coding_instances)){
+        responses.push(ci.coding_values[this.props.question_idx]);
+      }
+      return <div className="merge-tool-response-list">
+        {responses.map((vals, idx_) => {
+          if (!vals) return;
+          return <MergeItem
+            key={idx_}
+            values={vals.values}
+            confidence={vals.confidence}
+            comment={vals.comment}
+            sentences={vals.sentences}
+          />
+        })}
+      </div>
     }
   }
 );
@@ -47,7 +91,7 @@ const QuestionBox = connect(
 
     render() {
       const sentences = ((this.props.localState.localCoding[this.props.idx]||{}).sentences||{});
-      const number_of_sentences = _.sum(_.values(sentences).map(e=>_.sum(_.values(e).map(ee=>ee.length))));
+      const number_of_sentences = _sentenceCount(sentences);
       const is_active = this.props.idx == this.props.localState.selectedQuestion;
       const cur_question = (this.props.localState.localCoding[this.props.idx] || {});
       const cur_values = cur_question.values || {};

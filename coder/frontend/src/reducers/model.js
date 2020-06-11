@@ -1,11 +1,29 @@
 
 import _ from 'lodash';
-import { API_GET_POLICY, API_GET_POLICY_INSTANCE, API_GET_CODING, API_POST_CODING_INSTANCE, API_GET_CODING_INSTANCE } from '../actions/types';
+import {
+  API_GET_ALL_CODING_INSTANCE,
+  API_GET_POLICY,
+  API_GET_POLICY_INSTANCE,
+  API_GET_CODING,
+  API_POST_CODING_INSTANCE,
+  API_GET_CODING_INSTANCE
+} from '../actions/types';
 
 const defaultState = {
   policies: {}, // id: <policyinfo>
   policy_instances: {}, // id: <policyinstance>
-  codings: {} // id: <coding>
+  codings: {}, // id: <coding>
+  coding_instances: {} // id: <codinginstance>
+}
+
+
+function _wrapCodingList(codingList){
+  console.log(codingList);
+  const to_ret = {}
+  for (var c of codingList){
+    to_ret[c.id] = c;
+  }
+  return to_ret;
 }
 
 export default (state = defaultState, action) => {
@@ -39,12 +57,27 @@ export default (state = defaultState, action) => {
           }
         }
       };
-    case API_POST_CODING_INSTANCE:
+    case API_GET_CODING_INSTANCE:
       return {
         ...state,
-        ...{}
+/*        ...{
+          "coding_instances": {
+            ...state.coding_instances,
+            ...{[action.payload.id]: action.payload}
+          }
+        }*/
       };
-    case API_GET_CODING_INSTANCE:
+    case API_GET_ALL_CODING_INSTANCE:
+      return {
+        ...state,
+        ...{
+          "coding_instances": {
+            ...state.coding_instances,
+            ..._wrapCodingList(action.payload)
+          }
+        }
+      };
+    case API_POST_CODING_INSTANCE:
       return {
         ...state,
         ...{}
