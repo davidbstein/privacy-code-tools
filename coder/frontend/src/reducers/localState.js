@@ -66,8 +66,8 @@ function changeValue(state, action){
 
 function changeQuestionMeta(state, action){
   const next_state = {...state}
-  next_state.localCoding[state.selectedQuestion] = {
-    ...(state.localCoding[state.selectedQuestion] || get_default_question()),
+  next_state.localCoding[action.payload.question_idx] = {
+    ...(state.localCoding[action.payload.question_idx] || get_default_question()),
     ...{[action.payload.field]: action.payload.value}
   }
   return next_state;

@@ -34,7 +34,8 @@ router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='frontend/index.html')),
-    path('code-policy/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('code-policy/<int:policy_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('code-policy/<int:policy_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),

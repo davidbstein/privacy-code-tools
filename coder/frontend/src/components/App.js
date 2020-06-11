@@ -17,8 +17,8 @@ import { Provider } from 'react-redux';
 import store from '../store';
 
 function CodingAppWrapper() {
-  let { policy_instance_id } = useParams();
-  const coding_id = 2;
+  let { policy_instance_id, coding_id } = useParams();
+  coding_id = coding_id || 2;
   return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id}/>
 }
 
@@ -29,6 +29,9 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/code-policy/:policy_instance_id">
+              <CodingAppWrapper />
+            </Route>
+            <Route path="/code-policy/:policy_instance_id/:coding_id">
               <CodingAppWrapper />
             </Route>
             <Route path="/code-merge/{}">
