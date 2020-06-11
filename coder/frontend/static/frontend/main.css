@@ -92,6 +92,7 @@ POLICY BROWSER
   overflow-x: scroll;
   position: absolute;
   top: 0px;
+  white-space: nowrap;
 }
 .active-policy .policy-browser-section-overview {
   position: fixed;
