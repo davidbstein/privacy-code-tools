@@ -16,7 +16,7 @@ const PolicySentence = connect(
   mapStateToProps,
   {userToggleSentence, apiAutoSave}
 )(
-  class extends Component {
+  class PolicySentence extends Component {
     constructor(props, context){
       super(props);
       this.handleClick = this.handleClick.bind(this);
@@ -93,9 +93,12 @@ const PolicySentence = connect(
 
 class PolicyParagraph extends Component {
   render() {
+    var is_header = ""
+    if ((this.props.content[0] || "").startsWith("§"))
+      is_header += " is-header "
     return <div className="policy-browser-paragraph">
       <div className='policy-browser-paragraph-num'>{this.props.idx+1}</div>
-      <div className='policy-browser-paragraph-content'>
+      <div className={'policy-browser-paragraph-content' + is_header}>
         {this.props.content.map((sentence_content, i)=>
           <PolicySentence
             idx={i}

@@ -17,15 +17,18 @@ _HEADERS = {
 
 def get_content_from_soup(soup):
     for b in soup.findAll('br'):
-        b.replace_with("\n")
+        b.replace_with("❡")
     for a in soup.findAll('a'):
         a.string = _LINK_FORMAT.format(
             text=a.text,
             href=a.attrs.get('href', '#').replace(".", "．")
             )
-    for paragraph_holder in ['p', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'div']:
+    for paragraph_holder in ['h1', 'h2', 'h3', 'h4', 'h5']:
         for e in soup.findAll(paragraph_holder):
-            e.insert(0, bs4.NavigableString("\n"))
+            e.insert(0, bs4.NavigableString("❡ § "))
+    for paragraph_holder in ['p', 'div']:
+        for e in soup.findAll(paragraph_holder):
+            e.insert(0, bs4.NavigableString("❡"))
     for deletable_tag in ['script', 'style', 'header', 'footer']:
         for e in soup.findAll(deletable_tag):
             e.decompose()
@@ -34,16 +37,30 @@ def get_content_from_soup(soup):
             e.decompose()
         for e in soup.findAll(id=deletable):
             e.decompose()
+    for e in soup.findAll("li"):
+        e.insert(0, bs4.NavigableString("❡ • "))
     paragraphs = [
         [s.strip().replace("．", ".") for s in p.split('.') if s.strip()]
-        for p in soup.text.split('\n')
+        for p in soup.text.replace("\n", "").split('❡')
         ]
-    return [p for p in paragraphs if p]
+    to_ret = []
+    bullet_carry = False
+    for p in paragraphs:
+        if (p == ['•']):
+            bullet_carry = True
+            continue
+        if (p):
+            if bullet_carry:
+                p[0] = ' • ' + p[0]
+            to_ret.append(p)
+            bullet_carry = False
+    return to_ret
 
 
-def get_TOS_from_url(url):
+def get_paragraphs_from_url(url):
     resp = requests.get(url, timeout=10, headers=_HEADERS)
     pattern = r"(https?:\/\/web\.archive\.org)?\/web\/\d+\/"
+    resp.encoding='UTF-8'
     resptext = re.sub(pattern, '', resp.text)
     soup=bs4.BeautifulSoup(resptext, features='html5lib').body
     return get_content_from_soup(soup)

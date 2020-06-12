@@ -43,6 +43,10 @@ POLICY BROWSER
 .policy-browser-paragraph-sentence {
   padding: 2px;
 }
+.is-header{
+  font-weight: bolder;
+  font-size: 1.4em;
+}
 .policy-browser-paragraph-sentence.some-selected {
   background-color: #ffce75;
 }
