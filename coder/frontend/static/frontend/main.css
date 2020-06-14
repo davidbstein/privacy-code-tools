@@ -35,6 +35,7 @@ POLICY BROWSER
 }
 .policy-browser-paragraph {
   padding: 8px 0;
+  overflow-wrap: break-word;
 }
 .policy-browser-paragraph:hover {
   background-color: #ffd;
@@ -350,3 +351,11 @@ textarea.coding-form-comment-box-textarea {
   width: 100%;
   display: block;
 }
+
+
+
+/** RAW VIEWER **/
+
+#raw-viewer-heading {background: #54047b;color: white;padding: 16px;}
+
+#raw-viewer-html {margin: 16px;border: 1px solid grey;padding: 16px;box-shadow: 6px 6px 6px 0px #666;}

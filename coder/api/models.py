@@ -40,12 +40,13 @@ class Policy(models.Model):
 
 class PolicyInstance(models.Model):
     policy_id = models.BigIntegerField(db_index=True)
+    raw_policy_id = models.BigIntegerField(null=True)
     scan_dt = models.DateTimeField(default=datetime.datetime.now)
     content = postgres_fields.JSONField()
 
 
 class RawPolicyInstance(models.Model):
     policy_id = models.BigIntegerField(db_index=True)
-    raw_content = models.TextField()
+    raw_content_blocks = postgres_fields.JSONField(default=dict)
     capture_date = models.DateField(default=datetime.datetime.now)
     capture_source = models.TextField()

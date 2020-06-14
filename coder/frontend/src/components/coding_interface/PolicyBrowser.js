@@ -132,6 +132,7 @@ const PolicyPage = connect(
         <div className="policy-browser-section-overview">
           <h3 id={this.props.policy_type}> {this.props.policy_type} </h3>
           <div> URL of source document: <a href={href} target="_blank">{href}</a> </div>
+          <div> <a href={`/raw-policy/${this.props.policy_instance.id}/${this.props.policy_type}`}> View Original Snapshot</a></div>
         </div><div className="policy-browser-major-section">
         {
           this.props.policy_content.map(

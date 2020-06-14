@@ -14,6 +14,16 @@ _HEADERS = {
     "Cache-Control": "no-cache"
 }
 
+def get_body_from_soup(soup):
+    for deletable_tag in ['script', 'style', 'link', 'header', 'footer']:
+        for e in soup.findAll(deletable_tag):
+            e.decompose()
+    for deletable in ['header', 'footer', 'wm-ipp-base']:
+        for e in soup.findAll(class_=deletable):
+            e.decompose()
+        for e in soup.findAll(id=deletable):
+            e.decompose()
+    return str(soup)
 
 def get_content_from_soup(soup):
     for b in soup.findAll('br'):
@@ -29,7 +39,7 @@ def get_content_from_soup(soup):
     for paragraph_holder in ['p', 'div']:
         for e in soup.findAll(paragraph_holder):
             e.insert(0, bs4.NavigableString("❡"))
-    for deletable_tag in ['script', 'style', 'header', 'footer']:
+    for deletable_tag in ['script', 'style', 'header', 'link', 'footer']:
         for e in soup.findAll(deletable_tag):
             e.decompose()
     for deletable in ['header', 'footer', 'wm-ipp-base']:
@@ -62,5 +72,10 @@ def get_paragraphs_from_url(url):
     pattern = r"(https?:\/\/web\.archive\.org)?\/web\/\d+\/"
     resp.encoding='UTF-8'
     resptext = re.sub(pattern, '', resp.text)
-    soup=bs4.BeautifulSoup(resptext, features='html5lib').body
-    return get_content_from_soup(soup)
+    return {
+        "content": get_content_from_soup(
+            bs4.BeautifulSoup(resptext, features='html5lib').body),
+        "body": get_body_from_soup(
+            bs4.BeautifulSoup(resptext, features='html5lib').body),
+        "raw": resptext
+        }

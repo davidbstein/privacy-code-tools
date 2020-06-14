@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
-from coder.frontend.views import get_static
+from coder.frontend.views import get_static, get_raw
 
 router = routers.DefaultRouter()
 router.register(r'coder', views.CoderViewSet)
@@ -35,6 +35,7 @@ router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
 urlpatterns = [
     path('', TemplateView.as_view(template_name='frontend/index.html')),
     path('code-policy/<int:policy_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('raw-policy/<int:policy_instance_id>/<str:field>', get_raw),
     path('code-policy/<int:policy_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
