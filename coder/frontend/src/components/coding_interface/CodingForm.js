@@ -31,19 +31,21 @@ class MergeItem extends Component {
       this.props.values,
       (v,k) => v?k:undefined
       ).filter(e=>e);
-    return <div className="merge-tool-response">
-      {this.props.fmw_answer?<b>"FMW's response"</b>:""}
-      <div className="merge-tool-response-values">
-        {selectedValues.map(value=> <span>{value}</span>)}
-      </div>
-      <div className="merge-tool-sentence-count">
-        {_sentenceCount(this.props.sentences)} sentences flagged
-      </div>
-      <div className="merge-tool-confidence">
-        confidence: {this.props.confidence || ""}
-      </div>
-      <div className="merge-tool-comment">
-        {this.props.comment ? this.props.comment : ""}
+    return <div>
+      {this.props.fmw_answer?<div className="merge-tool-response-header"><b>"FMW's response"</b></div>:""}
+      <div className={"merge-tool-response" + (this.props.fmw_answer?" fmw-answer": "")}>
+        <div className="merge-tool-response-values">
+          {selectedValues.map(value=> <span>{value}</span>)}
+        </div>
+        <div className="merge-tool-sentence-count">
+          {_sentenceCount(this.props.sentences)} sentences flagged
+        </div>
+        <div className="merge-tool-confidence">
+          confidence: {this.props.confidence || ""}
+        </div>
+        <div className="merge-tool-comment">
+          {this.props.comment ? this.props.comment : ""}
+        </div>
       </div>
     </div>
   }
@@ -56,8 +58,10 @@ const MergeTool = connect(
   class MergeTool extends Component {
     render () {
       const responses = []
+      const authors = []
       for (var ci of _.values(this.props.model.coding_instances)){
         responses.push(ci.coding_values[this.props.question_idx]);
+        authors.push(ci.coder_email);
       }
       return <div className="merge-tool-response-list">
         {responses.map((vals, idx_) => {
@@ -68,6 +72,7 @@ const MergeTool = connect(
             confidence={vals.confidence}
             comment={vals.comment}
             sentences={vals.sentences}
+            fmw_answer={authors[idx_]=='florencia.m.wurgler@gmail.com'}
           />
         })}
       </div>

@@ -61,7 +61,6 @@ const PolicySentence = connect(
       }
       var extra_class = ''
       if (highlight_count > 0) {
-        console.log(this.props)
         if (highlight_count == count) {
           extra_class="all-selected"
         } else {

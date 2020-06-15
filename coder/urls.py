@@ -39,6 +39,7 @@ urlpatterns = [
     path('raw-policy/<int:policy_instance_id>/<str:field>', get_raw),
     path('unsafe-raw-policy/<int:policy_instance_id>/<str:field>', get_unsafe_raw),
     path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('code-merge/<int:policy_instance_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
