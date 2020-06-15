@@ -17,6 +17,7 @@ import store from '../store';
 
 function CodingAppWrapper(props) {
   let { policy_instance_id, coding_id } = useParams();
+  console.log( props, useParams() );
   const merge_mode = props.merge_mode == true;
   coding_id = coding_id || DEFAULT_CODING || 4;
   return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode}/>
@@ -28,16 +29,16 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route path="/code-policy/:policy_instance_id">
-              <CodingAppWrapper />
-            </Route>
             <Route path="/code-policy/:policy_instance_id/:coding_id">
               <CodingAppWrapper />
             </Route>
-            <Route path="/code-merge/:policy_instance_id">
-              <CodingAppWrapper merge_mode={true} />
+            <Route path="/code-policy/:policy_instance_id">
+              <CodingAppWrapper />
             </Route>
             <Route path="/code-merge/:policy_instance_id/:coding_id">
+              <CodingAppWrapper merge_mode={true} />
+            </Route>
+            <Route path="/code-merge/:policy_instance_id">
               <CodingAppWrapper merge_mode={true} />
             </Route>
             <Route path="">
