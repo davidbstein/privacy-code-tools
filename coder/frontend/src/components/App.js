@@ -18,7 +18,7 @@ import store from '../store';
 function CodingAppWrapper(props) {
   let { policy_instance_id, coding_id } = useParams();
   const merge_mode = props.merge_mode == true;
-  coding_id = coding_id || 2;
+  coding_id = coding_id || DEFAULT_CODING || 4;
   return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode}/>
 }
 
