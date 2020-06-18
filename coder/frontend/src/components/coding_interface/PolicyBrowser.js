@@ -61,11 +61,7 @@ const PolicySentence = connect(
       }
       var extra_class = ''
       if (highlight_count > 0) {
-        if (highlight_count == count) {
-          extra_class="all-selected"
-        } else {
-          extra_class="some-selected"
-        }
+        extra_class=`highlight-count-${Math.min(highlight_count, 5)}`
       }
       return extra_class;
     }

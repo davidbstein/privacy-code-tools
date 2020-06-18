@@ -48,11 +48,20 @@ POLICY BROWSER
   font-weight: bolder;
   font-size: 1.4em;
 }
-.policy-browser-paragraph-sentence.some-selected {
+.policy-browser-paragraph-sentence.highlight-count-1 {
   background-color: #ffce75;
 }
-.policy-browser-paragraph-sentence.all-selected {
-  background-color: #00b5ad;
+.policy-browser-paragraph-sentence.highlight-count-2 {
+  background-color: #69f5ff;
+}
+.policy-browser-paragraph-sentence.highlight-count-3 {
+  background-color: #8fbaff;
+}
+.policy-browser-paragraph-sentence.highlight-count-4 {
+  background-color: #b2a6ff;
+}
+.policy-browser-paragraph-sentence.highlight-count-5 {
+  background-color: #cd9bff;
 }
 .policy-browser-paragraph-sentence:hover {
   background-color: #ff0;
