@@ -5,6 +5,7 @@ import {
   API_GET_ALL_CODING_INSTANCE,
   API_GET_CODING,
   API_GET_CODING_INSTANCE,
+  API_GET_CODING_PROGRESS,
   API_GET_POLICY,
   API_GET_POLICY_INSTANCE,
   API_POST_CODING_INSTANCE,
@@ -55,6 +56,15 @@ export const apiGetCoding = (coding_id) => async dispatch => {
   dispatch({
     type: API_GET_CODING,
     payload: res.data
+  })
+}
+
+
+export const apiGetCodingProgress = () => async dispatch => {
+  const res = await axios.get(`/api/coding_progress/`)
+  dispatch({
+    type: API_GET_CODING_PROGRESS,
+    payload: res
   })
 }
 

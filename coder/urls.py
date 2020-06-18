@@ -25,6 +25,7 @@ from coder.frontend.views import get_static, get_raw, get_unsafe_raw
 router = routers.DefaultRouter()
 router.register(r'coder', views.CoderViewSet)
 router.register(r'coding', views.CodingViewSet)
+router.register(r'coding_progress', views.CodingProgressViewSet, basename="coding_progress")
 router.register(r'coding_instance', views.CodingInstanceViewSet)
 router.register(r'policy', views.PolicyViewSet)
 router.register(r'policy_instance', views.PolicyInstanceViewSet)
@@ -40,6 +41,7 @@ urlpatterns = [
     path('unsafe-raw-policy/<int:policy_instance_id>/<str:field>', get_unsafe_raw),
     path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('code-merge/<int:policy_instance_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('coding-progress', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),

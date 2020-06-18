@@ -378,3 +378,47 @@ textarea.coding-form-comment-box-textarea {
 #raw-viewer-heading {background: #54047b;color: white;padding: 16px;}
 
 #raw-viewer-html {margin: 16px;border: 1px solid grey;padding: 16px;box-shadow: 6px 6px 6px 0px #666;}
+
+
+
+/**
+
+PROGRESS VIEW
+
+**/
+.progress-view h1 {
+  text-align: center;
+  width: 100%;
+}
+
+#progress-view-table {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+#progress-view-table table {
+  border-collapse: collapse;
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  max-width: 800px;
+}
+
+#progress-view-table th, #progress-view-table td {
+  border: 1px solid #ccc;
+  padding: .5em;
+}
+
+#progress-view-table .progress-view-coder-email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+    font-weight: bold;
+  }
+#progress-view-table .progress-view-coder-count {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+  }

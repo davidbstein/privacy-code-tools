@@ -38,3 +38,4 @@ def get_unsafe_raw(request, policy_instance_id, field):
     raw_html = "there is no copy of the raw data in the database. if you need help, text or slack stein."
   return render(request, "frontend/raw.html",
     {"raw_data": raw_html, "policy_instance_id": policy_instance_id, "site_name": p.company_name, 'scan_dt': pi.scan_dt})
+

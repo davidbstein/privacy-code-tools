@@ -1,8 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework import filters
 from rest_framework.response import Response
+from rest_framework import filters
+from rest_framework import generics
+from rest_framework import permissions
+from rest_framework import viewsets
+from rest_framework.response import Response
+from collections import defaultdict
 # from rest_framework import generics
 
 from coder.api.models import (
@@ -119,3 +122,34 @@ class RawPolicyInstanceViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'capture_date', 'capture_source']
+
+
+class CodingProgressViewSet(viewsets.ViewSet):
+    def list(self, request):
+        pi_id2ci = defaultdict(list)
+        for ci in CodingInstance.objects.all().exclude(coder_email__in=["dbs438@nyu.edu", "davidbstein@gmail.com"]).filter(coding_id=4):
+            pi_id2ci[ci.policy_instance_id].append({
+                "email": ci.coder_email,
+                "response_count": len(ci.coding_values),
+                "created": ci.created_dt
+                })
+        pis = {
+            pi.id: {
+                "policy_id":pi.policy_id,
+                "policy_instance_id": pi.id
+                } for pi in
+            PolicyInstance.objects.filter(id__in=pi_id2ci.keys())
+            }
+        ps = {
+            p.id: PolicySerializer(p).data for p in
+            Policy.objects.filter(id__in=[pi['policy_id'] for pi in pis.values()])
+            }
+        for pi_id, pi in pis.items():
+            if not pi['policy_id'] in ps.keys():
+                print("skipping", pi_id, pi['policy_id'])
+                continue
+            pi['company_name'] = ps[pi['policy_id']]['company_name']
+            pi['coding_instances'] = pi_id2ci[pi_id]
+        return Response((
+            pis.values()
+            ))

@@ -12,6 +12,7 @@ import {
 
 import CodingInterfaceApp from './CodingInterfaceApp'
 import HomeApp from './HomeApp'
+import ProgressViewApp from './ProgressViewApp'
 import { Provider } from 'react-redux';
 import store from '../store';
 
@@ -40,6 +41,9 @@ class App extends Component {
             </Route>
             <Route path="/code-merge/:policy_instance_id">
               <CodingAppWrapper merge_mode={true} />
+            </Route>
+            <Route path="/coding-progress">
+              <ProgressViewApp />
             </Route>
             <Route path="">
               <HomeApp />
