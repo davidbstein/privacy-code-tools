@@ -13,12 +13,8 @@ class HomeApp extends Component {
       <h1> Hello! </h1>
       <div>
         you are logged in as: {CURRENT_USER}. <br />
-        Data will be loaded shortly. <br />
-        Check out <ul>
-        <li><a href="/code-policy/20"> match.com </a></li>
-        <li><a href="/code-policy/21"> 2018 Google archive </a></li>
-        <li><a href="/code-policy/22"> 2018 Facebook archive </a></li>
-        </ul>
+        Go to the spreadsheet to see assignments
+        <a href="https://docs.google.com/spreadsheets/d/1nS8VRT45J5XG4TSgICueZMkVR4exAv6V03MwsnXb5OQ/edit">here</a>
       </div>
       </div>
     </div>
