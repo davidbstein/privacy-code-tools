@@ -28,7 +28,7 @@ const _stringifySentences = (sentences) => {
   const to_ret = []
   for (var doc in sentences) {
     for (var p in sentences[doc]) {
-      to_ret.push(`${doc}❡${p}(${sentences[doc][p].join(',')})`)
+      to_ret.push(`${doc}❡${parseInt(p)+1}(${_.map(sentences[doc][p], e => parseInt(e)+1).join(',')})`)
     }
   }
   return to_ret;
@@ -50,10 +50,10 @@ class MergeItem extends Component {
           {selectedValues.map((value, i)=> <span key={i}>{value}</span>)}
         </div>
         <div className="merge-tool-sentence-count">
-          {_sentenceCount(this.props.sentences)} sentences flagged
+          {this.props.sentences.length} sentences flagged
         </div>
         <div className="merge-tool-confidence">
-          confidence: {this.props.confidence || ""}
+          confidence: {this.props.confidence || "unspecified"}
         </div>
         <div className="merge-tool-comment">
           {this.props.comment ? this.props.comment : ""}
@@ -91,10 +91,11 @@ const MergeTool = connect(
             fmw_answer={this.props.mergeData.authors[idx_]=='florencia.m.wurgler@gmail.com'}
           />
         })}
-        <div className='merge-tool-agreed-sentences'>
-          Sentences highlighted by everyone:
-          {agreed_sentences.map((s, i) => <div key={i}> {s} </div>)}
-        </div>
+        {agreed_sentences?
+          <div className='merge-tool-agreed-sentences'>
+            Sentences highlighted by everyone:
+            {agreed_sentences.map((s, i) => <div key={i}> {s} </div>)}
+          </div> : ""}
       </div>
     }
   }
