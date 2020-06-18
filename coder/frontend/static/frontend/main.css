@@ -32,6 +32,8 @@ POLICY BROWSER
   border: 1px solid #ccc;
   margin: 8px;
   padding: 8px;
+  background: white;
+  box-shadow: 1px 1px 1px 0 #888;
 }
 .policy-browser-paragraph {
   padding: 8px 0;
@@ -100,6 +102,7 @@ POLICY BROWSER
 .policy-browser-section-container {
   padding-top:120px;
   position: relative;
+  background: #eee;
 }
 .active-policy {
 }
@@ -144,18 +147,38 @@ CODING FORM
   position: fixed;
   overflow-y: scroll;
   right:0;
+  background: #fbd9fb;
 }
 
 .coding-form-response {
-  box-shadow: 0 0 3px 0 #57068c;
-  margin: 0 4px;
-  padding: 0 2px;
+  margin: 4px;
+  padding: 0 4px;
+  border: 1px solid #ff84ff;
+  display: inline-block;
 }
 
 .coding-form-uncoded-marker {
   background-color: #ffa5a5;
 }
 
+.coding-form-confidence-unspecified {
+  background-color: #ffa8a8;
+}
+.coding-form-confidence-1 {
+  background-color: #ffd2a8;
+}
+.coding-form-confidence-2 {
+  background-color: #ffeaa7;
+}
+.coding-form-confidence-3 {
+  background-color: #efed75;
+}
+.coding-form-confidence-4 {
+  background-color: none;
+}
+.coding-form-confidence-5 {
+  background-color: none;
+}
 .coding-form-container {
   padding: 8px;
 }
@@ -173,8 +196,10 @@ CODING FORM
 }
 
 .coding-form-question-container {
-  padding: 8px 0;
+  margin: 16px 0;
   transition: all .5s linear;
+  background: #fff9ff;
+  box-shadow: 1px 1px 4px 0px #838;
 }
 
 .coding-form-confidence-options-container {
@@ -245,6 +270,7 @@ CODING FORM
 .active-question.coding-form-question {
   border: 1px solid #57068c;
   color: #333;
+  box-shadow: 4px 4px 4px 0px #838;
 }
 .inactive-question.coding-form-question:hover {
   cursor: pointer;

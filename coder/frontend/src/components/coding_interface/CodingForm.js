@@ -134,12 +134,12 @@ class QuestionBoxHeader extends Component {
   render() {
     return <div>
       {this.props.number_of_sentences} sentence{this.props.number_of_sentences == 1 ? "" : "s"} marked relevant.
-      <br/>
-      coding: {
+      {
         this.props.value_strings.length > 0 ?
-        this.props.value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>) :
-        <span className='coding-form-uncoded-marker'>(blank)</span>
+        <div>{this.props.value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>)}</div> :
+        <div className='coding-form-uncoded-marker'>Unanswered</div>
       }
+      <div className={`coding-form-confidence-${this.props.confidence}`}> confidence: {this.props.confidence} </div>
     </div>
   }
 }
@@ -180,6 +180,7 @@ const QuestionBox = connect(
       const is_active = this.props.idx == this.props.localState.selectedQuestion;
       const cur_question = (this.props.localState.localCoding[this.props.idx] || {});
       const cur_values = cur_question.values || {};
+      const cur_confidence = cur_question.confidence || "unspecified";
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
@@ -209,7 +210,7 @@ const QuestionBox = connect(
           <div className="coding-form-question-sentence-count">
             { this.props.localState.merge_mode ?
               <MergeBoxHeader value_strings={value_strings} mergeData={mergeData}/> :
-              <QuestionBoxHeader number_of_sentences={number_of_sentences} value_strings={value_strings}/> }
+              <QuestionBoxHeader number_of_sentences={number_of_sentences} value_strings={value_strings} confidence={cur_confidence}/> }
             <hr/>
             <div className="coding-form-question-info">
               {this.props.content.info}
