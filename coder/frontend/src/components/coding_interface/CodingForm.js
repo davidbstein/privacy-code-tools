@@ -28,7 +28,8 @@ const _stringifySentences = (sentences) => {
   const to_ret = []
   for (var doc in sentences) {
     for (var p in sentences[doc]) {
-      to_ret.push(`${doc}❡${parseInt(p)+1}(${_.map(sentences[doc][p], e => parseInt(e)+1).join(',')})`)
+      if (sentences[doc][p].length > 0)
+        to_ret.push(`${doc}❡${parseInt(p)+1}(${_.map(sentences[doc][p], e => parseInt(e)+1).join(',')})`)
     }
   }
   return to_ret;
@@ -50,7 +51,7 @@ class MergeItem extends Component {
           {selectedValues.map((value, i)=> <span key={i}>{value}</span>)}
         </div>
         <div className="merge-tool-sentence-count">
-          {this.props.sentences.length} sentences flagged
+          {this.props.sentences.length + this.props.agreed_sentences.length} sentences flagged
         </div>
         <div className="merge-tool-confidence">
           confidence: {this.props.confidence || "unspecified"}
@@ -87,6 +88,7 @@ const MergeTool = connect(
             confidence={vals.confidence}
             comment={vals.comment}
             sentences={_.difference(sentence_strings[idx_], agreed_sentences)}
+            agreed_sentences={agreed_sentences}
             author={this.props.mergeData.authors[idx_]}
             fmw_answer={this.props.mergeData.authors[idx_]=='florencia.m.wurgler@gmail.com'}
           />
