@@ -246,7 +246,8 @@ CODING FORM
   overflow: hidden;
 }
 .active-selection-area {
-  max-height: 645px;
+  max-height: calc(max(640px, 80vh));
+  overflow: scroll;
 }
 .inactive-selection-area {
   max-height: 0;
@@ -309,6 +310,10 @@ textarea.coding-form-comment-box-textarea {
 }
 
 
+/**
+merge stuff
+**/
+
 .merge-tool-response-header {
   width: 100%;
   background-color: #e7c3ff;
@@ -320,13 +325,18 @@ textarea.coding-form-comment-box-textarea {
   border-bottom: 2px solid #bc55ff;
 }
 .merge-tool-response-list {
-  padding: 8px;
   background-color: #fff0ff;
-  max-height: 200px;
-  overflow-y: hidden;
-  overflow-y: scroll;
+  max-height: 500px;
+  /* overflow-y: hidden; */
+  /* overflow-y: scroll; */
   margin: 8px;
-  border: 1px solid #ff46ff
+  /* border: 1px solid #ff46ff; */
+  border-bottom:  1px solid #ff46ff;
+}
+.merge-tool-agreed-sentences {
+  padding: 8px;
+  border-top: 1px solid #ff46ff;
+  margin-top: 4px;
 }
 .merge-tool-response.fmw-answer {
   margin-top:0px;
@@ -345,6 +355,9 @@ textarea.coding-form-comment-box-textarea {
 }
 .merge-tool-response div {
   margin: 0px 8px;
+}
+merge-tool-sentences {
+  white-space: pre-wrap;
 }
 .merge-tool-response-values span {
   background-color: #571a8c;
@@ -371,6 +384,31 @@ textarea.coding-form-comment-box-textarea {
   padding-top: 4px;
 }
 
+.merge-header-answers-match {
+  padding-left: 16px;
+}
+.merge-header-answers-match.matching-answer-merge {
+  display: none; 
+}
+.merge-header-answers-match.unmatching-answer-merge {
+  display: block;
+  color: white;
+  background-color: #9c3636;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px;
+}
+.merge-header-sentence-overlap.unmatching-sentences {
+  display: block;
+  color: white;
+  background-color: #b56012;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px;  
+}
+.merge-header-sentence-overlap.matching-sentences {
+  display: none;  
+}
 
 
 /** RAW VIEWER **/
