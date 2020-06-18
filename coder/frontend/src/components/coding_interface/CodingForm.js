@@ -78,7 +78,6 @@ const MergeTool = connect(
         return _stringifySentences(r.sentences);
       });
       const agreed_sentences = _.intersection(...sentence_strings)
-      console.log(sentence_strings, agreed_sentences);
       return <div className="merge-tool-response-list">
         {responses.map((vals, idx_) => {
           if (!vals) return;
