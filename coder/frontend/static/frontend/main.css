@@ -423,7 +423,7 @@ merge-tool-sentences {
   padding-left: 16px;
 }
 .merge-header-answers-match.matching-answer-merge {
-  display: none; 
+  display: none;
 }
 .merge-header-answers-match.unmatching-answer-merge {
   display: block;
@@ -436,13 +436,13 @@ merge-tool-sentences {
 .merge-header-sentence-overlap.unmatching-sentences {
   display: block;
   color: white;
-  background-color: #b56012;
+  background-color: #f1cd69;
   font-weight: bold;
   text-align: center;
-  padding: 4px;  
+  padding: 4px;
 }
 .merge-header-sentence-overlap.matching-sentences {
-  display: none;  
+  display: none;
 }
 
 
