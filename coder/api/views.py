@@ -6,6 +6,7 @@ from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.response import Response
 from collections import defaultdict
+from django.conf import settings
 # from rest_framework import generics
 
 from coder.api.models import (
@@ -127,7 +128,7 @@ class RawPolicyInstanceViewSet(viewsets.ModelViewSet):
 class CodingProgressViewSet(viewsets.ViewSet):
     def list(self, request):
         pi_id2ci = defaultdict(list)
-        for ci in CodingInstance.objects.all().exclude(coder_email__in=["dbs438@nyu.edu", "davidbstein@gmail.com"]).filter(coding_id=4):
+        for ci in CodingInstance.objects.all().exclude(coder_email__in=["dbs438@nyu.edu", "davidbstein@gmail.com"]).filter(coding_id=setting.CURRENT_CODING_ID):
             pi_id2ci[ci.policy_instance_id].append({
                 "email": ci.coder_email,
                 "response_count": len(ci.coding_values),
