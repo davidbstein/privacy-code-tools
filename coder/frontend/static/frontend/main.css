@@ -482,16 +482,29 @@ PROGRESS VIEW
   padding: .5em;
 }
 
+#progress-view-table .progress-view-coding-instance {
+
+}
+
 #progress-view-table .progress-view-coder-email {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 50%;
     display: inline-block;
     font-weight: bold;
+    white-space: nowrap;
   }
 #progress-view-table .progress-view-coder-count {
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 50%;
+    width: 80px;
+    max-width: 20%;
     display: inline-block;
+  }
+#progress-view-table .progress-view-coder-date {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+    display: inline-block;
+    text-align: right;
   }

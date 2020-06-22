@@ -35,8 +35,9 @@ class ProgressViewApp extends Component {
                     <td><a href={`/code-merge/${e.policy_instance_id}`}>{e.company_name}</a></td>
                     <td>{_.map(e.coding_instances, (ci, i) => (
                         <div className="progress-view-coding-instance" key={i}>
-                          <div className="progress-view-coder-email">{ci.email}</div>
-                          <div className="progress-view-coder-count"> {ci.response_count} / 101 complete</div>
+                          <div className="progress-view-coder-email">{ci.name} ({ci.email})</div>
+                          <div className="progress-view-coder-count"> {ci.response_count} / 101</div>
+                          <div className="progress-view-coder-date">started {ci.created.substr(5, 5)}</div>
                         </div>
                       ))}
                     </td>
