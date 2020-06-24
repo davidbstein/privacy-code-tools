@@ -197,7 +197,7 @@ class PolicyBrowser extends Component {
       </div>
     }
     const policy_pages = [];
-    for (const policy_type of ['privacy_policy', 'tos', 'ccpa_policy', 'gdpr_policy']){
+    for (const policy_type of ['privacy_policy', 'tos', 'ccpa_policy', 'gdpr_policy', 'eu_privacy_policy', 'eu_privacy_policy']){
       const policy_content = policy_instance.content[policy_type];
       if (policy_content){
         policy_pages.push(<PolicyPage
