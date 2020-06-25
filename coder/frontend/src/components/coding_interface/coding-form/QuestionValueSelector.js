@@ -148,14 +148,6 @@ export default connect(
           <OtherField
             setter={this.otherChanged} />
         </div>
-        <div>
-          <QuestionCheckbox
-            value="SILENT"
-            display={"policy is silent"}
-            question_idx={this.props.question_idx}
-            toggle={this.silence}
-            />
-        </div>
       </div>
     }
   }
