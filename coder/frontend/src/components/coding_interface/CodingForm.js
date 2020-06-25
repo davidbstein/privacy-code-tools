@@ -156,6 +156,7 @@ const QuestionBox = connect(
 
     handleClick() {
       this.props.userSelectQuestion(this.props.idx);
+      window.SESSION_TIMER.run_timer(this.props.content.identifier);
     }
 
     getMergeData() {

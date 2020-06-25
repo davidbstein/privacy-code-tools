@@ -39,3 +39,9 @@ class RawPolicyInstanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.RawPolicyInstance
         fields = ['id', 'policy_id', 'raw_content', 'capture_date', 'capture_source']
+
+class TimingSessionSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = api_models.TimingSession
+        fields = ['coder_email', 'coding_id', 'policy_instance_id',
+                'question_timings', 'session_timing', 'session_identifier']

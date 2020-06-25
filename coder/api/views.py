@@ -17,6 +17,7 @@ from coder.api.models import (
     Policy,
     PolicyInstance,
     RawPolicyInstance,
+    TimingSession,
 )
 from coder.api.serializers import (
     CoderSerializer,
@@ -26,6 +27,7 @@ from coder.api.serializers import (
     PolicySerializer,
     PolicyInstanceInfoSerializer,
     RawPolicyInstanceSerializer,
+    TimingSessionSerializer,
 )
 
 
@@ -124,6 +126,23 @@ class RawPolicyInstanceViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'capture_date', 'capture_source']
+
+class TimingSessionViewSet(viewsets.ModelViewSet):
+    queryset = TimingSession.objects.all()
+    serializer_class = TimingSessionSerializer
+    permission_classes = [GroupPermission]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = '__all__'
+    filterset_fields = ['id']
+    def create(self, validated_data):
+        instance = TimingSession.objects.filter(session_identifier=validated_data.data['session_identifier']).first()
+        if instance:
+            for k, v in validated_data.data.items():
+                setattr(instance, k, v)
+        else:
+            instance = TimingSession.objects.create(**validated_data.data)
+        instance.save()
+        return Response(TimingSessionSerializer(instance).data)
 
 
 class CodingProgressViewSet(viewsets.ViewSet):

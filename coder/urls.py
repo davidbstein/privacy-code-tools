@@ -31,6 +31,7 @@ router.register(r'policy', views.PolicyViewSet)
 router.register(r'policy_instance', views.PolicyInstanceViewSet)
 router.register(r'policy_instance_info', views.PolicyInstanceInfoViewSet)
 router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
+router.register(r'timing_session', views.TimingSessionViewSet)
 
 
 urlpatterns = [

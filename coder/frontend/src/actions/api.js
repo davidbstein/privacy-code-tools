@@ -27,7 +27,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-var CSRF_TOKEN = getCookie('csrftoken');
+const CSRF_TOKEN = getCookie('csrftoken');
 
 
 export const apiGetPolicies = () => async dispatch => {

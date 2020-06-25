@@ -51,3 +51,12 @@ class RawPolicyInstance(models.Model):
     raw_content_blocks = postgres_fields.JSONField(default=dict)
     capture_date = models.DateField(default=datetime.datetime.now)
     capture_source = models.TextField()
+
+
+class TimingSession(models.Model):
+    coder_email = models.CharField(max_length=255)
+    coding_id = models.BigIntegerField()
+    policy_instance_id = models.BigIntegerField()
+    question_timings = postgres_fields.JSONField()
+    session_timing = postgres_fields.JSONField()
+    session_identifier = models.BigIntegerField(unique=True)

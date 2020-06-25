@@ -14,7 +14,7 @@ import {
 } from '../actions/types';
 
 const defaultState = {
-  "selectedQuestion": 14,
+  "selectedQuestion": '-1',
   "localCoding": {},
   "updateSinceLastSave": true,
 }
