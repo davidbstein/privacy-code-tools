@@ -279,7 +279,7 @@ export default connect(
       }
       return (
         <div className="coding-form-pane">
-          <CodingOverview />
+          <CodingOverview coding={coding}/>
           <div className="coding-form-container">
             {coding.questions.map( (question_content, i) => {
               return <QuestionBox key={"question-box-"+i}

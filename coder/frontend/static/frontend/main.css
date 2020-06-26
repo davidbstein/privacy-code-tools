@@ -7,10 +7,9 @@ home
 */
 
 #demo-container {
-  display: flex;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 64px;
 }
 
 /*
@@ -502,6 +501,55 @@ PROGRESS VIEW
     display: inline-block;
   }
 #progress-view-table .progress-view-coder-date {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+    display: inline-block;
+    text-align: right;
+  }
+
+
+.home-progress-view h1 {
+  width: 100%;
+  margin-top: 64px;
+}
+
+#home-progress-view-table {
+  margin: 0 auto;
+}
+
+#home-progress-view-table table {
+  border-collapse: collapse;
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  max-width: 800px;
+}
+
+#home-progress-view-table th, #home-progress-view-table td {
+  border: 1px solid #ccc;
+  padding: .5em;
+}
+
+#home-progress-view-table .home-progress-view-coding-instance {
+
+}
+
+#home-progress-view-table .home-progress-view-coder-email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+#home-progress-view-table .home-progress-view-coder-count {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80px;
+    max-width: 20%;
+    display: inline-block;
+  }
+#home-progress-view-table .home-progress-view-coder-date {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 30%;
