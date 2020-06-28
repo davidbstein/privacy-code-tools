@@ -24,15 +24,26 @@ const _sentenceCount = (sentences_by_doc) => {
   return _.sum(_.values(sentences_by_doc).map(e=>_.sum(_.values(e).map(ee=>ee.length))));
 }
 
+// flatten sentences into groups of sentence numbers by paragraph.
+// returns tuples of [pretty_string, [doc_type, paragraph_number]]
 const _stringifySentences = (sentences) => {
   const to_ret = []
   for (var doc in sentences) {
     for (var p in sentences[doc]) {
       if (sentences[doc][p].length > 0)
-        to_ret.push(`${doc}❡${parseInt(p)+1}(${_.map(sentences[doc][p], e => parseInt(e)+1).join(',')})`)
+        to_ret.push({
+          pretty_string:`${doc}❡${parseInt(p)+1}(${_.map(sentences[doc][p], e => parseInt(e)+1).join(',')})`,
+          policy_type: doc,
+          paragraph_idx: p
+        })
     }
   }
   return to_ret;
+}
+
+const _scrollToSentenceTarget = (e) => {
+  document.getElementById(e.target.getAttribute('target'))
+  .scrollIntoView({behavior: "smooth", block: "center"});
 }
 
 class MergeItem extends Component {
@@ -60,7 +71,15 @@ class MergeItem extends Component {
           {this.props.comment ? this.props.comment : ""}
         </div>
         <div className="merge-tool-sentences">
-          {this.props.sentences.map((s, i) => <div key={i}> {s} </div>)}
+          {this.props.sentences.map((s, i) => (
+            <div
+              key={i}
+              onClick={_scrollToSentenceTarget}
+              className="sentence-index-button"
+              target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
+              {s.pretty_string}
+            </div>
+            ))}
         </div>
       </div>
     </div>
@@ -72,6 +91,10 @@ const MergeTool = connect(
   { userSelectQuestion } // functions
 )(
   class MergeTool extends Component {
+
+    scoll_to_sentence () {
+
+    }
     render () {
       const responses = this.props.mergeData.responses;
       const sentence_strings = _.map(responses, (r) => {
@@ -92,11 +115,23 @@ const MergeTool = connect(
             fmw_answer={this.props.mergeData.authors[idx_]=='florencia.m.wurgler@gmail.com'}
           />
         })}
-        {agreed_sentences?
+        {agreed_sentences ?
           <div className='merge-tool-agreed-sentences'>
             Sentences highlighted by everyone:
-            {agreed_sentences.map((s, i) => <div key={i}> {s} </div>)}
-          </div> : ""}
+            {
+              agreed_sentences.map((s, i) => (
+                <div
+                  onClick={_scrollToSentenceTarget}
+                  key={i}
+                  target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
+                  {s.pretty_string}
+                </div>
+              ))
+            }
+          </div>
+          :
+          ""
+        }
       </div>
     }
   }
@@ -193,6 +228,17 @@ const QuestionBox = connect(
             </div>
             { this.props.localState.merge_mode ?
               <MergeTool question_idx={this.props.idx} mergeData={mergeData} /> : <div /> }
+            <div className="coding-form-sentence-list">
+              {_stringifySentences(sentences).map((s, i) => (
+                <div
+                  key={i}
+                  onClick={_scrollToSentenceTarget}
+                  className="sentence-index-button"
+                  target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
+                  {s.pretty_string}
+                </div>
+                ))}
+            </div>
             <QuestionValueSelector
               values={this.props.content.values}
               question_idx={this.props.idx}

@@ -390,6 +390,20 @@ merge stuff
 .merge-tool-response div {
   margin: 0px 8px;
 }
+.coding-form-sentence-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  /*flex-direction: column;*/
+}
+.sentence-index-button {
+  cursor: pointer;
+  padding: 0 4px;
+  min-width: 30%;
+}
+.sentence-index-button:hover {
+  background-color: #d8a3d8;
+}
 merge-tool-sentences {
   white-space: pre-wrap;
 }

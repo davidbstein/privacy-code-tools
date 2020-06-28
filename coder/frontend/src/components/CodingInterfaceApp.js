@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import CodingForm from './coding_interface/CodingForm'
 import PolicyBrowser from './coding_interface/PolicyBrowser'
 import {
-  apiGetPolicy,
   apiGetPolicyInstance,
   apiGetCoding,
   apiGetCodingInstance,
@@ -184,5 +183,5 @@ class CodingInterfaceApp extends Component {
 
 export default connect(
   mapStateToProps,
-  { apiGetPolicy, apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance, appSetCurrentView, apiGetAllCodingInstances }
+  { apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance, appSetCurrentView, apiGetAllCodingInstances }
 )(CodingInterfaceApp);

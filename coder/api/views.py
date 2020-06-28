@@ -82,6 +82,7 @@ class CodingInstanceViewSet(viewsets.ModelViewSet):
     def create(self, validated_data):
         instance = CodingInstance.objects.filter(
             coder_email=validated_data.data['coder_email'],
+            coding_id=validated_data.data['coding_id'],
             policy_instance_id=validated_data.data['policy_instance_id'],
             ).first()  # uniqueness avoids needs for limit
         if instance:
