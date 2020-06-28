@@ -1,6 +1,0 @@
-DATABASE_URL=psql://postgres:z6qHXQU6MfE00MS8N9pY@privacy-database.ciay5kpznssp.us-east-1.rds.amazonaws.com:5432/privacy
-GOOGLE_CLIENT_ID=773937942964-gafl4fjg19efpjlrpc7mlc1nhcbgpa8j.apps.googleusercontent.com
-GOOGLE_APP_SECRET=Dij2E5_oESSs-N-qCAY9qLR0
-DEBUG=0
-STATIC_PATH=/static/
-MEDIA_PATH=/media/

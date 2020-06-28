@@ -19,13 +19,19 @@ env = environ.Env(
     DEBUG=(bool, False),
     SSL_REDIRECT=(bool, False)
 )
-# reading .env file
-environ.Env.read_env()
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# reading .env file
+if os.path.exists(BASE_DIR + ".env"):
+    environ.Env.read_env(env_file=BASE_DIR+'/.env')
+else:
+    environ.Env.read_env(env_file=BASE_DIR+'/.prodenv')
+
+print(BASE_DIR+'.env')
+print(env("GOOGLE_CLIENT_ID"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
