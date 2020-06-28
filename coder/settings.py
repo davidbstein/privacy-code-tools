@@ -30,8 +30,6 @@ if os.path.exists(BASE_DIR + ".env"):
 else:
     environ.Env.read_env(env_file=BASE_DIR+'/.prodenv')
 
-print(BASE_DIR+'.env')
-print(env("GOOGLE_CLIENT_ID"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/

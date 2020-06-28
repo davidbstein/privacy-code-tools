@@ -53,6 +53,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
     re_path(r'^auto_static/(?P<path>.*)$', get_static),
+    re_path(r'^NONE/(?P<path>.*)$', login_required(get_static)),
 
     path('notifications/', include('django_nyt.urls')),
     path('wiki/', decorator_include(login_required, 'wiki.urls')),
