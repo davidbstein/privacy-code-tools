@@ -42,6 +42,11 @@ CURRENT_CODING_ID = 5 # this also exists in /frontent/templates/index.html
 DEBUG = env('DEBUG')
 
 
+
+WIKI_ACCOUNT_HANDLING = False
+WIKI_ACCOUNT_SIGNUP_ALLOWED = False
+
+
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'policycoding.com',
@@ -66,7 +71,7 @@ AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
  'allauth.account.auth_backends.AuthenticationBackend',
  )
-SITE_ID = 2
+SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -110,6 +115,19 @@ INSTALLED_APPS = [
 
     #shellplus, ect.
     'django_extensions',
+
+    #wiki
+    #'django.contrib.sites.apps.SitesConfig',
+    'django.contrib.humanize.apps.HumanizeConfig',
+    'django_nyt.apps.DjangoNytConfig',
+    'mptt',
+    'sekizai',
+    'sorl.thumbnail',
+    'wiki.apps.WikiConfig',
+    'wiki.plugins.attachments.apps.AttachmentsConfig',
+    'wiki.plugins.notifications.apps.NotificationsConfig',
+    'wiki.plugins.images.apps.ImagesConfig',
+    'wiki.plugins.macros.apps.MacrosConfig',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +153,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                "sekizai.context_processors.sekizai",
             ],
         },
     },
@@ -187,4 +211,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, '.static/')
 STATIC_URL = env('STATIC_PATH')
+MEDIA_URL = env('MEDIA_PATH')
+MEDIA_ROOT = os.path.join(BASE_DIR, '.data/')

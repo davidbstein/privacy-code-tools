@@ -17,6 +17,8 @@ django-extensions = "*"
 django-allauth = "*"
 django-filter = "*"
 bs4 = "*"
+wiki = "*"
+django-decorator-include = "*"
 
 [requires]
 python_version = "3.7"

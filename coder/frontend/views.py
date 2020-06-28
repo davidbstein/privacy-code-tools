@@ -3,19 +3,19 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.template import Context
 from coder.api.models import Policy, PolicyInstance, RawPolicyInstance
+from coder import settings
 import pathlib
+import mimetypes
 
-
-def get_static(request, file_name):
-  assert file_name in ('main.css', 'main.js')
-  path = str(pathlib.Path(__file__).parent.absolute()) + '/static/frontend/';
-  if (file_name == 'main.css'):
-    with open(path + file_name) as f:
-      return HttpResponse(f.read(), content_type="text/css")
-  if (file_name == 'main.js'):
-    with open(path + file_name) as f:
-      return HttpResponse(f.read(), content_type="application/javascript")
-
+def get_static(request, path):
+  #assert file_name in ('main.css', 'main.js')
+  assert '..' not in path
+  file_name = path.split('/')[-1]
+  #path = str(pathlib.Path(__file__).parent.absolute()) + '/static/frontend/';
+  filepath = settings.BASE_DIR + '/.static/' + path;
+  type=mimetypes.guess_type(file_name)[0]
+  with open(filepath) as f:
+    return HttpResponse(f.read(), content_type=type)
 
 def get_raw(request, policy_instance_id, field):
   pi = PolicyInstance.objects.get(id=policy_instance_id)

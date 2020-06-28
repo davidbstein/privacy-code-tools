@@ -13,14 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.urls import include, path, re_path
-
+from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
 from coder.frontend.views import get_static, get_raw, get_unsafe_raw
+from coder import settings
+
+from decorator_include import decorator_include
 
 router = routers.DefaultRouter()
 router.register(r'coder', views.CoderViewSet)
@@ -47,5 +51,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('static/<str:file_name>', get_static)
+    re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
+    re_path(r'^auto_static/(?P<path>.*)$', get_static),
+
+    path('notifications/', include('django_nyt.urls')),
+    path('wiki/', decorator_include(login_required, 'wiki.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
