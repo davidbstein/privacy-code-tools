@@ -14,7 +14,7 @@ def get_static(request, path):
   #path = str(pathlib.Path(__file__).parent.absolute()) + '/static/frontend/';
   filepath = settings.BASE_DIR + '/.static/' + path;
   type=mimetypes.guess_type(file_name)[0]
-  with open(filepath) as f:
+  with open(filepath, 'rb') as f:
     return HttpResponse(f.read(), content_type=type)
 
 def get_raw(request, policy_instance_id, field):
