@@ -1,0 +1,48 @@
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-dark.bg-dark {
+    background: #57068c;
+    background-color: #57068c !important;
+}
+
+.navbar-dark .active a {
+  color: white;
+}
+
+.navbar-dark a {
+  color: white;
+}
+
+.navbar-dark li {
+  color: white;
+  margin-left: 16px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: #57068c;
+}
+
+a {
+  color: #57068c;
+}
+
+.btn-info {
+  background-color: #57068c;
+  border-color: #57068c;
+}
+
+code {
+  color: #0f8e3d;
+  background-color: #eee;
+  padding: 0 4px;
+}
+
+#wiki-footer {
+  opacity: 20%;
+}
+
+.wiki-article {
+  max-width: 720px;
+}
