@@ -236,6 +236,10 @@ CODING FORM
   color: #888;
 }
 
+.question-box-wiki-link {
+  text-align: center
+}
+
 .coding-form-question-title {
   background-color: #aaa;
   color: white;
