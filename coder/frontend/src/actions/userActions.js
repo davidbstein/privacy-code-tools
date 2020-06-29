@@ -10,17 +10,17 @@ USER_TOGGLE_SENTENCE,
 } from './types';
 import _ from 'lodash';
 
-export const userSelectQuestion = (question_idx) => async dispatch => {
+export const userSelectQuestion = (question_idx, question_identifier) => async dispatch => {
   dispatch({
     type: USER_SELECT_QUESTION,
-    payload: { question_idx }
+    payload: { question_idx, question_identifier }
   })
 }
 
-export const userChangeValue = (question_idx, values) => async dispatch => {
+export const userChangeValue = (question_idx, question_identifier, values) => async dispatch => {
   dispatch({
     type: USER_CHANGE_VALUE,
-    payload: { question_idx, values }
+    payload: { question_idx,  question_identifier, values }
   })
 }
 
@@ -31,10 +31,10 @@ export const userToggleSentence = (policy_type, paragraph_idx, sentence_idx) => 
   })
 }
 
-export const userChangeQuestionMeta = (question_idx, field, value) => async dispatch => {
+export const userChangeQuestionMeta = (question_idx, question_identifier, field, value) => async dispatch => {
   dispatch({
     type: USER_CHANGE_QUESTION_META,
-    payload: {question_idx, field, value}
+    payload: {question_idx, question_identifier, field, value}
   })
 }
 

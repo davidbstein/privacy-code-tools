@@ -15,6 +15,7 @@ import {
 
 const defaultState = {
   "selectedQuestion": '-1',
+  "selectedQuestionIdentifier": '-1',
   "localCoding": {},
   "updateSinceLastSave": true,
 }
@@ -46,7 +47,7 @@ function template(state, action){
  * action.payload = {question_idx, value}
  */
 function changeValue(state, action){
-  var current_value = state.localCoding[state.selectedQuestion];
+  var current_value = state.localCoding[action.payload.question_idx];
   if (current_value === undefined) {
     current_value = get_default_question();
   }
@@ -54,11 +55,21 @@ function changeValue(state, action){
     ...current_value,
     ...{values: action.payload.values}
   }
+  console.log({localCoding: {
+        ...state.localCoding,
+        ...{[action.payload.question_idx]: new_value},
+        ...{[action.payload.question_identifier]: new_value}
+      }});
+  console.log({localCoding: {
+        ...{[action.payload.question_idx]: new_value},
+        ...{[action.payload.question_identifier]: new_value}
+      }});
   return {
     ...state,
     ...{localCoding: {
         ...state.localCoding,
-        ...{[state.selectedQuestion]: new_value}
+        ...{[action.payload.question_idx]: new_value},
+        ...{[action.payload.question_identifier]: new_value}
       }
     }
   }
@@ -68,6 +79,10 @@ function changeQuestionMeta(state, action){
   const next_state = {...state}
   next_state.localCoding[action.payload.question_idx] = {
     ...(state.localCoding[action.payload.question_idx] || get_default_question()),
+    ...{[action.payload.field]: action.payload.value}
+  }
+  next_state.localCoding[action.payload.question_identifier] = {
+    ...(state.localCoding[action.payload.question_identifier] || get_default_question()),
     ...{[action.payload.field]: action.payload.value}
   }
   return next_state;
@@ -108,7 +123,8 @@ function toggleSentence(state, action){
     ...state,
     ...{localCoding: {
         ...state.localCoding,
-        ...{[state.selectedQuestion]: new_value}
+        ...{[state.selectedQuestion]: new_value},
+        ...{[state.selectedQuestionIdentifier]: new_value}
       }
     }
   }
@@ -122,7 +138,8 @@ function toggleSentence(state, action){
 function selectQuestion(state, action){
   return {
     ...state,
-    ...{selectedQuestion: action.payload.question_idx}
+    ...{selectedQuestion: action.payload.question_idx},
+    ...{selectedQuestionIdentifier: action.payload.question_identifier}
   };
 }
 

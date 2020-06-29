@@ -89,14 +89,14 @@ export default connect(
 
     commentChanged(comment) {
       this.props.userChangeQuestionMeta(
-        this.props.question_idx, "comment", comment
+        this.props.question_idx, this.props.question_identifier, "comment", comment
         );
       this.props.apiAutoSave();
     }
 
     confidenceChanged(confidence_level) {
       this.props.userChangeQuestionMeta(
-        this.props.question_idx, "confidence", confidence_level
+        this.props.question_idx, this.props.question_identifier, "confidence", confidence_level
         );
       this.props.apiAutoSave();
     }

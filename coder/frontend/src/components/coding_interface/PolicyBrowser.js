@@ -39,10 +39,16 @@ const PolicySentence = connect(
         )
     }
 
+    _get_selected_sentences(coding_instance, policy_type){
+      return (
+        (coding_instance[this.props.localState.selectedQuestionIdentifier || this.props.selectedQuestion] || {})
+        .sentences || {}
+        )[policy_type];
+    }
+
+
     _basicHighlightTest() {
-      const selected_sentences = (
-        (this.props.localState.localCoding[this.props.localState.selectedQuestion] || {})
-        .sentences || {})[this.props.policy_type];
+      const selected_sentences = this._get_selected_sentences(this.props.localState.localCoding, this.props.policy_type)
       var extra_class = 'unselected'
       if (this._checkSentence(selected_sentences))
         extra_class="selected"
@@ -55,7 +61,7 @@ const PolicySentence = connect(
       var highlight_count = 0
       for (var ci of _.values(this.props.model.coding_instances)){
         count++;
-        const sentences = ((ci.coding_values[this.props.localState.selectedQuestion] || {}).sentences || {})[this.props.policy_type];
+        const sentences = this._get_selected_sentences(ci.coding_values, this.props.policy_type)
         if (this._checkSentence(sentences))
           highlight_count++;
       }

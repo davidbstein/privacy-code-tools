@@ -4,13 +4,10 @@ import QuestionValueSelector from './coding-form/QuestionValueSelector'
 import QuestionValueCommentBox from './coding-form/QuestionValueCommentBox'
 import _ from 'lodash';
 import {
-  userChangeValue,
-  userClickSave,
   userSelectQuestion,
 } from '../../actions/userActions';
 import {
   apiPostCodingInstance,
-  apiAutoSave,
 } from '../../actions/api';
 
 
@@ -88,7 +85,7 @@ class MergeItem extends Component {
 
 const MergeTool = connect(
   mapStateToProps,
-  { userSelectQuestion } // functions
+  {  } // functions
 )(
   class MergeTool extends Component {
 
@@ -190,7 +187,7 @@ const QuestionBox = connect(
     }
 
     handleClick() {
-      this.props.userSelectQuestion(this.props.idx);
+      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
       window.SESSION_TIMER.run_timer(this.props.content.identifier);
     }
 
@@ -211,10 +208,10 @@ const QuestionBox = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const sentences = ((this.props.localState.localCoding[this.props.idx]||{}).sentences||{});
+      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
+      const sentences = (cur_question.sentences||{});
       const number_of_sentences = _sentenceCount(sentences);
       const is_active = this.props.idx == this.props.localState.selectedQuestion;
-      const cur_question = (this.props.localState.localCoding[this.props.idx] || {});
       const cur_values = cur_question.values || {};
       const cur_confidence = cur_question.confidence || "unspecified";
       const value_strings = _.keys(cur_values)
@@ -223,11 +220,12 @@ const QuestionBox = connect(
       const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
       const selection_area = <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
             <hr/>
+            <div className="question-box-wiki-link"> <a href={`/wiki/questions/${this.props.content.identifier}`} target="_blank"> View additional help on the question </a> </div>
             <div className="coding-form-question-info">
               {this.props.content.details || ""}
             </div>
             { this.props.localState.merge_mode ?
-              <MergeTool question_idx={this.props.idx} mergeData={mergeData} /> : <div /> }
+              <MergeTool question_idx={this.props.idx} question_identifier={this.props.content.identifier} mergeData={mergeData} /> : <div /> }
             <div className="coding-form-sentence-list">
               {_stringifySentences(sentences).map((s, i) => (
                 <div
@@ -240,10 +238,12 @@ const QuestionBox = connect(
                 ))}
             </div>
             <QuestionValueSelector
-              values={this.props.content.values}
+              question_identifier={this.props.content.identifier}
               question_idx={this.props.idx}
+              values={this.props.content.values}
               />
             <QuestionValueCommentBox
+              question_identifier={this.props.content.identifier}
               question_idx={this.props.idx}
               values={cur_question}
               />

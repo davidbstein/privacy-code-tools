@@ -114,13 +114,13 @@ export default connect(
         ...{[value]: !is_selected},
         ...{["SILENT"]: false}
       }
-      this.props.userChangeValue(this.props.question_idx, new_values)
+      this.props.userChangeValue(this.props.question_idx, this.props.question_identifier, new_values)
       this.props.apiAutoSave();
     }
 
     silence(value, selected) {
       const new_values = {["SILENT"]: !selected};
-      this.props.userChangeValue(this.props.question_idx, new_values)
+      this.props.userChangeValue(this.props.question_idx, this.props.question_identifier, new_values)
       this.props.apiAutoSave();
     }
 
@@ -130,7 +130,7 @@ export default connect(
         ...(cur_coding.values || {}),
         ...{["OTHER"]: value},
       };
-      this.props.userChangeValue(this.props.question_idx, new_values);
+      this.props.userChangeValue(this.props.question_idx, this.props.question_identifier, new_values);
       this.props.apiAutoSave();
     }
 
@@ -143,6 +143,7 @@ export default connect(
             <QuestionCheckbox key={i}
               value={val}
               question_idx={this.props.question_idx}
+              question_identifier={this.props.question_identifier}
               toggle={this.toggle} />
           )}
           <OtherField
