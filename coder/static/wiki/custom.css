@@ -39,11 +39,19 @@ a:hover {
   background-color: #57068c;
   border-color: #57068c;
 }
-
+.wiki-article pre {
+  max-height: fit-content;
+}
 code {
   color: #0f8e3d;
   background-color: #eee;
   padding: 0 4px;
+}
+.codehilite span {
+  color: #0f8e3d !important;
+  background-color: #eee !important;
+  font-weight: 100 !important;
+  white-space: pre-wrap;
 }
 
 #wiki-footer {

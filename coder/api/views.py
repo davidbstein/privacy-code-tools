@@ -1,6 +1,8 @@
 from collections import defaultdict
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework import generics
@@ -147,6 +149,8 @@ class TimingSessionViewSet(viewsets.ModelViewSet):
 
 
 class CodingProgressViewSet(viewsets.ViewSet):
+
+    @method_decorator(cache_page(60*5))
     def list(self, request):
         pi_id2ci = defaultdict(list)
         for ci in CodingInstance.objects.all().exclude(coder_email__in=["dbs438@nyu.edu", "davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID):
