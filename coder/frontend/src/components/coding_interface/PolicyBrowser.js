@@ -40,10 +40,12 @@ const PolicySentence = connect(
     }
 
     _get_selected_sentences(coding_instance, policy_type){
-      return (
-        (coding_instance[this.props.localState.selectedQuestionIdentifier || this.props.selectedQuestion] || {})
-        .sentences || {}
-        )[policy_type];
+      const cur_question = (
+        coding_instance[this.props.localState.selectedQuestionIdentifier] ||
+        coding_instance[this.props.localState.selectedQuestion] ||
+        {}
+      )
+     return (cur_question.sentences || {})[policy_type];
     }
 
 

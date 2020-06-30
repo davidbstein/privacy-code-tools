@@ -20,7 +20,9 @@ class ProgressViewApp extends Component {
     return (
       <div className="container">
         <div className="progress-view">
-          <h1> Progress </h1>
+          <h1>
+            { !this.props.codingProgress.length ? <div> Loading data... </div> : <div>Coding Progress</div> }
+          </h1>
           <div id="progress-view-table">
             <table>
               <thead>
