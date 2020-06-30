@@ -220,7 +220,7 @@ const QuestionBox = connect(
       const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
       const selection_area = <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
             <hr/>
-            <div className="question-box-wiki-link"> <a href={`/wiki/questions/${this.props.content.identifier}`} target="_blank"> View additional help on the question </a> </div>
+            <div className="question-box-wiki-link"> <a href={`/wiki/questions/${this.props.content.identifier.replace(".", "_")}`} target="_blank"> View additional help on the question </a> </div>
             <div className="coding-form-question-info">
               {this.props.content.details || ""}
             </div>
