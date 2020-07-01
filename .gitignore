@@ -12,6 +12,7 @@ node_modules
 __pycache__/
 *.py[cod]
 *$py.class
+coder/frontend/static/frontend/main.js
 
 # C extensions
 *.so
