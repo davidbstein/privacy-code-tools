@@ -12,6 +12,7 @@ import {
 import {
   stringifySentences,
   scrollToSentenceTarget,
+  sentenceCount,
  } from '../utils/displayUtils'
 import {
   MergeTool,
@@ -26,15 +27,52 @@ const mapStateToProps = state => ({
 });
 
 
-const _sentenceCount = (sentences_by_doc) => {
-  return _.sum(_.values(sentences_by_doc).map(e=>_.sum(_.values(e).map(ee=>ee.length))));
-}
 
-// flatten sentences into groups of sentence numbers by paragraph.
-// returns tuples of [pretty_string, [doc_type, paragraph_number]]
-const _stringifySentences = stringifySentences
-
-const _scrollToSentenceTarget = scrollToSentenceTarget
+const MultiselectActiveArea = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class MultiselectActiveArea extends Component {
+    render() {
+      return <div className={this.props.is_active ? "active-selection-area" : "inactive-selection-area"}>
+        <hr/>
+        <div className="question-box-wiki-link">
+          <a href={`/wiki/questions/${this.props.content.identifier.replace(".", "_")}`} target="_blank"> View additional help on the question </a>
+        </div>
+        <div className="coding-form-question-info">
+          {this.props.content.details || ""}
+        </div>
+          { this.props.localState.merge_mode ?
+            <MergeTool
+              question_idx={this.props.idx}
+              question_identifier={this.props.content.identifier}
+              mergeData={mergeData} /> : <div />
+            }
+        <div className="coding-form-sentence-list">
+          {stringifySentences(this.props.sentences).map((s, i) => (
+            <div
+              key={i}
+              onClick={scrollToSentenceTarget}
+              className="sentence-index-button"
+              target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
+              {s.pretty_string}
+            </div>
+            ))}
+        </div>
+        <QuestionValueSelector
+          question_identifier={this.props.content.identifier}
+          question_idx={this.props.idx}
+          values={this.props.content.values}
+          />
+        <QuestionValueCommentBox
+          question_identifier={this.props.content.identifier}
+          question_idx={this.props.idx}
+          values={this.props.cur_question}
+          />
+      </div>
+    }
+  }
+)
 
 
 class QuestionBoxHeader extends Component {
@@ -50,6 +88,7 @@ class QuestionBoxHeader extends Component {
     </div>
   }
 }
+
 
 const QuestionBox = connect(
   mapStateToProps,
@@ -85,49 +124,27 @@ const QuestionBox = connect(
       const mergeData = this.getMergeData()
       const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
       const sentences = (cur_question.sentences||{});
-      const number_of_sentences = _sentenceCount(sentences);
-      const is_active = this.props.idx == this.props.localState.selectedQuestion;
+      const number_of_sentences = sentenceCount(sentences);
+      const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier);
       const cur_values = cur_question.values || {};
       const cur_confidence = cur_question.confidence || "unspecified";
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
       const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
-      const selection_area = <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
-            <hr/>
-            <div className="question-box-wiki-link"> <a href={`/wiki/questions/${this.props.content.identifier.replace(".", "_")}`} target="_blank"> View additional help on the question </a> </div>
-            <div className="coding-form-question-info">
-              {this.props.content.details || ""}
-            </div>
-            { this.props.localState.merge_mode ?
-              <MergeTool question_idx={this.props.idx} question_identifier={this.props.content.identifier} mergeData={mergeData} /> : <div /> }
-            <div className="coding-form-sentence-list">
-              {_stringifySentences(sentences).map((s, i) => (
-                <div
-                  key={i}
-                  onClick={_scrollToSentenceTarget}
-                  className="sentence-index-button"
-                  target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
-                  {s.pretty_string}
-                </div>
-                ))}
-            </div>
-            <QuestionValueSelector
-              question_identifier={this.props.content.identifier}
-              question_idx={this.props.idx}
-              values={this.props.content.values}
-              />
-            <QuestionValueCommentBox
-              question_identifier={this.props.content.identifier}
-              question_idx={this.props.idx}
-              values={cur_question}
-              />
-          </div>
+
+      const active_area = <MultiselectActiveArea
+        content={this.props.content}
+        idx={this.props.idx}
+        is_active={is_active}
+        sentences={sentences}
+        cur_question={cur_question}
+      />
 
       return <div className="coding-form-question-container">
         <div className={classes} onClick={is_active ? null : this.handleClick}>
           <div className="coding-form-question-title">
-            {this.props.idx+1}. {this.props.content.question}
+            {this.props.count}. {this.props.content.question}
           </div>
           <div className="coding-form-question-sentence-count">
             { this.props.localState.merge_mode ?
@@ -138,12 +155,88 @@ const QuestionBox = connect(
               {this.props.content.info}
             </div>
           </div>
-          {is_active ? selection_area : <div className="inactive-selection-area"/>}
+          {is_active ? active_area : <div className="inactive-selection-area"/>}
         </div>
       </div>
     }
   }
 )
+
+
+
+const BreakoutHeader = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class BreakoutHeader extends Component {
+    constructor(props, context){
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
+      window.SESSION_TIMER.run_timer(this.props.content.identifier);
+    }
+
+    getMergeData() {
+      const to_ret = {responses: [], authors: []}
+      for (var ci of _.values(this.props.model.coding_instances)){
+        if (ci.coding_values[this.props.idx]){
+          to_ret.responses.push(ci.coding_values[this.props.idx]);
+          to_ret.authors.push(ci.coder_email);
+        }
+      }
+      const sentences_by_coder = {}
+      for (var ci of _.values(this.props.model.coding_instances)){
+        const sentences = ((ci.coding_values[this.props.idx] || {}).sentences || {})[this.props.policy_type];
+      }
+      return to_ret
+    }
+
+    render() {
+      return "HEADER"
+    }
+  }
+)
+
+
+const BreakoutOption = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class BreakoutOption extends Component {
+    constructor(props, context){
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
+      window.SESSION_TIMER.run_timer(this.props.content.identifier);
+    }
+
+    getMergeData() {
+      const to_ret = {responses: [], authors: []}
+      for (var ci of _.values(this.props.model.coding_instances)){
+        if (ci.coding_values[this.props.idx]){
+          to_ret.responses.push(ci.coding_values[this.props.idx]);
+          to_ret.authors.push(ci.coder_email);
+        }
+      }
+      const sentences_by_coder = {}
+      for (var ci of _.values(this.props.model.coding_instances)){
+        const sentences = ((ci.coding_values[this.props.idx] || {}).sentences || {})[this.props.policy_type];
+      }
+      return to_ret
+    }
+
+    render() {
+      return "OPTION";
+    }
+  }
+)
+
 
 
 const CodingOverview = connect(
@@ -198,15 +291,36 @@ export default connect(
           loading...
         </div>
       }
+      var counter = 0;
       return (
         <div className="coding-form-pane">
           <CodingOverview coding={coding}/>
           <div className="coding-form-container">
             {coding.questions.map( (question_content, i) => {
-              return <QuestionBox key={"question-box-"+i}
-                idx={i}
-                content={question_content}
-              />
+              switch(question_content.type){
+                case "multiselect":
+                case "breakout":
+                  return <QuestionBox
+                    key={"question-box-"+i}
+                    count={++counter}
+                    idx={i}
+                    content={question_content}
+                  />
+                case "breakout-header":
+                  return <BreakoutHeader
+                    key={"question-box-"+i}
+                    count={++counter}
+                    idx={i}
+                    content={question_content}
+                  />
+                case "breakout-option":
+                  return <BreakoutOption
+                      key={"question-box-"+i}
+                      count={counter}
+                      idx={i}
+                      content={question_content}
+                    />
+              }
             }
             )}
             <div className="coding-form-button-container">
