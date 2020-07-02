@@ -60,6 +60,9 @@ const MergeTool = connect(
 )(
   class MergeTool extends Component {
     render () {
+      if (!this.props.mergeData) {
+        return <div> (there are no responses for this question) </div>
+      }
       const responses = this.props.mergeData.responses;
       const sentence_strings = _.map(responses, (r) => {
         return stringifySentences(r.sentences);

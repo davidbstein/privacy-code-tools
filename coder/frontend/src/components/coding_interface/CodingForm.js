@@ -77,14 +77,18 @@ const MultiselectActiveArea = connect(
 
 class QuestionBoxHeader extends Component {
   render() {
-    return <div>
-      {this.props.number_of_sentences} sentence{this.props.number_of_sentences == 1 ? "" : "s"} marked relevant.
+    return <div className="coding-form-header-info">
+      <div className="coding-form-sentence-count-header">
+        {this.props.number_of_sentences} sentence{this.props.number_of_sentences == 1 ? "" : "s"}
+      </div>
+      <div className="coding-form-answers-header">
       {
         this.props.value_strings.length > 0 ?
         <div>{this.props.value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>)}</div> :
         <div className='coding-form-uncoded-marker'>Unanswered</div>
       }
-      <div className={`coding-form-confidence-${this.props.confidence}`}> confidence: {this.props.confidence} </div>
+      </div>
+      <div className={`coding-form-confidence coding-form-confidence-${this.props.confidence}`}> confidence: {this.props.confidence} </div>
     </div>
   }
 }
@@ -122,7 +126,7 @@ const QuestionBox = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
       const sentences = (cur_question.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier);
@@ -181,7 +185,7 @@ const BreakoutHeader = connect(
     }
 
     render() {
-      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
       const sentences = (cur_question.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
@@ -250,17 +254,20 @@ const BreakoutOption = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
       const sentences = (cur_question.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier == this.props.localState.selectedQuestionIdentifier;
-      const is_expanded = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
+      const is_active_breakout = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
       const cur_values = cur_question.values || {};
       const cur_confidence = cur_question.confidence || "unspecified";
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
-      const classes = "coding-form-question " + (is_expanded ? "active-question" : "inactive-question")
+      const activity_classes = [
+        (is_active ? "active-question" : "inactive-question"),
+        (is_active_breakout ? "active-breakout" : "inactive-breakout"),
+      ].join(' ')
 
       const active_area = <MultiselectActiveArea
         content={this.props.content}
@@ -269,19 +276,19 @@ const BreakoutOption = connect(
         sentences={sentences}
         cur_question={cur_question}
       />
-
-      return <div className="coding-form-breakout-option-container">
-        <div className={classes} onClick={is_active ? null : this.handleClick}>
-          <div className="coding-form-question-sentence-count">
-            { this.props.localState.merge_mode ?
-              <MergeBoxHeader value_strings={value_strings} mergeData={mergeData}/> :
-              <QuestionBoxHeader number_of_sentences={number_of_sentences} value_strings={value_strings} confidence={cur_confidence}/> }
-            <hr/>
-            <div className="coding-form-question-info">
-              {this.props.content.info}
+      return <div className={"coding-form-breakout-option-outer-container " + activity_classes}>
+        <div className="coding-form-breakout-option-container">
+          <div className={"coding-form-question " + activity_classes} onClick={is_active || (is_active && is_active_breakout) ? null : this.handleClick}>
+            <div className="breakout-option-title">
+              {this.props.content.question}
             </div>
+            <div className="coding-form-question-sentence-count">
+              { this.props.localState.merge_mode ?
+                <MergeBoxHeader value_strings={value_strings} mergeData={mergeData}/> :
+                <QuestionBoxHeader number_of_sentences={number_of_sentences} value_strings={value_strings} confidence={cur_confidence}/> }
+            </div>
+            {is_active ? active_area : <div className="inactive-selection-area"/>}
           </div>
-          {is_active ? active_area : <div className="inactive-selection-area"/>}
         </div>
       </div>
     }
