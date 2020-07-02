@@ -53,6 +53,7 @@ WIKI_ACCOUNT_SIGNUP_ALLOWED = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    'stein-tower-2019.local',
     'policycoding.com',
     'policy-coder-web.eba-9sxfr9sk.us-east-1.elasticbeanstalk.com',
 ]
