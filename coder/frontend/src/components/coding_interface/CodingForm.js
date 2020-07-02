@@ -112,15 +112,17 @@ const QuestionBox = connect(
     getMergeData() {
       const to_ret = {responses: [], authors: []}
       for (var ci of _.values(this.props.model.coding_instances)){
-        if (ci.coding_values[this.props.idx]){
-          to_ret.responses.push(ci.coding_values[this.props.idx]);
+        const coding_values = ci.coding_values[this.props.idx] || ci.coding_values[this.props.content.identifier]
+        if (coding_values){
+          to_ret.responses.push(coding_values);
           to_ret.authors.push(ci.coder_email);
         }
       }
-      const sentences_by_coder = {}
-      for (var ci of _.values(this.props.model.coding_instances)){
-        const sentences = ((ci.coding_values[this.props.idx] || {}).sentences || {})[this.props.policy_type];
-      }
+      // const sentences_by_coder = {}
+      // for (var ci of _.values(this.props.model.coding_instances)){
+      //   const coding_values = ci.coding_values[this.props.idx] || ci.coding_values[this.props.content.identifier]
+      //   const sentences = ((coding_values || {}).sentences || {})[this.props.policy_type];
+      // }
       return to_ret
     }
 
@@ -240,15 +242,14 @@ const BreakoutOption = connect(
     getMergeData() {
       const to_ret = {responses: [], authors: []}
       for (var ci of _.values(this.props.model.coding_instances)){
-        if (ci.coding_values[this.props.idx]){
-          to_ret.responses.push(ci.coding_values[this.props.idx]);
+        const coding_values = ci.coding_values[this.props.content.identifier]
+        if (coding_values){
+          to_ret.responses.push(coding_values);
           to_ret.authors.push(ci.coder_email);
         }
       }
-      const sentences_by_coder = {}
-      for (var ci of _.values(this.props.model.coding_instances)){
-        const sentences = ((ci.coding_values[this.props.idx] || {}).sentences || {})[this.props.policy_type];
-      }
+      if (to_ret === undefined)
+        console.log(to_ret)
       return to_ret
     }
 
@@ -275,6 +276,7 @@ const BreakoutOption = connect(
         is_active={is_active}
         sentences={sentences}
         cur_question={cur_question}
+        mergeData={mergeData}
       />
       return <div className={"coding-form-breakout-option-outer-container " + activity_classes}>
         <div className="coding-form-breakout-option-container">

@@ -238,6 +238,8 @@ CODING FORM
   border: 1px solid #ccc;
   color: #888;
 }
+.coding-form-question-container .inactive-question {
+}
 
 .coding-form-header-info {
   display: flex;
@@ -255,6 +257,9 @@ CODING FORM
   padding: 0 16px;
   transition: all .2s linear;
   background: #fff9ff;
+}
+.coding-form-breakout-option-outer-container.active-breakout {
+  background-color: #e4e4e4;
 }
 .coding-form-breakout-option-outer-container, .inactive-question.coding-form-breakout-option-outer-container:hover{
   border-left: 1px solid #57068c;
@@ -521,6 +526,8 @@ merge-tool-sentences {
   font-weight: bold;
   text-align: center;
   padding: 4px;
+  display:  inline-block;
+  min-width: 50%;
 }
 .merge-header-sentence-overlap.unmatching-sentences {
   display: block;
@@ -529,6 +536,8 @@ merge-tool-sentences {
   font-weight: bold;
   text-align: center;
   padding: 4px;
+  display: inline-block;
+  min-width: 50%;
 }
 .merge-header-sentence-overlap.matching-sentences {
   display: none;
