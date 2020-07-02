@@ -39,7 +39,7 @@ SECRET_KEY = '-1wxeqek!k&=zpab%r+968%d(!xvbal9c=!l(nepot+3@7m)2n'
 SECURE_SSL_REDIRECT = env('SSL_REDIRECT')
 
 
-CURRENT_CODING_ID = 5 # this also exists in /frontent/templates/index.html
+CURRENT_CODING_ID = 6 # this also exists in /frontent/templates/index.html
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
@@ -53,6 +53,7 @@ WIKI_ACCOUNT_SIGNUP_ALLOWED = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    'stein-tower-2019.local',
     'policycoding.com',
     'policy-coder-web.eba-9sxfr9sk.us-east-1.elasticbeanstalk.com',
 ]

@@ -98,7 +98,7 @@ function changeQuestionMeta(state, action){
  * action.payload = {paragraph_idx, sentence_idx}
  */
 function toggleSentence(state, action){
-  var current_value = state.localCoding[state.selectedQuestion];
+  var current_value = state.localCoding[state.selectedQuestion] || state.localCoding[state.selectedQuestionIdentifier];
   if (current_value === undefined) {
     current_value = get_default_question();
   }

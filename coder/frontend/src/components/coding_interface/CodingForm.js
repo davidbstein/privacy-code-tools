@@ -9,6 +9,16 @@ import {
 import {
   apiPostCodingInstance,
 } from '../../actions/api';
+import {
+  stringifySentences,
+  scrollToSentenceTarget,
+  sentenceCount,
+ } from '../utils/displayUtils'
+import {
+  MergeTool,
+  MergeBoxHeader,
+} from './coding-form/MergeElements'
+
 
 
 const mapStateToProps = state => ({
@@ -17,164 +27,72 @@ const mapStateToProps = state => ({
 });
 
 
-const _sentenceCount = (sentences_by_doc) => {
-  return _.sum(_.values(sentences_by_doc).map(e=>_.sum(_.values(e).map(ee=>ee.length))));
-}
 
-// flatten sentences into groups of sentence numbers by paragraph.
-// returns tuples of [pretty_string, [doc_type, paragraph_number]]
-const _stringifySentences = (sentences) => {
-  const to_ret = []
-  for (var doc in sentences) {
-    for (var p in sentences[doc]) {
-      if (sentences[doc][p].length > 0)
-        to_ret.push({
-          pretty_string:`${doc}❡${parseInt(p)+1}(${_.map(sentences[doc][p], e => parseInt(e)+1).join(',')})`,
-          policy_type: doc,
-          paragraph_idx: p
-        })
-    }
-  }
-  return to_ret;
-}
-
-const _scrollToSentenceTarget = (e) => {
-  document.getElementById(e.target.getAttribute('target'))
-  .scrollIntoView({behavior: "smooth", block: "center"});
-}
-
-class MergeItem extends Component {
-  render() {
-    const selectedValues = _.map(
-      this.props.values,
-      (v,k) => v?k:undefined
-      ).filter(e=>e);
-    return <div>
-      {this.props.fmw_answer?<div className="merge-tool-response-header"><b>FMW's response</b></div>:""}
-      <div className={"merge-tool-response" + (this.props.fmw_answer?" fmw-answer": "")}>
-        <div className="merge-tool-coder-email">
-          {this.props.author}
+const MultiselectActiveArea = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class MultiselectActiveArea extends Component {
+    render() {
+      return <div className={this.props.is_active ? "active-selection-area" : "inactive-selection-area"}>
+        <hr/>
+        <div className="question-box-wiki-link">
+          <a href={`/wiki/questions/${this.props.content.identifier.replace(".", "_")}`} target="_blank"> View additional help on the question </a>
         </div>
-        <div className="merge-tool-response-values">
-          {selectedValues.map((value, i)=> <span key={i}>{value}</span>)}
+        <div className="coding-form-question-info">
+          {this.props.content.details || ""}
         </div>
-        <div className="merge-tool-sentence-count">
-          {this.props.sentences.length + this.props.agreed_sentences.length} sentences flagged
-        </div>
-        <div className="merge-tool-confidence">
-          confidence: {this.props.confidence || "unspecified"}
-        </div>
-        <div className="merge-tool-comment">
-          {this.props.comment ? this.props.comment : ""}
-        </div>
-        <div className="merge-tool-sentences">
-          {this.props.sentences.map((s, i) => (
+          { this.props.localState.merge_mode ?
+            <MergeTool
+              question_idx={this.props.idx}
+              question_identifier={this.props.content.identifier}
+              mergeData={this.props.mergeData} /> : <div />
+            }
+        <div className="coding-form-sentence-list">
+          {stringifySentences(this.props.sentences).map((s, i) => (
             <div
               key={i}
-              onClick={_scrollToSentenceTarget}
+              onClick={scrollToSentenceTarget}
               className="sentence-index-button"
               target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
               {s.pretty_string}
             </div>
             ))}
         </div>
-      </div>
-    </div>
-  }
-}
-
-const MergeTool = connect(
-  mapStateToProps,
-  {  } // functions
-)(
-  class MergeTool extends Component {
-
-    scoll_to_sentence () {
-
-    }
-    render () {
-      const responses = this.props.mergeData.responses;
-      const sentence_strings = _.map(responses, (r) => {
-        return _stringifySentences(r.sentences);
-      });
-      const agreed_sentences = _.intersection(...sentence_strings)
-      return <div className="merge-tool-response-list">
-        {responses.map((vals, idx_) => {
-          if (!vals) return;
-          return <MergeItem
-            key={idx_}
-            values={vals.values}
-            confidence={vals.confidence}
-            comment={vals.comment}
-            sentences={_.difference(sentence_strings[idx_], agreed_sentences)}
-            agreed_sentences={agreed_sentences}
-            author={this.props.mergeData.authors[idx_]}
-            fmw_answer={this.props.mergeData.authors[idx_]=='florencia.m.wurgler@gmail.com'}
+        <QuestionValueSelector
+          question_identifier={this.props.content.identifier}
+          question_idx={this.props.idx}
+          values={this.props.content.values}
           />
-        })}
-        {agreed_sentences ?
-          <div className='merge-tool-agreed-sentences'>
-            Sentences highlighted by everyone:
-            {
-              agreed_sentences.map((s, i) => (
-                <div
-                  onClick={_scrollToSentenceTarget}
-                  key={i}
-                  target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
-                  {s.pretty_string}
-                </div>
-              ))
-            }
-          </div>
-          :
-          ""
-        }
+        <QuestionValueCommentBox
+          question_identifier={this.props.content.identifier}
+          question_idx={this.props.idx}
+          values={this.props.cur_question}
+          />
       </div>
     }
   }
-);
+)
 
-class MergeBoxHeader extends Component {
-  render() {
-    const responses = this.props.mergeData.responses;
-    const answers_match = _.uniqBy(_.map(responses, (r) => {
-      return _.filter(_.keys(r.values), (k) => {
-          return r.values[k];
-        })
-      }),
-      u=>u.join("--"))
-      .length == 1;
-    const sentence_strings = _.map(responses, (r) => {
-      return _stringifySentences(r.sentences);
-    })
-    const sentences_match = _.uniqBy(sentence_strings, ss => ss.join('--')).length == 1;
-    return <div>
-      <div className={`merge-header-answers-match ${(answers_match ?
-        'matching-answer-merge':'unmatching-answer-merge')}`}>
-        {answers_match ? `answers match` : `answers do not match`}
-      </div>
-      <div className={`merge-header-sentence-overlap ${(sentences_match ?
-        'matching-sentences' : 'unmatching-sentences')}`}>
-        {sentences_match ? `sentences match` : `sentences do not match`}
-      </div>
-      <div> {this.props.mergeData.authors.join(', ')}</div>
-    </div>
-  }
-}
 
 class QuestionBoxHeader extends Component {
   render() {
-    return <div>
-      {this.props.number_of_sentences} sentence{this.props.number_of_sentences == 1 ? "" : "s"} marked relevant.
+    return <div className="coding-form-header-info">
+      <div className="coding-form-sentence-count-header">
+        {this.props.number_of_sentences} sentence{this.props.number_of_sentences == 1 ? "" : "s"}
+      </div>
+      <div className="coding-form-answers-header">
       {
         this.props.value_strings.length > 0 ?
         <div>{this.props.value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>)}</div> :
         <div className='coding-form-uncoded-marker'>Unanswered</div>
       }
-      <div className={`coding-form-confidence-${this.props.confidence}`}> confidence: {this.props.confidence} </div>
+      </div>
+      <div className={`coding-form-confidence coding-form-confidence-${this.props.confidence}`}> confidence: {this.props.confidence} </div>
     </div>
   }
 }
+
 
 const QuestionBox = connect(
   mapStateToProps,
@@ -208,51 +126,30 @@ const QuestionBox = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
       const sentences = (cur_question.sentences||{});
-      const number_of_sentences = _sentenceCount(sentences);
-      const is_active = this.props.idx == this.props.localState.selectedQuestion;
+      const number_of_sentences = sentenceCount(sentences);
+      const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier);
       const cur_values = cur_question.values || {};
       const cur_confidence = cur_question.confidence || "unspecified";
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
       const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
-      const selection_area = <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
-            <hr/>
-            <div className="question-box-wiki-link"> <a href={`/wiki/questions/${this.props.content.identifier.replace(".", "_")}`} target="_blank"> View additional help on the question </a> </div>
-            <div className="coding-form-question-info">
-              {this.props.content.details || ""}
-            </div>
-            { this.props.localState.merge_mode ?
-              <MergeTool question_idx={this.props.idx} question_identifier={this.props.content.identifier} mergeData={mergeData} /> : <div /> }
-            <div className="coding-form-sentence-list">
-              {_stringifySentences(sentences).map((s, i) => (
-                <div
-                  key={i}
-                  onClick={_scrollToSentenceTarget}
-                  className="sentence-index-button"
-                  target={`paragraph-${s.policy_type}-${s.paragraph_idx}`}>
-                  {s.pretty_string}
-                </div>
-                ))}
-            </div>
-            <QuestionValueSelector
-              question_identifier={this.props.content.identifier}
-              question_idx={this.props.idx}
-              values={this.props.content.values}
-              />
-            <QuestionValueCommentBox
-              question_identifier={this.props.content.identifier}
-              question_idx={this.props.idx}
-              values={cur_question}
-              />
-          </div>
+
+      const active_area = <MultiselectActiveArea
+        content={this.props.content}
+        idx={this.props.idx}
+        is_active={is_active}
+        sentences={sentences}
+        cur_question={cur_question}
+        mergeData={mergeData}
+      />
 
       return <div className="coding-form-question-container">
         <div className={classes} onClick={is_active ? null : this.handleClick}>
           <div className="coding-form-question-title">
-            {this.props.idx+1}. {this.props.content.question}
+            {this.props.count}. {this.props.content.question}
           </div>
           <div className="coding-form-question-sentence-count">
             { this.props.localState.merge_mode ?
@@ -263,12 +160,141 @@ const QuestionBox = connect(
               {this.props.content.info}
             </div>
           </div>
-          {is_active ? selection_area : <div className="inactive-selection-area"/>}
+          {is_active ? active_area : <div className="inactive-selection-area"/>}
         </div>
       </div>
     }
   }
 )
+
+
+
+const BreakoutHeader = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class BreakoutHeader extends Component {
+    constructor(props, context){
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
+      window.SESSION_TIMER.run_timer(this.props.content.identifier);
+    }
+
+    render() {
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
+      const sentences = (cur_question.sentences||{});
+      const number_of_sentences = sentenceCount(sentences);
+      const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
+      const cur_values = cur_question.values || {};
+      const cur_confidence = cur_question.confidence || "unspecified";
+      const value_strings = _.keys(cur_values)
+        .filter((k) => cur_values[k])
+        .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
+      const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
+
+      const active_area = <MultiselectActiveArea
+        content={this.props.content}
+        idx={this.props.idx}
+        is_active={is_active}
+        sentences={sentences}
+        cur_question={cur_question}
+      />
+
+      return <div className="coding-form-breakout-master-container">
+        <div className={classes} onClick={is_active ? null : this.handleClick}>
+          <div className="coding-form-question-title">
+            {this.props.count}. {this.props.content.question}
+          </div>
+          <div className="coding-form-question-sentence-count">
+            <hr/>
+            <div className="coding-form-question-info">
+              {this.props.content.info}
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+)
+
+
+const BreakoutOption = connect(
+  mapStateToProps,
+  { userSelectQuestion } // functions
+)(
+  class BreakoutOption extends Component {
+    constructor(props, context){
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
+      window.SESSION_TIMER.run_timer(this.props.content.identifier);
+    }
+
+    getMergeData() {
+      const to_ret = {responses: [], authors: []}
+      for (var ci of _.values(this.props.model.coding_instances)){
+        if (ci.coding_values[this.props.idx]){
+          to_ret.responses.push(ci.coding_values[this.props.idx]);
+          to_ret.authors.push(ci.coder_email);
+        }
+      }
+      const sentences_by_coder = {}
+      for (var ci of _.values(this.props.model.coding_instances)){
+        const sentences = ((ci.coding_values[this.props.idx] || {}).sentences || {})[this.props.policy_type];
+      }
+      return to_ret
+    }
+
+    render() {
+      const mergeData = this.getMergeData()
+      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
+      const sentences = (cur_question.sentences||{});
+      const number_of_sentences = sentenceCount(sentences);
+      const is_active = this.props.content.identifier == this.props.localState.selectedQuestionIdentifier;
+      const is_active_breakout = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
+      const cur_values = cur_question.values || {};
+      const cur_confidence = cur_question.confidence || "unspecified";
+      const value_strings = _.keys(cur_values)
+        .filter((k) => cur_values[k])
+        .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
+      const activity_classes = [
+        (is_active ? "active-question" : "inactive-question"),
+        (is_active_breakout ? "active-breakout" : "inactive-breakout"),
+      ].join(' ')
+
+      const active_area = <MultiselectActiveArea
+        content={this.props.content}
+        idx={this.props.idx}
+        is_active={is_active}
+        sentences={sentences}
+        cur_question={cur_question}
+      />
+      return <div className={"coding-form-breakout-option-outer-container " + activity_classes}>
+        <div className="coding-form-breakout-option-container">
+          <div className={"coding-form-question " + activity_classes} onClick={is_active || (is_active && is_active_breakout) ? null : this.handleClick}>
+            <div className="breakout-option-title">
+              {this.props.content.question}
+            </div>
+            <div className="coding-form-question-sentence-count">
+              { this.props.localState.merge_mode ?
+                <MergeBoxHeader value_strings={value_strings} mergeData={mergeData}/> :
+                <QuestionBoxHeader number_of_sentences={number_of_sentences} value_strings={value_strings} confidence={cur_confidence}/> }
+            </div>
+            {is_active ? active_area : <div className="inactive-selection-area"/>}
+          </div>
+        </div>
+      </div>
+    }
+  }
+)
+
 
 
 const CodingOverview = connect(
@@ -323,15 +349,36 @@ export default connect(
           loading...
         </div>
       }
+      var counter = 0;
       return (
         <div className="coding-form-pane">
           <CodingOverview coding={coding}/>
           <div className="coding-form-container">
             {coding.questions.map( (question_content, i) => {
-              return <QuestionBox key={"question-box-"+i}
-                idx={i}
-                content={question_content}
-              />
+              switch(question_content.type){
+                case "multiselect":
+                case "breakout":
+                  return <QuestionBox
+                    key={"question-box-"+i}
+                    count={++counter}
+                    idx={i}
+                    content={question_content}
+                  />
+                case "breakout-header":
+                  return <BreakoutHeader
+                    key={"question-box-"+i}
+                    count={++counter}
+                    idx={i}
+                    content={question_content}
+                  />
+                case "breakout-option":
+                  return <BreakoutOption
+                      key={"question-box-"+i}
+                      count={counter}
+                      idx={i}
+                      content={question_content}
+                    />
+              }
             }
             )}
             <div className="coding-form-button-container">
