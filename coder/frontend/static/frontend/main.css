@@ -236,6 +236,22 @@ CODING FORM
   color: #888;
 }
 
+.coding-form-breakout-master-container {
+  margin: 16px 0 0 0;
+  transition: all .2s linear;
+  background: #fff9ff;
+  box-shadow: 1px 1px 4px 0px #838;
+}
+.coding-form-breakout-option-container {
+  margin: -1px 0;
+  transition: all .2s linear;
+  background: #fff9ff;
+  box-shadow: 1px 1px 4px 0px #6e3388;
+}
+.coding-form-breakout-option-container:hover {
+  background: #ffddff;
+}
+
 .question-box-wiki-link {
   text-align: center
 }
