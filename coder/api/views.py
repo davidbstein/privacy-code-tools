@@ -153,7 +153,7 @@ class CodingProgressViewSet(viewsets.ViewSet):
     @method_decorator(cache_page(60*5))
     def list(self, request):
         pi_id2ci = defaultdict(list)
-        for ci in CodingInstance.objects.all().exclude(coder_email__in=["dbs438@nyu.edu", "davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID):
+        for ci in CodingInstance.objects.all().exclude(coder_email__in=["davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID):
             u = User.objects.get(email=ci.coder_email)
             pi_id2ci[ci.policy_instance_id].append({
                 "email": ci.coder_email,

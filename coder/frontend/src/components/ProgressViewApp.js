@@ -38,7 +38,7 @@ class ProgressViewApp extends Component {
                     <td>{_.map(e.coding_instances, (ci, i) => (
                         <div className="progress-view-coding-instance" key={i}>
                           <div className="progress-view-coder-email">{ci.name} ({ci.email})</div>
-                          <div className="progress-view-coder-count"> {ci.response_count} / 101</div>
+                          <div className="progress-view-coder-count"> {ci.response_count} / 208</div>
                           <div className="progress-view-coder-date">started {ci.created.substr(5, 5)}</div>
                         </div>
                       ))}
