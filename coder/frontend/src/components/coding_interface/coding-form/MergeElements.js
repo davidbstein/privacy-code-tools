@@ -18,7 +18,7 @@ class MergeItem extends Component {
   render() {
     const selectedValues = _.map(
       this.props.values,
-      (v,k) => v?k:undefined
+      (v,k) => v?(k=="OTHER"?"OTHER:"+v:k):undefined
       ).filter(e=>e);
     return <div>
       {this.props.fmw_answer?<div className="merge-tool-response-header"><b>FMW's response</b></div>:""}

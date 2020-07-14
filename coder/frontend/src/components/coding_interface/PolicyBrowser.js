@@ -35,7 +35,10 @@ const PolicySentence = connect(
         return (
           selected_sentences &&
           selected_sentences[this.props.paragraph_idx] &&
-          (selected_sentences[this.props.paragraph_idx].indexOf(this.props.idx) >= 0)
+          (
+            (selected_sentences[this.props.paragraph_idx].indexOf(this.props.idx) >= 0) ||
+            (selected_sentences[this.props.paragraph_idx].indexOf(this.props.idx) >= 0)
+          )
         )
     }
 

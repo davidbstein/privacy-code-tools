@@ -139,13 +139,22 @@ export default connect(
         className="coding-form-question-value-selector"
         onClick={this.handleClick} >
         <div>
-          {this.props.values.map((val, i) =>
-            <QuestionCheckbox key={i}
-              value={val}
+          {this.props.values.map((val, i) => {
+            var disp_val, save_val;
+            if (typeof(val) == "string") {
+              disp_val = val;
+              save_val = val;
+            } else if (typeof(val) == "object") {
+              disp_val = val.label;
+              save_val = val.value;
+            }
+            return <QuestionCheckbox key={i}
+              display={disp_val}
+              value={save_val}
               question_idx={this.props.question_idx}
               question_identifier={this.props.question_identifier}
               toggle={this.toggle} />
-          )}
+          })}
           <OtherField
             setter={this.otherChanged} />
         </div>
