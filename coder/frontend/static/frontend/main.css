@@ -5,7 +5,9 @@ home..
 
 
 */
-
+.hidden {
+  display: none;
+}
 #demo-container {
   align-items: center;
   min-height: 100vh;
@@ -238,6 +240,14 @@ CODING FORM
   border: 1px solid #ccc;
   color: #888;
 }
+
+.coding-form-question .coding-form-comment-notification {
+  background: #63cd56;
+  color: white;
+  font-weight: bold;
+  padding: 0px 8px;
+}
+
 .coding-form-question-container .inactive-question {
 }
 
@@ -352,6 +362,14 @@ CODING FORM
   background-color: #57068c;
   font-weight: bolder;
 }
+.merge-header-has-comments {
+  width: 100%;
+  background: #87ce73;
+  color:white;
+  text-align: center;
+  font-weight: bolder;
+  padding: 4px;
+}
 
 .active-question.coding-form-question {
   border: 1px solid #57068c;
@@ -430,7 +448,33 @@ textarea.coding-form-comment-box-textarea {
 .coding-form-submit-button:active{
   box-shadow: 0 0 0 0;
 }
-
+.coding-form-floating-controls {
+    width: 50%;
+    background: #fff1ff;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #571a8c;
+    padding: 0 16px;
+    margin-left: -8px;
+}
+.coding-form-control-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px;
+}
+.coding-form-control-buttons .scroll-to-note {
+}
+.coding-form-action-button {
+  border: 1px solid #571a8c;
+  padding: 4px;
+  color: #571a8c;
+  font-weight: bold;
+  cursor: pointer;
+}
+.coding-form-action-button:hover {
+  background-color: #f1e1ff
+}
 
 /**
 merge stuff

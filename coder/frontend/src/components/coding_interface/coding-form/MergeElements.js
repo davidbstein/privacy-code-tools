@@ -1,4 +1,4 @@
-
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -118,6 +118,9 @@ class MergeBoxHeader extends Component {
       return stringifySentences(r.sentences);
     })
     const sentences_match = _.uniqBy(sentence_strings, ss => ss.join('--')).length == 1;
+    const comments = _.filter(_.map(responses, (r) => {
+      return r.comment || undefined;
+    }))
     return <div>
       <div className={`merge-header-answers-match ${(answers_match ?
         'matching-answer-merge':'unmatching-answer-merge')}`}>
@@ -126,6 +129,10 @@ class MergeBoxHeader extends Component {
       <div className={`merge-header-sentence-overlap ${(sentences_match ?
         'matching-sentences' : 'unmatching-sentences')}`}>
         {sentences_match ? `sentences match` : `sentences do not match`}
+      </div>
+      <div className={`merge-header-has-comments ${(comments.length ?
+        'has-comments' : 'hidden')}`}>
+        {comments.length} comment{comments.length > 1? "s": ""}
       </div>
       <div> {this.props.mergeData.authors.join(', ')}</div>
     </div>

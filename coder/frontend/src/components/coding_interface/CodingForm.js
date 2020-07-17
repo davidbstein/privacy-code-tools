@@ -1,8 +1,8 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionValueSelector from './coding-form/QuestionValueSelector'
 import QuestionValueCommentBox from './coding-form/QuestionValueCommentBox'
-import _ from 'lodash';
 import {
   userSelectQuestion,
 } from '../../actions/userActions';
@@ -89,7 +89,12 @@ class QuestionBoxHeader extends Component {
         <div className='coding-form-uncoded-marker'>Unanswered</div>
       }
       </div>
-      <div className={`coding-form-confidence coding-form-confidence-${this.props.confidence}`}> confidence: {this.props.confidence} </div>
+      <div className={this.props.comment ? `coding-form-comment-notification` : `hidden`}> 
+        has comment!
+      </div>
+      <div className={`coding-form-confidence coding-form-confidence-${this.props.confidence}`}> 
+        confidence: {this.props.confidence} 
+      </div>
     </div>
   }
 }
@@ -150,14 +155,20 @@ const QuestionBox = connect(
       />
 
       return <div className="coding-form-question-container">
-        <div className={classes} onClick={is_active ? null : this.handleClick}>
+        <div className={classes} id={this.props.content.identifier} onClick={is_active ? null : this.handleClick}>
           <div className="coding-form-question-title">
             {this.props.count}. {this.props.content.question} (<i>{this.props.content.identifier}</i>)
           </div>
           <div className="coding-form-question-sentence-count">
             { this.props.localState.merge_mode ?
               <MergeBoxHeader value_strings={value_strings} mergeData={mergeData}/> :
-              <QuestionBoxHeader number_of_sentences={number_of_sentences} value_strings={value_strings} confidence={cur_confidence}/> }
+              <QuestionBoxHeader 
+                number_of_sentences={number_of_sentences} 
+                value_strings={value_strings} 
+                confidence={cur_confidence}
+                comment={cur_question.comment}
+                /> 
+                }
             <hr/>
             <div className="coding-form-question-info">
               {this.props.content.info}
@@ -256,13 +267,13 @@ const BreakoutOption = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
-      const sentences = (cur_question.sentences||{});
+      const cur_coding = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
+      const sentences = (cur_coding.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier == this.props.localState.selectedQuestionIdentifier;
       const is_active_breakout = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
-      const cur_values = cur_question.values || {};
-      const cur_confidence = cur_question.confidence || "unspecified";
+      const cur_values = cur_coding.values || {};
+      const cur_confidence = cur_coding.confidence || "unspecified";
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
@@ -276,10 +287,10 @@ const BreakoutOption = connect(
         idx={this.props.idx}
         is_active={is_active}
         sentences={sentences}
-        cur_question={cur_question}
+        cur_question={cur_coding}
         mergeData={mergeData}
       />
-      return <div className={"coding-form-breakout-option-outer-container " + activity_classes}>
+      return <div className={"coding-form-breakout-option-outer-container " + activity_classes} id={this.props.content.identifier}>
         <div className="coding-form-breakout-option-container">
           <div className={"coding-form-question " + activity_classes} onClick={is_active || (is_active && is_active_breakout) ? null : this.handleClick}>
             <div className="breakout-option-title">
@@ -318,7 +329,91 @@ const CodingOverview = connect(
   }
 )
 
+const FloatingControls = connect(
+  mapStateToProps, {}
+)(
+  class FloatingControls extends Component {
+    constructor(props, context) {
+      super(props, context);
+      this.scroll_to_current = this._scroll_to_current.bind(this);
+      this.scroll_to_next_disagreement = this._scroll_to_next_disagreement.bind(this);
+      this.scroll_to_next_unanswered = this._scroll_to_next_unanswered.bind(this);
+    }
 
+    _scroll_to_current() {
+      const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier)
+      if (cur_question_elem) cur_question_elem.scrollIntoView({behavior: "smooth", block: "center"});
+    }
+
+    _scroll_to_next_disagreement() {
+      const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier)
+      const unencoded = document.getElementsByClassName('unmatching-answer-merge');
+      if (unencoded.length == 0){
+        alert("you've answered all the questions!")
+      }
+      if (!cur_question_elem){
+        unencoded[0].scrollIntoView({behavior: "smooth", block: "center"})
+        return
+      }
+      const cur_question_offset = cur_question_elem.offsetTop + cur_question_elem.offsetHeight;
+      console.log(cur_question_offset);
+      for (var elem of unencoded) {
+        if (elem.offsetTop > cur_question_offset) {
+          elem.scrollIntoView({behavior: "smooth", block: "center"})
+          return
+        }
+      }
+      unencoded[0].scrollIntoView({behavior: "smooth", block: "center"})
+    }
+
+    _scroll_to_next_unanswered() {
+      const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier)
+      const unencoded = document.getElementsByClassName('coding-form-uncoded-marker');
+      if (unencoded.length == 0){
+        alert("you've answered all the questions!")
+      }
+      if (!cur_question_elem){
+        unencoded[0].scrollIntoView({behavior: "smooth", block: "center"})
+        return
+      }
+      const cur_question_offset = cur_question_elem.offsetTop + cur_question_elem.offsetHeight;
+      console.log(cur_question_offset);
+      for (var elem of unencoded) {
+        if (elem.offsetTop > cur_question_offset) {
+          elem.scrollIntoView({behavior: "smooth", block: "center"})
+          return
+        }
+      }
+      unencoded[0].scrollIntoView({behavior: "smooth", block: "center"})
+    }
+
+    render() {
+      return <div className="coding-form-floating-controls">
+        <div className='coding-form-control-buttons'>
+          <div className="scroll-to-note"> scroll to: </div>
+          <div 
+            className="coding-form-action-button"
+            onClick={this.scroll_to_current}>
+              Current Question
+          </div>
+          { 
+            this.props.localState.merge_mode ?
+            <div
+              className='coding-form-action-button'
+              onClick={this.scroll_to_next_disagreement}>
+                Next Unresolved
+            </div> :
+            <div 
+              className="coding-form-action-button"
+              onClick={this.scroll_to_next_unanswered}>
+                Next Unanswered 
+            </div>
+          }
+          </div>
+        </div>
+      }
+  }
+)
 
 export default connect(
   mapStateToProps,
@@ -389,6 +484,7 @@ export default connect(
               <button onClick={this.userSave} className="coding-form-submit-button"> Save </button>
               <button onClick={this.userSubmit} className="coding-form-submit-button"> Save and return home </button>
             </div>
+            <FloatingControls />
           </div>
         </div>
       );
