@@ -64,7 +64,7 @@ const MultiselectActiveArea = connect(
           question_identifier={this.props.content.identifier}
           question_idx={this.props.idx}
           values={this.props.content.values}
-          singleselect={this.props.content.type == 'singleselect'}
+          singleselect={['singleselect', 'breakout-option'].indexOf(this.props.content.type) > -1}
           />
         <QuestionValueCommentBox
           question_identifier={this.props.content.identifier}

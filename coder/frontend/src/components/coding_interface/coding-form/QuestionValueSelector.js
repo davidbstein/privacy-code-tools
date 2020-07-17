@@ -116,7 +116,7 @@ export default connect(
 
     toggle(value, is_selected) {
       const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
-      const cur_coding_values = {...(cur_coding.values || {}), ...{}}
+      const cur_coding_values = this.props.singleselect ? {} : (cur_coding.values || {})
       const new_values = {
         ...(cur_coding_values || {}),
         ...{[value]: !is_selected},
@@ -134,7 +134,7 @@ export default connect(
 
     otherChanged(value) {
       const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
-      const cur_coding_values = {...(cur_coding.values || {}), ...{}}
+      const cur_coding_values = this.props.singleselect ? {} : (cur_coding.values || {})
       const new_values = {
         ...(cur_coding_values || {}),
         ...{["OTHER"]: value},
