@@ -63,6 +63,7 @@ const MultiselectActiveArea = connect(
           question_identifier={this.props.content.identifier}
           question_idx={this.props.idx}
           values={this.props.content.values}
+          singleselect={this.props.content.type == 'singleselect'}
           />
         <QuestionValueCommentBox
           question_identifier={this.props.content.identifier}
@@ -112,7 +113,7 @@ const QuestionBox = connect(
     getMergeData() {
       const to_ret = {responses: [], authors: []}
       for (var ci of _.values(this.props.model.coding_instances)){
-        const coding_values = ci.coding_values[this.props.idx] || ci.coding_values[this.props.content.identifier]
+        const coding_values = ci.coding_values[this.props.content.identifier] || ci.coding_values[this.props.idx]
         if (coding_values){
           to_ret.responses.push(coding_values);
           to_ret.authors.push(ci.coder_email);
@@ -128,7 +129,7 @@ const QuestionBox = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
       const sentences = (cur_question.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier);
@@ -151,7 +152,7 @@ const QuestionBox = connect(
       return <div className="coding-form-question-container">
         <div className={classes} onClick={is_active ? null : this.handleClick}>
           <div className="coding-form-question-title">
-            {this.props.count}. {this.props.content.question}
+            {this.props.count}. {this.props.content.question} (<i>{this.props.content.identifier}</i>)
           </div>
           <div className="coding-form-question-sentence-count">
             { this.props.localState.merge_mode ?
@@ -187,7 +188,7 @@ const BreakoutHeader = connect(
     }
 
     render() {
-      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
       const sentences = (cur_question.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier.split("(")[0]);
@@ -255,7 +256,7 @@ const BreakoutOption = connect(
 
     render() {
       const mergeData = this.getMergeData()
-      const cur_question = (this.props.localState.localCoding[this.props.idx] || this.props.localState.localCoding[this.props.content.identifier] || {});
+      const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
       const sentences = (cur_question.sentences||{});
       const number_of_sentences = sentenceCount(sentences);
       const is_active = this.props.content.identifier == this.props.localState.selectedQuestionIdentifier;
@@ -359,6 +360,7 @@ export default connect(
             {coding.questions.map( (question_content, i) => {
               switch(question_content.type){
                 case "multiselect":
+                case "singleselect":
                 case "breakout":
                   return <QuestionBox
                     key={"question-box-"+i}

@@ -31,7 +31,10 @@ const QuestionCheckbox = connect(
     }
     render() {
       return <div
-        className={"coding-form-question-checkbox " + (this.is_selected() ? "selected" : "unselected")}
+        className={
+          "coding-form-question-checkbox " + 
+          (this.is_selected() ? "selected" : "unselected") +
+          (this.props.display ? " has-display" : "") }
         onClick={this.toggle}>
         {this.props.display || this.props.value}
       </div>
@@ -104,13 +107,14 @@ export default connect(
       super(props);
       this.toggle = this.toggle.bind(this);
       this.silence = this.silence.bind(this);
-      this.otherChanged = this.otherChanged.bind(this);
+      this.otherChanged = _.throttle(this.otherChanged.bind(this), 500, {leading: true, trailing: true});
     }
 
     toggle(value, is_selected) {
       const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
+      const cur_coding_values = this.props.singleselect ? {} : (cur_coding.values || {})
       const new_values = {
-        ...(cur_coding.values || {}),
+        ...(cur_coding_values || {}),
         ...{[value]: !is_selected},
         ...{["SILENT"]: false}
       }
@@ -126,8 +130,9 @@ export default connect(
 
     otherChanged(value) {
       const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
+      const cur_coding_values = this.props.singleselect ? {} : (cur_coding.values || {})
       const new_values = {
-        ...(cur_coding.values || {}),
+        ...(cur_coding_values || {}),
         ...{["OTHER"]: value},
       };
       this.props.userChangeValue(this.props.question_idx, this.props.question_identifier, new_values);
@@ -142,7 +147,7 @@ export default connect(
           {this.props.values.map((val, i) => {
             var disp_val, save_val;
             if (typeof(val) == "string") {
-              disp_val = val;
+              disp_val = undefined;
               save_val = val;
             } else if (typeof(val) == "object") {
               disp_val = val.label;
