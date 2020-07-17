@@ -47,7 +47,7 @@ function template(state, action){
  * action.payload = {question_idx, value}
  */
 function changeValue(state, action){
-  var current_value = state.localCoding[action.payload.question_idx];
+  var current_value = state.localCoding[action.payload.question_identifier] || state.localCoding[action.payload.question_idx];
   if (current_value === undefined) {
     current_value = get_default_question();
   }
