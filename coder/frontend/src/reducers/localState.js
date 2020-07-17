@@ -11,6 +11,7 @@ import {
   USER_CLICK_SAVE,
   USER_SELECT_QUESTION,
   USER_TOGGLE_SENTENCE,
+  NULL_OP,
 } from '../actions/types';
 
 const defaultState = {
@@ -55,15 +56,6 @@ function changeValue(state, action){
     ...current_value,
     ...{values: action.payload.values}
   }
-  console.log({localCoding: {
-        ...state.localCoding,
-        ...{[action.payload.question_idx]: new_value},
-        ...{[action.payload.question_identifier]: new_value}
-      }});
-  console.log({localCoding: {
-        ...{[action.payload.question_idx]: new_value},
-        ...{[action.payload.question_identifier]: new_value}
-      }});
   return {
     ...state,
     ...{localCoding: {
@@ -169,7 +161,7 @@ function setCurrentView(state, action){
 }
 
 export default (state = defaultState, action) => {
-  const new_state = {...state, ...{updateSinceLastSave: false}}
+  const new_state = {...state, ...{updateSinceLastSave: false}, ...{updateHackOccured: ""+new Date()}}
   switch (action.type) {
 
     // updates that don't mutate user input state.
@@ -191,6 +183,9 @@ export default (state = defaultState, action) => {
       return toggleSentence(new_state, action)
     case USER_CHANGE_VALUE:
       return changeValue(new_state, action)
+
+    case NULL_OP:
+      return new_state
 
     // null action
     default:

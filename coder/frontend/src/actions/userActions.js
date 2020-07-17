@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {
-USER_AUTO_SAVE,
-USER_CHANGE_QUESTION_META,
-USER_CHANGE_VALUE,
-USER_CLICK_RESET,
-USER_CLICK_SAVE,
-USER_SELECT_QUESTION,
-USER_TOGGLE_SENTENCE,
+  NULL_OP,
+  USER_AUTO_SAVE,
+  USER_CHANGE_QUESTION_META,
+  USER_CHANGE_VALUE,
+  USER_CLICK_RESET,
+  USER_CLICK_SAVE,
+  USER_SELECT_QUESTION,
+  USER_TOGGLE_SENTENCE,
 } from './types';
 import _ from 'lodash';
 
@@ -48,6 +49,14 @@ export const userClickSave = () => async dispatch => {
 export const userClickReset = () => async dispatch => {
   dispatch({
     type: USER_CLICK_RESET,
+    payload: { }
+  })
+}
+
+
+export const userNullOp = () => async dispatch => {
+  dispatch({
+    type: NULL_OP,
     payload: { }
   })
 }

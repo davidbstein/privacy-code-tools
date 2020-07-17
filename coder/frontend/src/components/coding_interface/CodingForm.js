@@ -5,6 +5,7 @@ import QuestionValueSelector from './coding-form/QuestionValueSelector'
 import QuestionValueCommentBox from './coding-form/QuestionValueCommentBox'
 import {
   userSelectQuestion,
+  userNullOp,
 } from '../../actions/userActions';
 import {
   apiPostCodingInstance,
@@ -417,13 +418,15 @@ const FloatingControls = connect(
 
 export default connect(
   mapStateToProps,
-  { apiPostCodingInstance } // functions
+  { apiPostCodingInstance, userNullOp } // functions
 )(
   class CodingForm extends Component {
     constructor(props, context){
       super(props, context);
       this.userSave = this.userSave.bind(this);
       this.userSubmit = this.userSubmit.bind(this);
+      this.localStore = this.localStore.bind(this);
+      this.restoreStore = this.restoreStore.bind(this);
     }
     userSave() {
       this.props.apiPostCodingInstance(
@@ -439,6 +442,21 @@ export default connect(
         this.props.localState.localCoding
       )
       window.location.assign('/')
+    }
+    localStore() {
+      window.localStorage.setItem(location.pathname, JSON.stringify(this.props.localState.localCoding));
+      alert("The current state of this page has been saved to your browser's memory.")
+    }
+    restoreStore() {
+      const warning_msg = (
+        "This will revert to the last time you clicked 'offline save' on this computer." +
+        "\n\nAnything you've done since then (on any computer) will be lost forever. \n\ncontinue?")
+      if (!window.confirm(warning_msg)) return;
+      this.props.localState.localCoding = JSON.parse(window.localStorage.getItem(window.location.pathname));
+      this.props.userNullOp()
+    }
+    fun() {
+      alert("hi there!");
     }
     render() {
       const coding = this.props.model.codings[this.props.coding_id];
@@ -483,6 +501,9 @@ export default connect(
             <div className="coding-form-button-container">
               <button onClick={this.userSave} className="coding-form-submit-button"> Save </button>
               <button onClick={this.userSubmit} className="coding-form-submit-button"> Save and return home </button>
+              <button onClick={this.localStore} className="coding-form-submit-button"> [danger!] Offline Save </button>
+              <button onClick={this.restoreStore} className="coding-form-submit-button"> [danger!] Restore Last Offline Save </button>
+              <button onClick={this.fun} className="coding-form-submit-button"> fun button </button>
             </div>
             <FloatingControls />
           </div>

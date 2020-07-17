@@ -408,6 +408,9 @@ CODING FORM
 .coding-form-question-checkbox.selected:hover {
   background-color: #bc9;
 }
+.coding-form-breakout-option-container .coding-form-question-checkbox.has-display {
+  display: inline-block;
+}
 .coding-form-question-checkbox.has-display {
   display: block;
 }
