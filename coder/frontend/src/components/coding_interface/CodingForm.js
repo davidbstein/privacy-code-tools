@@ -89,12 +89,17 @@ class QuestionBoxHeader extends Component {
         <div>{this.props.value_strings.map((s, i) => <span key={i} className='coding-form-response'>{s}</span>)}</div> :
         <div className='coding-form-uncoded-marker'>Unanswered</div>
       }
+      {
+        this.props.value_strings.length > 1 && this.props.question_type == 'singleselect' ?
+        <div className='coding-form-uncoded-marker'>Multiple Answers - should be one. </div> :
+        <div>  </div>
+      }
       </div>
-      <div className={this.props.comment ? `coding-form-comment-notification` : `hidden`}> 
+      <div className={this.props.comment ? `coding-form-comment-notification` : `hidden`}>
         has comment!
       </div>
-      <div className={`coding-form-confidence coding-form-confidence-${this.props.confidence}`}> 
-        confidence: {this.props.confidence} 
+      <div className={`coding-form-confidence coding-form-confidence-${this.props.confidence}`}>
+        confidence: {this.props.confidence}
       </div>
     </div>
   }
@@ -163,12 +168,13 @@ const QuestionBox = connect(
           <div className="coding-form-question-sentence-count">
             { this.props.localState.merge_mode ?
               <MergeBoxHeader value_strings={value_strings} mergeData={mergeData}/> :
-              <QuestionBoxHeader 
-                number_of_sentences={number_of_sentences} 
-                value_strings={value_strings} 
+              <QuestionBoxHeader
+                number_of_sentences={number_of_sentences}
+                value_strings={value_strings}
                 confidence={cur_confidence}
                 comment={cur_question.comment}
-                /> 
+                question_type={this.props.content.type}
+                />
                 }
             <hr/>
             <div className="coding-form-question-info">
@@ -392,22 +398,22 @@ const FloatingControls = connect(
       return <div className="coding-form-floating-controls">
         <div className='coding-form-control-buttons'>
           <div className="scroll-to-note"> scroll to: </div>
-          <div 
+          <div
             className="coding-form-action-button"
             onClick={this.scroll_to_current}>
               Current Question
           </div>
-          { 
+          {
             this.props.localState.merge_mode ?
             <div
               className='coding-form-action-button'
               onClick={this.scroll_to_next_disagreement}>
                 Next Unresolved
             </div> :
-            <div 
+            <div
               className="coding-form-action-button"
               onClick={this.scroll_to_next_unanswered}>
-                Next Unanswered 
+                Next Unanswered
             </div>
           }
           </div>

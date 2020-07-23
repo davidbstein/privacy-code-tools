@@ -150,7 +150,7 @@ class TimingSessionViewSet(viewsets.ModelViewSet):
 
 class CodingProgressViewSet(viewsets.ViewSet):
 
-    @method_decorator(cache_page(60*5))
+    @method_decorator(cache_page(60*5 if not settings.DEBUG else 1))
     def list(self, request):
         pi_id2ci = defaultdict(list)
         for ci in CodingInstance.objects.all().exclude(coder_email__in=["davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID):
@@ -160,6 +160,11 @@ class CodingProgressViewSet(viewsets.ViewSet):
                 "response_count": len(ci.coding_values),
                 "created": ci.created_dt,
                 "name": u.get_full_name(),
+                "double_answers": len([
+                    cv for cv in ci.coding_values.values()
+                    if cv.get('question_type') == 'singleselect'
+                        and sum(map(bool, cv.get('values', {}).values())) != 1
+                    ])
                 })
         pis = {
             pi.id: {

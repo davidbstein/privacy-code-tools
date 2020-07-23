@@ -39,7 +39,7 @@ SECRET_KEY = '-1wxeqek!k&=zpab%r+968%d(!xvbal9c=!l(nepot+3@7m)2n'
 SECURE_SSL_REDIRECT = env('SSL_REDIRECT')
 
 
-CURRENT_CODING_ID = 6 # this also exists in /frontent/templates/index.html
+CURRENT_CODING_ID = 9 # this also exists in /frontent/templates/index.html
 # SECURITY WARNING: don't run with debug turned on in production!
 
 

@@ -656,6 +656,15 @@ PROGRESS VIEW
     display: inline-block;
     text-align: right;
   }
+#progress-view-table .progress-view-coder-double {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+    display: inline-block;
+    text-align: right;
+    color: red;
+    padding: 0 8px;
+  }
 
 
 .home-progress-view h1 {
