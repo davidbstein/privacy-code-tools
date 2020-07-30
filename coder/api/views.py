@@ -157,7 +157,7 @@ class CodingProgressViewSet(viewsets.ViewSet):
             u = User.objects.get(email=ci.coder_email)
             pi_id2ci[ci.policy_instance_id].append({
                 "email": ci.coder_email,
-                "response_count": len(ci.coding_values),
+                "response_count": len(set(cvk.split("(")[0] for cvk in ci.coding_values.keys() if '_' in cvk)),
                 "created": ci.created_dt,
                 "name": u.get_full_name(),
                 "double_answers": len([

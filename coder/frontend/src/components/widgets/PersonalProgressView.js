@@ -38,7 +38,7 @@ class PersonalProgress extends Component {
                       <td>{_.map(e.coding_instances, (ci, i) => (
                           <div className="home-progress-view-coding-instance" key={i}>
                             <div className="home-progress-view-coder-email">{ci.name} ({ci.email})</div>
-                            <div className="home-progress-view-coder-count"> {ci.response_count} / 208</div>
+                            <div className="home-progress-view-coder-count"> {ci.response_count} / 107</div>
                             <div className="home-progress-view-coder-date">started {ci.created.substr(5, 5)}</div>
                           </div>
                         ))}

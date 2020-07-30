@@ -180,6 +180,9 @@ const PolicyOverview = connect(
           _.map(_.keys(this.props.content), (e,i)=>
             <span className='policy-browser-overview-token' key={i}>{e}</span>)
         }</div>
+        {
+          (policy.urls._robot_rules || "").indexOf("ia_archiver") >= 0 ? <b>NOTE: site has explicit anti-archival code in robots.txt, archival data is suspect. </b> : ""
+        }
       </div>
     }
   }
@@ -211,8 +214,12 @@ class PolicyBrowser extends Component {
         loading...
       </div>
     }
+    const policy = (this.props.model.policies[policy_instance.policy_id] || {urls: {}});
+    const robots = policy.urls._robot_rules ?
+      <div className='robots'> <tt> <b> This is the site robots.txt file for the site, you can ignore it </b> <br/><pre>{policy.urls._robot_rules}</pre> </tt></div> :
+      <div></div>
     const policy_pages = [];
-    for (const policy_type of ['privacy_policy', 'tos', 'ccpa_policy', 'gdpr_policy', 'eu_privacy_policy', 'eu_privacy_policy']){
+    for (const policy_type of ['privacy_policy', 'tos', 'ccpa_policy', 'gdpr_policy', 'eu_privacy_policy', 'eu_privacy_policy', '_robot_rules']){
       const policy_content = policy_instance.content[policy_type];
       if (policy_content){
         policy_pages.push(<PolicyPage
@@ -232,6 +239,7 @@ class PolicyBrowser extends Component {
           policy_instance={policy_instance}
           content={policy_instance.content}/>
         {policy_pages}
+        {robots}
       </div>
     );
   }

@@ -133,6 +133,18 @@ POLICY BROWSER
 }
 
 
+.robots {
+    padding: 8px;
+    opacity: .5;
+    padding-top: 50px;
+    background: #eeeeee;
+}
+
+.robots pre {
+    max-height: 300px;
+    overflow: scroll;
+}
+
 /*
 
 

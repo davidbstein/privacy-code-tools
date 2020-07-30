@@ -67,7 +67,10 @@ def get_content_from_soup(soup):
     return to_ret
 
 
-def get_paragraphs_from_url(url):
+def get_paragraphs_from_url(url, archive_date=None):
+    if archive_date and 'web.archive.org' not in url:
+        url = 'https://web.archive.org/web/{}/{}'.format(archive_date, url)
+    print(url)
     resp = requests.get(url, timeout=10, headers=_HEADERS)
     pattern = r"(https?:\/\/web\.archive\.org)?\/web\/\d+\/"
     resp.encoding='UTF-8'
