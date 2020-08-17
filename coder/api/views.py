@@ -153,11 +153,16 @@ class CodingProgressViewSet(viewsets.ViewSet):
     @method_decorator(cache_page(60*5 if not settings.DEBUG else 1))
     def list(self, request):
         pi_id2ci = defaultdict(list)
+        coding = Coding.objects.get(id=settings.CURRENT_CODING_ID)
         for ci in CodingInstance.objects.all().exclude(coder_email__in=["davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID):
             u = User.objects.get(email=ci.coder_email)
+            ci_qs = set(cvk.split("(")[0] for cvk in ci.coding_values.keys() if '_' in cvk)
+            identifiers = set([q['identifier'].split("(")[0] for q in coding.questions])
+            response_count = sum(identifier in ci_qs for identifier in identifiers)
             pi_id2ci[ci.policy_instance_id].append({
                 "email": ci.coder_email,
-                "response_count": len(set(cvk.split("(")[0] for cvk in ci.coding_values.keys() if '_' in cvk)),
+                "response_count": response_count,
+                "target_count": len(identifiers),
                 "created": ci.created_dt,
                 "name": u.get_full_name(),
                 "double_answers": len([
