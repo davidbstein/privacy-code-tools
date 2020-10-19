@@ -49,6 +49,7 @@ EMAIL_SAFELIST = (
     "saz312@nyu.edu",
     "spk376@nyu.edu",
     "yt1722@nyu.edu",
+    "ss11617@nyu.edu",
 )
 class GroupPermission(permissions.BasePermission):
     def has_permission(self, request, view):

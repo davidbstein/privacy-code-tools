@@ -4,12 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+awsebcli = "*"
 
 [packages]
-zappa = "*"
 django = "*"
 django-rest-framework = "*"
-awscli = "*"
 django-environ = "*"
 djangorestframework = "*"
 aws-psycopg2 = "*"
@@ -19,7 +18,7 @@ django-filter = "*"
 bs4 = "*"
 wiki = "*"
 django-decorator-include = "*"
-awsebcli = "*"
+jupyter = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3"

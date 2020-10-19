@@ -1,6 +1,6 @@
 # personal ignores
 .DS_store
-*.ipynb
+_*.ipynb
 .idea
 .env
 zappa_settings.json
