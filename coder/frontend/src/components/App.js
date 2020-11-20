@@ -12,6 +12,7 @@ import {
 
 import CodingInterfaceApp from './CodingInterfaceApp'
 import HomeApp from './HomeApp'
+import UploadApp from './UploadApp'
 import ProgressViewApp from './ProgressViewApp'
 import { Provider } from 'react-redux';
 import store from '../store';
@@ -43,6 +44,9 @@ class App extends Component {
             </Route>
             <Route path="/coding-progress">
               <ProgressViewApp />
+            </Route>
+            <Route path="/uploader">
+              <UploadApp />
             </Route>
             <Route path="">
               <HomeApp />

@@ -66,15 +66,9 @@ def get_content_from_soup(soup):
             bullet_carry = False
     return to_ret
 
-
-def get_paragraphs_from_url(url, archive_date=None):
-    if archive_date and 'web.archive.org' not in url:
-        url = 'https://web.archive.org/web/{}/{}'.format(archive_date, url)
-    print(url)
-    resp = requests.get(url, timeout=10, headers=_HEADERS)
+def get_paragraphs_from_html(raw_html):
     pattern = r"(https?:\/\/web\.archive\.org)?\/web\/\d+\/"
-    resp.encoding='UTF-8'
-    resptext = re.sub(pattern, '', resp.text)
+    resptext = re.sub(pattern, '', raw_html)
     return {
         "content": get_content_from_soup(
             bs4.BeautifulSoup(resptext, features='html5lib').body),
@@ -82,3 +76,11 @@ def get_paragraphs_from_url(url, archive_date=None):
             bs4.BeautifulSoup(resptext, features='html5lib').body),
         "raw": resptext
         }
+
+def get_paragraphs_from_url(url, archive_date=None):
+    if archive_date and 'web.archive.org' not in url:
+        url = 'https://web.archive.org/web/{}/{}'.format(archive_date, url)
+    print(url)
+    resp = requests.get(url, timeout=10, headers=_HEADERS)
+    raw_html = resp.text
+    return get_paragraphs_from_html(raw_html)

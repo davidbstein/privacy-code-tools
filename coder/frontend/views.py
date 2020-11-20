@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 from django.template import Context
 from coder.api.models import Policy, PolicyInstance, RawPolicyInstance
 from coder import settings
+from scripts import scraper
 import pathlib
 import mimetypes
 
@@ -39,3 +40,5 @@ def get_unsafe_raw(request, policy_instance_id, field):
   return render(request, "frontend/raw.html",
     {"raw_data": raw_html, "policy_instance_id": policy_instance_id, "site_name": p.company_name, 'scan_dt': pi.scan_dt})
 
+def process_raw(request):
+  return JsonResponse(scraper.get_paragraphs_from_html(request.body.decode('utf-8')), content_type="text/JSON")

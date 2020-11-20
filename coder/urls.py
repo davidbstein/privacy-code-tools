@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
-from coder.frontend.views import get_static, get_raw, get_unsafe_raw
+from coder.frontend.views import get_static, get_raw, get_unsafe_raw, process_raw
 from coder import settings
 
 from decorator_include import decorator_include
@@ -47,10 +47,12 @@ urlpatterns = [
     path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('code-merge/<int:policy_instance_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
     path('coding-progress', TemplateView.as_view(template_name='frontend/index.html')),
+    path('uploader/', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path("helper-api/process_raw", login_required(process_raw)),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
     re_path(r'^auto_static/(?P<path>.*)$', get_static),
     re_path(r'^NONE/(?P<path>.*)$', login_required(get_static)),
