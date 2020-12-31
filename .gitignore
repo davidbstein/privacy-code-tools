@@ -1,3 +1,4 @@
+data_folder
 # personal ignores
 .DS_store
 _*.ipynb
