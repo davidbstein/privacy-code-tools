@@ -1,3 +1,8 @@
+/**
+ * A CodingForm is one of the two panes shown to coders. It shows the questions and provides
+ * nagivation tools for hopping around the questions.
+ */
+
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -77,6 +82,10 @@ const MultiselectActiveArea = connect(
 )
 
 
+/**
+ * shows the various searchable status information about the question box
+ * (answer, sentences highlighted, ect.)
+ */
 class QuestionBoxHeader extends Component {
   render() {
     return <div className="coding-form-header-info">
@@ -106,6 +115,10 @@ class QuestionBoxHeader extends Component {
 }
 
 
+/**
+ * A question box contains a single question, and behaves and appears differently depending on
+ * if it has focus.
+ */
 const QuestionBox = connect(
   mapStateToProps,
   { userSelectQuestion } // functions
