@@ -7,21 +7,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   apiPostCodingInstance
-} from '../../actions/api';
+} from 'src/actions/api';
 import {
   userNullOp
-} from '../../actions/userActions';
-import QuestionBox from "./coding-form/QuestionBox"
-import FloatingControls from "./coding-form/FloatingControls"
-import CodingOverview from "./coding-form/CodingOverview"
-import BreakoutOption from "./coding-form/BreakoutOption"
-import BreakoutHeader from "./coding-form/BreakoutHeader"
+} from 'src/actions/userActions';
+import QuestionBox from "src/components/coding_interface/coding-form/QuestionBox"
+import FloatingControls from "src/components/coding_interface/coding-form/FloatingControls"
+import CodingOverview from "src/components/coding_interface/coding-form/CodingOverview"
+import BreakoutOption from "src/components/coding_interface/coding-form/BreakoutOption"
+import BreakoutHeader from "src/components/coding_interface/coding-form/BreakoutHeader"
 
 const mapStateToProps = state => ({
   model: state.model,
   localState: state.localState
 });
-
 
 
 export default connect(

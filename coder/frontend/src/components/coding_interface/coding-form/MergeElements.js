@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   stringifySentences,
   scrollToSentenceTarget,
- } from '../../utils/displayUtils'
+ } from 'src/components/utils/displayUtils'
 
 
 

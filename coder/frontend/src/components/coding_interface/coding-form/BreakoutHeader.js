@@ -6,10 +6,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     userSelectQuestion
-} from '../../../actions/userActions';
+} from 'src/actions/userActions';
 import {
     sentenceCount
-} from '../../utils/displayUtils';
+} from 'src/components/utils/displayUtils';
 
 
 import MultiselectActiveArea from "./MultiselectActiveArea"
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
     model: state.model,
     localState: state.localState
   });
-  
+
 
 export default connect(
     mapStateToProps,
@@ -32,12 +32,12 @@ export default connect(
         super(props);
         this.handleClick = this.handleClick.bind(this);
       }
-  
+
       handleClick() {
         this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
         window.SESSION_TIMER.run_timer(this.props.content.identifier);
       }
-  
+
       render() {
         const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
         const sentences = (cur_question.sentences||{});
@@ -49,7 +49,7 @@ export default connect(
           .filter((k) => cur_values[k])
           .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
         const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
-  
+
         const active_area = <MultiselectActiveArea
           content={this.props.content}
           idx={this.props.idx}
@@ -57,7 +57,7 @@ export default connect(
           sentences={sentences}
           cur_question={cur_question}
         />
-  
+
         return <div className="coding-form-breakout-master-container">
           <div className={classes} onClick={is_active ? null : this.handleClick}>
             <div className="coding-form-question-title">
@@ -74,4 +74,3 @@ export default connect(
       }
     }
   )
-  

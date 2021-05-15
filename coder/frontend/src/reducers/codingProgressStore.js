@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import {
   API_GET_CODING_PROGRESS
-} from '../actions/types';
+} from 'src/actions/types';
 
 const defaultState = {
 }

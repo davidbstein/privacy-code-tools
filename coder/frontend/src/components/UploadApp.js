@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { apiGetCoding } from '../actions/api';
-import PersonalProgressView from './widgets/PersonalProgressView'
+import { apiGetCoding } from 'src/actions/api';
+import PersonalProgressView from 'src/components/widgets/PersonalProgressView'
 
 function getCookie(name) {
     var cookieValue = null;

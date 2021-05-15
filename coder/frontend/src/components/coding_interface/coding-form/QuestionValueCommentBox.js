@@ -4,10 +4,10 @@ import {
   userChangeQuestionMeta,
   userChangeValue,
   userClickSave,
-} from '../../../actions/userActions';
+} from 'src/actions/userActions';
 import {
   apiAutoSave,
-} from '../../../actions/api';
+} from 'src/actions/api';
 
 const mapStateToProps = state => ({
   model: state.model,

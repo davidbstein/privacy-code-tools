@@ -72,6 +72,7 @@ REST_FRAMEWORK = {
 }
 
 
+# you must have run `python manage.py createcachetable`
 
 CACHES = {
     'default': {

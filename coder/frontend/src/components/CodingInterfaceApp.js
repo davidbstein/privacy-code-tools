@@ -1,16 +1,17 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CodingForm from './coding_interface/CodingForm'
-import PolicyBrowser from './coding_interface/PolicyBrowser'
+import CodingForm from 'src/components/coding_interface/CodingForm'
+import PolicyBrowser from 'src/components/coding_interface/PolicyBrowser'
 import {
   apiGetPolicyInstance,
   apiGetCoding,
   apiGetCodingInstance,
   apiGetAllCodingInstances,
-} from '../actions/api';
-import { appSetCurrentView } from '../actions/appActions'
-import SessionTimer from './utils/SessionTimer'
+} from 'src/actions/api';
+import { appSetCurrentView } from 'src/actions/appActions'
+import SessionTimer from 'src/components/utils/SessionTimer'
+
 const mapStateToProps = state => ({
   model: state.model
 });

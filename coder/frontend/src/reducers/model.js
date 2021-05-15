@@ -7,7 +7,7 @@ import {
   API_GET_CODING,
   API_POST_CODING_INSTANCE,
   API_GET_CODING_INSTANCE
-} from '../actions/types';
+} from 'src/actions/types';
 
 const defaultState = {
   policies: {}, // id: <policyinfo>

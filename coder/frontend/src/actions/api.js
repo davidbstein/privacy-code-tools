@@ -9,8 +9,8 @@ import {
   API_GET_POLICY,
   API_GET_POLICY_INSTANCE,
   API_POST_CODING_INSTANCE,
-} from './types';
-import store from '../store'
+} from 'src/actions/types';
+import store from 'src/store'
 
 function getCookie(name) {
     var cookieValue = null;

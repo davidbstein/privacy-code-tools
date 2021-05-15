@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { apiGetCoding } from '../actions/api';
-import PersonalProgressView from './widgets/PersonalProgressView'
+import { apiGetCoding } from 'src/actions/api';
+import { useParams } from "react-router-dom";
+
+const mapStateToProps = state => ({
+  model: state.model,
+  route: useParams()
+});
 
 
 class HomeApp extends Component {
@@ -11,20 +16,15 @@ class HomeApp extends Component {
   }
 
   render() {
-    return <div id='demo-container'><div id='demo-box'>
-      <h1> Hello! </h1>
-      <div>
-        you are logged in as: {CURRENT_USER}. <br />
+    return (
+      <div id='demo-container'>
+        <div id='demo-box'>
+        <h1> Hello! </h1>
+        </div>
       </div>
-      </div>
-      <PersonalProgressView />
-    </div>
+    )
   }
 }
-
-const mapStateToProps = state => ({
-  model: state.model
-});
 
 export default connect(
   mapStateToProps,

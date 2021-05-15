@@ -8,7 +8,7 @@ import {
   USER_CLICK_SAVE,
   USER_SELECT_QUESTION,
   USER_TOGGLE_SENTENCE,
-} from './types';
+} from 'src/actions/types';
 import _ from 'lodash';
 
 export const userSelectQuestion = (question_idx, question_identifier) => async dispatch => {

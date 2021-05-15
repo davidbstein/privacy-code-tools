@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     userSelectQuestion
-} from '../../../actions/userActions';
+} from 'src/actions/userActions';
 import {
     sentenceCount
-} from '../../utils/displayUtils';
+} from 'src/components/utils/displayUtils';
 import {
     MergeBoxHeader
-} from './MergeElements';
+} from 'src/components/coding_interface/coding-form/MergeElements';
 
 import QuestionBoxHeader from "./QuestionBoxHeader"
 import MultiselectActiveArea from "./MultiselectActiveArea"
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
     model: state.model,
     localState: state.localState
   });
-  
+
 
 export default connect(
     mapStateToProps,
@@ -30,12 +30,12 @@ export default connect(
         super(props);
         this.handleClick = this.handleClick.bind(this);
       }
-  
+
       handleClick() {
         this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
         window.SESSION_TIMER.run_timer(this.props.content.identifier);
       }
-  
+
       getMergeData() {
         const to_ret = {responses: [], authors: []}
         for (var ci of _.values(this.props.model.coding_instances)){
@@ -49,7 +49,7 @@ export default connect(
           console.log(to_ret)
         return to_ret
       }
-  
+
       render() {
         const mergeData = this.getMergeData()
         const cur_coding = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
@@ -66,7 +66,7 @@ export default connect(
           (is_active ? "active-question" : "inactive-question"),
           (is_active_breakout ? "active-breakout" : "inactive-breakout"),
         ].join(' ')
-  
+
         const active_area = <MultiselectActiveArea
           content={this.props.content}
           idx={this.props.idx}
@@ -93,6 +93,5 @@ export default connect(
       }
     }
   )
-  
-  
-  
+
+

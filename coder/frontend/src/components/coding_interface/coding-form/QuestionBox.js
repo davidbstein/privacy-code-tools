@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     userSelectQuestion
-} from '../../../actions/userActions';
+} from 'src/actions/userActions';
 import {
     sentenceCount
-} from '../../utils/displayUtils';
+} from 'src/components/utils/displayUtils';
 import {
     MergeBoxHeader
-} from './MergeElements';
+} from 'src/components/coding_interface/coding-form/MergeElements';
 
 import QuestionBoxHeader from "./QuestionBoxHeader"
 import MultiselectActiveArea from "./MultiselectActiveArea"
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
     model: state.model,
     localState: state.localState
   });
-  
+
 
 /**
  * A question box contains a single question, and behaves and appears differently depending on
@@ -36,12 +36,12 @@ export default connect(
         super(props);
         this.handleClick = this.handleClick.bind(this);
       }
-  
+
       handleClick() {
         this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
         window.SESSION_TIMER.run_timer(this.props.content.identifier);
       }
-  
+
       getMergeData() {
         const to_ret = {responses: [], authors: []}
         for (var ci of _.values(this.props.model.coding_instances)){
@@ -58,7 +58,7 @@ export default connect(
         // }
         return to_ret
       }
-  
+
       render() {
         const mergeData = this.getMergeData()
         const cur_question = (this.props.localState.localCoding[this.props.content.identifier] || this.props.localState.localCoding[this.props.idx] || {});
@@ -71,7 +71,7 @@ export default connect(
           .filter((k) => cur_values[k])
           .map((k) => k === "OTHER" ? `OTHER:${cur_values[k]}` : k);
         const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question")
-  
+
         const active_area = <MultiselectActiveArea
           content={this.props.content}
           idx={this.props.idx}
@@ -80,7 +80,7 @@ export default connect(
           cur_question={cur_question}
           mergeData={mergeData}
         />
-  
+
         return <div className="coding-form-question-container">
           <div className={classes} id={this.props.content.identifier} onClick={is_active ? null : this.handleClick}>
             <div className="coding-form-question-title">
@@ -108,4 +108,3 @@ export default connect(
       }
     }
   )
-  

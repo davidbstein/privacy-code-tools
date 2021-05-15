@@ -5,18 +5,21 @@ import datetime
 
 # Create your models here.
 class Coder(models.Model):
+    project = models.BigIntegerField(default=1)
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, db_index=True)
     permission = models.BigIntegerField()
 
 
 class Coding(models.Model):
+    project = models.BigIntegerField(default=1)
     parent = models.BigIntegerField(null=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     questions = postgres_fields.JSONField()
 
 
 class CodingInstance(models.Model):
+    project = models.BigIntegerField(default=1)
     coder_email = models.CharField(max_length=255, db_index=True, default="unknown")
     policy_instance_id = models.BigIntegerField(db_index=True)
     coding_id = models.BigIntegerField(db_index=True)
@@ -27,6 +30,7 @@ class CodingInstance(models.Model):
 
 
 class Policy(models.Model):
+    project = models.BigIntegerField(default=1)
     company_name = models.CharField(max_length=255)
     site_name = models.CharField(max_length=255)
     alexa_rank = models.BigIntegerField(null=True)
@@ -40,6 +44,7 @@ class Policy(models.Model):
 
 
 class PolicyInstance(models.Model):
+    project = models.BigIntegerField(default=1)
     policy_id = models.BigIntegerField(db_index=True)
     raw_policy_id = models.BigIntegerField(null=True)
     scan_dt = models.DateTimeField(default=datetime.datetime.now)
@@ -47,6 +52,7 @@ class PolicyInstance(models.Model):
 
 
 class RawPolicyInstance(models.Model):
+    project = models.BigIntegerField(default=1)
     policy_id = models.BigIntegerField(db_index=True)
     raw_content_blocks = postgres_fields.JSONField(default=dict)
     capture_date = models.DateField(default=datetime.datetime.now)
@@ -54,6 +60,7 @@ class RawPolicyInstance(models.Model):
 
 
 class TimingSession(models.Model):
+    project = models.BigIntegerField(default=1)
     coder_email = models.CharField(max_length=255)
     coding_id = models.BigIntegerField()
     policy_instance_id = models.BigIntegerField()

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userToggleSentence } from '../../../actions/userActions';
-import { apiAutoSave } from '../../../actions/api';
+import { userToggleSentence } from 'src/actions/userActions';
+import { apiAutoSave } from 'src/actions/api';
 import _ from 'lodash';
 
 const mapStateToProps = state => ({

@@ -6,15 +6,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     userSelectQuestion
-} from '../../../actions/userActions';
+} from 'src/actions/userActions';
 import {
     scrollToSentenceTarget, stringifySentences
-} from '../../utils/displayUtils';
+} from 'src/components/utils/displayUtils';
 import {
     MergeTool
-} from './MergeElements';
-import QuestionValueCommentBox from './QuestionValueCommentBox';
-import QuestionValueSelector from './QuestionValueSelector';
+} from 'src/components/coding_interface/coding-form/MergeElements';
+import QuestionValueCommentBox from 'src/components/coding_interface/coding-form/QuestionValueCommentBox';
+import QuestionValueSelector from 'src/components/coding_interface/coding-form/QuestionValueSelector';
 
 
 
@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
     model: state.model,
     localState: state.localState
   });
-  
+
 
 export default connect(
     mapStateToProps,
@@ -72,4 +72,3 @@ export default connect(
       }
     }
   )
-  

@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link,
-  useParams,
+  Switch,
+  useParams
 } from "react-router-dom";
 
-import CodingInterfaceApp from './CodingInterfaceApp'
-import HomeApp from './HomeApp'
-import ProgressViewApp from './ProgressViewApp'
-import { Provider } from 'react-redux';
-import store from '../store';
+import store from 'src/store';
+
+import CoderStatusApp from 'src/components/CoderStatusApp';
+import CodingApp from 'src/components/CodingApp';
+import CodingEditorApp from 'src/components/CodingEditorApp'
+import CodingInterfaceApp from 'src/components/CodingInterfaceApp';
+import HomeApp from 'src/components/HomeApp';
+import PolicyApp from 'src/components/PolicyApp';
+import PolicyInstanceApp from 'src/components/PolicyInstanceApp';
+import ProgressViewApp from 'src/components/ProgressViewApp';
+
+
 
 function CodingAppWrapper(props) {
   let { policy_instance_id, coding_id } = useParams();
@@ -89,5 +95,5 @@ class App extends Component {
 }
 
 
-const PREFIX = `/${location.pathname.split("/").slice(1,3).join('/')}`;
+const PREFIX = `/c/:project_id`;
 ReactDOM.render(<App prefix={PREFIX} />, document.querySelector('#app'));

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import {
   userChangeValue,
   userClickSave
-} from '../../../actions/userActions';
+} from 'src/actions/userActions';
 import {
   apiAutoSave,
-} from '../../../actions/api';
+} from 'src/actions/api';
 
 const mapStateToProps = state => ({
   model: state.model,
@@ -24,8 +24,8 @@ const QuestionCheckbox = connect(
     }
     is_selected(){
       const cur_values = (
-        this.props.localState.localCoding[this.props.localState.selectedQuestionIdentifier] || 
-        this.props.localState.localCoding[this.props.localState.selectedQuestion] || 
+        this.props.localState.localCoding[this.props.localState.selectedQuestionIdentifier] ||
+        this.props.localState.localCoding[this.props.localState.selectedQuestion] ||
         {}
         ).values || [];
       return cur_values[this.props.value];
@@ -36,7 +36,7 @@ const QuestionCheckbox = connect(
     render() {
       return <div
         className={
-          "coding-form-question-checkbox " + 
+          "coding-form-question-checkbox " +
           (this.is_selected() ? "selected" : "unselected") +
           (this.props.display ? " has-display" : "") }
         onClick={this.toggle}>

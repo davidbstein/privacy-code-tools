@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { apiAutoSave } from '../../../actions/api';
+import { apiAutoSave } from 'src/actions/api';
 import _ from 'lodash';
 import PolicyParagraph from "./PolicyParagraph"
 

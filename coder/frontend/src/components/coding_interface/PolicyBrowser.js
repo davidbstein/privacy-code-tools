@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import PolicyPage from './policy-browser/PolicyPage'
-import PolicyOverview from './policy-browser/PolicyOverview'
+import PolicyPage from 'src/components/coding_interface/policy-browser/PolicyPage'
+import PolicyOverview from 'src/components/coding_interface/policy-browser/PolicyOverview'
 
 const mapStateToProps = state => ({
   model: state.model,

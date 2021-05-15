@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   apiGetCodingProgress
-} from '../../actions/api';
+} from 'src/actions/api';
 
 const mapStateToProps = state => ({
   codingProgress: state.codingProgressStore

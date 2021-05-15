@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { APP_SET_CURRENT_VIEW } from './types';
+import { APP_SET_CURRENT_VIEW } from 'src/actions/types';
 import _ from 'lodash';
 
 export const appSetCurrentView = (policy_instance_id, coding_id, merge_mode) => async dispatch => {

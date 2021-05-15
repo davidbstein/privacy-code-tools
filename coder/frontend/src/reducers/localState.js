@@ -12,7 +12,7 @@ import {
   USER_SELECT_QUESTION,
   USER_TOGGLE_SENTENCE,
   NULL_OP,
-} from '../actions/types';
+} from 'src/actions/types';
 
 const defaultState = {
   "selectedQuestion": '-1',

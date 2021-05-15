@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import PolicySentence from './PolicySentence'
+import PolicySentence from 'src/components/coding_interface/policy-browser/PolicySentence'
 
 
 export default class PolicyParagraph extends Component {
