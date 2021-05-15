@@ -1,0 +1,21 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block head_title %}Coder Sign in{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+      {% block content %}
+      {% endblock %}
+    {% endblock %}
+      If this message persists, please <a href="{% provider_login_url 'google' %}">click here to log in</a>
+  <script>
+    window.location="{% provider_login_url 'google' %}";
+   </script>
+    {% block extra_body %}
+    {% endblock %}
+  </body>
+</html>

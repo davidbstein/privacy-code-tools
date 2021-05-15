@@ -1,0 +1,412 @@
+target_count,response_count,company_name,policy_instance_id,policy_id,double_answers,email,name,created
+107,107,sltrib.com,296,357,0,amm1837@nyu.edu,Andrew M Mather,2020-12-31T04:50:37.079267
+107,107,sltrib.com,296,357,0,msr634@nyu.edu,Matthew S Rund,2020-11-17T18:24:16.974026
+107,107,geocaching.com,265,321,0,amm1837@nyu.edu,Andrew M Mather,2020-12-28T19:57:06.435407
+107,107,geocaching.com,265,321,0,msr634@nyu.edu,Matthew S Rund,2020-11-17T18:23:17.990633
+107,107,taylorswift.com,300,361,0,amm1837@nyu.edu,Andrew M Mather,2020-12-28T04:26:16.586385
+107,107,taylorswift.com,300,361,0,msr634@nyu.edu,Matthew S Rund,2020-11-14T19:05:44.274652
+107,107,yardbarker.com,314,376,0,amm1837@nyu.edu,Andrew M Mather,2020-11-07T00:05:33.374522
+107,107,yardbarker.com,314,376,0,msr634@nyu.edu,Matthew S Rund,2020-10-22T22:01:24.530806
+107,107,fightingillini.com,260,316,0,amm1837@nyu.edu,Andrew M Mather,2020-12-31T06:21:44.107961
+107,107,fightingillini.com,260,316,0,msr634@nyu.edu,Matthew S Rund,2020-10-22T21:59:33.963714
+107,107,zacks.com,315,377,0,amm1837@nyu.edu,Andrew M Mather,2020-11-08T20:01:59.373254
+107,107,zacks.com,315,377,0,msr634@nyu.edu,Matthew S Rund,2020-10-15T16:03:39.004174
+107,107,sci-news.com,294,355,0,amm1837@nyu.edu,Andrew M Mather,2020-11-08T06:47:57.279229
+107,107,sci-news.com,294,355,0,msr634@nyu.edu,Matthew S Rund,2020-10-13T17:32:20.520034
+107,107,drinksmixer.com,256,312,0,amm1837@nyu.edu,Andrew M Mather,2020-11-03T17:58:53.487341
+107,107,drinksmixer.com,256,312,0,msr634@nyu.edu,Matthew S Rund,2020-10-08T15:41:19.733837
+107,107,freep.com,264,320,0,amm1837@nyu.edu,Andrew M Mather,2020-11-08T18:30:53.623892
+107,89,freep.com,264,320,0,msr634@nyu.edu,Matthew S Rund,2020-10-06T19:27:47.780083
+107,107,primagames.com,290,351,0,amm1837@nyu.edu,Andrew M Mather,2020-11-07T05:36:53.357437
+107,107,primagames.com,290,351,0,msr634@nyu.edu,Matthew S Rund,2020-10-02T15:26:56.316086
+107,107,uh.edu,306,368,0,amm1837@nyu.edu,Andrew M Mather,2020-11-08T05:47:21.701775
+107,0,uh.edu,306,368,0,msr634@nyu.edu,Matthew S Rund,2020-10-02T15:24:16.769579
+107,107,kraftrecipes.com,272,330,0,amm1837@nyu.edu,Andrew M Mather,2020-11-08T01:16:06.627112
+107,107,kraftrecipes.com,272,330,0,msr634@nyu.edu,Matthew S Rund,2020-09-25T17:33:39.121929
+107,107,ted.com,301,362,0,amm1837@nyu.edu,Andrew M Mather,2020-11-08T03:04:37.742648
+107,107,ted.com,301,362,0,msr634@nyu.edu,Matthew S Rund,2020-09-17T14:57:42.119517
+107,107,usa.gov,308,370,0,amm1837@nyu.edu,Andrew M Mather,2020-11-07T04:58:29.768797
+107,107,usa.gov,308,370,0,msr634@nyu.edu,Matthew S Rund,2020-09-11T14:37:31.132556
+107,107,tgifridays.com,302,363,0,amm1837@nyu.edu,Andrew M Mather,2020-11-06T23:53:08.177253
+107,107,tgifridays.com,302,363,0,msr634@nyu.edu,Matthew S Rund,2020-09-08T14:03:36.194964
+107,107,perkinelmer.com,354,530,0,msr634@nyu.edu,Matthew S Rund,2020-08-21T23:57:53.617306
+107,1,perkinelmer.com,354,530,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-20T03:13:58.156923
+107,107,myriad.com,349,523,0,msr634@nyu.edu,Matthew S Rund,2020-08-21T23:59:41.979751
+107,1,myriad.com,349,523,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-20T03:13:48.789190
+107,107,cincymuseum.org,222,276,0,msr634@nyu.edu,Matthew S Rund,2020-08-20T14:24:45.292482
+107,1,cincymuseum.org,222,276,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-20T03:12:17.296706
+107,0,zooppa.com,122,170,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-18T20:21:01.898478
+107,0,zooppa.com,122,170,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-18T20:12:50.399894
+107,1,coopergenomics.com,341,515,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-20T03:13:25.117031
+107,8,coopergenomics.com,341,515,0,msr634@nyu.edu,Matthew S Rund,2020-08-18T01:25:32.265684
+107,106,sediabio.com,357,533,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-08-12T07:37:53.078576
+107,106,sediabio.com,357,533,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-12T18:52:40.250109
+107,107,bolt.com,113,161,0,yt1722@nyu.edu,Yonas Takele,2020-08-21T15:25:05.376694
+107,6,bolt.com,113,161,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-12T02:27:00.363444
+107,1,dnacenter.com,336,508,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-20T03:13:02.139366
+107,106,dnacenter.com,336,508,0,msr634@nyu.edu,Matthew S Rund,2020-08-11T20:16:50.126555
+107,6,fabricgenomics.com,339,512,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-23T15:40:13.507200
+107,106,fabricgenomics.com,339,512,0,amm1837@nyu.edu,Andrew M Mather,2020-08-11T19:01:00.808133
+107,107,dailyillini.com,226,280,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-17T17:58:25.122671
+107,106,dailyillini.com,226,280,0,amm1837@nyu.edu,Andrew M Mather,2020-08-07T05:56:48.993062
+107,106,archives.gov,216,270,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-08-06T17:57:02.871168
+107,102,archives.gov,216,270,0,pb2444@nyu.edu,Peter Birghoffer,2020-08-07T01:13:59.759262
+107,106,enpnetwork.com,332,504,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-05T13:45:21.448908
+107,106,enpnetwork.com,332,504,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-05T18:28:35.245201
+107,106,bio-rad.com,330,502,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-05T12:17:30.345656
+107,106,bio-rad.com,330,502,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-05T13:49:33.935968
+107,1,dailynews.com,252,308,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-20T03:12:38.242959
+107,106,dailynews.com,252,308,0,msr634@nyu.edu,Matthew S Rund,2020-08-04T21:09:02.279785
+107,106,basketball-reference.com,217,271,0,msr634@nyu.edu,Matthew S Rund,2020-08-04T21:08:48.306334
+107,99,basketball-reference.com,217,271,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-12T03:06:23.750539
+107,106,bgi.com,329,501,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-04T13:47:11.102288
+107,105,bgi.com,329,501,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-04T19:38:01.266554
+107,106,ambrygen.com,328,500,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-04T12:31:43.902682
+107,105,ambrygen.com,328,500,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-04T13:56:17.080215
+107,106,amazon.co.uk,327,499,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-04T11:10:17.207145
+107,106,amazon.co.uk,327,499,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-10T14:32:37.481448
+107,107,cariboucoffee.com,220,274,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-16T19:16:55.900593
+107,106,cariboucoffee.com,220,274,0,amm1837@nyu.edu,Andrew M Mather,2020-08-04T05:19:30.915807
+107,106,allstate.com,215,269,0,ams1987@nyu.edu,Andrew M Shaw,2020-09-21T18:48:59.201575
+107,106,allstate.com,215,269,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-03T13:00:58.018987
+107,104,adweek.com,214,268,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-10T18:46:15.088331
+107,106,adweek.com,214,268,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-03T11:11:04.711904
+107,106,abita.com,213,267,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-02T12:34:56.774992
+107,105,abita.com,213,267,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-11T18:13:37.483151
+107,1,gamestop.com,211,265,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-02T12:18:55.784623
+107,106,gamestop.com,211,265,0,amm1837@nyu.edu,Andrew M Mather,2020-08-02T22:40:50.848627
+107,86,Chase.com,85,139,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-12T02:26:24.610892
+107,106,Chase.com,85,139,0,yt1722@nyu.edu,Yonas Takele,2020-07-31T19:38:53.537967
+107,106,pbs.org,208,262,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-31T12:52:43.872397
+107,104,pbs.org,208,262,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-03T14:35:28.349165
+107,106,thehill.com,207,261,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-31T11:18:31.598204
+107,105,thehill.com,207,261,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-03T17:30:00.961843
+107,106,steampowered.com,206,260,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-30T14:25:56.247907
+107,105,steampowered.com,206,260,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-11T13:50:14.111220
+107,106,theverge.com,205,259,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-30T11:17:09.405498
+107,4,theverge.com,205,259,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-11T13:48:10.862608
+107,106,fool.com,204,258,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-12T14:06:41.188449
+107,106,fool.com,204,258,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-29T13:33:46.857313
+107,106,allrecipes.com,203,257,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-29T11:15:25.724557
+107,106,allrecipes.com,203,257,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-30T17:33:18.353456
+107,107,gamepedia.com,202,256,0,ams1987@nyu.edu,Andrew M Shaw,2020-09-21T19:15:10.191719
+107,106,gamepedia.com,202,256,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-28T13:49:44.147677
+107,106,washingtonpost.com,201,255,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-28T12:00:38.399982
+107,106,washingtonpost.com,201,255,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-29T13:21:57.155736
+107,6,slashdotmedia.com,155,203,0,msr634@nyu.edu,Matthew S Rund,2020-07-27T23:24:03.071505
+107,0,slashdotmedia.com,155,203,0,ns4649@nyu.edu,Natan Sebhatleab,2020-08-03T02:18:37.806336
+107,0,xt3.com,173,227,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-27T21:14:53.763332
+107,20,xt3.com,173,227,0,pb2444@nyu.edu,Peter Birghoffer,2020-08-13T15:53:32.046722
+107,103,bigtent.com,111,159,0,ams1987@nyu.edu,Andrew M Shaw,2020-09-21T19:47:12.376426
+107,106,bigtent.com,111,159,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-27T18:35:19.989184
+107,106,epernicus.com,115,163,0,ams1987@nyu.edu,Andrew M Shaw,2020-09-21T20:16:27.284120
+107,106,epernicus.com,115,163,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-27T16:40:49.232701
+107,107,true.com,134,182,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T13:17:27.619850
+107,106,true.com,134,182,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-27T12:26:54.274224
+107,106,webmediabrands.com,188,242,0,cv729@nyu.edu,Christina Vo,2020-07-27T01:06:01.428763
+107,106,webmediabrands.com,188,242,0,lav345@nyu.edu,Lorenzo A Villegas,2020-08-14T13:27:56.545027
+107,106,dpreview.com,157,205,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-26T13:06:29.311354
+107,95,dpreview.com,157,205,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T13:41:03.188126
+107,106,abbott.com,200,254,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-24T11:52:26.065593
+107,104,abbott.com,200,254,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T14:03:08.585349
+107,106,signonsandiego.com,198,252,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T14:24:37.979971
+107,106,signonsandiego.com,198,252,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-22T11:49:12.852273
+107,106,ubi.com,197,251,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-21T11:54:20.287710
+107,105,ubi.com,197,251,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-29T17:45:46.311583
+107,105,videohelp.com,196,250,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T14:45:15.124038
+107,106,videohelp.com,196,250,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-20T15:03:13.241722
+107,106,purevolume.com,185,239,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-19T20:18:46.665735
+107,106,purevolume.com,185,239,0,pb2444@nyu.edu,Peter Birghoffer,2020-07-28T15:40:37.725050
+107,13,friendfinder.com,137,185,11,lav345@nyu.edu,Lorenzo A Villegas,2020-07-17T16:24:13.803116
+107,107,friendfinder.com,137,185,0,cv729@nyu.edu,Christina Vo,2020-08-07T01:04:39.016331
+107,106,valvesoftware.com,195,249,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-18T13:25:31.909619
+107,106,valvesoftware.com,195,249,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-17T14:57:32.395560
+107,99,afterdawn.com,194,248,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T15:06:42.451332
+107,106,afterdawn.com,194,248,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-16T16:04:39.221903
+107,106,macrumors.com,193,247,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-15T12:54:29.268590
+107,105,macrumors.com,193,247,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-28T19:07:54.053053
+107,107,wealthymen.com,140,188,0,msr634@nyu.edu,Matthew S Rund,2020-07-14T19:46:11.437157
+107,68,wealthymen.com,140,188,0,ns4649@nyu.edu,Natan Sebhatleab,2020-07-29T04:56:20.207774
+107,105,soundclick.com,192,246,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-13T17:33:44.919858
+107,106,soundclick.com,192,246,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-14T13:59:12.964672
+107,105,moneysavingexpert.com,189,243,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T16:22:40.912013
+107,106,moneysavingexpert.com,189,243,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-14T11:15:08.223723
+107,106,simplemachines.org,184,238,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T17:30:18.785862
+107,107,simplemachines.org,184,238,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-12T13:39:26.769894
+107,107,slickdeals.net,159,208,1,saz312@nyu.edu,Stav Adi Zeitouni,2020-07-12T07:25:53.752230
+107,105,slickdeals.net,159,208,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-24T14:34:59.598848
+107,107,partnerup.com,171,225,0,amm1837@nyu.edu,Andrew M Mather,2020-07-10T05:10:01.565067
+107,6,partnerup.com,171,225,0,aet414@nyu.edu,Anne E Tewksbury,2020-07-13T14:41:50.506857
+107,106,match.com,133,181,0,msr634@nyu.edu,Matthew S Rund,2020-07-09T23:00:07.372543
+107,100,match.com,133,181,0,ns4649@nyu.edu,Natan Sebhatleab,2020-07-29T05:00:43.669227
+107,107,mate1.com,139,187,1,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-08T21:58:43.415748
+107,104,mate1.com,139,187,0,pb2444@nyu.edu,Peter Birghoffer,2020-07-29T14:07:07.491156
+107,106,stumbleupon.com,172,226,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T15:27:27.286860
+107,107,stumbleupon.com,172,226,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-08T11:22:44.749657
+107,105,namepros.com,167,216,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-15T18:02:39.852777
+107,107,namepros.com,167,216,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-06T11:39:00.273431
+107,38,Office.com,66,119,9,ns4649@nyu.edu,Natan Sebhatleab,2020-07-05T23:22:35.868138
+107,0,Office.com,66,119,0,msr634@nyu.edu,Matthew S Rund,2020-07-27T21:54:57.555411
+107,107,wordreference.com,158,206,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-07-05T20:42:53.274210
+107,105,wordreference.com,158,206,1,ams1987@nyu.edu,Andrew M Shaw,2020-07-14T19:29:18.650327
+107,105,arstechnica.com,166,215,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-24T18:06:19.962803
+107,106,arstechnica.com,166,215,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-03T13:46:02.684429
+107,106,edmunds.com,164,213,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-16T13:14:08.865269
+107,98,edmunds.com,164,213,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-02T16:10:31.547195
+107,106,researchgate.net,127,175,0,msr634@nyu.edu,Matthew S Rund,2020-06-29T23:57:22.661566
+107,105,researchgate.net,127,175,0,ns4649@nyu.edu,Natan Sebhatleab,2020-07-29T04:52:10.557562
+107,104,Walmart.com,79,132,0,cv729@nyu.edu,Christina Vo,2020-06-29T03:59:55.444352
+107,23,Walmart.com,79,132,1,lav345@nyu.edu,Lorenzo A Villegas,2020-07-02T13:44:17.720955
+107,93,filmaffinity.com,116,164,0,amm1837@nyu.edu,Andrew M Mather,2020-06-26T05:20:00.920743
+107,82,filmaffinity.com,116,164,1,aet414@nyu.edu,Anne E Tewksbury,2020-06-28T12:52:08.620547
+107,107,Adobe.com,86,140,0,amm1837@nyu.edu,Andrew M Mather,2020-06-26T02:54:05.446545
+107,81,Adobe.com,86,140,1,aet414@nyu.edu,Anne E Tewksbury,2020-06-27T10:31:17.816082
+107,101,Etsy.com,87,141,0,msr634@nyu.edu,Matthew S Rund,2020-06-26T01:19:37.489693
+107,98,Etsy.com,87,141,0,ns4649@nyu.edu,Natan Sebhatleab,2020-07-23T19:24:43.268389
+107,105,Aliexpress.com,77,130,0,msr634@nyu.edu,Matthew S Rund,2020-06-25T00:27:54.906605
+107,98,Aliexpress.com,77,130,4,ns4649@nyu.edu,Natan Sebhatleab,2020-07-05T22:44:30.904965
+107,107,ebaumsworld.com,161,210,1,ams1987@nyu.edu,Andrew M Shaw,2020-06-24T15:28:12.364499
+107,100,ebaumsworld.com,161,210,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-29T17:35:06.901741
+107,100,Instructure.com,74,127,0,cv729@nyu.edu,Christina Vo,2020-06-24T06:46:56.054151
+107,105,Instructure.com,74,127,0,lav345@nyu.edu,Lorenzo A Villegas,2020-07-23T20:41:02.016251
+107,107,newgrounds.com,160,209,0,ams1987@nyu.edu,Andrew M Shaw,2020-06-23T15:33:02.884663
+107,101,newgrounds.com,160,209,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-28T17:49:49.799764
+107,100,Live.com,68,121,0,cv729@nyu.edu,Christina Vo,2020-06-22T00:16:21.230052
+107,80,Live.com,68,121,3,lav345@nyu.edu,Lorenzo A Villegas,2020-06-22T16:09:15.569659
+107,100,Instagram.com,72,125,0,msr634@nyu.edu,Matthew S Rund,2020-06-21T18:57:04.251426
+107,104,Instagram.com,72,125,0,ns4649@nyu.edu,Natan Sebhatleab,2020-07-23T05:16:17.831737
+107,107,Cnn.com,71,124,1,kmm1153@nyu.edu,Kaitlyn McMillan,2020-06-21T15:29:37.881146
+107,26,Cnn.com,71,124,0,pb2444@nyu.edu,Peter Birghoffer,2020-07-08T01:01:32.895239
+107,100,Ebay.com,62,115,0,cv729@nyu.edu,Christina Vo,2020-06-21T06:02:34.964007
+107,77,Ebay.com,62,115,2,lav345@nyu.edu,Lorenzo A Villegas,2020-06-21T22:15:47.061141
+107,97,Spotify.com,109,156,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-06-20T16:08:04.492826
+107,81,Spotify.com,109,156,1,pb2444@nyu.edu,Peter Birghoffer,2020-06-26T22:04:17.062633
+107,98,Dropbox.com,83,137,0,amm1837@nyu.edu,Andrew M Mather,2020-06-19T16:11:21.891694
+107,82,Dropbox.com,83,137,3,aet414@nyu.edu,Anne E Tewksbury,2020-06-27T15:51:44.675565
+107,107,Imgur.com,80,133,0,amm1837@nyu.edu,Andrew M Mather,2020-06-19T05:47:51.924067
+107,63,Imgur.com,80,133,1,aet414@nyu.edu,Anne E Tewksbury,2020-06-19T15:59:35.450914
+107,106,Myshopify.com,63,116,0,amm1837@nyu.edu,Andrew M Mather,2020-06-18T21:56:56.098235
+107,5,Myshopify.com,63,116,0,aet414@nyu.edu,Anne E Tewksbury,2020-06-19T15:42:36.546921
+107,97,Okta.com,94,148,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-18T15:32:52.010681
+107,12,Okta.com,94,148,1,dbs438@nyu.edu,David B Stein,2020-07-03T13:14:58.965900
+107,107,Hulu.com,93,147,1,ams1987@nyu.edu,Andrew M Shaw,2020-06-18T14:36:00.641890
+107,97,Hulu.com,93,147,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-20T11:55:44.067433
+107,107,Facebook.com,57,110,0,amm1837@nyu.edu,Andrew M Mather,2020-06-18T05:27:11.843459
+107,63,Facebook.com,57,110,2,aet414@nyu.edu,Anne E Tewksbury,2020-06-19T10:41:19.943896
+107,104,Stackoverflow.com,92,146,1,ams1987@nyu.edu,Andrew M Shaw,2020-06-17T13:45:47.939368
+107,101,Stackoverflow.com,92,146,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-22T11:24:09.020321
+107,89,Sohu.com,106,153,0,cv729@nyu.edu,Christina Vo,2020-06-16T22:55:10.268860
+107,63,Sohu.com,106,153,2,lav345@nyu.edu,Lorenzo A Villegas,2020-06-19T12:40:14.061382
+107,105,Homedepot.com,91,145,0,ams1987@nyu.edu,Andrew M Shaw,2020-06-16T18:38:53.629822
+107,98,Homedepot.com,91,145,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-20T22:12:00.501183
+107,63,Yahoo.com,58,111,1,spk376@nyu.edu,Suzanne P Kaufman,2020-06-16T12:29:49.664993
+107,32,Yahoo.com,58,111,3,agk382@nyu.edu,Alexander G Kronman,2020-06-24T21:03:57.520418
+107,6,foodallergy.org,261,317,0,amm1837@nyu.edu,Andrew M Mather,2020-12-27T23:22:23.576783
+107,49,tulsaworld.com,305,367,0,msr634@nyu.edu,Matthew S Rund,2020-12-01T17:21:18.941026
+107,107,everydayhealth.com,259,315,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-11-17T16:56:00.780567
+107,0,lodgemfg.com,276,335,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-11-17T16:49:05.729295
+107,107,restaurantnews.com,292,353,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-11-12T20:31:03.719139
+107,107,loc.gov,275,334,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-11-10T20:06:48.983695
+107,107,vikings.com,309,371,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-11-04T18:57:15.970023
+107,107,fortune.com,262,318,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-10-30T00:20:57.192811
+107,0,EU google.com,363,552,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-10-16T18:33:47.024691
+107,107,nygenome.org,361,538,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-08-31T07:38:13.555028
+107,60,Patch.com,95,149,0,amm1837@nyu.edu,Andrew M Mather,2020-08-31T03:33:05.748645
+107,107,thermofisher.com,360,536,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-08-28T11:11:31.308487
+107,107,usa.healthcare.siemens.com,359,535,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-08-27T17:09:50.086867
+107,107,boardgamegeek.com,218,272,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-23T01:49:36.772593
+107,107,wizards.com,187,241,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-23T01:43:47.910889
+107,7,myspace.com,152,200,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-23T01:18:37.028279
+107,107,gaiaonline.com,169,218,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-22T21:00:17.863286
+107,107,dslreports.com,181,235,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-22T18:46:31.916380
+107,0,citizen.org,223,277,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-22T17:34:20.983146
+107,1,centogene.com,333,505,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-22T17:28:20.794546
+107,0,newsbusters.org,286,347,0,amm1837@nyu.edu,Andrew M Mather,2020-08-22T00:09:52.249761
+107,40,cepheid.com,334,506,0,cv729@nyu.edu,Christina Vo,2020-08-19T21:53:08.189357
+107,107,coffeereview.com,224,278,0,cv729@nyu.edu,Christina Vo,2020-08-19T20:54:45.885698
+107,0,millionairemate.com,145,193,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-18T20:26:47.600547
+107,107,ashleymadison.com,136,183,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-18T20:24:20.591827
+107,1,post-gazette.com,289,350,0,amm1837@nyu.edu,Andrew M Mather,2020-08-18T18:21:08.728928
+107,107,ocregister.com,287,348,0,amm1837@nyu.edu,Andrew M Mather,2020-08-17T04:12:19.495548
+107,23,Bing.com,65,118,0,pb2444@nyu.edu,Peter Birghoffer,2020-08-17T03:16:57.091014
+107,106,completegenomics.com,335,507,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-08-12T14:10:53.337651
+107,106,orig3n.com,352,526,0,amm1837@nyu.edu,Andrew M Mather,2020-08-11T19:02:45.691832
+107,0,kmbs.konicaminolta.us,347,521,0,amm1837@nyu.edu,Andrew M Mather,2020-08-11T19:02:29.010489
+107,24,lavalife.com,174,228,0,msr634@nyu.edu,Matthew S Rund,2020-08-11T16:49:42.272524
+107,106,miragen.com,326,498,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-08-10T13:51:14.921471
+107,106,chicagomarathon.com,221,275,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-08-08T19:03:43.581830
+107,1,cdc.gov,331,503,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-05T13:42:36.707100
+107,0,theatlantic.com,210,264,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-02T12:23:04.031602
+107,106,hardwarezone.com,186,240,0,msr634@nyu.edu,Matthew S Rund,2020-07-29T00:33:46.861035
+107,0,indabamusic.com,120,168,0,msr634@nyu.edu,Matthew S Rund,2020-07-29T00:16:12.413350
+107,6,italki.com,121,169,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-27T14:47:08.227027
+107,0,airliners.net,182,236,0,dbs438@nyu.edu,David B Stein,2020-09-24T21:04:46.720060
+107,106,airliners.net,182,236,0,cv729@nyu.edu,Christina Vo,2020-07-26T23:56:08.877527
+107,105,airliners.net,182,236,0,lav345@nyu.edu,Lorenzo A Villegas,2020-08-07T16:21:11.909984
+107,18,airliners.net,182,236,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-14T17:30:04.585386
+107,107,aboutus.disaboom.com,170,224,0,ss11617@nyu.edu,Shirin Shahidi,2020-11-17T21:10:37.654459
+107,106,aboutus.disaboom.com,170,224,0,cv729@nyu.edu,Christina Vo,2020-07-26T21:28:26.388838
+107,106,aboutus.disaboom.com,170,224,0,lav345@nyu.edu,Lorenzo A Villegas,2020-08-07T04:19:40.124374
+107,0,aboutus.disaboom.com,170,224,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-07T17:31:32.406694
+107,107,india-forums.com,178,232,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-09T13:04:11.090410
+107,1,Linkedin.com,82,136,0,lav345@nyu.edu,Lorenzo A Villegas,2020-07-05T23:32:12.568085
+107,107,eharmony.com,132,180,3,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-04T20:16:35.851004
+107,107,opendiary.com,126,174,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-03T20:18:00.699551
+107,4,us.playstation.com,165,214,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-03T13:42:40.975650
+107,101,corp.ign.com,163,212,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-01T11:16:10.486634
+107,100,ultimate-guitar.com,162,211,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-30T11:20:32.449608
+107,101,veggiedate.org,151,199,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-28T13:21:28.535930
+107,99,lovecity.com,148,196,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-28T12:14:29.350264
+107,100,spark.com,143,191,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-27T13:51:32.633543
+107,101,my.opera.com,125,173,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-23T18:32:06.827507
+107,100,Youtube.com,55,108,0,yt1722@nyu.edu,Yonas Takele,2020-06-19T18:24:10.951694
+107,106,Youtube.com,55,108,0,jmb1407@nyu.edu,Julia M Bruce,2020-06-25T22:25:31.805224
+107,33,Youtube.com,55,108,1,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-26T21:55:35.262745
+107,0,Youtube.com,55,108,0,msr634@nyu.edu,Matthew S Rund,2020-08-12T22:15:48.566569
+107,1,Nytimes.com,75,128,0,aet414@nyu.edu,Anne E Tewksbury,2020-06-19T15:53:14.168740
+107,4,Salesforce.com,84,138,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-18T12:29:08.730714
+107,4,Tmall.com,81,135,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-18T12:19:54.779633
+107,63,Force.com,90,144,3,ams1987@nyu.edu,Andrew M Shaw,2020-06-16T14:35:08.349732
+107,0,Amazonaws.com,108,155,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-12-04T16:42:45.844340
+107,94,Amazonaws.com,108,155,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-15T17:53:04.638414
+107,67,Amazonaws.com,108,155,0,agk382@nyu.edu,Alexander G Kronman,2020-06-16T19:30:17.925720
+107,1,Amazonaws.com,108,155,1,dbs438@nyu.edu,David B Stein,2020-06-18T00:55:25.853755
+107,1,match.com,20,54,1,dbs438@nyu.edu,David B Stein,2020-06-08T00:11:51.147837
+107,21,sequencing.com,358,534,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-24T18:08:10.466999
+107,106,sequencing.com,358,534,0,ams1987@nyu.edu,Andrew M Shaw,2020-08-17T18:22:04.711153
+107,107,sequencing.com,358,534,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-08-15T17:45:04.777732
+107,1,helix.com,343,517,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-10-16T19:04:55.383327
+107,26,helix.com,343,517,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-23T16:28:01.419587
+107,106,helix.com,343,517,0,amm1837@nyu.edu,Andrew M Mather,2020-08-13T04:43:03.518837
+107,0,reverbnation.com,128,176,0,ams1987@nyu.edu,Andrew M Shaw,2020-10-18T20:24:05.540513
+107,62,reverbnation.com,128,176,0,yt1722@nyu.edu,Yonas Takele,2020-08-24T15:08:17.114150
+107,107,reverbnation.com,128,176,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-12T02:28:29.150922
+107,18,communitycoffee.com,225,279,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-17T19:26:59.104354
+107,107,communitycoffee.com,225,279,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-17T14:24:36.905092
+107,106,communitycoffee.com,225,279,0,amm1837@nyu.edu,Andrew M Mather,2020-08-06T04:47:06.486153
+107,106,barnesandnoble.com,212,266,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-02T12:26:11.959002
+107,106,barnesandnoble.com,212,266,0,amm1837@nyu.edu,Andrew M Mather,2020-08-02T22:41:58.235577
+107,17,barnesandnoble.com,212,266,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-04T21:12:53.681071
+107,106,dictionary.com,209,263,0,spk376@nyu.edu,Suzanne P Kaufman,2020-08-02T11:17:11.656786
+107,106,dictionary.com,209,263,0,amm1837@nyu.edu,Andrew M Mather,2020-08-09T21:42:08.538768
+107,106,dictionary.com,209,263,0,aet414@nyu.edu,Anne E Tewksbury,2020-08-10T14:50:32.419186
+107,106,filefront.com,156,204,0,aet414@nyu.edu,Anne E Tewksbury,2020-07-27T11:26:24.309968
+107,106,filefront.com,156,204,0,amm1837@nyu.edu,Andrew M Mather,2020-08-02T15:26:27.939879
+107,24,filefront.com,156,204,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-04T21:53:13.929751
+107,106,lonelyplanet.com,191,245,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-07-27T08:40:12.057551
+107,105,lonelyplanet.com,191,245,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-28T15:08:19.430021
+107,26,lonelyplanet.com,191,245,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-28T18:06:17.761702
+107,105,cbsinteractive.com,176,230,0,cv729@nyu.edu,Christina Vo,2020-07-26T21:39:37.358938
+107,106,cbsinteractive.com,176,230,0,lav345@nyu.edu,Lorenzo A Villegas,2020-08-07T14:39:57.160023
+107,2,cbsinteractive.com,176,230,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-07T17:40:07.187500
+107,106,twoplustwo.com,190,244,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-07-26T10:46:26.539870
+107,104,twoplustwo.com,190,244,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-27T20:02:13.705461
+107,15,twoplustwo.com,190,244,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-11T15:15:25.673406
+107,106,greensingles.com,149,197,0,cv729@nyu.edu,Christina Vo,2020-07-25T03:14:56.818363
+107,106,greensingles.com,149,197,0,lav345@nyu.edu,Lorenzo A Villegas,2020-07-31T14:58:35.745825
+107,20,greensingles.com,149,197,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-31T17:39:36.281084
+107,106,metrodate.com,146,194,0,cv729@nyu.edu,Christina Vo,2020-07-24T06:33:14.977428
+107,106,metrodate.com,146,194,0,lav345@nyu.edu,Lorenzo A Villegas,2020-07-24T16:07:49.750996
+107,30,metrodate.com,146,194,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-31T17:08:45.362241
+107,106,23andme.com,199,253,0,ams1987@nyu.edu,Andrew M Shaw,2020-07-30T14:03:28.193823
+107,106,23andme.com,199,253,0,spk376@nyu.edu,Suzanne P Kaufman,2020-07-22T14:41:43.971444
+107,1,23andme.com,199,253,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-03T00:21:44.193456
+107,106,aq.com,179,233,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-19T20:12:31.793823
+107,0,aq.com,179,233,0,dbs438@nyu.edu,David B Stein,2020-07-31T15:32:37.199144
+107,106,aq.com,179,233,0,pb2444@nyu.edu,Peter Birghoffer,2020-08-13T16:37:02.644901
+107,1,christianmingle.com,141,189,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-31T17:35:00.259158
+107,106,christianmingle.com,141,189,0,cv729@nyu.edu,Christina Vo,2020-07-17T07:15:39.997740
+107,106,christianmingle.com,141,189,0,lav345@nyu.edu,Lorenzo A Villegas,2020-07-23T20:15:15.324995
+107,106,Apple.com,78,131,0,jmb1407@nyu.edu,Julia M Bruce,2020-07-15T19:20:06.802504
+107,107,Apple.com,78,131,0,yt1722@nyu.edu,Yonas Takele,2020-07-19T16:31:32.262146
+107,2,Apple.com,78,131,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-13T19:42:48.957130
+107,107,somethingawful.com,168,217,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-07-13T21:11:36.185984
+107,2,somethingawful.com,168,217,0,pb2444@nyu.edu,Peter Birghoffer,2020-07-29T14:07:37.871270
+107,2,somethingawful.com,168,217,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-29T21:06:02.704016
+107,107,amd.com,183,237,0,amm1837@nyu.edu,Andrew M Mather,2020-07-12T16:20:54.404934
+107,106,amd.com,183,237,4,aet414@nyu.edu,Anne E Tewksbury,2020-07-13T15:27:31.417096
+107,12,amd.com,183,237,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-27T19:42:35.090202
+107,103,tumblr.com,129,177,0,cv729@nyu.edu,Christina Vo,2020-07-07T07:06:25.614738
+107,103,tumblr.com,129,177,3,lav345@nyu.edu,Lorenzo A Villegas,2020-07-10T17:18:21.363547
+107,19,tumblr.com,129,177,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-17T18:29:41.565278
+107,103,listography.com,123,171,0,cv729@nyu.edu,Christina Vo,2020-07-07T07:02:47.595573
+107,101,listography.com,123,171,1,lav345@nyu.edu,Lorenzo A Villegas,2020-07-10T13:44:30.612597
+107,22,listography.com,123,171,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-07T17:46:56.213409
+107,100,dailystrength.org,114,162,5,lav345@nyu.edu,Lorenzo A Villegas,2020-07-05T23:32:40.516622
+107,103,dailystrength.org,114,162,0,cv729@nyu.edu,Christina Vo,2020-07-07T06:46:38.086199
+107,26,dailystrength.org,114,162,3,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-10T18:08:41.418625
+107,106,Twitch.tv,67,120,0,yt1722@nyu.edu,Yonas Takele,2020-07-05T16:15:17.744569
+107,107,Twitch.tv,67,120,0,jmb1407@nyu.edu,Julia M Bruce,2020-07-06T02:14:38.120795
+107,29,Twitch.tv,67,120,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-07T21:22:26.606539
+107,92,miniclip.com,154,202,0,amm1837@nyu.edu,Andrew M Mather,2020-06-30T22:18:14.468147
+107,101,miniclip.com,154,202,2,aet414@nyu.edu,Anne E Tewksbury,2020-07-06T18:04:41.159378
+107,20,miniclip.com,154,202,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-13T19:40:01.159549
+107,93,whitewomenblackmen.com,150,198,0,amm1837@nyu.edu,Andrew M Mather,2020-06-29T06:29:22.079118
+107,97,whitewomenblackmen.com,150,198,0,aet414@nyu.edu,Anne E Tewksbury,2020-07-06T14:25:27.770112
+107,32,whitewomenblackmen.com,150,198,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-10T19:37:15.149343
+107,0,matchamerica.com,147,195,0,dbs438@nyu.edu,David B Stein,2020-08-29T19:02:06.957591
+107,88,matchamerica.com,147,195,0,amm1837@nyu.edu,Andrew M Mather,2020-06-29T05:01:49.183513
+107,106,matchamerica.com,147,195,0,aet414@nyu.edu,Anne E Tewksbury,2020-07-06T15:57:09.701568
+107,83,jdate.com,142,190,1,aet414@nyu.edu,Anne E Tewksbury,2020-06-28T22:52:48.053486
+107,84,jdate.com,142,190,0,amm1837@nyu.edu,Andrew M Mather,2020-06-29T02:45:07.326808
+107,13,jdate.com,142,190,2,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-06T20:13:51.118634
+107,107,gays.com,118,166,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-06-28T17:51:44.889751
+107,102,gays.com,118,166,1,pb2444@nyu.edu,Peter Birghoffer,2020-07-14T21:20:13.565299
+107,25,gays.com,118,166,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-29T21:09:23.221960
+107,82,cutestat.com,130,178,1,aet414@nyu.edu,Anne E Tewksbury,2020-06-28T13:49:39.805537
+107,94,cutestat.com,130,178,0,amm1837@nyu.edu,Andrew M Mather,2020-06-28T21:40:00.767533
+107,12,cutestat.com,130,178,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-29T19:10:50.336771
+107,105,babycenter.com,110,158,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-06-26T20:23:23.064371
+107,48,babycenter.com,110,158,1,pb2444@nyu.edu,Peter Birghoffer,2020-07-08T18:23:28.784289
+107,11,babycenter.com,110,158,2,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-16T20:33:33.112655
+107,24,us.mouthshut.com,124,172,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-24T19:11:22.503551
+107,105,us.mouthshut.com,124,172,0,amm1837@nyu.edu,Andrew M Mather,2020-06-26T05:58:00.490479
+107,82,us.mouthshut.com,124,172,1,aet414@nyu.edu,Anne E Tewksbury,2020-06-28T17:35:35.829604
+107,104,Wikipedia.org,61,114,0,jmb1407@nyu.edu,Julia M Bruce,2020-06-25T13:26:12.647324
+107,101,Wikipedia.org,61,114,0,yt1722@nyu.edu,Yonas Takele,2020-06-27T19:54:46.897218
+107,52,Wikipedia.org,61,114,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-16T21:09:04.120295
+107,101,heremedia.com,138,186,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-24T20:05:14.045091
+107,53,heremedia.com,138,186,0,agk382@nyu.edu,Alexander G Kronman,2020-08-05T13:35:36.106881
+107,14,heremedia.com,138,186,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-14T19:37:51.335512
+107,100,chemistry.com,131,179,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-24T17:06:13.416152
+107,106,chemistry.com,131,179,0,agk382@nyu.edu,Alexander G Kronman,2020-08-04T13:42:31.188728
+107,39,chemistry.com,131,179,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-06T19:45:31.824909
+107,100,foursquare.com,117,165,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-23T11:47:04.108433
+107,106,foursquare.com,117,165,0,agk382@nyu.edu,Alexander G Kronman,2020-07-29T12:02:00.586355
+107,39,foursquare.com,117,165,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-06T19:11:27.411536
+107,107,Reddit.com,59,112,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-06-20T21:41:57.114687
+107,82,Reddit.com,59,112,0,pb2444@nyu.edu,Peter Birghoffer,2020-06-28T22:36:31.427565
+107,42,Reddit.com,59,112,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-29T21:46:23.027917
+107,97,Amazon.com,56,109,0,cv729@nyu.edu,Christina Vo,2020-06-19T16:11:18.812806
+107,63,Amazon.com,56,109,1,lav345@nyu.edu,Lorenzo A Villegas,2020-06-20T20:06:28.875149
+107,44,Amazon.com,56,109,4,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-22T19:17:29.414550
+107,107,Imdb.com,105,152,0,jmb1407@nyu.edu,Julia M Bruce,2020-08-30T16:21:01.461915
+107,107,Imdb.com,105,152,0,yt1722@nyu.edu,Yonas Takele,2020-06-19T14:39:57.667729
+107,3,Imdb.com,105,152,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-19T21:46:39.311766
+107,107,Twitter.com,89,143,1,saz312@nyu.edu,Stav Adi Zeitouni,2020-06-18T10:32:21.219092
+107,105,Twitter.com,89,143,1,ams1987@nyu.edu,Andrew M Shaw,2020-07-14T20:56:47.647876
+107,26,Twitter.com,89,143,2,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-17T13:10:00.585262
+107,101,Msn.com,107,154,0,amm1837@nyu.edu,Andrew M Mather,2020-06-18T02:20:43.805025
+107,63,Msn.com,107,154,4,aet414@nyu.edu,Anne E Tewksbury,2020-06-18T12:37:16.228130
+107,20,Msn.com,107,154,2,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-19T18:20:43.855278
+107,98,Zoom.us,60,113,0,msr634@nyu.edu,Matthew S Rund,2020-06-18T01:06:24.970040
+107,88,Zoom.us,60,113,4,ns4649@nyu.edu,Natan Sebhatleab,2020-06-26T17:07:41.595146
+107,7,Zoom.us,60,113,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-16T18:37:42.037580
+107,98,Zillow.com,76,129,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-17T14:26:20.880859
+107,106,Zillow.com,76,129,0,agk382@nyu.edu,Alexander G Kronman,2020-07-09T16:16:56.337197
+107,6,Zillow.com,76,129,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-29T20:13:24.610790
+107,98,Microsoft.com,70,123,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-17T12:12:15.553995
+107,107,Microsoft.com,70,123,1,agk382@nyu.edu,Alexander G Kronman,2020-06-27T15:07:21.506377
+107,42,Microsoft.com,70,123,1,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-07-09T19:11:19.836643
+107,106,Craigslist.org,88,142,0,saz312@nyu.edu,Stav Adi Zeitouni,2020-06-17T07:23:49.730605
+107,103,Craigslist.org,88,142,2,ams1987@nyu.edu,Andrew M Shaw,2020-07-14T17:17:04.385824
+107,40,Craigslist.org,88,142,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-08-11T15:39:26.783199
+107,107,Qq.com,103,150,0,kmm1153@nyu.edu,Kaitlyn McMillan,2020-06-16T22:50:59.930715
+107,77,Qq.com,103,150,1,pb2444@nyu.edu,Peter Birghoffer,2020-06-21T20:27:26.124996
+107,33,Qq.com,103,150,1,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-22T21:07:33.695283
+107,98,Netflix.com,64,117,0,spk376@nyu.edu,Suzanne P Kaufman,2020-06-16T12:40:35.069143
+107,107,Netflix.com,64,117,1,agk382@nyu.edu,Alexander G Kronman,2020-06-25T19:24:28.492455
+107,0,Netflix.com,64,117,0,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-26T20:10:14.679023
+107,102,Google.com,54,107,0,msr634@nyu.edu,Matthew S Rund,2020-06-16T01:01:27.582728
+107,77,Google.com,54,107,6,ns4649@nyu.edu,Natan Sebhatleab,2020-06-21T20:57:49.607774
+107,43,Google.com,54,107,1,florencia.m.wurgler@gmail.com,Florencia Marotta-Wurgler,2020-06-22T20:11:53.215209

@@ -8,6 +8,7 @@
   <p>Welcome, {{ user.email }} !</p>
 
   {% else %}
+  <a href="{% provider_login_url 'google' %}">click here to log in</a>
   <script>
     window.location="{% provider_login_url 'google' %}";
    </script>

@@ -14,6 +14,17 @@ home..
   padding: 64px;
 }
 
+
+#homepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  font-size: 3vh;
+  line-height: 2em;
+}
+
 /*
 
 

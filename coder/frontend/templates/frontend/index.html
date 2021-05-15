@@ -1,47 +1,19 @@
+{% extends "frontend/base.html" %}
 {% load static %}
 {% load socialaccount %}
-<!DOCTYPE html>
-<html lang="en">
-{% if user.is_authenticated %}
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- semantic-ui CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="icon"
-      type="image/png"
-      href="{% static 'frontend/favicon.ico' %}">
-    <title>Privacy Policy Labeller - {{ user.email }} </title>
-    {% if request.META.HTTP_HOST == "127.0.0.1:8000" %}
-    <link rel="stylesheet" href="{% static 'frontend/main.css' %}"></script>
-    {% else %}
-    <link rel="stylesheet" href="{% static 'frontend/main.css' %}?{% now 'Hm' %}"></script>
-    {% endif %}
-    <script>
-    var CURRENT_USER = "{{ user.email }}";
-    var DEFAULT_CODING = 10; {# this also exists in settings.py #}
-    </script>
-  </head>
 
-  <body>
-
+{% block content %}
+  {% if user.is_authenticated %}
     <div id='app'>loading...</div>
-
     <script src="{% static 'frontend/main.js' %}?{% now 'Hm' %}"></script>
-  </body>
 
-{% else %}
-  <head>
+  {% else %}
     <script>
-      window.location="{% provider_login_url 'google' %}";
+     // window.location="{% provider_login_url 'google' %}";
     </script>
-  </head>
-  <body>
-    you are not logged in and are being redirected.
-    If you can read this, <a href="{% provider_login_url 'google' %}"> click here </a>
-  </body>
-{% endif %}
-
-</html>
+    <body>
+      you are not logged in and are being redirected.
+      If you can read this, <a href="{% provider_login_url 'google' %}"> click here </a>
+    </body>
+  {% endif %}
+{% endblock %}

@@ -27,27 +27,21 @@ from coder import settings
 from decorator_include import decorator_include
 
 router = routers.DefaultRouter()
-router.register(r'coder', views.CoderViewSet)
-router.register(r'coding', views.CodingViewSet)
-router.register(r'coding_progress', views.CodingProgressViewSet, basename="coding_progress")
-router.register(r'coding_instance', views.CodingInstanceViewSet)
-router.register(r'policy', views.PolicyViewSet)
-router.register(r'policy_instance', views.PolicyInstanceViewSet)
-router.register(r'policy_instance_info', views.PolicyInstanceInfoViewSet)
-router.register(r'raw_policy_instance', views.RawPolicyInstanceViewSet)
-router.register(r'timing_session', views.TimingSessionViewSet)
-
+router.register(r'coder',                 views.CoderViewSet)
+router.register(r'coding',                views.CodingViewSet)
+router.register(r'coding_progress',       views.CodingProgressViewSet, basename="coding_progress")
+router.register(r'coding_instance',       views.CodingInstanceViewSet)
+router.register(r'policy',                views.PolicyViewSet)
+router.register(r'policy_instance',       views.PolicyInstanceViewSet)
+router.register(r'policy_instance_info',  views.PolicyInstanceInfoViewSet)
+router.register(r'raw_policy_instance',   views.RawPolicyInstanceViewSet)
+router.register(r'timing_session',        views.TimingSessionViewSet)
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='frontend/index.html')),
-    path('code-policy/<int:policy_id>', TemplateView.as_view(template_name='frontend/index.html')),
-    path('code-policy/<int:policy_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
+    path('', TemplateView.as_view(template_name='frontend/home.html')),
+    re_path(r'^c/(.*)$', login_required(TemplateView.as_view(template_name='frontend/index.html'))),
     path('raw-policy/<int:policy_instance_id>/<str:field>', get_raw),
     path('unsafe-raw-policy/<int:policy_instance_id>/<str:field>', get_unsafe_raw),
-    path('code-merge/<int:policy_instance_id>', TemplateView.as_view(template_name='frontend/index.html')),
-    path('code-merge/<int:policy_instance_id>/<int:coding_id>', TemplateView.as_view(template_name='frontend/index.html')),
-    path('coding-progress', TemplateView.as_view(template_name='frontend/index.html')),
-    path('uploader/', TemplateView.as_view(template_name='frontend/index.html')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),

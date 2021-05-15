@@ -15,8 +15,6 @@ class HomeApp extends Component {
       <h1> Hello! </h1>
       <div>
         you are logged in as: {CURRENT_USER}. <br />
-        Go to the spreadsheet to see assignments
-        <a href="https://docs.google.com/spreadsheets/d/1nS8VRT45J5XG4TSgICueZMkVR4exAv6V03MwsnXb5OQ/edit"> here</a>
       </div>
       </div>
       <PersonalProgressView />

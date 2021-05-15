@@ -20,15 +20,15 @@ env = environ.Env(
     SSL_REDIRECT=(bool, False)
 )
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # reading .env file
-if os.path.exists(BASE_DIR + ".env"):
+if os.path.exists(BASE_DIR + "/.env"):
     environ.Env.read_env(env_file=BASE_DIR+'/.env')
 else:
     environ.Env.read_env(env_file=BASE_DIR+'/.prodenv')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,16 +46,18 @@ CURRENT_CODING_ID = 10 # this also exists in /frontent/templates/index.html
 DEBUG = env('DEBUG')
 
 
-
 WIKI_ACCOUNT_HANDLING = False
 WIKI_ACCOUNT_SIGNUP_ALLOWED = False
 
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    'localhost',
     'stein-tower-2019.local',
     'policycoding.com',
+    'documentcoding.com',
     'policy-coder-web.eba-9sxfr9sk.us-east-1.elasticbeanstalk.com',
+    'documentcoding.us-east-1.elasticbeanstalk.com',
 ]
 
 # Rest framework stuff
@@ -87,6 +89,12 @@ AUTHENTICATION_BACKENDS = (
  )
 SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_ADAPTER = 'coder.adapter.CustomAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'coder.adapter.CustomSocialAccountAdapter'
+ACCOUNT_EMAIL_VERIFICATION = None
+ACCOUNT_UNIQUE_EMAIL=True
+SOCIALACCOUNT_AUTO_SIGNUP=True
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
@@ -159,7 +167,9 @@ ROOT_URLCONF = 'coder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'coder', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

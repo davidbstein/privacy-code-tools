@@ -4,7 +4,7 @@
   "description": "Some helper tools to avoid using a spreadsheet",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -13,7 +13,9 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-form": "^8.3.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "scss-compile": "^0.1.7",
+    "scss-watch": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
