@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"label": "npm: dev",
+			"detail": "webpack --mode development --watch ${workspaceRoot}/coder/frontend/src/index.js --output ${workspaceRoot}/coder/frontend/static/frontend/main.js",
+            "runOptions": {"runOn": "folderOpen"},
+			"problemMatcher": [
+				{
+					"background": {
+						"beginsPattern": "^Hash: [0-1a-f]+$",
+						"endsPattern": "^.*modules$",
+					},
+					"owner": "npm",
+					"fileLocation": ["relative", "${workspaceRoot}"],
+					"pattern": [
+						{
+							"kind": "file",
+							"regexp": "^(ERROR) in (.*)$",
+							"file": 2,
+						},
+						{
+							"regexp": ".*",
+							"message": 0
+						},
+						{
+							"kind": "file",
+							"regexp": "^ \\@ (.+) (\\d+):(\\d+)-?(\\d+)?$",
+							"file": 1
+						}
+					]
+				},
+				{
+					"owner": "npm",
+					"pattern": {
+						"kind": "line",
+						"regexp": "^SyntaxError: (.+): (.*) \\((\\d+):(\\d+)\\)$",
+						"file": 1,
+						"message": 2,
+						"line": 3,
+						"column": 4
+					}
+				}
+			]
+		}
+	]
+}

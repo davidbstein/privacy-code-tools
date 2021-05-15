@@ -9,10 +9,8 @@ import {
   useParams,
 } from "react-router-dom";
 
-
 import CodingInterfaceApp from './CodingInterfaceApp'
 import HomeApp from './HomeApp'
-import UploadApp from './UploadApp'
 import ProgressViewApp from './ProgressViewApp'
 import { Provider } from 'react-redux';
 import store from '../store';
