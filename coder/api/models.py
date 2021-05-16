@@ -3,14 +3,6 @@ from django.contrib.postgres import fields as postgres_fields
 import datetime
 
 
-# Create your models here.
-class Coder(models.Model):
-    project = models.BigIntegerField(default=1)
-    name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, db_index=True)
-    permission = models.BigIntegerField()
-
-
 class Coding(models.Model):
     project = models.BigIntegerField(default=1)
     parent = models.BigIntegerField(null=True)
@@ -20,11 +12,13 @@ class Coding(models.Model):
 
 class CodingInstance(models.Model):
     project = models.BigIntegerField(default=1)
-    coder_email = models.CharField(max_length=255, db_index=True, default="unknown")
+    coder_email = models.CharField(
+        max_length=255, db_index=True, default="unknown")
     policy_instance_id = models.BigIntegerField(db_index=True)
     coding_id = models.BigIntegerField(db_index=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     coding_values = postgres_fields.JSONField()
+
     class Meta:
         unique_together = ('coder_email', 'coding_id', 'policy_instance_id')
 

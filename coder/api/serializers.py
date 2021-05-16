@@ -2,12 +2,6 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from coder.api import models as api_models
 
-
-class CoderSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = api_models.Coder
-        fields = ['id', 'name', 'email', 'permission']
-
 class CodingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.Coding

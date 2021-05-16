@@ -27,7 +27,6 @@ from coder import settings
 from decorator_include import decorator_include
 
 router = routers.DefaultRouter()
-router.register(r'coder',                 views.CoderViewSet)
 router.register(r'coding',                views.CodingViewSet)
 router.register(r'coding_progress',       views.CodingProgressViewSet, basename="coding_progress")
 router.register(r'coding_instance',       views.CodingInstanceViewSet)

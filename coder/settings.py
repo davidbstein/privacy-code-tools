@@ -30,7 +30,6 @@ else:
     environ.Env.read_env(env_file=BASE_DIR+'/.prodenv')
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -39,7 +38,7 @@ SECRET_KEY = '-1wxeqek!k&=zpab%r+968%d(!xvbal9c=!l(nepot+3@7m)2n'
 SECURE_SSL_REDIRECT = env('SSL_REDIRECT')
 
 
-CURRENT_CODING_ID = 10 # this also exists in /frontent/templates/index.html
+CURRENT_CODING_ID = 10  # this also exists in /frontent/templates/index.html
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
@@ -66,9 +65,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAdminUser',
-    # ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
 }
 
 
@@ -85,23 +84,23 @@ CACHES = {
 # auth crap
 
 AUTHENTICATION_BACKENDS = (
- 'django.contrib.auth.backends.ModelBackend',
- 'allauth.account.auth_backends.AuthenticationBackend',
- )
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_ADAPTER = 'coder.adapter.CustomAccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'coder.adapter.CustomSocialAccountAdapter'
 ACCOUNT_EMAIL_VERIFICATION = None
-ACCOUNT_UNIQUE_EMAIL=True
-SOCIALACCOUNT_AUTO_SIGNUP=True
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
             'client_id': env('GOOGLE_CLIENT_ID'),
             'secret': env('GOOGLE_APP_SECRET'),
-            'key':'',
+            'key': '',
         },
         'SCOPE': [
             'profile',
@@ -136,11 +135,11 @@ INSTALLED_APPS = [
     'coder.api',
     'coder.frontend',
 
-    #shellplus, ect.
+    # shellplus, ect.
     'django_extensions',
 
-    #wiki
-    #'django.contrib.sites.apps.SitesConfig',
+    # wiki
+    # 'django.contrib.sites.apps.SitesConfig',
     'django.contrib.humanize.apps.HumanizeConfig',
     'django_nyt.apps.DjangoNytConfig',
     'mptt',

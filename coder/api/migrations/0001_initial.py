@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Coder',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('email', models.CharField(db_index=True, max_length=255)),
                 ('permission', models.BigIntegerField()),
@@ -24,7 +25,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Coding',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('parent', models.BigIntegerField()),
                 ('created_dt', models.DateTimeField()),
                 ('questions', django.contrib.postgres.fields.jsonb.JSONField()),
@@ -33,7 +35,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CodingInstance',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('coder_id', models.BigIntegerField(db_index=True)),
                 ('policy_instance_id', models.BigIntegerField(db_index=True)),
                 ('coding_id', models.BigIntegerField(db_index=True)),
@@ -44,7 +47,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Policy',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('company_name', models.CharField(max_length=255)),
                 ('site_name', models.CharField(max_length=255)),
                 ('alexa_rank', models.BigIntegerField()),
@@ -59,7 +63,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PolicyInstance',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('policy_id', models.BigIntegerField(db_index=True)),
                 ('scan_dt', models.DateTimeField()),
                 ('content', django.contrib.postgres.fields.jsonb.JSONField()),
@@ -68,7 +73,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RawPolicy_instance',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('policy_id', models.BigIntegerField(db_index=True)),
                 ('raw_content', models.TextField()),
                 ('capture_date', models.DateField()),
