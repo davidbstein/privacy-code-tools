@@ -1,7 +1,6 @@
-import axios from 'axios';
 import {
   NULL_OP,
-  USER_AUTO_SAVE,
+  //USER_AUTO_SAVE,
   USER_CHANGE_QUESTION_META,
   USER_CHANGE_VALUE,
   USER_CLICK_RESET,

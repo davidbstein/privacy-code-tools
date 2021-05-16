@@ -6,11 +6,13 @@ import {
   API_GET_CODING,
   API_GET_CODING_INSTANCE,
   API_GET_CODING_PROGRESS,
+  API_GET_POLICIES,
   API_GET_POLICY,
   API_GET_POLICY_INSTANCE,
   API_POST_CODING_INSTANCE,
 } from 'src/actions/types';
 import store from 'src/store'
+import { CURRENT_USER } from 'src/constants';
 
 function getCookie(name) {
     var cookieValue = null;

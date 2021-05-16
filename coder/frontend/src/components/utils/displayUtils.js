@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const stringifySentences = (sentences) => {
   const to_ret = []
   for (var doc in sentences) {

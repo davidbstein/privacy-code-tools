@@ -18,14 +18,14 @@ import HomeApp from 'src/components/HomeApp';
 import PolicyApp from 'src/components/PolicyApp';
 import PolicyInstanceApp from 'src/components/PolicyInstanceApp';
 import ProgressViewApp from 'src/components/ProgressViewApp';
-
+import { DEFAULT_CODING } from 'src/constants'
 
 
 function CodingAppWrapper(props) {
   let { policy_instance_id, coding_id } = useParams();
   const merge_mode = props.merge_mode == true;
   coding_id = coding_id || DEFAULT_CODING;
-  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode}/>
+  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode} />
 }
 
 class App extends Component {
@@ -63,7 +63,7 @@ class App extends Component {
             <Route path={`${this.props.prefix}/policy/:policy_id/:policy_instance_id`}>
               <PolicyInstanceApp />
             </Route>
-            <Route path={`${this.props.prefix}/:coder_email`}>
+            <Route path={`${this.props.prefix}/coder-status/:coder_email`}>
               <CoderStatusApp />
             </Route>
 

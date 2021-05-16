@@ -4,9 +4,11 @@
 		{
 			"type": "npm",
 			"script": "dev",
-			"label": "npm: dev",
+			"label": "npm: watch js",
 			"detail": "webpack --mode development --watch ${workspaceRoot}/coder/frontend/src/index.js --output ${workspaceRoot}/coder/frontend/static/frontend/main.js",
-            "runOptions": {"runOn": "folderOpen"},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
 			"problemMatcher": [
 				{
 					"background": {
@@ -14,7 +16,10 @@
 						"endsPattern": "^.*modules$",
 					},
 					"owner": "npm",
-					"fileLocation": ["relative", "${workspaceRoot}"],
+					"fileLocation": [
+						"relative",
+						"${workspaceRoot}"
+					],
 					"pattern": [
 						{
 							"kind": "file",
@@ -44,6 +49,27 @@
 					}
 				}
 			]
+		},
+		{
+			"type": "npm",
+			"script": "buildts",
+			"label": "npm: dev ts build",
+			//"runOptions": {"runOn": "folderOpen"},
+			"problemMatcher": {
+				"base": "$tsc",
+				"severity": "info"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "watchts",
+			"label": "npm: dev ts watch",
+			//"runOptions": {"runOn": "folderOpen"},
+			"problemMatcher": {
+				"base": "$tsc-watch",
+				"severity": "info"
+			},
+			"isBackground": true
 		}
 	]
 }

@@ -154,7 +154,7 @@ class Step1 extends Component {
             placeholder="http://example.com/eu_privacy_policy"/>
         </div>
         <div className='preview'>
-          <div>The following <tt>Policy</tt> will be created on the server:</div>
+          <div>The following <code>Policy</code> will be created on the server:</div>
           <pre>
           {JSON.stringify(this.gen_submit(),undefined,'  ')}
           </pre>
@@ -260,7 +260,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> tos </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-tos" document='tos' onChange={this.handleChange}/> :
+            <input type="file" id="input-tos" name='tos' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['tos'] ?
@@ -271,7 +271,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> eu_tos </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-eu_tos" document='eu_tos' onChange={this.handleChange}/> :
+            <input type="file" id="input-eu_tos" name='eu_tos' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['eu_tos'] ?
@@ -282,7 +282,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> gdpr_poicy </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-gdpr_poicy" document='gdpr_poicy' onChange={this.handleChange}/> :
+            <input type="file" id="input-gdpr_poicy" name='gdpr_poicy' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['gdpr_poicy'] ?
@@ -293,7 +293,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> ccpa_policy </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-ccpa_policy" document='ccpa_policy' onChange={this.handleChange}/> :
+            <input type="file" id="input-ccpa_policy" name='ccpa_policy' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['ccpa_policy'] ?
@@ -304,7 +304,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> cookie_policy </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-cookie_policy" document='cookie_policy' onChange={this.handleChange}/> :
+            <input type="file" id="input-cookie_policy" name='cookie_policy' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['cookie_policy'] ?
@@ -315,7 +315,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> privacy_policy </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-privacy_policy" document='privacy_policy' onChange={this.handleChange}/> :
+            <input type="file" id="input-privacy_policy" name='privacy_policy' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['privacy_policy'] ?
@@ -326,7 +326,7 @@ class Step2 extends Component {
         <div>
           <div className='upload-label'> eu_privacy_policy </div>
           {this.props.state.current_step == 2 ?
-            <input type="file" id="input-eu_privacy_policy" document='eu_privacy_policy' onChange={this.handleChange}/> :
+            <input type="file" id="input-eu_privacy_policy" name='eu_privacy_policy' onChange={this.handleChange}/> :
             <div />
           }
           {this.state['eu_privacy_policy'] ?
