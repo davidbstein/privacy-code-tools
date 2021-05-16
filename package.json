@@ -30,9 +30,9 @@
     "webpack-cli": ""
   },
   "scripts": {
-    "dev": "webpack --mode development --watch ./coder/frontend/src/index.js --output ./coder/frontend/static/frontend/main.js",
-    "devwatch": "webpack --mode development --watch ./coder/frontend/src/index.js --output ./coder/frontend/static/frontend/main.js",
-    "build": "webpack --mode production ./coder/frontend/src/index.js --output ./coder/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch ./coder/frontend/src/index.tsx --output ./coder/frontend/static/frontend/main.js",
+    "devwatch": "webpack --mode development --watch ./coder/frontend/src/index.tsx --output ./coder/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./coder/frontend/src/index.tsx --output ./coder/frontend/static/frontend/main.js",
     "buildts": "tsc",
     "watchts": "tsc --watch "
   },

@@ -1,7 +1,7 @@
 {
         "include": [
                 "./coder/frontend/src/globals.d.ts",
-                "./coder/frontend/src/index.js"
+                "./coder/frontend/src/index.tsx"
         ],
         "compilerOptions": {
                 /* Visit https://aka.ms/tsconfig.json to read more about this file */
