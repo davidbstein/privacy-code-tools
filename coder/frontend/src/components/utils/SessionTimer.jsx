@@ -1,5 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
+import { CURRENT_USER } from "src/constants";
 
 function getCookie(name) {
   var cookieValue = null;

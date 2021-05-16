@@ -1,0 +1,102 @@
+/***
+ *PROGRESS VIEW
+
+**/
+.progress-view h1 {
+  text-align: center;
+  width: 100%;
+}
+
+#progress-view-table {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+
+  table {
+    border-collapse: collapse;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+    max-width: 800px;
+  }
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+  }
+  .progress-view-coding-instance {
+  }
+  .progress-view-coder-email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .progress-view-coder-count {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80px;
+    max-width: 20%;
+    display: inline-block;
+  }
+  .progress-view-coder-date {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+    display: inline-block;
+    text-align: right;
+  }
+  .progress-view-coder-double {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+    display: inline-block;
+    text-align: right;
+    color: red;
+    padding: 0 8px;
+  }
+}
+.home-progress-view h1 {
+  width: 100%;
+  margin-top: 64px;
+}
+
+#home-progress-view-table {
+  margin: 0 auto;
+  table {
+    border-collapse: collapse;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+    max-width: 800px;
+  }
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+  }
+  .home-progress-view-coding-instance {
+  }
+  .home-progress-view-coder-email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+    display: inline-block;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .home-progress-view-coder-count {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80px;
+    max-width: 20%;
+    display: inline-block;
+  }
+  .home-progress-view-coder-date {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+    display: inline-block;
+    text-align: right;
+  }
+}

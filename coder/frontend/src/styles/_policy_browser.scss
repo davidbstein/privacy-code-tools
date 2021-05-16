@@ -1,0 +1,121 @@
+.policy-browser-container {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  left: 0;
+}
+.policy-browser-major-section {
+  border: 1px solid #ccc;
+  margin: 8px;
+  padding: 8px;
+  background: white;
+  box-shadow: 1px 1px 1px 0 #888;
+}
+.policy-browser-paragraph {
+  padding: 8px 0;
+  overflow-wrap: break-word;
+}
+.policy-browser-paragraph:hover {
+  background-color: #ffd;
+  cursor: default;
+}
+.is-header {
+  font-weight: bolder;
+  font-size: 1.4em;
+}
+.policy-browser-paragraph-sentence {
+  padding: 2px;
+  &.highlight-count-1 {
+    background-color: #ffce75;
+  }
+  &.highlight-count-2 {
+    background-color: #69f5ff;
+  }
+  &.highlight-count-3 {
+    background-color: #8fbaff;
+  }
+  &.highlight-count-4 {
+    background-color: #b2a6ff;
+  }
+  &.highlight-count-5 {
+    background-color: #cd9bff;
+  }
+  &:hover {
+    background-color: #ff0;
+  }
+  &.selected {
+    background-color: #afc;
+  }
+  &.selected:hover {
+    background-color: #8ea;
+  }
+}
+.policy-browser-overview {
+  border: 1px solid black;
+  width: 100%;
+  background: #fdf;
+  padding: 16px;
+}
+/* .policy-browser-paragraph-num:before{
+    content:"¶";
+    white-space: pre;
+  } */
+.policy-browser-paragraph-num {
+  user-select: none;
+  width: 25px;
+  font-family: monospace;
+  font-size: 10px;
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+  color: #aaa;
+}
+.policy-browser-paragraph-content {
+  display: inline-block;
+  width: calc(100% - 80px);
+}
+
+.policy-browser-section-container {
+  padding-top: 145px;
+  position: relative;
+  background: #eee;
+}
+.active-policy {
+}
+.policy-browser-section-overview {
+  border: 1px solid #63749e;
+  width: 100%;
+  background: #ddfcff;
+  padding: 16px;
+  margin-top: 16px;
+  overflow-x: scroll;
+  position: absolute;
+  top: 0px;
+  white-space: nowrap;
+}
+.active-policy .policy-browser-section-overview {
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  width: 50%;
+}
+.policy-browser-overview-token {
+  border: 1px solid #608dff;
+  background-color: #e3d6ff;
+  padding: 0 2px;
+  margin: 0 2px;
+  border-radius: 2px;
+}
+
+.robots {
+  padding: 8px;
+  opacity: 0.5;
+  padding-top: 50px;
+  background: #eeeeee;
+}
+
+.robots pre {
+  max-height: 300px;
+  overflow: scroll;
+}

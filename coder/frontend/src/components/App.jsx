@@ -1,31 +1,25 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useParams
-} from "react-router-dom";
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 
-import store from 'src/store';
+import store from "src/store";
 
-import CoderStatusApp from 'src/components/CoderStatusApp';
-import CodingApp from 'src/components/CodingApp';
-import CodingEditorApp from 'src/components/CodingEditorApp'
-import CodingInterfaceApp from 'src/components/CodingInterfaceApp';
-import HomeApp from 'src/components/HomeApp';
-import PolicyApp from 'src/components/PolicyApp';
-import PolicyInstanceApp from 'src/components/PolicyInstanceApp';
-import ProgressViewApp from 'src/components/ProgressViewApp';
-import { DEFAULT_CODING } from 'src/constants'
-
+import CoderStatusApp from "src/components/CoderStatusApp";
+import CodingApp from "src/components/CodingApp";
+import CodingEditorApp from "src/components/CodingEditorApp";
+import CodingInterfaceApp from "src/components/CodingInterfaceApp";
+import HomeApp from "src/components/HomeApp";
+import PolicyApp from "src/components/PolicyApp";
+import PolicyInstanceApp from "src/components/PolicyInstanceApp";
+import ProgressViewApp from "src/components/ProgressViewApp";
+import { DEFAULT_CODING } from "src/constants";
 
 function CodingAppWrapper(props) {
   let { policy_instance_id, coding_id } = useParams();
   const merge_mode = props.merge_mode == true;
   coding_id = coding_id || DEFAULT_CODING;
-  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode} />
+  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode} />;
 }
 
 class App extends Component {
@@ -34,7 +28,6 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Switch>
-
             {/*
               CODING TOOL
             */}
@@ -86,7 +79,6 @@ class App extends Component {
             <Route path={`${this.props.prefix}`}>
               <HomeApp />
             </Route>
-
           </Switch>
         </Router>
       </Provider>
@@ -94,6 +86,5 @@ class App extends Component {
   }
 }
 
-
 const PREFIX = `/c/:project_id`;
-ReactDOM.render(<App prefix={PREFIX} />, document.querySelector('#app'));
+ReactDOM.render(<App prefix={PREFIX} />, document.querySelector("#app"));

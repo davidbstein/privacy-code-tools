@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Component, default as React } from "react";
 import { connect } from "react-redux";
 
@@ -25,6 +26,7 @@ export default connect(
 
     _scroll_to_next_disagreement() {
       const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier);
+      /** @type {HTMLCollectionOf<HTMLElement>} */
       const unencoded = document.getElementsByClassName("unmatching-answer-merge");
       if (unencoded.length == 0) {
         alert("you've answered all the questions!");
