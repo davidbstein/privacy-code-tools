@@ -22,6 +22,7 @@
     "@babel/preset-react": "",
     "babel-loader": "",
     "css-loader": "",
+    "mini-css-extract-plugin": "^1.6.0",
     "sass": "",
     "sass-loader": "",
     "style-loader": "",

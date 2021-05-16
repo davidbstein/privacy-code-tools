@@ -1,21 +1,13 @@
-{% extends "frontend/base.html" %}
-{% load static %}
-{% load socialaccount %}
-
-{% block content %}
-  <div id="homepage">
-    <div>
-      <h1>
-        Document Coding Tools
-      </h1>
-      <h3>
-        (login required)
-      </h3>
-      <ul>
-        <li> <a href="/c/2021_PP/"> Summer 2021 privacy policies </a></li>
-        <li> <a href="//policycoding.com"> Summer 2020 privacy policies </a></li>
-        <li> <a href="/404"> Fall 2019 1,000,000 page scraper </a></li>
-      </ul>
-    </div>
+{% extends "frontend/base.html" %} {% load static %} {% load socialaccount %} {% block content %}
+<div id="homepage">
+  <div>
+    <h1>Document Coding Tools</h1>
+    <h3>(login required)</h3>
+    <ul>
+      <li><a href="/c/2021_PP/"> Summer 2021 privacy policies </a></li>
+      <li><a href="//policycoding.com"> Summer 2020 privacy policies </a></li>
+      <li><a href="/404"> Fall 2019 page scraper </a></li>
+    </ul>
   </div>
+</div>
 {% endblock %}
