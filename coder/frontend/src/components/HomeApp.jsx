@@ -1,21 +1,13 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { apiGetCoding } from "src/actions/api";
-import { useParams } from "react-router-dom";
 import { CURRENT_USER } from "src/constants";
 
-const mapStateToProps = (state) => ({
-  model: state.model,
-  route: useParams(),
-});
-
 class HomeApp extends Component {
-  constructor(props) {
-    super(props);
-    // do stuff
-  }
-
   render() {
+    const {
+      match: {
+        params: { project_id },
+      },
+    } = this.props;
     return (
       <div id="home-app">
         <div id="homepage-heading">
@@ -33,13 +25,13 @@ class HomeApp extends Component {
             <h2> Tasks and Coding </h2>
             <ul>
               <li>
-                <a href={`/c/${this.props.route.project_id}/coder-status/${CURRENT_USER}`}>Your Tasks</a>
+                <a href={`/c/${project_id}/coder-status/${CURRENT_USER}`}>Your Tasks</a>
               </li>
               <li>
-                <a href={`/c/${this.props.route.project_id}/coder-status`}>Everyone's tasks</a>
+                <a href={`/c/${project_id}/coder-status`}>Everyone's tasks</a>
               </li>
               <li>
-                <a href={`/c/${this.props.route.project_id}/coding-progrss`}>Project Progress</a>
+                <a href={`/c/${project_id}/coding-progrss`}>Project Progress</a>
               </li>
             </ul>
           </div>
@@ -53,7 +45,7 @@ class HomeApp extends Component {
                 <a href={`#`}>[coming soon] Meeting Notes</a>
               </li>
               <li>
-                <a href={`/c/${this.props.route.project_id}/help`}>Contact info</a>
+                <a href={`/c/${project_id}/help`}>Contact info</a>
               </li>
             </ul>
           </div>
@@ -61,10 +53,10 @@ class HomeApp extends Component {
             <h2> Utilities </h2>
             <ul>
               <li>
-                <a href={`/c/${this.props.route.project_id}/coding`}>Coding Editor</a>
+                <a href={`/c/${project_id}/coding`}>Coding Editor</a>
               </li>
               <li>
-                <a href={`/c/${this.props.route.project_id}/policy`}>Policy Downloads</a>
+                <a href={`/c/${project_id}/policy`}>Policy Downloads</a>
               </li>
               <li>
                 <a href={`#`}>[coming soon] Data Explorer</a>
@@ -77,4 +69,4 @@ class HomeApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, { apiGetCoding })(HomeApp);
+export default HomeApp;
