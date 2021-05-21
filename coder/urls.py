@@ -21,14 +21,17 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
-from coder.frontend.views import get_static, get_raw, get_unsafe_raw, process_raw
+from coder.frontend.views import get_static, get_raw, get_unsafe_raw, process_raw, get_uri_text
 from coder import settings
 
 from decorator_include import decorator_include
 
 router = routers.DefaultRouter()
+router.register(r'assignment',            views.AssignmentViewSet)
+router.register(r'assignment_type',       views.AssignmentTypeViewSet)
 router.register(r'coding',                views.CodingViewSet)
-router.register(r'coding_progress',       views.CodingProgressViewSet, basename="coding_progress")
+router.register(r'coding_progress',       views.CodingProgressViewSet,
+                basename="coding_progress")
 router.register(r'coding_instance',       views.CodingInstanceViewSet)
 router.register(r'policy',                views.PolicyViewSet)
 router.register(r'policy_instance',       views.PolicyInstanceViewSet)
@@ -38,7 +41,8 @@ router.register(r'timing_session',        views.TimingSessionViewSet)
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='frontend/home.html')),
-    re_path(r'^c/(.*)$', login_required(TemplateView.as_view(template_name='frontend/index.html'))),
+    re_path(r'^c/(.*)$',
+            login_required(TemplateView.as_view(template_name='frontend/index.html'))),
     path('raw-policy/<int:policy_instance_id>/<str:field>', get_raw),
     path('unsafe-raw-policy/<int:policy_instance_id>/<str:field>', get_unsafe_raw),
     path('api/', include(router.urls)),
@@ -46,6 +50,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path("helper-api/process_raw", login_required(process_raw)),
+    path('helper-api/request_uri_text', login_required(get_uri_text)),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
     re_path(r'^auto_static/(?P<path>.*)$', get_static),
     re_path(r'^NONE/(?P<path>.*)$', login_required(get_static)),

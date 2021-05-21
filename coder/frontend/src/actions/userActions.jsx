@@ -1,61 +1,51 @@
-import {
-  NULL_OP,
-  //USER_AUTO_SAVE,
-  USER_CHANGE_QUESTION_META,
-  USER_CHANGE_VALUE,
-  USER_CLICK_RESET,
-  USER_CLICK_SAVE,
-  USER_SELECT_QUESTION,
-  USER_TOGGLE_SENTENCE,
-} from 'src/actions/types';
-import _ from 'lodash';
+import { NULL_OP, UserActionsTypes } from "src/actions/types";
+import _ from "lodash";
 
-export const userSelectQuestion = (question_idx, question_identifier) => async dispatch => {
+export const userSelectQuestion = (question_idx, question_identifier) => async (dispatch) => {
   dispatch({
-    type: USER_SELECT_QUESTION,
-    payload: { question_idx, question_identifier }
-  })
-}
+    type: UserActionsTypes.SELECT_QUESTION,
+    payload: { question_idx, question_identifier },
+  });
+};
 
-export const userChangeValue = (question_idx, question_identifier, values) => async dispatch => {
+export const userChangeValue = (question_idx, question_identifier, values) => async (dispatch) => {
   dispatch({
-    type: USER_CHANGE_VALUE,
-    payload: { question_idx,  question_identifier, values }
-  })
-}
+    type: UserActionsTypes.CHANGE_VALUE,
+    payload: { question_idx, question_identifier, values },
+  });
+};
 
-export const userToggleSentence = (policy_type, paragraph_idx, sentence_idx) => async dispatch => {
+export const userToggleSentence = (policy_type, paragraph_idx, sentence_idx) => async (dispatch) => {
   dispatch({
-    type: USER_TOGGLE_SENTENCE,
-    payload: { policy_type, paragraph_idx, sentence_idx }
-  })
-}
+    type: UserActionsTypes.TOGGLE_SENTENCE,
+    payload: { policy_type, paragraph_idx, sentence_idx },
+  });
+};
 
-export const userChangeQuestionMeta = (question_idx, question_identifier, field, value) => async dispatch => {
+export const userChangeQuestionMeta = (question_idx, question_identifier, field, value) => async (dispatch) => {
   dispatch({
-    type: USER_CHANGE_QUESTION_META,
-    payload: {question_idx, question_identifier, field, value}
-  })
-}
+    type: UserActionsTypes.CHANGE_QUESTION_META,
+    payload: { question_idx, question_identifier, field, value },
+  });
+};
 
-export const userClickSave = () => async dispatch => {
+export const userClickSave = () => async (dispatch) => {
   dispatch({
-    type: USER_CLICK_SAVE,
-    payload: { }
-  })
-}
+    type: UserActionsTypes.CLICK_SAVE,
+    payload: {},
+  });
+};
 
-export const userClickReset = () => async dispatch => {
+export const userClickReset = () => async (dispatch) => {
   dispatch({
-    type: USER_CLICK_RESET,
-    payload: { }
-  })
-}
+    type: UserActionsTypes.CLICK_RESET,
+    payload: {},
+  });
+};
 
-
-export const userNullOp = () => async dispatch => {
+export const userNullOp = () => async (dispatch) => {
   dispatch({
     type: NULL_OP,
-    payload: { }
-  })
-}
+    payload: {},
+  });
+};

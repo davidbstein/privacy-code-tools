@@ -13,6 +13,8 @@ from rest_framework.response import Response
 # from rest_framework import generics
 
 from coder.api.models import (
+    Assignment,
+    AssignmentType,
     Coding,
     CodingInstance,
     Policy,
@@ -21,6 +23,8 @@ from coder.api.models import (
     TimingSession,
 )
 from coder.api.serializers import (
+    AssignmentSerializer,
+    AssignmentTypeSerializer,
     CodingInstanceSerializer,
     CodingSerializer,
     PolicyInstanceSerializer,
@@ -33,9 +37,10 @@ from coder.api.serializers import (
 
 class GroupPermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.user.email:
-            return True
-        return request.user.groups.filter(name="APIUser").exists()
+        # if request.user.email:
+        #     return True
+        print(request.user.groups.all())
+        return request.user.groups.filter(name="API_ACCESS").exists()
 
     def has_object_permission(self, request, view, obj):
         # if request.method in permissions.SAFE_METHODS:
@@ -43,6 +48,24 @@ class GroupPermission(permissions.BasePermission):
         # # some sort of ORM test
         # return obj.owner == request.user
         return True
+
+
+class AssignmentViewSet(viewsets.ModelViewSet):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentSerializer
+    permission_classes = [GroupPermission]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = '__all__'
+    filterset_fields = ['id']
+
+
+class AssignmentTypeViewSet(viewsets.ModelViewSet):
+    queryset = AssignmentType.objects.all()
+    serializer_class = AssignmentTypeSerializer
+    permission_classes = [GroupPermission]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = '__all__'
+    filterset_fields = ['id']
 
 
 class CodingViewSet(viewsets.ModelViewSet):

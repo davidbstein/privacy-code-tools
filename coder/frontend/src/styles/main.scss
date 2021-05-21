@@ -4,10 +4,12 @@
 @use '_coding_form_merge_mode';
 @use '_raw_policy_view';
 @use '_progress_view';
+@use '_assignment_list_app';
 
 .hidden {
   display: none;
 }
+
 #demo-container {
   align-items: center;
   min-height: 100vh;

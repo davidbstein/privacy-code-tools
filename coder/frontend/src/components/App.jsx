@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-
 
 import store from "src/store";
 
-import CoderStatusApp from "src/components/CoderStatusApp";
+import AssignmentListApp from "src/components/AssignmentListApp";
 import CodingApp from "src/components/CodingApp";
 import CodingEditorApp from "src/components/CodingEditorApp";
 import CodingInterfaceApp from "src/components/CodingInterfaceApp";
@@ -16,69 +16,40 @@ import ProgressViewApp from "src/components/ProgressViewApp";
 import { DEFAULT_CODING } from "src/constants";
 
 function CodingAppWrapper(props) {
-  let { policy_instance_id, coding_id } = useParams();
-  const merge_mode = props.merge_mode == true;
-  coding_id = coding_id || DEFAULT_CODING;
-  return <CodingInterfaceApp policy_instance_id={policy_instance_id} coding_id={coding_id} merge_mode={merge_mode} />;
+  return (
+    <CodingInterfaceApp
+      policy_instance_id={props.policy_instance_id}
+      coding_id={props.coding_id || DEFAULT_CODING}
+      merge_mode={props.mode == "merge"}
+    />
+  );
 }
 
 class App extends Component {
   render() {
+    const prefix = this.props.prefix;
     return (
       <Provider store={store}>
         <Router>
           <Switch>
-            {/*
-              CODING TOOL
-            */}
-            <Route path={`${this.props.prefix}/code-policy/:policy_instance_id/:coding_id`}>
-              <CodingAppWrapper />
-            </Route>
-            <Route path={`${this.props.prefix}/code-policy/:policy_instance_id`}>
-              <CodingAppWrapper />
-            </Route>
-            <Route path={`${this.props.prefix}/code-merge/:policy_instance_id/:coding_id`}>
-              <CodingAppWrapper merge_mode={true} />
-            </Route>
-            <Route path={`${this.props.prefix}/code-merge/:policy_instance_id`}>
-              <CodingAppWrapper merge_mode={true} />
-            </Route>
+            {/* CODING TOOL */}
+            <Route path={`${prefix}/code-:mode/:policy_instance_id/:coding_id`} component={CodingAppWrapper} />
+            <Route path={`${prefix}/code-:mode/:policy_instance_id`} component={CodingAppWrapper} />
 
-            {/*
-              DOWNLOADING TOOLS
-            */}
-            <Route path={`${this.props.prefix}/policy`}>
-              <PolicyApp />
-            </Route>
-            <Route path={`${this.props.prefix}/policy/:policy_id`}>
-              <PolicyApp />
-            </Route>
-            <Route path={`${this.props.prefix}/policy/:policy_id/:policy_instance_id`}>
-              <PolicyInstanceApp />
-            </Route>
-            <Route path={`${this.props.prefix}/coder-status/:coder_email`}>
-              <CoderStatusApp />
-            </Route>
+            {/* DOWNLOADING TOOLS */}
+            <Route path={`${prefix}/policy`} component={PolicyApp} />
+            <Route path={`${prefix}/policy/:policy_id`} component={PolicyApp} />
+            <Route path={`${prefix}/policy/:policy_id/:policy_instance_id`} component={PolicyInstanceApp} />
+            <Route path={`${prefix}/coder-status/:coder_email`} component={AssignmentListApp} />
+            <Route path={`${prefix}/coder-status`} component={AssignmentListApp} />
 
-            {/*
-              CODING EDITOR
-            */}
-            <Route path={`${this.props.prefix}/coding`}>
-              <CodingApp />
-            </Route>
-            <Route path={`${this.props.prefix}/coding/:coding`}>
-              <CodingEditorApp />
-            </Route>
+            {/* CODING EDITOR */}
+            <Route path={`${prefix}/coding`} component={CodingApp} />
+            <Route path={`${prefix}/coding/:coding`} component={CodingEditorApp} />
 
-            {/*
-              CODING STATUS PAGES
-            */}
-            <Route path={`${this.props.prefix}/coding-progress`}>
-              <ProgressViewApp />
-            </Route>
-            <Route path={`${this.props.prefix}`}>
-              <HomeApp />
-            </Route>
+            {/* CODING STATUS PAGES */}
+            <Route path={`${prefix}/coding-progress`} component={ProgressViewApp} />
+            <Route path={`${prefix}`} component={HomeApp} />
           </Switch>
         </Router>
       </Provider>

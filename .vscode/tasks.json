@@ -16,10 +16,7 @@
 						"endsPattern": "^.*modules$",
 					},
 					"owner": "npm",
-					"fileLocation": [
-						"relative",
-						"${workspaceRoot}"
-					],
+					"fileLocation": "absolute",
 					"pattern": [
 						{
 							"kind": "file",

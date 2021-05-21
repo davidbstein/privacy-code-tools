@@ -20,6 +20,8 @@
     "@babel/plugin-proposal-class-properties": "",
     "@babel/preset-env": "",
     "@babel/preset-react": "",
+    "@mozilla/readability": "^0.4.1",
+    "@types/lodash": "^4.14.169",
     "babel-loader": "",
     "css-loader": "",
     "mini-css-extract-plugin": "^1.6.0",

@@ -1,3 +1,3 @@
 // @ts-nocheck
-import App from "src/components/App";
-import "src/styles/main.scss";
+import "src/components/App";
+import * as locals from "src/styles/main.scss";

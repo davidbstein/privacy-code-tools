@@ -18,16 +18,25 @@ class HomeApp extends Component {
   render() {
     return (
       <div id="home-app">
-        <h1> Policy Coding Project - Summer 2021 </h1>
-        <div id="home-page">
+        <div id="homepage-heading">
+          <h1> Policy Coding Project</h1>
+          <h2>Summer 2021 </h2>
+        </div>
+        <div id="annoucements">
+          <div className="annoucement">
+            <h3>Welcome!</h3>
+            <div>This is what an annoucement looks like</div>
+          </div>
+        </div>
+        <div id="main-menu">
           <div className="menu-block">
             <h2> Tasks and Coding </h2>
             <ul>
               <li>
-                <a href={`/c/${this.props.route.project_id}/coder-status`}>Tasks assigned to {CURRENT_USER}</a>
+                <a href={`/c/${this.props.route.project_id}/coder-status/${CURRENT_USER}`}>Your Tasks</a>
               </li>
               <li>
-                <a href={`/c/${this.props.route.project_id}/coder-status`}>Everyone's todo lists</a>
+                <a href={`/c/${this.props.route.project_id}/coder-status`}>Everyone's tasks</a>
               </li>
               <li>
                 <a href={`/c/${this.props.route.project_id}/coding-progrss`}>Project Progress</a>
@@ -58,7 +67,7 @@ class HomeApp extends Component {
                 <a href={`/c/${this.props.route.project_id}/policy`}>Policy Downloads</a>
               </li>
               <li>
-                <a href={`#`}>[coming soon] Data</a>
+                <a href={`#`}>[coming soon] Data Explorer</a>
               </li>
             </ul>
           </div>
