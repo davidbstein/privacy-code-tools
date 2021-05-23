@@ -5,7 +5,7 @@ class HomeApp extends Component {
   render() {
     const {
       match: {
-        params: { project_id },
+        params: { project_prefix },
       },
     } = this.props;
     return (
@@ -25,13 +25,13 @@ class HomeApp extends Component {
             <h2> Tasks and Coding </h2>
             <ul>
               <li>
-                <a href={`/c/${project_id}/coder-status/${CURRENT_USER}`}>Your Tasks</a>
+                <a href={`/c/${project_prefix}/coder-status/${CURRENT_USER}`}>Your Tasks</a>
               </li>
               <li>
-                <a href={`/c/${project_id}/coder-status`}>Everyone's tasks</a>
+                <a href={`/c/${project_prefix}/coder-status`}>Everyone's tasks</a>
               </li>
               <li>
-                <a href={`/c/${project_id}/coding-progrss`}>Project Progress</a>
+                <a href={`/c/${project_prefix}/coding-progrss`}>Project Progress</a>
               </li>
             </ul>
           </div>
@@ -45,7 +45,7 @@ class HomeApp extends Component {
                 <a href={`#`}>[coming soon] Meeting Notes</a>
               </li>
               <li>
-                <a href={`/c/${project_id}/help`}>Contact info</a>
+                <a href={`/c/${project_prefix}/help`}>Contact info</a>
               </li>
             </ul>
           </div>
@@ -53,10 +53,10 @@ class HomeApp extends Component {
             <h2> Utilities </h2>
             <ul>
               <li>
-                <a href={`/c/${project_id}/coding`}>Coding Editor</a>
+                <a href={`/c/${project_prefix}/coding`}>Coding Editor</a>
               </li>
               <li>
-                <a href={`/c/${project_id}/policy`}>Policy Downloads</a>
+                <a href={`/c/${project_prefix}/policy`}>Policy Downloads</a>
               </li>
               <li>
                 <a href={`#`}>[coming soon] Data Explorer</a>

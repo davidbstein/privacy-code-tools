@@ -19,6 +19,7 @@ from coder.api.models import (
     CodingInstance,
     Policy,
     PolicyInstance,
+    Project,
     RawPolicyInstance,
     TimingSession,
 )
@@ -30,6 +31,7 @@ from coder.api.serializers import (
     PolicyInstanceSerializer,
     PolicySerializer,
     PolicyInstanceInfoSerializer,
+    ProjectSerializer,
     RawPolicyInstanceSerializer,
     TimingSessionSerializer,
 )
@@ -57,6 +59,16 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id']
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [GroupPermission]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = '__all__'
+    filterset_fields = ['id']
+    lookup_field = "project_prefix"
 
 
 class AssignmentTypeViewSet(viewsets.ModelViewSet):

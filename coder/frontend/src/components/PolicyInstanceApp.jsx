@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { apiGetCoding } from "src/actions/api";
+import mapStateToProps from "src/components/utils/mapStateToProps";
 
 class PolicyInstanceApp extends Component {
   constructor(props) {
@@ -21,9 +22,5 @@ class PolicyInstanceApp extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  model: state.model,
-});
 
 export default connect(mapStateToProps, { apiGetCoding })(PolicyInstanceApp);

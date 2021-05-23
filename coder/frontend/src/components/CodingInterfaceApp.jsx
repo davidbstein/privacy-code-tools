@@ -2,15 +2,12 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import CodingForm from "src/components/coding_interface/CodingForm";
-import PolicyBrowser from "src/components/coding_interface/PolicyBrowser";
-import { apiGetPolicyInstance, apiGetCoding, apiGetCodingInstance, apiGetAllCodingInstances } from "src/actions/api";
+import { apiGetAllCodingInstances, apiGetCoding, apiGetCodingInstance, apiGetPolicyInstance } from "src/actions/api";
 import { appSetCurrentView } from "src/actions/appActions";
+import CodingForm from "src/components/coding-interface/CodingForm";
+import PolicyBrowser from "src/components/coding-interface/PolicyBrowser";
+import mapStateToProps from "src/components/utils/mapStateToProps";
 import SessionTimer from "src/components/utils/SessionTimer";
-
-const mapStateToProps = (state) => ({
-  model: state.model,
-});
 
 class CodingInterfaceApp extends Component {
   constructor(props) {

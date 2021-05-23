@@ -16,7 +16,9 @@
 						"endsPattern": "^.*modules$",
 					},
 					"owner": "npm",
-					"fileLocation": "absolute",
+					"fileLocation": [
+						"absolute"
+					],
 					"pattern": [
 						{
 							"kind": "file",
@@ -54,7 +56,10 @@
 			//"runOptions": {"runOn": "folderOpen"},
 			"problemMatcher": {
 				"base": "$tsc",
-				"severity": "info"
+				"severity": "info",
+				"fileLocation": [
+					"absolute"
+				],
 			}
 		},
 		{
@@ -64,7 +69,10 @@
 			//"runOptions": {"runOn": "folderOpen"},
 			"problemMatcher": {
 				"base": "$tsc-watch",
-				"severity": "info"
+				"severity": "info",
+				"fileLocation": [
+					"absolute"
+				],
 			},
 			"isBackground": true
 		}

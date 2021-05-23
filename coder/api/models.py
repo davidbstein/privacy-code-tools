@@ -30,12 +30,14 @@ class Coding(models.Model):
     project = models.BigIntegerField(default=1)
     parent = models.BigIntegerField(null=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
-    questions = models.JSONField()
+    questions = models.JSONField(default=list)
+    meta = models.JSONField(default=dict)
 
 
 class Project(models.Model):
     project_prefix = models.CharField(max_length=255, db_index=True)
     project_name = models.CharField(max_length=255)
+    project_settings = models.JSONField(default=dict)
 
 
 class CodingInstance(models.Model):

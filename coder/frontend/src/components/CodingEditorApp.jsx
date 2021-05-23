@@ -1,30 +1,48 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiGetCoding } from "src/actions/api";
-import { CURRENT_USER } from "src/constants";
+import { apiGetCodingList } from "src/actions/api";
+import CodingEditor from "src/components/coding-editor/CodingEditor";
+import CodingList from "src/components/coding-editor/CodingList";
+import mapStateToProps from "src/components/utils/mapStateToProps";
+import Heading from "src/components/widgets/Heading";
+import Loading from "src/components/widgets/Loading";
 
 class CodingEditorApp extends Component {
   constructor(props) {
     super(props);
-    // do stuff
+    this.props.apiGetCodingList();
   }
 
   render() {
+    const {
+      model: {
+        codings,
+        project: { project_settings },
+      },
+      match: {
+        params: { coding_id = undefined, project_prefix },
+      },
+    } = this.props;
+    if (_.isEmpty(codings) || _.isEmpty(project_settings)) return <Loading />;
+
     return (
-      <div id="demo-container">
-        <div id="demo-box">
-          <h1> Hello! </h1>
-          <div>
-            you are logged in as: {CURRENT_USER}. <br />
-          </div>
+      <div id="coding-editor-list" className="page-root">
+        <Heading title="Coding Editor" project_prefix={project_prefix} />
+        <div id="coding-list">
+          {coding_id ? (
+            <CodingEditor coding_id={coding_id} coding={codings[coding_id]} />
+          ) : (
+            <CodingList
+              project_prefix={project_prefix}
+              codings={codings}
+              default_coding={project_settings.default_coding}
+            />
+          )}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  model: state.model,
-});
-
-export default connect(mapStateToProps, { apiGetCoding })(CodingEditorApp);
+export default connect(mapStateToProps, { apiGetCodingList })(CodingEditorApp);

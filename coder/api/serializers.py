@@ -21,6 +21,12 @@ class AssignmentTypeSerializer(serializers.HyperlinkedModelSerializer):
         fields = _field_list(api_models.AssignmentType, to_omit=[])
 
 
+class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = api_models.Project
+        fields = _field_list(api_models.Project, to_omit=[])
+
+
 class CodingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.Coding

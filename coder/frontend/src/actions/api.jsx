@@ -50,6 +50,14 @@ export const apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => 
   });
 };
 
+export const apiGetCodingList = () => async (dispatch) => {
+  const res = await axios.get(`/api/coding/`);
+  dispatch({
+    type: APIActionTypes.GET_CODING_LIST,
+    payload: res.data.results,
+  });
+};
+
 export const apiGetCoding = (coding_id) => async (dispatch) => {
   const res = await axios.get(`/api/coding/${coding_id}/`);
   dispatch({
@@ -58,11 +66,19 @@ export const apiGetCoding = (coding_id) => async (dispatch) => {
   });
 };
 
+export const apiGetProjectSettings = (project_prefix) => async (dispatch) => {
+  const res = await axios.get(`/api/project/${project_prefix}/`);
+  dispatch({
+    type: APIActionTypes.GET_PROJECT_SETTINGS,
+    payload: res.data,
+  });
+};
+
 export const apiGetCodingProgress = () => async (dispatch) => {
   const res = await axios.get(`/api/coding_progress/`);
   dispatch({
     type: APIActionTypes.GET_CODING_PROGRESS,
-    payload: res,
+    payload: res.data,
   });
 };
 
@@ -87,12 +103,52 @@ export const apiGetAllCodingInstances = (policy_instance_id, coding_id) => async
   });
 };
 
+export const apiUpdateProjectSettings = (project_prefix, settings) => async (dispatch) => {
+  const res = await axios.patch(
+    `/api/project/${project_prefix}/`,
+    { project_settings: settings },
+    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+  );
+  store.dispatch({
+    type: APIActionTypes.GET_PROJECT_SETTINGS,
+    payload: res.data,
+  });
+};
+
+export const apiSaveCoding = (coding) => async (dispatch) => {
+  const res = await axios.post(
+    `/api/coding/${coding_id}`,
+    {
+      /*TODO*/
+    },
+    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+  );
+  store.dispatch({
+    type: APIActionTypes.GET_CODING,
+    payload: res.data,
+  });
+};
+
+export const apiUpdateCoding = (coding) => async (dispatch) => {
+  const res = await axios.post(
+    `/api/coding/${coding_id}`,
+    {
+      /*TODO*/
+    },
+    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+  );
+  store.dispatch({
+    type: APIActionTypes.GET_CODING,
+    payload: res.data,
+  });
+};
+
 export const apiPostCodingInstance = () => async (dispatch) => {
   _save_fn(store, dispatch, APIActionTypes.POST_CODING_INSTANCE);
 };
 
 /*
- * AUTO SAVE FUNCTION AND BACCKGROUND LISTENERS
+ * AUTO SAVE FUNCTION AND BACKGROUND LISTENERS
  */
 var _LAST_AUTO_SAVE = 0;
 const _JUMP = 10000;

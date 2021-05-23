@@ -5,6 +5,7 @@
 @use '_raw_policy_view';
 @use '_progress_view';
 @use '_assignment_list_app';
+@import "_variables";
 
 .hidden {
   display: none;
@@ -14,4 +15,48 @@
   align-items: center;
   min-height: 100vh;
   padding: 64px;
+}
+
+.page-root {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5em;
+  font-size: 18px;
+  #title {
+    background-color: $nyu-dark-purple;
+    color: $nyu-lighter-grey;
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    a {
+      color: white;
+      margin: 1em;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .sortable-table {
+    thead {
+      background-color: $nyu-light-grey;
+      th {
+        &.selected {
+          background-color: $nyu-grey;
+        }
+        &:hover {
+          background-color: $nyu-grey;
+          cursor: pointer;
+        }
+      }
+    }
+    tbody {
+      td {
+        padding: 0 1em;
+      }
+    }
+  }
 }

@@ -1,6 +1,9 @@
 import _ from "lodash";
 import { APIActionTypes, AppActionTypes, NULL_OP, UserActionsTypes } from "src/actions/types";
 
+/**
+ * @constant {LocalState} defaultState
+ */
 const defaultState = {
   selectedQuestion: "-1",
   selectedQuestionIdentifier: "-1",
@@ -8,6 +11,9 @@ const defaultState = {
   updateSinceLastSave: true,
 };
 
+/**
+ * @returns {QuestionAnswer}
+ */
 function get_default_question() {
   return {
     values: {},

@@ -17,9 +17,9 @@
                 /* Allow javascript files to be compiled. */
                 "allowJs": true,
                 /* Report errors in .js files. */
-                "checkJs": true,
+                "checkJs": false,
                 /* Specify JSX code generation: 'preserve', 'react-native', 'react', 'react-jsx' or 'react-jsxdev'. */
-                "jsx": "react",
+                "jsx": "react-jsxdev",
                 /* Generates corresponding '.d.ts' file. */
                 "declaration": true,
                 /* Generates a sourcemap for each corresponding '.d.ts' file. */

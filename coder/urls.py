@@ -34,6 +34,7 @@ router.register(r'coding_progress',       views.CodingProgressViewSet,
                 basename="coding_progress")
 router.register(r'coding_instance',       views.CodingInstanceViewSet)
 router.register(r'policy',                views.PolicyViewSet)
+router.register(r'project',               views.ProjectViewSet)
 router.register(r'policy_instance',       views.PolicyInstanceViewSet)
 router.register(r'policy_instance_info',  views.PolicyInstanceInfoViewSet)
 router.register(r'raw_policy_instance',   views.RawPolicyInstanceViewSet)

@@ -1,13 +1,8 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {
-  apiGetCodingProgress
-} from 'src/actions/api';
-
-const mapStateToProps = state => ({
-  codingProgress: state.codingProgressStore
-});
+import _ from "lodash";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { apiGetCodingProgress } from "src/actions/api";
+import mapStateToProps from "src/components/utils/mapStateToProps";
 
 class PersonalProgress extends Component {
   constructor(props) {
@@ -32,26 +27,40 @@ class PersonalProgress extends Component {
               </thead>
               <tbody>
                 {_.map(this.props.codingProgress, (e, i) => {
-                  if (_.sumBy(e.coding_instances, (ci) => (coder_email == ci.email))) {
-                    return (<tr key={i}>
-                      <td><a href={`/code-policy/${e.policy_instance_id}`}>{e.company_name}</a></td>
-                      <td>{_.map(e.coding_instances, (ci, i) => (
-                          <div className="home-progress-view-coding-instance" key={i}>
-                            <div className="home-progress-view-coder-email">{ci.name} ({ci.email})</div>
-                            <div className="home-progress-view-coder-count"> {ci.response_count} / {ci.target_count}</div>
-                            <div className="home-progress-view-coder-date">started {ci.created.substr(5, 5)}</div>
-                          {(ci.target_count - ci.response_count > 0) && (ci.email == CURRENT_USER) ?
-                          <div style={{color:"red"}}>
-                            <b>{ci.target_count - ci.response_count}</b> UNANSWERED QUESTION{ci.target_count - ci.response_count >1?'S':''}!
-                            </div> : <span> </span>}
-                          </div>
-                        ))}
-                      </td>
-                    </tr>);
+                  if (_.sumBy(e.coding_instances, (ci) => coder_email == ci.email)) {
+                    return (
+                      <tr key={i}>
+                        <td>
+                          <a href={`/code-policy/${e.policy_instance_id}`}>{e.company_name}</a>
+                        </td>
+                        <td>
+                          {_.map(e.coding_instances, (ci, i) => (
+                            <div className="home-progress-view-coding-instance" key={i}>
+                              <div className="home-progress-view-coder-email">
+                                {ci.name} ({ci.email})
+                              </div>
+                              <div className="home-progress-view-coder-count">
+                                {" "}
+                                {ci.response_count} / {ci.target_count}
+                              </div>
+                              <div className="home-progress-view-coder-date">started {ci.created.substr(5, 5)}</div>
+                              {ci.target_count - ci.response_count > 0 && ci.email == CURRENT_USER ? (
+                                <div style={{ color: "red" }}>
+                                  <b>{ci.target_count - ci.response_count}</b> UNANSWERED QUESTION
+                                  {ci.target_count - ci.response_count > 1 ? "S" : ""}!
+                                </div>
+                              ) : (
+                                <span> </span>
+                              )}
+                            </div>
+                          ))}
+                        </td>
+                      </tr>
+                    );
                   } else {
                     return;
                   }
-                  })}
+                })}
               </tbody>
             </table>
           </div>
@@ -61,7 +70,4 @@ class PersonalProgress extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { apiGetCodingProgress }
-)(PersonalProgress);
+export default connect(mapStateToProps, { apiGetCodingProgress })(PersonalProgress);
