@@ -30,19 +30,19 @@ export default connect(
       this.props.apiPostCodingInstance(
         this.props.policy_instance_id,
         this.props.coding_id,
-        this.props.localState.localCoding
+        this.props.localState.localCodingInstance
       );
     }
     userSubmit() {
       this.props.apiPostCodingInstance(
         this.props.policy_instance_id,
         this.props.coding_id,
-        this.props.localState.localCoding
+        this.props.localState.localCodingInstance
       );
       window.location.assign("/");
     }
     localStore() {
-      window.localStorage.setItem(location.pathname, JSON.stringify(this.props.localState.localCoding));
+      window.localStorage.setItem(location.pathname, JSON.stringify(this.props.localState.localCodingInstance));
       alert("The current state of this page has been saved to your browser's memory.");
     }
     restoreStore() {
@@ -50,7 +50,7 @@ export default connect(
         "This will revert to the last time you clicked 'offline save' on this computer." +
         "\n\nAnything you've done since then (on any computer) will be lost forever. \n\ncontinue?";
       if (!window.confirm(warning_msg)) return;
-      this.props.localState.localCoding = JSON.parse(window.localStorage.getItem(window.location.pathname));
+      this.props.localState.localCodingInstance = JSON.parse(window.localStorage.getItem(window.location.pathname));
       this.props.userNullOp();
     }
     fun() {

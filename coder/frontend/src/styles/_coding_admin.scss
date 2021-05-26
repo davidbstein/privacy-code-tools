@@ -1,0 +1,166 @@
+@import "_variables";
+
+@mixin nested-layer-box($color: white) {
+  border-radius: 0.5em;
+  border: 1px solid $nyu-grey;
+  padding: 1em 2em;
+  background-color: $color;
+  opacity: 0.9;
+  transition: box-shadow 0.3s;
+  &:hover {
+    box-shadow: 0 0 0.25em 0 $nyu-dark-grey;
+    opacity: 1;
+  }
+}
+
+#coding-editor-list {
+  background-color: $nyu-lighter-purple;
+  #coding-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 5vh;
+    #coding-table-container {
+      @include nested-layer-box();
+      #coding-list-table {
+        max-width: 1200px;
+      }
+    }
+    #changes-alert.unsaved {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      left: 0;
+      text-align: center;
+      background-color: goldenrod;
+      color: brown;
+    }
+    #coding-edit-area {
+      max-width: 1200px;
+      width: 80vw;
+      button {
+        width: 100%;
+        margin: 0.5em 0;
+        padding: 0.25em;
+        transition: background-color 0.2s;
+        border-radius: 0.25em;
+        border: 1px solid;
+        background-color: $nyu-lighter-grey;
+        &:hover {
+          background-color: $nyu-light-grey;
+        }
+        &:active {
+          opacity: 0.8;
+        }
+      }
+      button.delete-button {
+        width: default;
+        margin: 0.5em 0;
+        padding: 0.25em;
+        color: darkred;
+        background-color: #fdd;
+        border: 1px solid darkred;
+        &:hover {
+          background-color: #fcc;
+        }
+      }
+      .category-edit-holder {
+        .category-editor {
+          input,
+          textarea {
+            border: 1px solid $nyu-light-grey;
+            &::placeholder {
+              font-style: italic;
+            }
+          }
+          & > h1 div.input-box input {
+            width: 100%;
+            background: none;
+            text-align: center;
+            font-size: 2em;
+          }
+          @include nested-layer-box($nyu-faint-purple);
+          .question-edit-container {
+            .question-edit-form {
+              display: flex;
+              flex-wrap: wrap;
+              width: 100%;
+              margin: 1.5em 0;
+              @include nested-layer-box();
+              .input-box {
+                input[type] {
+                  width: 100%;
+                  padding: 0.25em;
+                }
+              }
+              & > .delete-button {
+                width: 2em;
+                margin-left: auto;
+              }
+              .question-edit-label {
+                width: 100%;
+                input {
+                  flex-basis: 100%;
+                  font-size: 1.5em;
+                  font-weight: bold;
+                }
+              }
+              .question-edit-info,
+              .question-edit-description {
+                width: 100%;
+                textarea {
+                  width: 100%;
+                  margin-top: 0.25em;
+                  font-size: 1em;
+                  padding: 0.5em;
+                }
+              }
+              .question-edit-type {
+                width: 20em;
+                margin-left: 1em;
+              }
+              .question-option-list-editor {
+                .value-list-heading {
+                  font-weight: bolder;
+                  color: $nyu-purple;
+                }
+                @include nested-layer-box();
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                button {
+                  max-width: 15%;
+                  width: 100px;
+                  flex-grow: 1;
+                }
+                .question-option-editor {
+                  display: flex;
+                  width: 100%;
+                  flex-direction: row;
+                  justify-content: space-around;
+                  align-items: center;
+                  input {
+                    width: 100%;
+                  }
+                  .question-option-value.input-box {
+                    max-width: 4em;
+                    text-align: center;
+                    font-weight: bold;
+                    flex-grow: 1;
+                  }
+                  .question-option-label.input-box,
+                  .question-option-detail.input-box {
+                    width: 4em;
+                    text-align: center;
+                    font-weight: bold;
+                    flex-grow: 1;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

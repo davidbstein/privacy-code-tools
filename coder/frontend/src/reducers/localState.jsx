@@ -7,7 +7,8 @@ import { APIActionTypes, AppActionTypes, NULL_OP, UserActionsTypes } from "src/a
 const defaultState = {
   selectedQuestion: "-1",
   selectedQuestionIdentifier: "-1",
-  localCoding: {},
+  localCodingInstance: {}, // the current coding values
+  localCodings: {}, // for coding editing
   updateSinceLastSave: true,
 };
 
@@ -41,7 +42,8 @@ function template(state, action) {
  */
 function changeValue(state, action) {
   var current_value =
-    state.localCoding[action.payload.question_identifier] || state.localCoding[action.payload.question_idx];
+    state.localCodingInstance[action.payload.question_identifier] ||
+    state.localCodingInstance[action.payload.question_idx];
   if (current_value === undefined) {
     current_value = get_default_question();
   }
@@ -52,8 +54,8 @@ function changeValue(state, action) {
   return {
     ...state,
     ...{
-      localCoding: {
-        ...state.localCoding,
+      localCodingInstance: {
+        ...state.localCodingInstance,
         ...{ [action.payload.question_idx]: new_value },
         ...{ [action.payload.question_identifier]: new_value },
       },
@@ -63,12 +65,12 @@ function changeValue(state, action) {
 
 function changeQuestionMeta(state, action) {
   const next_state = { ...state };
-  next_state.localCoding[action.payload.question_idx] = {
-    ...(state.localCoding[action.payload.question_idx] || get_default_question()),
+  next_state.localCodingInstance[action.payload.question_idx] = {
+    ...(state.localCodingInstance[action.payload.question_idx] || get_default_question()),
     ...{ [action.payload.field]: action.payload.value },
   };
-  next_state.localCoding[action.payload.question_identifier] = {
-    ...(state.localCoding[action.payload.question_identifier] || get_default_question()),
+  next_state.localCodingInstance[action.payload.question_identifier] = {
+    ...(state.localCodingInstance[action.payload.question_identifier] || get_default_question()),
     ...{ [action.payload.field]: action.payload.value },
   };
   return next_state;
@@ -77,13 +79,14 @@ function changeQuestionMeta(state, action) {
 /**
  * toggles the presense of sentence_idx in the array:
  * ```
- *     state.localCoding[<question_idx>].sentences[<paragraph_idx>]
+ *     state.localCodingInstance[<question_idx>].sentences[<paragraph_idx>]
  * ````
  *
  * action.payload = {paragraph_idx, sentence_idx}
  */
 function toggleSentence(state, action) {
-  var current_value = state.localCoding[state.selectedQuestion] || state.localCoding[state.selectedQuestionIdentifier];
+  var current_value =
+    state.localCodingInstance[state.selectedQuestion] || state.localCodingInstance[state.selectedQuestionIdentifier];
   if (current_value === undefined) {
     current_value = get_default_question();
   }
@@ -111,8 +114,8 @@ function toggleSentence(state, action) {
   return {
     ...state,
     ...{
-      localCoding: {
-        ...state.localCoding,
+      localCodingInstance: {
+        ...state.localCodingInstance,
         ...{ [state.selectedQuestion]: new_value },
         ...{ [state.selectedQuestionIdentifier]: new_value },
       },
@@ -138,13 +141,25 @@ function selectQuestion(state, action) {
  *
  * action.payload = {}
  */
-function loadSavedCoding(state, action) {
+function loadSavedCodingInstance(state, action) {
   if (!action.payload.coding_values) {
     return state;
   }
   return {
     ...state,
-    ...{ localCoding: action.payload.coding_values },
+    ...{ localCodingInstance: action.payload.coding_values },
+  };
+}
+
+/**
+ * overrides the local state with the server's last saved coding`
+ *
+ * action.payload = {}
+ */
+function loadSavedCodings(state, action) {
+  return {
+    ...state,
+    localCodings: _.fromPairs(_.map(action.payload, (coding) => [coding.id, coding])),
   };
 }
 
@@ -155,6 +170,16 @@ function setCurrentView(state, action) {
       policyInstanceId: action.payload.policy_instance_id,
       codingId: action.payload.coding_id,
       merge_mode: action.payload.merge_mode == true,
+    },
+  };
+}
+
+function changeCoding(state, action) {
+  return {
+    ...state,
+    localCodings: {
+      ...state.localCodings,
+      [action.payload.coding.id]: action.payload.coding,
     },
   };
 }
@@ -170,7 +195,9 @@ export default (state = defaultState, action) => {
       new_state.updateSinceLastSave = true;
       return new_state;
     case APIActionTypes.GET_CODING_INSTANCE:
-      return loadSavedCoding(new_state, action);
+      return loadSavedCodingInstance(new_state, action);
+    case APIActionTypes.GET_CODING_LIST:
+      return loadSavedCodings(new_state, action);
 
     // updates that mutate user's input
     case UserActionsTypes.SELECT_QUESTION:
@@ -181,6 +208,8 @@ export default (state = defaultState, action) => {
       return toggleSentence(new_state, action);
     case UserActionsTypes.CHANGE_VALUE:
       return changeValue(new_state, action);
+    case UserActionsTypes.UPDATE_CODING:
+      return changeCoding(new_state, action);
 
     case NULL_OP:
       return new_state;

@@ -6,6 +6,7 @@ import MainRouter from "./MainRouter";
 
 class App extends Component {
   render() {
+    console.log(`render time: ${new Date()}`);
     return (
       <Provider store={store}>
         <MainRouter />

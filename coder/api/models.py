@@ -30,7 +30,7 @@ class Coding(models.Model):
     project = models.BigIntegerField(default=1)
     parent = models.BigIntegerField(null=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
-    questions = models.JSONField(default=list)
+    categories = models.JSONField(default=list)
     meta = models.JSONField(default=dict)
 
 

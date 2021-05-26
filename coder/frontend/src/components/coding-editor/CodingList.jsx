@@ -43,7 +43,7 @@ class CodingList extends Component {
       },
       {
         name: "Link",
-        display_fn: (coding) => <a href={`${coding.id}`}>edit this coding</a>,
+        display_fn: (coding) => <a href={`/c/${project_prefix}/coding/${coding.id}`}>edit</a>,
         sort_fn: (coding) => coding.id,
       },
       {
@@ -52,13 +52,23 @@ class CodingList extends Component {
         sort_fn: (coding) => coding.created_dt,
       },
       {
+        name: "categories",
+        display_fn: (coding) => coding.categories.length,
+        sort_fn: (coding) => coding.categories.length,
+      },
+      {
         name: "questions",
-        display_fn: (coding) => `I'm not sure how to count this yet`,
-        sort_fn: (coding) => coding.questions.length,
+        display_fn: (coding) => `${_.sum(coding.categories.map((e) => e.questions.length))}`,
+        sort_fn: (coding) => _.sum(coding.categories.map((e) => e.questions.length)),
       },
     ];
 
-    return <SortableTable id="coding-list-table" items={_.values(codings)} columns={_COLUMNS} />;
+    return (
+      <div id="coding-table-container">
+        <h2> Saved Codings </h2>
+        <SortableTable id="coding-list-table" items={_.values(codings)} columns={_COLUMNS} />
+      </div>
+    );
   }
 }
 export default connect(mapStateToProps, { apiUpdateProjectSettings })(CodingList);

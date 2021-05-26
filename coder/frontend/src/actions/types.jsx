@@ -21,6 +21,7 @@ export const APIActionTypes = {
  * @enum {String}
  */
 export const UserActionsTypes = {
+  UPDATE_CODING: "UPDATE_CODING",
   SELECT_QUESTION: "USER_SELECT_QUESTION",
   CHANGE_VALUE: "USER_CHANGE_VALUE",
   TOGGLE_SENTENCE: "USER_TOGGLE_SENTENCE",

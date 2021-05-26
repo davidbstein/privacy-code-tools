@@ -1,6 +1,13 @@
 import { NULL_OP, UserActionsTypes } from "src/actions/types";
 import _ from "lodash";
 
+export const userUpdateCoding = (coding) => async (dispatch) => {
+  dispatch({
+    type: UserActionsTypes.UPDATE_CODING,
+    payload: { coding },
+  });
+};
+
 export const userSelectQuestion = (question_idx, question_identifier) => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.SELECT_QUESTION,

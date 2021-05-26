@@ -29,15 +29,15 @@ export default (state = defaultState, action) => {
     case APIActionTypes.GET_PROJECT_SETTINGS:
       return { ...state, ...{ project: action.payload } };
     case APIActionTypes.GET_POLICY:
-      return overwrite_stored_object_copies(state, { ...action.payload, id: action.payload.id }, "policies");
+      return overwrite_stored_object_copies(state, { [action.payload.id]: action.payload }, "policies");
     case APIActionTypes.GET_POLICY_INSTANCE:
-      return overwrite_stored_object_copies(state, { ...action.payload, id: action.payload.id }, "policy_instances");
+      return overwrite_stored_object_copies(state, { [action.payload.id]: action.payload }, "policy_instances");
     case APIActionTypes.GET_CODING_LIST:
       return overwrite_stored_object_copies(state, _wrapObjectList(action.payload), "codings");
     case APIActionTypes.GET_CODING:
-      return overwrite_stored_object_copies(state, { ...action.payload, id: action.payload.id }, "codings");
+      return overwrite_stored_object_copies(state, { [action.payload.id]: action.payload }, "codings");
     case APIActionTypes.GET_CODING_INSTANCE:
-      return overwrite_stored_object_copies(state, { ...action.payload, id: action.payload.id }, "coding_instances");
+      return overwrite_stored_object_copies(state, { [action.payload.id]: action.payload }, "coding_instances");
     case APIActionTypes.GET_ALL_CODING_INSTANCE:
       return overwrite_stored_object_copies(state, _wrapObjectList(action.payload), "coding_instances");
     case APIActionTypes.GET_ASSIGNMENT_LIST:

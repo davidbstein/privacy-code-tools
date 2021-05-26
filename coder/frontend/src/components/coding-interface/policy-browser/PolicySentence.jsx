@@ -36,7 +36,7 @@ export default connect(mapStateToProps, { userToggleSentence, apiAutoSave })(
 
     _basicHighlightTest() {
       const selected_sentences = this._get_selected_sentences(
-        this.props.localState.localCoding,
+        this.props.localState.localCodingInstance,
         this.props.policy_type
       );
       var extra_class = "unselected";

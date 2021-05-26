@@ -117,10 +117,8 @@ export const apiUpdateProjectSettings = (project_prefix, settings) => async (dis
 
 export const apiSaveCoding = (coding) => async (dispatch) => {
   const res = await axios.post(
-    `/api/coding/${coding_id}`,
-    {
-      /*TODO*/
-    },
+    `/api/coding/`,
+    { ...coding, id: undefined },
     { headers: { "X-CSRFToken": CSRF_TOKEN } }
   );
   store.dispatch({
@@ -129,14 +127,8 @@ export const apiSaveCoding = (coding) => async (dispatch) => {
   });
 };
 
-export const apiUpdateCoding = (coding) => async (dispatch) => {
-  const res = await axios.post(
-    `/api/coding/${coding_id}`,
-    {
-      /*TODO*/
-    },
-    { headers: { "X-CSRFToken": CSRF_TOKEN } }
-  );
+export const apiUpdateCoding = (coding_id, coding) => async (dispatch) => {
+  const res = await axios.patch(`/api/coding/${coding_id}/`, coding, { headers: { "X-CSRFToken": CSRF_TOKEN } });
   store.dispatch({
     type: APIActionTypes.GET_CODING,
     payload: res.data,
@@ -171,7 +163,7 @@ const _save_fn = async function (store, dispatch, actionName = APIActionTypes.AU
   const state = store.getState();
   const policy_instance_id = state.localState.policyInstanceId;
   const coding_id = state.localState.codingId;
-  const coding_values = state.localState.localCoding;
+  const coding_values = state.localState.localCodingInstance;
   const coder_email = CURRENT_USER;
   const request_params = {
     policy_instance_id,

@@ -40,8 +40,8 @@ export default connect(
     render() {
       const mergeData = this.getMergeData();
       const cur_coding =
-        this.props.localState.localCoding[this.props.content.identifier] ||
-        this.props.localState.localCoding[this.props.idx] ||
+        this.props.localState.localCodingInstance[this.props.content.identifier] ||
+        this.props.localState.localCodingInstance[this.props.idx] ||
         {};
       const sentences = cur_coding.sentences || {};
       const number_of_sentences = sentenceCount(sentences);

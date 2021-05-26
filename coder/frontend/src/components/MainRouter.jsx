@@ -45,14 +45,14 @@ const URLs = connect(
 
           {/* DOWNLOADING TOOLS */}
           <Route path={`${path}/policy`} component={PolicyApp} />
-          <Route path={`${path}/policy/:policy_id`} component={PolicyApp} />
           <Route path={`${path}/policy/:policy_id/:policy_instance_id`} component={PolicyInstanceApp} />
-          <Route path={`${path}/coder-status/:coder_email`} component={AssignmentListApp} />
+          <Route path={`${path}/policy/:policy_id`} component={PolicyApp} />
           <Route path={`${path}/coder-status`} component={AssignmentListApp} />
+          <Route path={`${path}/coder-status/:coder_email`} component={AssignmentListApp} />
 
           {/* CODING EDITOR */}
-          <Route path={`${path}/coding`} component={CodingEditorApp} />
           <Route path={`${path}/coding/:coding_id`} component={CodingEditorApp} />
+          <Route path={`${path}/coding`} component={CodingEditorApp} />
 
           {/* CODING STATUS PAGES */}
           <Route path={`${path}/coding-progress`} component={ProgressViewApp} />

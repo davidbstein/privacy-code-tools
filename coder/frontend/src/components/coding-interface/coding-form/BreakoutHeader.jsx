@@ -24,8 +24,8 @@ export default connect(
 
     render() {
       const cur_question =
-        this.props.localState.localCoding[this.props.content.identifier] ||
-        this.props.localState.localCoding[this.props.idx] ||
+        this.props.localState.localCodingInstance[this.props.content.identifier] ||
+        this.props.localState.localCodingInstance[this.props.idx] ||
         {};
       const sentences = cur_question.sentences || {};
       const number_of_sentences = sentenceCount(sentences);

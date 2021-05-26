@@ -36,7 +36,15 @@ interface QuestionAnswer {
 interface QuestionOption {
   label: string;
   value: string;
-  detains: string | Null;
+  details: ?string;
+}
+
+interface Category {
+  label: string;
+  notes: { string: string };
+  id: string;
+  info: string;
+  questions: Question[];
 }
 
 interface Question {

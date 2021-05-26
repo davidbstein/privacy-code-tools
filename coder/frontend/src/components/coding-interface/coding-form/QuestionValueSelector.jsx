@@ -17,8 +17,8 @@ const QuestionCheckbox = connect(
     is_selected() {
       const cur_values =
         (
-          this.props.localState.localCoding[this.props.localState.selectedQuestionIdentifier] ||
-          this.props.localState.localCoding[this.props.localState.selectedQuestion] ||
+          this.props.localState.localCodingInstance[this.props.localState.selectedQuestionIdentifier] ||
+          this.props.localState.localCodingInstance[this.props.localState.selectedQuestion] ||
           {}
         ).values || [];
       return cur_values[this.props.value];
@@ -62,7 +62,7 @@ const OtherField = connect(
       }
     }
     cur_values() {
-      return (this.props.localState.localCoding[this.props.localState.selectedQuestion] || {}).values || {};
+      return (this.props.localState.localCodingInstance[this.props.localState.selectedQuestion] || {}).values || {};
     }
     is_selected() {
       const cur_values = this.cur_values();
@@ -105,7 +105,7 @@ export default connect(
     }
 
     toggle(value, is_selected) {
-      const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
+      const cur_coding = this.props.localState.localCodingInstance[this.props.localState.selectedQuestion] || {};
       const cur_coding_values = this.props.singleselect ? {} : cur_coding.values || {};
       const new_values = {
         ...(cur_coding_values || {}),
@@ -123,7 +123,7 @@ export default connect(
     }
 
     otherChanged(value) {
-      const cur_coding = this.props.localState.localCoding[this.props.localState.selectedQuestion] || {};
+      const cur_coding = this.props.localState.localCodingInstance[this.props.localState.selectedQuestion] || {};
       const cur_coding_values = this.props.singleselect ? {} : cur_coding.values || {};
       const new_values = {
         ...(cur_coding_values || {}),

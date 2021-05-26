@@ -13,14 +13,14 @@
                 "runserver"
             ],
             "django": true,
-        },
-        {
-            "name": "Attach to chrome",
-            "type": "chrome",
-            "request": "attach",
-            "port": 9222,
-            "url": "http://127.0.0.1:8000/",
-            "webRoot": "${workspaceFolder}/coder/frontend/static/frontend/",
         }
+        // ,{
+        //     "name": "Attach to chrome",
+        //     "type": "chrome",
+        //     "request": "attach",
+        //     "port": 9222,
+        //     "url": "http://127.0.0.1:8000/",
+        //     "webRoot": "${workspaceFolder}/coder/frontend/static/frontend/",
+        // }
     ]
 }
