@@ -24,13 +24,13 @@ function CodingAppWrapper(props) {
 
 const PREFIX = `/c/:project_prefix`;
 
-const URLs = connect(
+const MainURLSwitch = connect(
   (state) => {
     return {};
   },
   { apiGetProjectSettings }
 )(
-  class URLs extends Component {
+  class MainURLSwitch extends Component {
     constructor(props) {
       super(props);
       this.props.apiGetProjectSettings(this.props.match.params.project_prefix);
@@ -40,20 +40,23 @@ const URLs = connect(
       return (
         <Switch>
           {/* CODING TOOL */}
+          <Route
+            path={`${path}/code-:mode/policy-:policy_instance_id/coding-:coding_id`}
+            component={CodingAppWrapper}
+          />
+          <Route path={`${path}/code-:mode/:policy_instance_id-:policy_name/:coding_id`} component={CodingAppWrapper} />
+          <Route path={`${path}/code-:mode/:policy_instance_id-:policy_name`} component={CodingAppWrapper} />
           <Route path={`${path}/code-:mode/:policy_instance_id/:coding_id`} component={CodingAppWrapper} />
           <Route path={`${path}/code-:mode/:policy_instance_id`} component={CodingAppWrapper} />
-
           {/* DOWNLOADING TOOLS */}
-          <Route path={`${path}/policy`} component={PolicyApp} />
           <Route path={`${path}/policy/:policy_id/:policy_instance_id`} component={PolicyInstanceApp} />
           <Route path={`${path}/policy/:policy_id`} component={PolicyApp} />
-          <Route path={`${path}/coder-status`} component={AssignmentListApp} />
+          <Route path={`${path}/policy`} component={PolicyApp} />
           <Route path={`${path}/coder-status/:coder_email`} component={AssignmentListApp} />
-
+          <Route path={`${path}/coder-status`} component={AssignmentListApp} />
           {/* CODING EDITOR */}
           <Route path={`${path}/coding/:coding_id`} component={CodingEditorApp} />
           <Route path={`${path}/coding`} component={CodingEditorApp} />
-
           {/* CODING STATUS PAGES */}
           <Route path={`${path}/coding-progress`} component={ProgressViewApp} />
           <Route path={`${path}`} component={HomeApp} />
@@ -66,7 +69,7 @@ export default class MainRouter extends Component {
   render() {
     return (
       <Router>
-        <Route path="/c/:project_prefix" component={URLs} />
+        <Route path="/c/:project_prefix" component={MainURLSwitch} />
       </Router>
     );
   }

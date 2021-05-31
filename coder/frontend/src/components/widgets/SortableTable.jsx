@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Logger from "src/Logger";
+const log = Logger("SortableTable", "white");
 /**
  * @template T
  * @typedef SortableTableColumsn
@@ -18,15 +19,26 @@ import React, { useState } from "react";
  */
 export default function SortableTable({ id, items, columns, id_fn = (item) => item.id }) {
   const [sortColumn, setSortColumn] = useState(columns[0]);
+  const [reverseColumn, setReverseColumn] = useState(false);
+  const sorted_items = (reverseColumn ? _.reverse : (e) => e)(_.sortBy(items, sortColumn.sort_fn));
   return (
     <table id={id} className="sortable-table">
       <thead>
         <tr>
           {columns.map((column) => (
             <th
-              onClick={() => setSortColumn(column)}
+              onClick={() => {
+                log(`${column.name}, ${sortColumn.name}, ${column.name == sortColumn.name}`);
+                if (column.name == sortColumn.name) {
+                  setReverseColumn(!reverseColumn);
+                } else {
+                  setSortColumn(column);
+                }
+              }}
               key={column.name}
-              className={column.name == sortColumn.name ? "selected" : ""}
+              className={[column.name == sortColumn.name ? "selected" : "", reverseColumn ? "reversed" : "normal"].join(
+                " "
+              )}
             >
               {column.name}
             </th>
@@ -34,7 +46,7 @@ export default function SortableTable({ id, items, columns, id_fn = (item) => it
         </tr>
       </thead>
       <tbody>
-        {_.sortBy(items, sortColumn.sort_fn).map((item) => (
+        {sorted_items.map((item) => (
           <tr key={id_fn(item)}>
             {columns.map((column) => (
               <td key={column.name}>{column.display_fn(item)}</td>

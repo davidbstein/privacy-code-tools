@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/stein/.local/share/virtualenvs/privacy-code-tools-LAJiWw2Q/bin/python"
+    "python.pythonPath": "/Users/stein/.local/share/virtualenvs/privacy-code-tools-LAJiWw2Q/bin/python",
+    "jupyter.jupyterServerType": "remote"
 }

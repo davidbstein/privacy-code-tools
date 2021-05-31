@@ -8,6 +8,11 @@ awsebcli = "*"
 jupyter = "*"
 autopep8 = "*"
 html2text = "*"
+boto3 = "*"
+aws-requests-auth = "*"
+html2markdown = "*"
+nltk = "*"
+ipython = "*"
 
 [packages]
 django = "*"
@@ -21,8 +26,6 @@ django-filter = "*"
 bs4 = "*"
 wiki = "*"
 django-decorator-include = "*"
-jupyter = "*"
-ipython = "*"
 psycopg2 = "*"
 
 [requires]

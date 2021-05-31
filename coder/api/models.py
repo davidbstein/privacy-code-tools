@@ -56,8 +56,10 @@ class CodingInstance(models.Model):
 class Policy(models.Model):
     project = models.BigIntegerField(default=1)
     company_name = models.CharField(max_length=255)
-    site_name = models.CharField(max_length=255)
+    site_name = models.CharField(max_length=255, db_index=True)
+    locale = models.CharField(max_length=32, null=True)
     alexa_rank = models.BigIntegerField(null=True)
+    alexa_rank_US = models.BigIntegerField(null=True)
     urls = models.JSONField(default=dict)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
@@ -65,6 +67,7 @@ class Policy(models.Model):
     scan_count = models.BigIntegerField(default=0)
     categories = models.JSONField(default=list)
     meta = models.JSONField(default=dict)
+    progress = models.JSONField(default=dict)
 
 
 class PolicyInstance(models.Model):

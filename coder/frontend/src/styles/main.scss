@@ -1,10 +1,11 @@
-@use '_home_app';
+@use '_raw_policy_view';
+@use '_progress_view';
 @use '_policy_browser';
+@use '_policy_admin';
+@use '_home_app';
 @use '_coding_form';
 @use '_coding_form_merge_mode';
 @use '_coding_admin';
-@use '_raw_policy_view';
-@use '_progress_view';
 @use '_assignment_list_app';
 @import "_variables";
 
@@ -47,6 +48,12 @@
       th {
         &.selected {
           background-color: $nyu-grey;
+          &.reversed {
+            border-top: 3px solid;
+          }
+          &.normal {
+            border-bottom: 3px solid;
+          }
         }
         &:hover {
           background-color: $nyu-grey;
@@ -55,6 +62,11 @@
       }
     }
     tbody {
+      tr {
+        &:hover {
+          background: $nyu-faint-purple;
+        }
+      }
       td {
         padding: 0 1em;
       }

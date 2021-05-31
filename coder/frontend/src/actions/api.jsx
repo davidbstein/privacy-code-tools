@@ -3,6 +3,8 @@ import axios from "axios";
 import { APIActionTypes } from "src/actions/types";
 import store from "src/store";
 import { CURRENT_USER } from "src/constants";
+import Logger from "src/Logger";
+const log = Logger("api", "cyan");
 
 function getCookie(name) {
   var cookieValue = null;
@@ -22,6 +24,7 @@ function getCookie(name) {
 const CSRF_TOKEN = getCookie("csrftoken");
 
 export const apiGetAssignments = () => async (dispatch) => {
+  log(`called apiGetAssignments`);
   const res = await axios.get(`/api/assignment/`);
   dispatch({
     type: APIActionTypes.GET_ASSIGNMENT_LIST,
@@ -30,14 +33,16 @@ export const apiGetAssignments = () => async (dispatch) => {
 };
 
 export const apiGetPolicies = () => async (dispatch) => {
+  log(`called apiGetPolicies`);
   const res = await axios.get(`/api/policy/`);
   dispatch({
     type: APIActionTypes.GET_POLICIES,
-    payload: res.data,
+    payload: res.data.results,
   });
 };
 
 export const apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => {
+  log(`called apiGetPolicyInstance`);
   const res = await axios.get(`/api/policy_instance/${policy_instance_id}/`);
   dispatch({
     type: APIActionTypes.GET_POLICY_INSTANCE,
@@ -51,6 +56,7 @@ export const apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => 
 };
 
 export const apiGetCodingList = () => async (dispatch) => {
+  log(`called apiGetCodingList`);
   const res = await axios.get(`/api/coding/`);
   dispatch({
     type: APIActionTypes.GET_CODING_LIST,
@@ -59,6 +65,7 @@ export const apiGetCodingList = () => async (dispatch) => {
 };
 
 export const apiGetCoding = (coding_id) => async (dispatch) => {
+  log(`called apiGetCoding`);
   const res = await axios.get(`/api/coding/${coding_id}/`);
   dispatch({
     type: APIActionTypes.GET_CODING,
@@ -67,6 +74,7 @@ export const apiGetCoding = (coding_id) => async (dispatch) => {
 };
 
 export const apiGetProjectSettings = (project_prefix) => async (dispatch) => {
+  log(`called apiGetProjectSettings`);
   const res = await axios.get(`/api/project/${project_prefix}/`);
   dispatch({
     type: APIActionTypes.GET_PROJECT_SETTINGS,
@@ -75,6 +83,7 @@ export const apiGetProjectSettings = (project_prefix) => async (dispatch) => {
 };
 
 export const apiGetCodingProgress = () => async (dispatch) => {
+  log(`called apiGetCodingProgress`);
   const res = await axios.get(`/api/coding_progress/`);
   dispatch({
     type: APIActionTypes.GET_CODING_PROGRESS,
@@ -83,6 +92,7 @@ export const apiGetCodingProgress = () => async (dispatch) => {
 };
 
 export const apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) => {
+  log(`called apiGetCodingInstance`);
   const coder_email = CURRENT_USER;
   const res = await axios.get(`/api/coding_instance/`, {
     params: { policy_instance_id, coding_id, coder_email },
@@ -94,6 +104,7 @@ export const apiGetCodingInstance = (policy_instance_id, coding_id) => async (di
 };
 
 export const apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatch) => {
+  log(`called apiGetAllCodingInstances`);
   const res = await axios.get(`/api/coding_instance/`, {
     params: { policy_instance_id, coding_id },
   });
@@ -104,6 +115,7 @@ export const apiGetAllCodingInstances = (policy_instance_id, coding_id) => async
 };
 
 export const apiUpdateProjectSettings = (project_prefix, settings) => async (dispatch) => {
+  log(`called apiUpdateProjectSettings`);
   const res = await axios.patch(
     `/api/project/${project_prefix}/`,
     { project_settings: settings },
@@ -116,6 +128,7 @@ export const apiUpdateProjectSettings = (project_prefix, settings) => async (dis
 };
 
 export const apiSaveCoding = (coding) => async (dispatch) => {
+  log(`called apiSaveCoding`);
   const res = await axios.post(
     `/api/coding/`,
     { ...coding, id: undefined },
@@ -128,6 +141,7 @@ export const apiSaveCoding = (coding) => async (dispatch) => {
 };
 
 export const apiUpdateCoding = (coding_id, coding) => async (dispatch) => {
+  log(`called apiUpdateCoding`);
   const res = await axios.patch(`/api/coding/${coding_id}/`, coding, { headers: { "X-CSRFToken": CSRF_TOKEN } });
   store.dispatch({
     type: APIActionTypes.GET_CODING,
@@ -136,6 +150,7 @@ export const apiUpdateCoding = (coding_id, coding) => async (dispatch) => {
 };
 
 export const apiPostCodingInstance = () => async (dispatch) => {
+  log(`called apiPostCodingInstance`);
   _save_fn(store, dispatch, APIActionTypes.POST_CODING_INSTANCE);
 };
 

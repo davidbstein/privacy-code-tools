@@ -1,18 +1,5 @@
 @import "_variables";
 
-@mixin nested-layer-box($color: white) {
-  border-radius: 0.5em;
-  border: 1px solid $nyu-grey;
-  padding: 1em 2em;
-  background-color: $color;
-  opacity: 0.9;
-  transition: box-shadow 0.3s;
-  &:hover {
-    box-shadow: 0 0 0.25em 0 $nyu-dark-grey;
-    opacity: 1;
-  }
-}
-
 #coding-editor-list {
   background-color: $nyu-lighter-purple;
   #coding-list {

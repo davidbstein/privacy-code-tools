@@ -63,8 +63,6 @@ class CodingEditor extends Component {
 
     const serverCoding = this.props.model.codings[coding_id];
     const equalityTest = JSON.stringify(serverCoding) == JSON.stringify(coding);
-    console.log(JSON.stringify(serverCoding));
-    console.log(JSON.stringify(coding));
     return (
       <div>
         <div id="coding-edit-area">
