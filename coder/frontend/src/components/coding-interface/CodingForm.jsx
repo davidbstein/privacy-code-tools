@@ -53,9 +53,6 @@ export default connect(
       this.props.localState.localCodingInstance = JSON.parse(window.localStorage.getItem(window.location.pathname));
       this.props.userNullOp();
     }
-    fun() {
-      alert("hi there!");
-    }
     render() {
       const coding = this.props.model.codings[this.props.coding_id];
       if (coding == undefined) {

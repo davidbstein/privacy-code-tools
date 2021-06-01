@@ -31,7 +31,11 @@ class PolicyApp extends Component {
       <div id="policy-admin" className="page-root">
         <Heading title="Policy Admin Panel" project_prefix={project_prefix} />
         <div id="policy-admin-container">
-          {policy_id ? <PolicyAdminOverview /> : <PolicyList policies={policies} />}
+          {policy_id ? (
+            <PolicyAdminOverview policy_id={policy_id} />
+          ) : (
+            <PolicyList policies={policies} project_prefix={project_prefix} />
+          )}
         </div>
       </div>
     );

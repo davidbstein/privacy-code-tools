@@ -89,6 +89,20 @@ class CodingViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id', 'parent', 'created_dt']
 
 
+class PolicyViewSet(viewsets.ModelViewSet):
+    queryset = Policy.objects.all()
+    serializer_class = PolicySerializer
+    permission_classes = [GroupPermission]
+    filter_backends = [DjangoFilterBackend,
+                       filters.SearchFilter, filters.OrderingFilter]
+    ordering_fields = '__all__'
+    filterset_fields = [
+        'id', 'company_name', 'site_name', 'alexa_rank',
+        'start_date', 'end_date', 'last_scan_dt', 'scan_count'
+    ]
+    search_fields = ['company_name', 'site_name']
+
+
 class CodingInstanceViewSet(viewsets.ModelViewSet):
     queryset = CodingInstance.objects.all()
     serializer_class = CodingInstanceSerializer
@@ -110,20 +124,6 @@ class CodingInstanceViewSet(viewsets.ModelViewSet):
             instance = CodingInstance.objects.create(**validated_data.data)
         instance.save()
         return Response(CodingInstanceSerializer(instance).data)
-
-
-class PolicyViewSet(viewsets.ModelViewSet):
-    queryset = Policy.objects.all()
-    serializer_class = PolicySerializer
-    permission_classes = [GroupPermission]
-    filter_backends = [DjangoFilterBackend,
-                       filters.SearchFilter, filters.OrderingFilter]
-    ordering_fields = '__all__'
-    filterset_fields = [
-        'id', 'company_name', 'site_name', 'alexa_rank',
-        'start_date', 'end_date', 'last_scan_dt', 'scan_count'
-    ]
-    search_fields = ['company_name', 'site_name']
 
 
 class PolicyInstanceViewSet(viewsets.ModelViewSet):

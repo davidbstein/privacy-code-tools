@@ -7,7 +7,9 @@ export default function Heading({ coder_email, project_prefix, title }) {
         <h1> {title} </h1>
       </div>
       <div>
-        <a href={`/c/${project_prefix}`}>home</a> <a href="/account/logout">logout</a>
+        <a href="..">back</a>
+        <a href={`/c/${project_prefix}/`}>home</a>
+        <a href="/account/logout">logout</a>
       </div>
     </div>
   );

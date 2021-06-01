@@ -34,6 +34,8 @@ export default (state = defaultState, action) => {
       return overwrite_stored_object_copies(state, _wrapObjectList(action.payload), "policies");
     case APIActionTypes.GET_POLICY_INSTANCE:
       return overwrite_stored_object_copies(state, { [action.payload.id]: action.payload }, "policy_instances");
+    case APIActionTypes.GET_POLICY_INSTANCES:
+      return overwrite_stored_object_copies(state, _wrapObjectList(action.payload), "policy_instances");
     case APIActionTypes.GET_CODING_LIST:
       return overwrite_stored_object_copies(state, _wrapObjectList(action.payload), "codings");
     case APIActionTypes.GET_CODING:

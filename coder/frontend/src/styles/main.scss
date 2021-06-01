@@ -72,4 +72,41 @@
       }
     }
   }
+  .part-bar {
+    white-space: nowrap;
+    width: 100%;
+    .part-bar-item {
+      border-top: 3px solid black;
+      border-bottom: 3px solid black;
+      display: inline-block;
+      margin: 0px;
+      background-color: grey;
+      line-height: 1.5em;
+      font-size: 1.5em;
+      position: relative;
+      cursor: default;
+      text-align: center;
+      text-overflow: hidden;
+      font-weight: bold;
+      z-index: 0;
+      .part-bar-label {
+        overflow: hidden;
+      }
+      .part-bar-hover {
+        z-index: 1;
+        position: absolute;
+        top: calc(-1.6em);
+        left: 0;
+        display: none;
+        white-space: nowrap;
+        font-weight: bold;
+        background: white;
+      }
+      &:hover {
+        .part-bar-hover {
+          display: inline-block;
+        }
+      }
+    }
+  }
 }

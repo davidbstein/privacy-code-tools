@@ -14,6 +14,99 @@
         max-width: 1200px;
       }
     }
+    #policy-instance-admin-container {
+      max-width: 1280px;
+      > div {
+        margin-bottom: 2em;
+      }
+      .policy-doc-preview {
+        @include nested-layer-box();
+        margin-bottom: 0.25em;
+        .doc-preview-paragraph {
+          margin-top: 1em;
+          position: relative;
+          .paragraph-num {
+            position: absolute;
+            left: -2em;
+            top: 0;
+            color: grey;
+            font-size: 0.75em;
+            text-align: left;
+          }
+          .sentence {
+            //margin: 0 0.5em;
+            &:hover {
+              background-color: $nyu-light-grey;
+            }
+          }
+          .preview-section {
+            font-size: 1.2em;
+            font-weight: bold;
+          }
+          .preview-text {
+          }
+          .preview-list {
+            .preview-list-item {
+              margin: 0.5em 0;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: nowrap;
+              justify-content: left;
+              .bullet {
+                text-align: right;
+                font-family: monospace;
+                font-weight: bolder;
+                margin: 0 0.5em;
+                font-size: 1.2em;
+                color: black;
+              }
+              .content {
+                flex-grow: 1;
+              }
+            }
+          }
+        }
+        .doc-preview-title {
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      #policy-snapshot-list {
+        @include nested-layer-box();
+      }
+
+      #policy-info-box {
+        @include nested-layer-box();
+        #policy-info-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          width: 100%;
+          #trafficdata-rankbycountry-traffic-info,
+          #trafficdata-rankbycountry-users-info {
+            min-width: calc(50% - 0.5em);
+            max-width: calc(50% - 0.5em);
+          }
+          #trafficdata-contributingsubdomains-info {
+            min-width: 100%;
+          }
+          .info-item {
+            @include nested-layer-box();
+            border: 1px solid $nyu-light-grey;
+            flex-grow: 1;
+            margin: 0.25em;
+            padding: 0.5em;
+            text-align: center;
+            .info-name {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
   }
   .info-box {
     @include nested-layer-box();

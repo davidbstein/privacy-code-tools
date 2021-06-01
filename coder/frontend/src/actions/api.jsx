@@ -55,6 +55,29 @@ export const apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => 
   });
 };
 
+export const apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
+  log(`called apiGetPolicyInstance`);
+  const res = await axios.get(`/api/policy_instance/?policy_id=${policy_id}`);
+  dispatch({
+    type: APIActionTypes.GET_POLICY_INSTANCES,
+    payload: res.data.results,
+  });
+  dispatch({
+    type: APIActionTypes.GET_POLICY,
+    payload: (await axios.get(`/api/policy/${policy_id}/`)).data,
+  });
+  for (
+    let _i = 0, policy_instance = res.data.results[_i++];
+    _i < res.data.results.length;
+    policy_instance = res.data.results[_i++]
+  ) {
+    dispatch({
+      type: APIActionTypes.GET_ALL_CODING_INSTANCE,
+      payload: (await axios.get(`/api/coding_instance/policy_instance_id=${policy_instace.id}`)).data.results,
+    });
+  }
+};
+
 export const apiGetCodingList = () => async (dispatch) => {
   log(`called apiGetCodingList`);
   const res = await axios.get(`/api/coding/`);
