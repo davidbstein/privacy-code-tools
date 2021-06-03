@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiGetCodingList } from "src/actions/api";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import CodingEditor from "src/components/coding-editor/CodingEditor";
 import CodingList from "src/components/coding-editor/CodingList";
 import mapStateToProps from "src/components/utils/mapStateToProps";
@@ -18,7 +18,7 @@ class CodingEditorApp extends Component {
     const {
       model: {
         codings,
-        project: { project_settings },
+        project: { settings: project_settings },
       },
       match: {
         params: { coding_id = undefined, project_prefix },
@@ -45,4 +45,5 @@ class CodingEditorApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, { apiGetCodingList })(CodingEditorApp);
+log(mapDispatchToProps);
+export default connect(mapStateToProps, mapDispatchToProps)(CodingEditorApp);

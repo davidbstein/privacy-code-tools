@@ -1,3 +1,5 @@
+import re
+from django.db.models.fields import EmailField
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
@@ -47,6 +49,17 @@ def get_unsafe_raw(request, policy_instance_id, field):
 
 def process_raw(request):
     return JsonResponse(scraper.get_paragraphs_from_html(request.body.decode('utf-8')), content_type="text/JSON")
+
+
+def get_current_user(request):
+    return JsonResponse({
+        "id": request.user.id,
+        "email": request.user.email,
+        "first_name": request.user.first_name,
+        "last_name": request.user.last_name,
+
+
+    })
 
 
 def get_uri_text(request):

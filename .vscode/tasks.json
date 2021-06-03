@@ -5,7 +5,7 @@
 			"type": "npm",
 			"script": "dev",
 			"label": "npm: watch js",
-			"detail": "webpack --mode development --watch ${workspaceRoot}/coder/frontend/src/index.js --output ${workspaceRoot}/coder/frontend/static/frontend/main.js",
+			"detail": "webpack --mode development --watch ${workspaceRoot}/coder/frontend/src/index.js --output ${workspaceRoot}/coder/frontend/static/frontend/main.js | sed -E 's/assets by status/assets by status\n=============\n/g'",
 			"runOptions": {
 				"runOn": "folderOpen"
 			},

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiGetCoding } from "src/actions/api";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 
 class PolicyInstanceApp extends Component {
@@ -23,4 +23,4 @@ class PolicyInstanceApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, { apiGetCoding })(PolicyInstanceApp);
+export default connect(mapStateToProps, mapDispatchToProps)(PolicyInstanceApp);

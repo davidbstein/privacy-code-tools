@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiGetCodingProgress } from "src/actions/api";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 
 class PersonalProgress extends Component {
@@ -43,8 +43,11 @@ class PersonalProgress extends Component {
                                 {" "}
                                 {ci.response_count} / {ci.target_count}
                               </div>
-                              <div className="home-progress-view-coder-date">started {ci.created.substr(5, 5)}</div>
-                              {ci.target_count - ci.response_count > 0 && ci.email == CURRENT_USER ? (
+                              <div className="home-progress-view-coder-date">
+                                started {ci.created.substr(5, 5)}
+                              </div>
+                              {ci.target_count - ci.response_count > 0 &&
+                              ci.email == CURRENT_USER ? (
                                 <div style={{ color: "red" }}>
                                   <b>{ci.target_count - ci.response_count}</b> UNANSWERED QUESTION
                                   {ci.target_count - ci.response_count > 1 ? "S" : ""}!
@@ -70,4 +73,4 @@ class PersonalProgress extends Component {
   }
 }
 
-export default connect(mapStateToProps, { apiGetCodingProgress })(PersonalProgress);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalProgress);

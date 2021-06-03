@@ -15,7 +15,9 @@ export default function PolicyInstanceList({ policy_instances, coding_instances 
     <div id="policy-instance-list">
       {_.toPairs(policy_instances).map(([id, { content: document_list, policy_id, scan_dt }]) => (
         <div key={id}>
-          <h1>Snapshot Taken on {new Date(scan_dt).toLocaleDateString()}</h1>
+          <h1>
+            Snapshot Taken on {new Date(scan_dt).toLocaleDateString()} (policy snapshot id: {id})
+          </h1>
           <CodingInstanceList coding_instances={coding_instances} />
           <h2>documents</h2>
           {document_list.map(DocumentPreview)}

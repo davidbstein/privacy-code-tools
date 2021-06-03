@@ -1,58 +1,68 @@
 import { NULL_OP, UserActionsTypes } from "src/actions/types";
 import _ from "lodash";
 
-export const userUpdateCoding = (coding) => async (dispatch) => {
+const user = {};
+user.userUpdateCoding = (coding) => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.UPDATE_CODING,
     payload: { coding },
   });
 };
 
-export const userSelectQuestion = (question_idx, question_identifier) => async (dispatch) => {
+user.userSelectQuestion = (question_identifier, category_identifier) => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.SELECT_QUESTION,
-    payload: { question_idx, question_identifier },
+    payload: { question_identifier, category_identifier },
   });
 };
 
-export const userChangeValue = (question_idx, question_identifier, values) => async (dispatch) => {
+user.userChangeValue = (question_identifier, values) => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.CHANGE_VALUE,
-    payload: { question_idx, question_identifier, values },
+    payload: { question_identifier, values },
   });
 };
 
-export const userToggleSentence = (policy_type, paragraph_idx, sentence_idx) => async (dispatch) => {
+user.userToggleParagraph = (doc_ordinal, paragraph_idx) => async (dispatch) => {
+  dispatch({
+    type: UserActionsTypes.TOGGLE_PARAGRAPH,
+    payload: { doc_ordinal, paragraph_idx },
+  });
+};
+
+user.userToggleSentence = (doc_ordinal, paragraph_idx, sentence_idx) => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.TOGGLE_SENTENCE,
-    payload: { policy_type, paragraph_idx, sentence_idx },
+    payload: { doc_ordinal, paragraph_idx, sentence_idx },
   });
 };
 
-export const userChangeQuestionMeta = (question_idx, question_identifier, field, value) => async (dispatch) => {
+user.userChangeQuestionMeta = (question_identifier, field, value) => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.CHANGE_QUESTION_META,
-    payload: { question_idx, question_identifier, field, value },
+    payload: { question_identifier, field, value },
   });
 };
 
-export const userClickSave = () => async (dispatch) => {
+user.userClickSave = () => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.CLICK_SAVE,
     payload: {},
   });
 };
 
-export const userClickReset = () => async (dispatch) => {
+user.userClickReset = () => async (dispatch) => {
   dispatch({
     type: UserActionsTypes.CLICK_RESET,
     payload: {},
   });
 };
 
-export const userNullOp = () => async (dispatch) => {
+user.userNullOp = () => async (dispatch) => {
   dispatch({
     type: NULL_OP,
     payload: {},
   });
 };
+
+export default user;

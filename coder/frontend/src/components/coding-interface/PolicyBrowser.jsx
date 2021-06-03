@@ -11,79 +11,84 @@ export default connect(
 )(
   class PolicyBrowser extends Component {
     componentDidMount() {
-      const pbc = document.getElementById("policy-browser-container");
-      pbc.onscroll = _.throttle(
-        function (e) {
-          const headings = document.getElementsByClassName("policy-browser-section-container");
-          const idx = _.sum(_.map(headings, (h) => pbc.scrollTop - h.offsetTop > 0)) - 1;
-          for (var _i = 0; _i < headings.length; _i++) {
-            const h = headings[_i];
-            if (_i === idx) {
-              h.classList.add("active-policy");
-            } else {
-              h.classList.remove("active-policy");
-            }
-          }
-        }.bind(this),
+      this._pbc = document.getElementById("policy-browser-container");
+      this._pbc = this._pbc.onscroll = _.throttle(
+        this.__checkTheRightHeadingIsActiveOnScroll.bind(this),
         100,
-        { leading: true }
+        {
+          leading: true,
+        }
+      );
+    }
+    componentDidUpdate() {
+      this.__draw_scrollbar_dots();
+    }
+    __checkTheRightHeadingIsActiveOnScroll(e) {
+      this._pbc = document.getElementById("policy-browser-container");
+      const headings = document.getElementsByClassName("policy-browser-section-container");
+      const idx = _.sum(_.map(headings, (h) => this._pbc.scrollTop - h.offsetTop > 0)) - 1;
+      for (var _i = 0; _i < headings.length; _i++) {
+        const h = headings[_i];
+        if (_i === idx) {
+          h.classList.add("active-policy");
+        } else {
+          h.classList.remove("active-policy");
+        }
+      }
+    }
+    __draw_scrollbar_dots() {
+      const _pbc = document.getElementById("policy-browser-container");
+      const dots = _.toArray(_pbc.getElementsByClassName("selected-true"));
+      document.getElementById("scrollbar-dots")?.replaceChildren(
+        ...dots.map((para_elem, i) => {
+          const dot = document.createElement("div");
+          dot.setAttribute("class", "scroll-dot");
+          dot.setAttribute(
+            "style",
+            `top: ${
+              (100 * (para_elem.getBoundingClientRect().y + _pbc.scrollTop)) / _pbc.scrollHeight
+            }%`
+          );
+          dot.onclick = (e) => {
+            para_elem.scrollIntoView({ behavior: "smooth", block: "center" });
+          };
+          return dot;
+        })
       );
     }
     render() {
-      const policy_instance = this.props.model.policy_instances[this.props.policy_instance_id];
-      if (policy_instance == undefined) {
+      const {
+        policy_instance_id,
+        coding_id,
+        model: {
+          policy_instances: { [policy_instance_id]: policy_instance },
+          policies: { [policy_instance?.policy_id]: policy },
+        },
+      } = this.props;
+      if (policy_instance == undefined || policy == undefined) {
         return (
           <div className="policy-browser-container" id="policy-browser-container">
             loading...
           </div>
         );
       }
-      const policy = this.props.model.policies[policy_instance.policy_id] || { urls: {} };
-      const robots = policy.urls._robot_rules ? (
-        <div className="robots">
-          {" "}
-          <code>
-            {" "}
-            <b> This is the site robots.txt file for the site, you can ignore it </b> <br />
-            <pre>{policy.urls._robot_rules}</pre>{" "}
-          </code>
-        </div>
-      ) : (
-        <div></div>
-      );
-      const policy_pages = [];
-      for (const policy_type of [
-        "privacy_policy",
-        "tos",
-        "ccpa_policy",
-        "gdpr_policy",
-        "eu_privacy_policy",
-        "eu_privacy_policy",
-        "_robot_rules",
-      ]) {
-        const policy_content = policy_instance.content[policy_type];
-        if (policy_content) {
-          policy_pages.push(
-            <PolicyPage
-              key={policy_type}
-              coding_id={this.props.coding_id}
-              policy_content={policy_content}
-              policy_id={policy_instance.policy_id}
-              policy_instance={policy_instance}
-              policy_type={policy_type}
-            />
-          );
-        }
-      }
       return (
         <div className="policy-browser-container" id="policy-browser-container">
           <PolicyOverview
-            policy_id={policy_instance.policy_id}
+            policy_id={policy.id}
             policy_instance={policy_instance}
             content={policy_instance.content}
           />
-          {policy_pages}
-          {robots}
+          {policy_instance.content.map((policy_doc, key) => (
+            <PolicyPage
+              key={key}
+              coding_id={coding_id}
+              policy_id={policy.id}
+              policy_instance={policy_instance}
+              policy_doc={policy_doc}
+            />
+          ))}
+          <div id="scrollbar-dots"></div>
         </div>
       );
     }

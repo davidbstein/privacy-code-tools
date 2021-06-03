@@ -23,7 +23,9 @@ function getCookie(name) {
 }
 const CSRF_TOKEN = getCookie("csrftoken");
 
-export const apiGetAssignments = () => async (dispatch) => {
+const api = {};
+
+api.apiGetAssignments = () => async (dispatch) => {
   log(`called apiGetAssignments`);
   const res = await axios.get(`/api/assignment/`);
   dispatch({
@@ -32,7 +34,7 @@ export const apiGetAssignments = () => async (dispatch) => {
   });
 };
 
-export const apiGetPolicies = () => async (dispatch) => {
+api.apiGetPolicies = () => async (dispatch) => {
   log(`called apiGetPolicies`);
   const res = await axios.get(`/api/policy/`);
   dispatch({
@@ -41,7 +43,7 @@ export const apiGetPolicies = () => async (dispatch) => {
   });
 };
 
-export const apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => {
+api.apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => {
   log(`called apiGetPolicyInstance`);
   const res = await axios.get(`/api/policy_instance/${policy_instance_id}/`);
   dispatch({
@@ -55,7 +57,7 @@ export const apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => 
   });
 };
 
-export const apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
+api.apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
   log(`called apiGetPolicyInstance`);
   const res = await axios.get(`/api/policy_instance/?policy_id=${policy_id}`);
   dispatch({
@@ -73,12 +75,13 @@ export const apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
   ) {
     dispatch({
       type: APIActionTypes.GET_ALL_CODING_INSTANCE,
-      payload: (await axios.get(`/api/coding_instance/policy_instance_id=${policy_instace.id}`)).data.results,
+      payload: (await axios.get(`/api/coding_instance/policy_instance_id=${policy_instace.id}`))
+        .data.results,
     });
   }
 };
 
-export const apiGetCodingList = () => async (dispatch) => {
+api.apiGetCodingList = () => async (dispatch) => {
   log(`called apiGetCodingList`);
   const res = await axios.get(`/api/coding/`);
   dispatch({
@@ -87,7 +90,7 @@ export const apiGetCodingList = () => async (dispatch) => {
   });
 };
 
-export const apiGetCoding = (coding_id) => async (dispatch) => {
+api.apiGetCoding = (coding_id) => async (dispatch) => {
   log(`called apiGetCoding`);
   const res = await axios.get(`/api/coding/${coding_id}/`);
   dispatch({
@@ -96,16 +99,17 @@ export const apiGetCoding = (coding_id) => async (dispatch) => {
   });
 };
 
-export const apiGetProjectSettings = (project_prefix) => async (dispatch) => {
+api.apiGetProjectSettings = (project_prefix) => async (dispatch) => {
   log(`called apiGetProjectSettings`);
+  const me = await axios.get(`/me`);
   const res = await axios.get(`/api/project/${project_prefix}/`);
   dispatch({
     type: APIActionTypes.GET_PROJECT_SETTINGS,
-    payload: res.data,
+    payload: { ...res.data, me: me.data },
   });
 };
 
-export const apiGetCodingProgress = () => async (dispatch) => {
+api.apiGetCodingProgress = () => async (dispatch) => {
   log(`called apiGetCodingProgress`);
   const res = await axios.get(`/api/coding_progress/`);
   dispatch({
@@ -114,7 +118,7 @@ export const apiGetCodingProgress = () => async (dispatch) => {
   });
 };
 
-export const apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) => {
+api.apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) => {
   log(`called apiGetCodingInstance`);
   const coder_email = CURRENT_USER;
   const res = await axios.get(`/api/coding_instance/`, {
@@ -122,22 +126,22 @@ export const apiGetCodingInstance = (policy_instance_id, coding_id) => async (di
   });
   dispatch({
     type: APIActionTypes.GET_CODING_INSTANCE,
-    payload: res.data.results[0] || {},
+    payload: res.data.results[0] ?? {},
   });
 };
 
-export const apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatch) => {
+api.apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatch) => {
   log(`called apiGetAllCodingInstances`);
   const res = await axios.get(`/api/coding_instance/`, {
     params: { policy_instance_id, coding_id },
   });
   dispatch({
     type: APIActionTypes.GET_ALL_CODING_INSTANCE,
-    payload: res.data.results || [{}],
+    payload: res.data.results ?? [{}],
   });
 };
 
-export const apiUpdateProjectSettings = (project_prefix, settings) => async (dispatch) => {
+api.apiUpdateProjectSettings = (project_prefix, settings) => async (dispatch) => {
   log(`called apiUpdateProjectSettings`);
   const res = await axios.patch(
     `/api/project/${project_prefix}/`,
@@ -150,7 +154,7 @@ export const apiUpdateProjectSettings = (project_prefix, settings) => async (dis
   });
 };
 
-export const apiSaveCoding = (coding) => async (dispatch) => {
+api.apiSaveCoding = (coding) => async (dispatch) => {
   log(`called apiSaveCoding`);
   const res = await axios.post(
     `/api/coding/`,
@@ -163,16 +167,18 @@ export const apiSaveCoding = (coding) => async (dispatch) => {
   });
 };
 
-export const apiUpdateCoding = (coding_id, coding) => async (dispatch) => {
+api.apiUpdateCoding = (coding_id, coding) => async (dispatch) => {
   log(`called apiUpdateCoding`);
-  const res = await axios.patch(`/api/coding/${coding_id}/`, coding, { headers: { "X-CSRFToken": CSRF_TOKEN } });
+  const res = await axios.patch(`/api/coding/${coding_id}/`, coding, {
+    headers: { "X-CSRFToken": CSRF_TOKEN },
+  });
   store.dispatch({
     type: APIActionTypes.GET_CODING,
     payload: res.data,
   });
 };
 
-export const apiPostCodingInstance = () => async (dispatch) => {
+api.apiPostCodingInstance = () => async (dispatch) => {
   log(`called apiPostCodingInstance`);
   _save_fn(store, dispatch, APIActionTypes.POST_CODING_INSTANCE);
 };
@@ -234,4 +240,6 @@ const _manual_auto_save = async function (e) {
 };
 document.addEventListener("keydown", _manual_auto_save, false);
 
-export const apiAutoSave = _apiAutoSave;
+api.apiAutoSave = _apiAutoSave;
+
+export default api;

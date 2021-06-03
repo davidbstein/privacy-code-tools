@@ -1,11 +1,13 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiAutoSave } from "src/actions/api";
-import { userToggleSentence } from "src/actions/userActions";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
-
-export default connect(mapStateToProps, { userToggleSentence, apiAutoSave })(
+import MD from "src/components/widgets/MarkdownedText";
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   class PolicySentence extends Component {
     constructor(props, context) {
       super(props);
@@ -13,7 +15,11 @@ export default connect(mapStateToProps, { userToggleSentence, apiAutoSave })(
     }
 
     handleClick() {
-      this.props.userToggleSentence(this.props.policy_type, this.props.paragraph_idx, this.props.idx);
+      this.props.userToggleSentence(
+        this.props.doc_ordinal,
+        this.props.paragraph_idx,
+        this.props.idx
+      );
       this.props.apiAutoSave();
     }
 
@@ -26,18 +32,15 @@ export default connect(mapStateToProps, { userToggleSentence, apiAutoSave })(
       );
     }
 
-    _get_selected_sentences(coding_instance, policy_type) {
-      const cur_question =
-        coding_instance[this.props.localState.selectedQuestionIdentifier] ||
-        coding_instance[this.props.localState.selectedQuestion] ||
-        {};
-      return (cur_question.sentences || {})[policy_type];
+    _get_selected_sentences(coding_instance, doc_ordinal) {
+      const cur_question = coding_instance[this.props.localState.selectedQuestionIdentifier] ?? {};
+      return (cur_question.sentences || {})[doc_ordinal];
     }
 
     _basicHighlightTest() {
       const selected_sentences = this._get_selected_sentences(
         this.props.localState.localCodingInstance,
-        this.props.policy_type
+        this.props.doc_ordinal
       );
       var extra_class = "unselected";
       if (this._checkSentence(selected_sentences)) extra_class = "selected";
@@ -50,7 +53,7 @@ export default connect(mapStateToProps, { userToggleSentence, apiAutoSave })(
       var highlight_count = 0;
       for (var ci of _.values(this.props.model.coding_instances)) {
         count++;
-        const sentences = this._get_selected_sentences(ci.coding_values, this.props.policy_type);
+        const sentences = this._get_selected_sentences(ci.coding_values, this.props.doc_ordinal);
         if (this._checkSentence(sentences)) highlight_count++;
       }
       var extra_class = "";
@@ -69,8 +72,11 @@ export default connect(mapStateToProps, { userToggleSentence, apiAutoSave })(
     render() {
       const extra_class = this._highlightTest();
       return (
-        <span className={"policy-browser-paragraph-sentence " + extra_class} onClick={this.handleClick}>
-          {this.props.content}.
+        <span
+          className={"policy-browser-paragraph-sentence " + extra_class}
+          onClick={this.handleClick}
+        >
+          <MD text={this.props.content} />
         </span>
       );
     }

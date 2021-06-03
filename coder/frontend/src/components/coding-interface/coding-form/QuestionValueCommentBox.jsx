@@ -1,9 +1,9 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiAutoSave } from "src/actions/api";
-import { userChangeQuestionMeta } from "src/actions/userActions";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
+import { CONFIDENCE_LEVELS } from "src/constants";
 
 class ConfidenceSilder extends Component {
   constructor(props, context) {
@@ -20,56 +20,21 @@ class ConfidenceSilder extends Component {
       <div className="coding-form-confidence-options-container">
         confidence:
         <div className="coding-form-confidence-options">
-          <input
-            onChange={this.optionChanged}
-            className="coding-form-confidence-option"
-            type="radio"
-            id="very_low"
-            name="confidence"
-            value="1"
-            checked={this.props.selected == "1"}
-          />
-          <label htmlFor="very_low"> very low </label>
-          <input
-            onChange={this.optionChanged}
-            className="coding-form-confidence-option"
-            type="radio"
-            id="low"
-            name="confidence"
-            value="2"
-            checked={this.props.selected == "2"}
-          />
-          <label htmlFor="low"> low </label>
-          <input
-            onChange={this.optionChanged}
-            className="coding-form-confidence-option"
-            type="radio"
-            id="medium"
-            name="confidence"
-            value="3"
-            checked={this.props.selected == "3"}
-          />
-          <label htmlFor="medium"> medium </label>
-          <input
-            onChange={this.optionChanged}
-            className="coding-form-confidence-option"
-            type="radio"
-            id="high"
-            name="confidence"
-            value="4"
-            checked={this.props.selected == "4"}
-          />
-          <label htmlFor="high"> high </label>
-          <input
-            onChange={this.optionChanged}
-            className="coding-form-confidence-option"
-            type="radio"
-            id="very_high"
-            name="confidence"
-            value="5"
-            checked={this.props.selected == "5"}
-          />
-          <label htmlFor="very_high"> very high </label>
+          {CONFIDENCE_LEVELS.map((confidence_level, value) => [
+            <input
+              key={value}
+              onChange={this.optionChanged}
+              className="coding-form-confidence-option"
+              type="radio"
+              id={confidence_level.replace(" ", "_")}
+              name="confidence"
+              value={value + 1}
+              checked={this.props.selected == value + 1}
+            />,
+            <label key={confidence_level} htmlFor={confidence_level.replace(" ", "_")}>
+              {confidence_level}
+            </label>,
+          ])}
         </div>
       </div>
     );
@@ -78,7 +43,7 @@ class ConfidenceSilder extends Component {
 
 export default connect(
   mapStateToProps,
-  { userChangeQuestionMeta, apiAutoSave } // functions
+  mapDispatchToProps
 )(
   class QuestionValueCommentBox extends Component {
     constructor(props, context) {
@@ -94,13 +59,12 @@ export default connect(
     }
 
     commentChanged(comment) {
-      this.props.userChangeQuestionMeta(this.props.question_idx, this.props.question_identifier, "comment", comment);
+      this.props.userChangeQuestionMeta(this.props.question_identifier, "comment", comment);
       this.props.apiAutoSave();
     }
 
     confidenceChanged(confidence_level) {
       this.props.userChangeQuestionMeta(
-        this.props.question_idx,
         this.props.question_identifier,
         "confidence",
         confidence_level
@@ -112,7 +76,10 @@ export default connect(
       return (
         <div className="coding-form-question-meta">
           <hr />
-          <ConfidenceSilder changeHandler={this.confidenceChanged} selected={this.props.values.confidence} />
+          <ConfidenceSilder
+            changeHandler={this.confidenceChanged}
+            selected={this.props.values.confidence}
+          />
           <textarea
             className="coding-form-comment-box-textarea"
             placeholder="additional comments"

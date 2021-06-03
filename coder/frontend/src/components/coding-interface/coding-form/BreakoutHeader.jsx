@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import { userSelectQuestion } from "src/actions/userActions";
 import { sentenceCount } from "src/components/utils/displayUtils";
 import mapStateToProps from "src/components/utils/mapStateToProps";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import MultiselectActiveArea from "./MultiselectActiveArea";
 
 export default connect(
   mapStateToProps,
-  { userSelectQuestion } // functions
+  mapDispatchToProps
 )(
   class BreakoutHeader extends Component {
     constructor(props, context) {
@@ -37,7 +38,8 @@ export default connect(
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => (k === "OTHER" ? `OTHER:${cur_values[k]}` : k));
-      const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question");
+      const classes =
+        "coding-form-question " + (is_active ? "active-question" : "inactive-question");
 
       const active_area = (
         <MultiselectActiveArea

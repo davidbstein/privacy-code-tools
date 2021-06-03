@@ -1,8 +1,8 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userSelectQuestion } from "src/actions/userActions";
 import { sentenceCount } from "src/components/utils/displayUtils";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import { MergeBoxHeader } from "./MergeElements";
 import MultiselectActiveArea from "./MultiselectActiveArea";
@@ -10,7 +10,7 @@ import QuestionBoxHeader from "./QuestionBoxHeader";
 
 export default connect(
   mapStateToProps,
-  { userSelectQuestion } // functions
+  mapDispatchToProps
 )(
   class BreakoutOption extends Component {
     constructor(props, context) {
@@ -19,7 +19,7 @@ export default connect(
     }
 
     handleClick() {
-      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
+      this.props.userSelectQuestion(this.props.content.identifier);
       // @ts-ignore
       window.SESSION_TIMER.run_timer(this.props.content.identifier);
     }
@@ -45,7 +45,8 @@ export default connect(
         {};
       const sentences = cur_coding.sentences || {};
       const number_of_sentences = sentenceCount(sentences);
-      const is_active = this.props.content.identifier == this.props.localState.selectedQuestionIdentifier;
+      const is_active =
+        this.props.content.identifier == this.props.localState.selectedQuestionIdentifier;
       const is_active_breakout = this.props.content.identifier.startsWith(
         this.props.localState.selectedQuestionIdentifier.split("(")[0]
       );

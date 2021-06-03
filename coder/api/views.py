@@ -68,7 +68,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id']
-    lookup_field = "project_prefix"
+    lookup_field = "prefix"
 
 
 class AssignmentTypeViewSet(viewsets.ModelViewSet):

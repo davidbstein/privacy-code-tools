@@ -26,8 +26,16 @@ function Logger(topic, color, extra_styles) {
     const stack = getStackTrace().replaceAll("\n", `\n${tag} `);
     const component = getReactComponent(stack);
     const comp_tag = component ? `[${component}]` : "";
-    console.groupCollapsed(`%c${tag}${comp_tag} ${msg}`, `color: ${color}; ${extra_styles ? extra_styles : ""}`);
-    if (args) console.log(`%c${tag}${comp_tag}`, `color: ${color}; ${extra_styles ? extra_styles : ""}`, args);
+    console.groupCollapsed(
+      `%c${tag}${comp_tag} ${JSON.stringify(msg, null, "  ")}`,
+      `color: ${color}; ${extra_styles ? extra_styles : ""}`
+    );
+    if (args)
+      console.log(
+        `%c${tag}${comp_tag}`,
+        `color: ${color}; ${extra_styles ? extra_styles : ""}`,
+        args
+      );
     console.debug(`%c${tag}${stack}`, `color: ${color}; ${extra_styles ? extra_styles : ""}`);
     console.groupEnd();
   }).bind(this);

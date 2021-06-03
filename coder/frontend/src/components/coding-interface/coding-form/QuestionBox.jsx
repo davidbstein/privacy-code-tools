@@ -1,8 +1,8 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userSelectQuestion } from "src/actions/userActions";
-import { sentenceCount } from "src/components/utils/displayUtils";
+import { randomColor, sentenceCount } from "src/components/utils/displayUtils";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import { MergeBoxHeader } from "./MergeElements";
 import MultiselectActiveArea from "./MultiselectActiveArea";
@@ -14,7 +14,7 @@ import QuestionBoxHeader from "./QuestionBoxHeader";
  */
 export default connect(
   mapStateToProps,
-  { userSelectQuestion } // functions
+  mapDispatchToProps
 )(
   class QuestionBox extends Component {
     constructor(props, context) {
@@ -23,75 +23,89 @@ export default connect(
     }
 
     handleClick() {
-      this.props.userSelectQuestion(this.props.idx, this.props.content.identifier);
+      this.props.userSelectQuestion(this.props.content.id, this.props.category_id);
       // @ts-ignore
-      window.SESSION_TIMER.run_timer(this.props.content.identifier);
+      window.SESSION_TIMER.run_timer(this.props.content.id);
     }
 
     getMergeData() {
       const to_ret = { responses: [], authors: [] };
       for (var ci of _.values(this.props.model.coding_instances)) {
-        const coding_values = ci.coding_values[this.props.content.identifier] || ci.coding_values[this.props.idx];
+        const coding_values =
+          ci.coding_values[this.props.content.identifier] ||
+          ci.coding_values[this.props.identifier];
         if (coding_values) {
           to_ret.responses.push(coding_values);
           to_ret.authors.push(ci.coder_email);
         }
       }
-      // const sentences_by_coder = {}
-      // for (var ci of _.values(this.props.model.coding_instances)){
-      //   const coding_values = ci.coding_values[this.props.idx] || ci.coding_values[this.props.content.identifier]
-      //   const sentences = ((coding_values || {}).sentences || {})[this.props.policy_type];
-      // }
       return to_ret;
     }
 
     render() {
+      const {
+        count,
+        category_id,
+        category_label,
+        content: {
+          info,
+          id: identifier,
+          meta: { notes, source },
+          type: { label: question_type_label, value: question_type },
+          label,
+          description,
+          questionOptions,
+        },
+        localState: {
+          localCodingInstance: { [identifier]: cur_question_state = {} },
+          merge_mode,
+        },
+      } = this.props;
       const mergeData = this.getMergeData();
-      const cur_question =
-        this.props.localState.localCodingInstance[this.props.content.identifier] ||
-        this.props.localState.localCodingInstance[this.props.idx] ||
-        {};
-      const sentences = cur_question.sentences || {};
+      const sentences = cur_question_state.sentences ?? {};
       const number_of_sentences = sentenceCount(sentences);
-      const is_active = this.props.content.identifier.startsWith(this.props.localState.selectedQuestionIdentifier);
-      const cur_values = cur_question.values || {};
-      const cur_confidence = cur_question.confidence || "unspecified";
+      const is_active = identifier == this.props.localState.selectedQuestionIdentifier;
+      const cur_values = cur_question_state.values ?? {};
+      const cur_confidence = cur_question_state.confidence ?? "unspecified";
       const value_strings = _.keys(cur_values)
         .filter((k) => cur_values[k])
         .map((k) => (k === "OTHER" ? `OTHER:${cur_values[k]}` : k));
-      const classes = "coding-form-question " + (is_active ? "active-question" : "inactive-question");
+      const classes =
+        "coding-form-question " + (is_active ? "active-question" : "inactive-question");
 
       const active_area = (
         <MultiselectActiveArea
-          content={this.props.content}
-          idx={this.props.idx}
+          content={{ identifier, description, questionOptions, question_type, notes, source, info }}
           is_active={is_active}
           sentences={sentences}
-          cur_question={cur_question}
+          cur_question={cur_question_state}
           mergeData={mergeData}
         />
       );
 
       return (
         <div className="coding-form-question-container">
-          <div className={classes} id={this.props.content.identifier} onClick={is_active ? null : this.handleClick}>
-            <div className="coding-form-question-title">
-              {this.props.count}. {this.props.content.question} (<i>{this.props.content.identifier}</i>)
+          <div className={classes} id={identifier} onClick={is_active ? null : this.handleClick}>
+            <div
+              className="coding-form-question-title"
+              style={is_active ? { backgroundColor: randomColor(category_label, 70, 40) } : {}}
+            >
+              {count}. {label} (<i>{identifier}</i>)
             </div>
             <div className="coding-form-question-sentence-count">
-              {this.props.localState.merge_mode ? (
+              {merge_mode ? (
                 <MergeBoxHeader value_strings={value_strings} mergeData={mergeData} />
               ) : (
                 <QuestionBoxHeader
                   number_of_sentences={number_of_sentences}
                   value_strings={value_strings}
                   confidence={cur_confidence}
-                  comment={cur_question.comment}
-                  question_type={this.props.content.type}
+                  comment={cur_question_state.comment}
+                  question_type={question_type}
                 />
               )}
               <hr />
-              <div className="coding-form-question-info">{this.props.content.info}</div>
+              <div className="coding-form-question-info">{description}</div>
             </div>
             {is_active ? active_area : <div className="inactive-selection-area" />}
           </div>

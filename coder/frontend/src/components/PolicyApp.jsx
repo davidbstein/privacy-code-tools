@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiGetPolicies } from "src/actions/api";
-import PolicyList from "src/components/policy-app/PolicyList";
-import mapStateToProps from "src/components/utils/mapStateToProps";
-import model from "src/reducers/model";
-import Loading from "src/components/widgets/Loading";
-import Heading from "src/components/widgets/Heading";
 import PolicyAdminOverview from "src/components/policy-app/PolicyAdminOverview";
+import PolicyList from "src/components/policy-app/PolicyList";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
+import mapStateToProps from "src/components/utils/mapStateToProps";
+import Heading from "src/components/widgets/Heading";
+import Loading from "src/components/widgets/Loading";
 
 class PolicyApp extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class PolicyApp extends Component {
     const {
       model: {
         policies,
-        project: { project_settings },
+        project: { settings: project_settings },
       },
       match: {
         params: { policy_id = undefined, project_prefix },
@@ -42,4 +41,4 @@ class PolicyApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, { apiGetPolicies })(PolicyApp);
+export default connect(mapStateToProps, mapDispatchToProps)(PolicyApp);

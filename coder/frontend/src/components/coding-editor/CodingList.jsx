@@ -1,9 +1,10 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import SortableTable from "src/components/widgets/SortableTable";
-import { apiUpdateProjectSettings } from "src/actions/api";
+
 /**
  * @param {object} params
  * @param {Coding[]} params.codings
@@ -29,7 +30,10 @@ class CodingList extends Component {
             type="checkbox"
             checked={coding.id == default_coding}
             onClick={() => {
-              apiUpdateProjectSettings(project_prefix, { ...project_settings, default_coding: coding.id });
+              apiUpdateProjectSettings(project_prefix, {
+                ...project_settings,
+                default_coding: coding.id,
+              });
             }}
             readOnly={true}
           />
@@ -71,4 +75,4 @@ class CodingList extends Component {
     );
   }
 }
-export default connect(mapStateToProps, { apiUpdateProjectSettings })(CodingList);
+export default connect(mapStateToProps, mapDispatchToProps)(CodingList);

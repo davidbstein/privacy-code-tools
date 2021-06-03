@@ -21,6 +21,7 @@ const CSRF_TOKEN = getCookie("csrftoken");
 
 export default class SessionTimer {
   constructor(user_email, coding_id, policy_instance_id) {
+    log("starting timer...");
     this.coding_id = coding_id;
     this.policy_instance_id = policy_instance_id;
     this.session = {};
@@ -47,6 +48,7 @@ export default class SessionTimer {
     this.post_update_async = this._post_update_async.bind(this);
     this.run_timer = this._run_timer.bind(this);
     this._get_post_values = this._get_post_values.bind(this);
+    this.run_timer("setup");
   }
   _blur(e) {
     const cur_time = Date.now();

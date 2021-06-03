@@ -13,14 +13,14 @@ export default connect(
         return <div />;
       }
       return (
-        <div className="policy-browser-overview">
+        <div className="coding-form-overview">
           <h1> Coding </h1>
           <div>
-            {" "}
-            Coding will be attributed to <b>{CURRENT_USER}</b>{" "}
+            Coding will be attributed to <b>{CURRENT_USER}</b>
           </div>
           <div>
-            This form will auto-save. You can also press <code>ctrl+s</code> (windows), <code>⌘+s</code>
+            This form will auto-save. You can also press <code>ctrl+s</code> (windows),
+            <code>⌘+s</code>
             (mac), or hit the "save" button at the bottom of this form.
           </div>
         </div>

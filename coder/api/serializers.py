@@ -1,5 +1,5 @@
-from rest_framework import serializers
 from coder.api import models as api_models
+from rest_framework import serializers
 
 
 def _field_list(table, to_omit=None):

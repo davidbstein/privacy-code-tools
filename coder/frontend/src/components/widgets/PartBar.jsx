@@ -1,10 +1,5 @@
 import React from "react";
-
-function countryColor(country, s, l) {
-  const s_n = Math.max(Math.min(s, 100 - s), 20) * 2;
-  const num = _.multiply(..._.map(country).map((c) => c.charCodeAt(0)));
-  return `hsl(${num % 360}deg, ${(num % s_n) - s_n / 2 + s}%, ${l}%)`;
-}
+import { randomColor } from "src/components/utils/displayUtils";
 
 export default function PartBar({ category_pairs }) {
   return (
@@ -14,12 +9,15 @@ export default function PartBar({ category_pairs }) {
           <div
             key={label}
             className={`part-bar-item`}
-            style={{ width: percentage, backgroundColor: countryColor(label, 40, 50) }}
+            style={{ width: percentage, backgroundColor: randomColor(label, 40, 50) }}
           >
             <div className="part-bar-label">{label}</div>
             <div
               className="part-bar-hover"
-              style={{ color: countryColor(label, 50, 30), backgroundColor: countryColor(label, 50, 80) }}
+              style={{
+                color: randomColor(label, 50, 30),
+                backgroundColor: randomColor(label, 50, 80),
+              }}
             >
               {label}: {percentage}
             </div>

@@ -6,14 +6,25 @@
   {% if user.is_authenticated %}
     <div id='app'>loading...</div>
     <script src="{% static 'frontend/main.js' %}?{% now 'Hm' %}"></script>
+      <script>
+        const outer = document.createElement('div');
+        outer.style.visibility = 'hidden';
+        outer.style.overflow = 'scroll';
+        outer.style.msOverflowStyle = 'scrollbar';
+        document.body.appendChild(outer);
+        const inner = document.createElement('div');
+        outer.appendChild(inner);
+        const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+        outer.parentNode.removeChild(outer);
+        const scrollbarCSSVar = document.createElement("style")
+        scrollbarCSSVar.innerHTML = `:root{--scrollbar-width: ${scrollbarWidth}px}`
+        document.body.appendChild(scrollbarCSSVar);
+      </script>
 
   {% else %}
-    <script>
-     // window.location="{% provider_login_url 'google' %}";
-    </script>
     <body>
       you are not logged in and are being redirected.
       If you can read this, <a href="{% provider_login_url 'google' %}"> click here </a>
     </body>
-  {% endif %}
+    {% endif %}
 {% endblock %}

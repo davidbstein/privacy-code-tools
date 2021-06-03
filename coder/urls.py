@@ -21,10 +21,19 @@ from django.views.generic import TemplateView
 
 from rest_framework import routers
 from coder.api import views
-from coder.frontend.views import get_static, get_raw, get_unsafe_raw, process_raw, get_uri_text
+from coder.frontend.views import (
+    get_static,
+    get_raw,
+    get_unsafe_raw,
+    process_raw,
+    get_uri_text,
+    get_current_user,
+)
+
 from coder import settings
 
 from decorator_include import decorator_include
+
 
 router = routers.DefaultRouter()
 router.register(r'assignment',            views.AssignmentViewSet)
@@ -51,6 +60,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path("helper-api/process_raw", login_required(process_raw)),
+    path("me/", login_required(get_current_user)),
     path('helper-api/request_uri_text', login_required(get_uri_text)),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
     re_path(r'^auto_static/(?P<path>.*)$', get_static),

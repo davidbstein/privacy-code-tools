@@ -35,9 +35,9 @@ class Coding(models.Model):
 
 
 class Project(models.Model):
-    project_prefix = models.CharField(max_length=255, db_index=True)
-    project_name = models.CharField(max_length=255)
-    project_settings = models.JSONField(default=dict)
+    prefix = models.CharField(max_length=255, db_index=True)
+    name = models.CharField(max_length=255)
+    settings = models.JSONField(default=dict)
 
 
 class CodingInstance(models.Model):

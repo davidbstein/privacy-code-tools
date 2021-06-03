@@ -1,215 +1,150 @@
 import _ from "lodash";
 import { APIActionTypes, AppActionTypes, NULL_OP, UserActionsTypes } from "src/actions/types";
+import { overwrite_stored_object_copies, overwrite_stored_value } from "./utils";
 
-/**
- * @constant {LocalState} defaultState
- */
 const defaultState = {
-  selectedQuestion: "-1",
   selectedQuestionIdentifier: "-1",
-  localCodingInstance: {}, // the current coding values
+  selectedCategoryIdentifier: "-1",
+  localCodingInstance: {
+    categoryHighlights: {},
+  }, // the current coding values
   localCodings: {}, // for coding editing
   updateSinceLastSave: true,
 };
+const LOCAL_CODING_INSTANCE = "localCodingInstance";
 
-/**
- * @returns {QuestionAnswer}
- */
 function get_default_question() {
   return {
     values: {},
-    sentences: {
-      privacy_policy: {},
-      tos: {},
-      ccpa_policy: {},
-      gdpr_policy: {},
-    },
+    sentences: {},
     comment: "",
     confidence: null,
   };
 }
 
-/**
- * action.payload =
- */
-function template(state, action) {
-  console.log(state, action);
-  return state;
+function changeValues(state, { question_identifier, values }) {
+  return overwrite_stored_value(state, [LOCAL_CODING_INSTANCE, question_identifier], {
+    ...(state.localCodingInstance[question_identifier] ?? get_default_question()),
+    values: values,
+  });
 }
 
-/**
- * action.payload = {question_idx, value}
- */
-function changeValue(state, action) {
-  var current_value =
-    state.localCodingInstance[action.payload.question_identifier] ||
-    state.localCodingInstance[action.payload.question_idx];
-  if (current_value === undefined) {
-    current_value = get_default_question();
-  }
-  const new_value = {
-    ...current_value,
-    ...{ values: action.payload.values },
-  };
-  return {
-    ...state,
-    ...{
-      localCodingInstance: {
-        ...state.localCodingInstance,
-        ...{ [action.payload.question_idx]: new_value },
-        ...{ [action.payload.question_identifier]: new_value },
-      },
-    },
-  };
-}
-
-function changeQuestionMeta(state, action) {
+function changeQuestionMeta(state, { payload: { question_identifier, field, value } }) {
   const next_state = { ...state };
-  next_state.localCodingInstance[action.payload.question_idx] = {
-    ...(state.localCodingInstance[action.payload.question_idx] || get_default_question()),
-    ...{ [action.payload.field]: action.payload.value },
-  };
-  next_state.localCodingInstance[action.payload.question_identifier] = {
-    ...(state.localCodingInstance[action.payload.question_identifier] || get_default_question()),
-    ...{ [action.payload.field]: action.payload.value },
+  next_state.localCodingInstance[question_identifier] = {
+    ...(state.localCodingInstance[question_identifier] ?? get_default_question()),
+    ...{ [field]: value },
   };
   return next_state;
 }
 
-/**
- * toggles the presense of sentence_idx in the array:
- * ```
- *     state.localCodingInstance[<question_idx>].sentences[<paragraph_idx>]
- * ````
- *
- * action.payload = {paragraph_idx, sentence_idx}
- */
-function toggleSentence(state, action) {
-  var current_value =
-    state.localCodingInstance[state.selectedQuestion] || state.localCodingInstance[state.selectedQuestionIdentifier];
-  if (current_value === undefined) {
-    current_value = get_default_question();
-  }
+function toggleParagraph(state, { paragraph_idx, doc_ordinal }) {
+  const current =
+    state.localCodingInstance?.categoryHighlights?.[state.selectedCategoryIdentifier] ?? {};
+  const key = `${doc_ordinal}-${paragraph_idx}`;
+  return overwrite_stored_value(
+    state,
+    [LOCAL_CODING_INSTANCE, "categoryHighlights", state.selectedCategoryIdentifier],
+    {
+      ...current,
+      ...{ [key]: !current[key] },
+    }
+  );
+}
 
-  var new_policy_sentences = { ...current_value.sentences[action.payload.policy_type] };
-  if (!new_policy_sentences[action.payload.paragraph_idx]) {
-    new_policy_sentences[action.payload.paragraph_idx] = [action.payload.sentence_idx];
-  } else if (new_policy_sentences[action.payload.paragraph_idx].indexOf(action.payload.sentence_idx) < 0) {
-    new_policy_sentences[action.payload.paragraph_idx].push(action.payload.sentence_idx);
+function toggleSentence(state, { paragraph_idx, sentence_idx, doc_ordinal }) {
+  var current_value =
+    state.localCodingInstance[state.selectedQuestionIdentifier] ?? get_default_question();
+  var new_policy_sentences = { ...current_value.sentences[doc_ordinal] };
+  if (!new_policy_sentences[paragraph_idx]) {
+    new_policy_sentences[paragraph_idx] = [sentence_idx];
+  } else if (new_policy_sentences[paragraph_idx].indexOf(sentence_idx) < 0) {
+    new_policy_sentences[paragraph_idx].push(sentence_idx);
   } else {
-    new_policy_sentences[action.payload.paragraph_idx] = new_policy_sentences[action.payload.paragraph_idx].filter(
-      (e) => e !== action.payload.sentence_idx
+    new_policy_sentences[paragraph_idx] = new_policy_sentences[paragraph_idx].filter(
+      (e) => e !== sentence_idx
     );
   }
-
-  const new_value = {
-    ...current_value,
-    ...{
-      sentences: {
-        ...current_value.sentences,
-        ...{ [action.payload.policy_type]: new_policy_sentences },
-      },
-    },
-  };
-  return {
-    ...state,
-    ...{
-      localCodingInstance: {
-        ...state.localCodingInstance,
-        ...{ [state.selectedQuestion]: new_value },
-        ...{ [state.selectedQuestionIdentifier]: new_value },
-      },
-    },
-  };
+  const new_value = overwrite_stored_value(
+    current_value,
+    ["sentences", doc_ordinal],
+    new_policy_sentences
+  );
+  return overwrite_stored_value(
+    state,
+    [LOCAL_CODING_INSTANCE, state.selectedQuestionIdentifier],
+    new_value
+  );
 }
 
-/**
- * sets the current vallue of `state.selectedQuestion` to `question_idx`
- *
- * action.payload = {question_idx}
- */
-function selectQuestion(state, action) {
-  return {
-    ...state,
-    ...{ selectedQuestion: action.payload.question_idx },
-    ...{ selectedQuestionIdentifier: action.payload.question_identifier },
-  };
-}
-
-/**
- * overrides the local state with the server's last saved coding`
- *
- * action.payload = {}
- */
-function loadSavedCodingInstance(state, action) {
-  if (!action.payload.coding_values) {
-    return state;
-  }
-  return {
-    ...state,
-    ...{ localCodingInstance: action.payload.coding_values },
-  };
-}
-
-/**
- * overrides the local state with the server's last saved coding`
- *
- * action.payload = {}
- */
-function loadSavedCodings(state, action) {
-  return {
-    ...state,
-    localCodings: _.fromPairs(_.map(action.payload, (coding) => [coding.id, coding])),
-  };
-}
-
-function setCurrentView(state, action) {
+function selectQuestion(state, { question_identifier, category_identifier }) {
   return {
     ...state,
     ...{
-      policyInstanceId: action.payload.policy_instance_id,
-      codingId: action.payload.coding_id,
-      merge_mode: action.payload.merge_mode == true,
+      selectedQuestionIdentifier: question_identifier,
+      selectedCategoryIdentifier: category_identifier,
     },
   };
 }
 
-function changeCoding(state, action) {
+function loadSavedCodingInstance(state, { coding_values }) {
+  if (!coding_values) return state;
+  return { ...state, ...{ localCodingInstance: coding_values } };
+}
+
+function loadSavedCodings(state, payload) {
   return {
     ...state,
-    localCodings: {
-      ...state.localCodings,
-      [action.payload.coding.id]: action.payload.coding,
+    localCodings: _.fromPairs(_.map(payload, (coding) => [coding.id, coding])),
+  };
+}
+
+function setCurrentView(state, { policy_instance_id, coding_id, merge_mode }) {
+  return {
+    ...state,
+    ...{
+      policyInstanceId: policy_instance_id,
+      codingId: coding_id,
+      merge_mode: merge_mode == true,
     },
   };
+}
+
+function changeCoding(state, { coding }) {
+  return overwrite_stored_value(state, ["localCodings", coding.id], coding);
 }
 
 export default (state = defaultState, action) => {
-  const new_state = { ...state, ...{ updateSinceLastSave: false }, ...{ updateHackOccured: "" + new Date() } };
+  const new_state = {
+    ...state,
+    ...{ updateSinceLastSave: false, updateHackOccured: "" + new Date() },
+  };
   switch (action.type) {
     // updates that don't mutate user input state.
     case AppActionTypes.SET_CURRENT_VIEW:
-      return setCurrentView(state, action);
+      return setCurrentView(state, action.payload);
     case APIActionTypes.AUTO_SAVE:
     case APIActionTypes.POST_CODING_INSTANCE:
       new_state.updateSinceLastSave = true;
       return new_state;
     case APIActionTypes.GET_CODING_INSTANCE:
-      return loadSavedCodingInstance(new_state, action);
+      return loadSavedCodingInstance(new_state, action.payload);
     case APIActionTypes.GET_CODING_LIST:
-      return loadSavedCodings(new_state, action);
+      return loadSavedCodings(new_state, action.payload);
 
     // updates that mutate user's input
     case UserActionsTypes.SELECT_QUESTION:
-      return selectQuestion(new_state, action);
+      return selectQuestion(new_state, action.payload);
     case UserActionsTypes.CHANGE_QUESTION_META:
       return changeQuestionMeta(new_state, action);
     case UserActionsTypes.TOGGLE_SENTENCE:
-      return toggleSentence(new_state, action);
+      return toggleSentence(new_state, action.payload);
+    case UserActionsTypes.TOGGLE_PARAGRAPH:
+      return toggleParagraph(new_state, action.payload);
     case UserActionsTypes.CHANGE_VALUE:
-      return changeValue(new_state, action);
+      return changeValues(new_state, action.payload);
     case UserActionsTypes.UPDATE_CODING:
-      return changeCoding(new_state, action);
+      return changeCoding(new_state, action.payload);
 
     case NULL_OP:
       return new_state;

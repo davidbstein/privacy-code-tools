@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userSelectQuestion } from "src/actions/userActions";
 import { scrollToSentenceTarget, stringifySentences } from "src/components/utils/displayUtils";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import { MergeTool } from "./MergeElements";
 import QuestionValueCommentBox from "./QuestionValueCommentBox";
@@ -9,31 +9,34 @@ import QuestionValueSelector from "./QuestionValueSelector";
 
 export default connect(
   mapStateToProps,
-  { userSelectQuestion } // functions
+  mapDispatchToProps
 )(
   class MultiselectActiveArea extends Component {
     render() {
+      const {
+        is_active,
+        sentences,
+        cur_question,
+        mergeData,
+        content: { identifier, info: details, questionOptions: values, question_type },
+        localState: { merge_mode },
+      } = this.props;
       return (
-        <div className={this.props.is_active ? "active-selection-area" : "inactive-selection-area"}>
+        <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
           <hr />
           <div className="question-box-wiki-link">
-            <a href={`/wiki/questions/${this.props.content.identifier.replace(".", "_")}`} target="_blank">
-              {" "}
-              View additional help on the question{" "}
+            <a href={`/wiki/questions/${identifier?.replace(".", "_")}`} target="_blank">
+              View additional help on the question
             </a>
           </div>
-          <div className="coding-form-question-info">{this.props.content.details || ""}</div>
-          {this.props.localState.merge_mode ? (
-            <MergeTool
-              question_idx={this.props.idx}
-              question_identifier={this.props.content.identifier}
-              mergeData={this.props.mergeData}
-            />
+          <div className="coding-form-question-info">{details ?? ""}</div>
+          {merge_mode ? (
+            <MergeTool question_identifier={identifier} mergeData={mergeData} />
           ) : (
             <div />
           )}
           <div className="coding-form-sentence-list">
-            {stringifySentences(this.props.sentences).map((s, i) => (
+            {stringifySentences(sentences).map((s, i) => (
               <div
                 key={i}
                 onClick={scrollToSentenceTarget}
@@ -46,16 +49,11 @@ export default connect(
             ))}
           </div>
           <QuestionValueSelector
-            question_identifier={this.props.content.identifier}
-            question_idx={this.props.idx}
-            values={this.props.content.values}
-            singleselect={["singleselect", "breakout-option"].indexOf(this.props.content.type) > -1}
+            question_identifier={identifier}
+            values={values}
+            singleselect={["singleselect"].indexOf(question_type) > -1}
           />
-          <QuestionValueCommentBox
-            question_identifier={this.props.content.identifier}
-            question_idx={this.props.idx}
-            values={this.props.cur_question}
-          />
+          <QuestionValueCommentBox question_identifier={identifier} values={cur_question} />
         </div>
       );
     }

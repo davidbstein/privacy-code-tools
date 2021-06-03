@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiSaveCoding, apiUpdateCoding } from "src/actions/api";
-import { userUpdateCoding } from "src/actions/userActions";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
+import { deleteItem, insert, replace } from "src/components/utils/util";
 import Loading from "src/components/widgets/Loading";
 import CategoryEditor from "./CategoryEditor";
-import { deleteItem, insert, replace } from "src/components/utils/util";
 
 /**
  * @returns {Category}
@@ -72,13 +71,18 @@ class CodingEditor extends Component {
                 <button onClick={() => this.addCat(categoryIdx)}> insert new category here </button>
                 <CategoryEditor
                   category={category}
-                  categoryChanged={(newCategoryContent) => this.updateCat(categoryIdx, newCategoryContent)}
+                  categoryChanged={(newCategoryContent) =>
+                    this.updateCat(categoryIdx, newCategoryContent)
+                  }
                   deleteCategory={() => this.deleteCat(categoryIdx)}
                 />
               </div>
             );
           })}
-          <button onClick={() => this.addCat(coding.categories.length)}> insert new category here </button>
+          <button onClick={() => this.addCat(coding.categories.length)}>
+            {" "}
+            insert new category here{" "}
+          </button>
         </div>
         <div id="save-buttons">
           <div id="changes-alert" className={equalityTest ? "saved" : "unsaved"}>
@@ -102,4 +106,4 @@ class CodingEditor extends Component {
   }
 }
 
-export default connect(mapStateToProps, { userUpdateCoding, apiSaveCoding, apiUpdateCoding })(CodingEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(CodingEditor);

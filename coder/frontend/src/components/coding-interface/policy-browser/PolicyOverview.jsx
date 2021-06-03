@@ -21,16 +21,17 @@ export default connect(
           <h1> {policy.company_name} </h1>
           <div> Alexa Rank: {policy.alexa_rank} </div>
           <div>
-            {" "}
-            Policies Included:{" "}
-            {_.map(_.keys(this.props.content), (e, i) => (
-              <span className="policy-browser-overview-token" key={i}>
-                {e}
-              </span>
+            Policies Included:
+            {_.map(_.values(this.props.content), (doc, i) => (
+              <div className="policy-browser-overview-token" key={i}>
+                {doc.title}
+              </div>
             ))}
           </div>
           {(policy.urls._robot_rules || "").indexOf("ia_archiver") >= 0 ? (
-            <b>NOTE: site has explicit anti-archival code in robots.txt, archival data is suspect. </b>
+            <b>
+              NOTE: site has explicit anti-archival code in robots.txt, archival data is suspect.
+            </b>
           ) : (
             ""
           )}

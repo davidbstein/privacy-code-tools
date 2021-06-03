@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiGetAssignments } from "src/actions/api";
+import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import SortableAssignmentTable from "src/components/assignment-list/SortableAssignmentTable";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
@@ -29,7 +29,10 @@ class AssignmentListApp extends Component {
     console.log(coder_emails);
     return (
       <div id="assignment-list" className="page-root">
-        <Heading title={`Assignments for ${coder_email || "everyone"}`} project_prefix={project_prefix} />
+        <Heading
+          title={`Assignments for ${coder_email || "everyone"}`}
+          project_prefix={project_prefix}
+        />
         <div id="contents">
           {coder_emails.map((coder) => (
             <div className="coder-assignments" key={coder}>
@@ -45,4 +48,4 @@ class AssignmentListApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, { apiGetAssignments })(AssignmentListApp);
+export default connect(mapStateToProps, mapDispatchToProps)(AssignmentListApp);
