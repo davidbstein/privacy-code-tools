@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import CodingOverview from "src/components/coding-interface/coding-form/CodingOverview";
 import CodingCategory from "src/components/coding-interface/coding-form/CodingCategory";
 import FloatingControls from "src/components/coding-interface/coding-form/FloatingControls";
+import ProgressBar from "src/components/coding-interface/coding-form/ProgressBar";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 
@@ -22,7 +23,34 @@ export default connect(
       this.userSubmit = this.userSubmit.bind(this);
       this.localStore = this.localStore.bind(this);
       this.restoreStore = this.restoreStore.bind(this);
+      this.__checkTheRightHeadingIsActiveOnScroll =
+        this.__checkTheRightHeadingIsActiveOnScroll.bind(this);
     }
+    componentDidMount() {
+      this._cfc = document.getElementById("coding-form-pane");
+      this._cfc = this._cfc.onscroll = _.throttle(
+        this.__checkTheRightHeadingIsActiveOnScroll.bind(this),
+        100,
+        {
+          leading: true,
+        }
+      );
+    }
+    __checkTheRightHeadingIsActiveOnScroll(e) {
+      this._cfc = document.getElementById("coding-form-pane");
+      // this element in CodingCategory
+      const headings = document.getElementsByClassName("coding-container");
+      const idx = _.sum(_.map(headings, (h) => this._cfc.scrollTop - h.offsetTop > 0)) - 1;
+      for (var _i = 0; _i < headings.length; _i++) {
+        const h = headings[_i];
+        if (_i === idx) {
+          h.classList.add("active-coding");
+        } else {
+          h.classList.remove("active-coding");
+        }
+      }
+    }
+
     fun() {
       alert("whee 🤓");
     }
@@ -39,7 +67,6 @@ export default connect(
         this.props.coding_id,
         this.props.localState.localCodingInstance
       );
-      3;
       window.location.assign(`/c/${this.props.model.project.prefix}/`);
     }
     localStore() {
@@ -63,15 +90,23 @@ export default connect(
       const { coding_id } = this.props;
       const coding = this.props.model?.codings[coding_id];
       if (!coding || !coding?.categories) {
-        return <div className="coding-form-pane">loading...</div>;
+        return <div id="coding-form-pane">loading...</div>;
       }
-      var counter = 0;
+      let counter = 0;
+      let questionCounter = 0;
       return (
-        <div className="coding-form-pane">
+        <div id="coding-form-pane">
           <CodingOverview coding={coding} />
-          <div className="coding-form-container">
+          <div id="coding-form-container">
             {coding.categories.map((category, i) => (
-              <CodingCategory category={category} idx={i} key={i} />
+              <CodingCategory
+                category={category}
+                counterOffset={
+                  (questionCounter += category.questions.length) - category.questions.length
+                }
+                idx={i}
+                key={i}
+              />
             ))}
             <div className="coding-form-button-container">
               <button onClick={this.userSave} className="coding-form-submit-button">
@@ -90,7 +125,8 @@ export default connect(
                 fun button
               </button>
             </div>
-            <FloatingControls />
+            <ProgressBar coding={coding} />
+            <FloatingControls userSubmit={this.userSubmit} />
           </div>
         </div>
       );

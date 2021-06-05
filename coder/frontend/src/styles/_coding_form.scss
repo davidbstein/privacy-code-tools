@@ -1,6 +1,6 @@
 @import "_variables";
 
-.coding-form-pane {
+#coding-form-pane {
   width: 50%;
   height: 100%;
   position: fixed;
@@ -12,6 +12,26 @@
     padding: 0.5em;
     box-shadow: 0px 0px 4px 0px black;
     margin: 1em 0;
+    position: relative;
+    .coding-form-section-container {
+      position: relative;
+      width: 0;
+      overflow: hidden;
+      height: 0;
+    }
+    &.active-coding {
+      .coding-form-section-container {
+        height: calc(1em + 24px);
+        font-size: 2em;
+        padding: 8px;
+        overflow: visible;
+        position: fixed;
+        top: 0;
+        margin-top: 0;
+        right: calc(var(--scrollbar-width) + 8px);
+        width: calc(50% - var(--scrollbar-width) - 16px);
+      }
+    }
   }
   .coding-form-response {
     margin: 4px;
@@ -43,7 +63,7 @@
   .coding-form-confidence-5 {
     background-color: none;
   }
-  .coding-form-container {
+  #coding-form-container {
     padding: 8px;
   }
 
@@ -317,14 +337,86 @@
   .coding-form-submit-button:active {
     box-shadow: 0 0 0 0;
   }
-  .coding-form-floating-controls {
+  #progress-bar-container {
     width: 50%;
     background: #fff1ff;
     position: fixed;
-    bottom: 0;
+    bottom: 3em;
+    height: 3em;
     border-top: 1px solid #571a8c;
     padding: 0 16px;
     margin-left: -8px;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    #progress-bar {
+      align-items: center;
+      justify-content: space-around;
+      flex-grow: 1;
+      display: flex;
+      flex-wrap: nowrap;
+      #progress-bar-label {
+        padding: 0 4px;
+      }
+      .category-progress-bar {
+        min-height: 1em;
+        border: 1px solid black;
+        display: flex;
+        flex-wrap: nowrap;
+        margin-right: 0.5em;
+        .question-progress-bar {
+          flex-grow: 1;
+          &.current-question {
+            z-index: 1;
+            border: 1px solid white;
+          }
+          &:hover {
+            border: 1px solid black;
+            cursor: pointer;
+            margin: -1px;
+            box-shadow: 0px 0px 1px 1px white;
+            z-index: 2;
+          }
+          &.not-started {
+            background-color: grey;
+          }
+          &.not-finished {
+            background-color: purple;
+          }
+          &.complete {
+            &.confidence-1 {
+              border-top: 0.6em solid;
+              border-top-color: goldenrod;
+            }
+            &.confidence-2 {
+              border-top: 0.5em solid;
+              border-top-color: goldenrod;
+            }
+            &.confidence-3 {
+              border-top: 0.3em solid;
+              border-top-color: goldenrod;
+            }
+            &.confidence-4 {
+              border-top: 0.2em solid;
+              border-top-color: goldenrod;
+            }
+            &.confidence-5 {
+            }
+          }
+        }
+      }
+    }
+  }
+  .coding-form-floating-controls {
+    height: 3em;
+    width: calc(50% - var(--scrollbar-width));
+    background: #fff1ff;
+    position: fixed;
+    bottom: 0;
+    padding: 0 16px;
+    margin-left: -8px;
+    z-index: 99999;
   }
   .coding-form-control-buttons {
     display: flex;

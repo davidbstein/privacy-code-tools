@@ -29,11 +29,13 @@ export default connect(
     }
 
     getMergeData() {
+      const {
+        model: { coding_instances },
+        content: { id: identifier },
+      } = this.props;
       const to_ret = { responses: [], authors: [] };
-      for (var ci of _.values(this.props.model.coding_instances)) {
-        const coding_values =
-          ci.coding_values[this.props.content.identifier] ||
-          ci.coding_values[this.props.identifier];
+      for (var ci of _.values(coding_instances)) {
+        const coding_values = ci.coding_values[identifier];
         if (coding_values) {
           to_ret.responses.push(coding_values);
           to_ret.authors.push(ci.coder_email);

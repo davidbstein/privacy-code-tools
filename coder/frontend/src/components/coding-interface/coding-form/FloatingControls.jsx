@@ -16,12 +16,17 @@ export default connect(
     }
 
     _scroll_to_current() {
-      const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier);
-      if (cur_question_elem) cur_question_elem.scrollIntoView({ behavior: "smooth", block: "center" });
+      const cur_question_elem = document.getElementById(
+        this.props.localState.selectedQuestionIdentifier
+      );
+      if (cur_question_elem)
+        cur_question_elem.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
     _scroll_to_next_disagreement() {
-      const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier);
+      const cur_question_elem = document.getElementById(
+        this.props.localState.selectedQuestionIdentifier
+      );
       /** @type {HTMLCollectionOf<HTMLElement>} */
       const unencoded = document.getElementsByClassName("unmatching-answer-merge");
       if (unencoded.length == 0) {
@@ -43,7 +48,9 @@ export default connect(
     }
 
     _scroll_to_next_unanswered() {
-      const cur_question_elem = document.getElementById(this.props.localState.selectedQuestionIdentifier);
+      const cur_question_elem = document.getElementById(
+        this.props.localState.selectedQuestionIdentifier
+      );
       const unencoded = document.getElementsByClassName("coding-form-uncoded-marker");
       if (unencoded.length == 0) {
         alert("you've answered all the questions!");
@@ -80,6 +87,9 @@ export default connect(
                 Next Unanswered
               </div>
             )}
+            <div className="coding-form-action-button" onClick={this.props.userSubmit}>
+              Save and return home
+            </div>
           </div>
         </div>
       );

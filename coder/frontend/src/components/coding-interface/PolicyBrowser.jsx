@@ -20,9 +20,6 @@ export default connect(
         }
       );
     }
-    componentDidUpdate() {
-      this.__draw_scrollbar_dots();
-    }
     __checkTheRightHeadingIsActiveOnScroll(e) {
       this._pbc = document.getElementById("policy-browser-container");
       const headings = document.getElementsByClassName("policy-browser-section-container");
@@ -35,26 +32,6 @@ export default connect(
           h.classList.remove("active-policy");
         }
       }
-    }
-    __draw_scrollbar_dots() {
-      const _pbc = document.getElementById("policy-browser-container");
-      const dots = _.toArray(_pbc.getElementsByClassName("selected-true"));
-      document.getElementById("scrollbar-dots")?.replaceChildren(
-        ...dots.map((para_elem, i) => {
-          const dot = document.createElement("div");
-          dot.setAttribute("class", "scroll-dot");
-          dot.setAttribute(
-            "style",
-            `top: ${
-              (100 * (para_elem.getBoundingClientRect().y + _pbc.scrollTop)) / _pbc.scrollHeight
-            }%`
-          );
-          dot.onclick = (e) => {
-            para_elem.scrollIntoView({ behavior: "smooth", block: "center" });
-          };
-          return dot;
-        })
-      );
     }
     render() {
       const {

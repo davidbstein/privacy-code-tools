@@ -124,10 +124,11 @@ api.apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) =
   const res = await axios.get(`/api/coding_instance/`, {
     params: { policy_instance_id, coding_id, coder_email },
   });
-  dispatch({
-    type: APIActionTypes.GET_CODING_INSTANCE,
-    payload: res.data.results[0] ?? {},
-  });
+  if (res.data.results)
+    dispatch({
+      type: APIActionTypes.GET_CODING_INSTANCE,
+      payload: res.data.results[0],
+    });
 };
 
 api.apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatch) => {

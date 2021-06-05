@@ -78,6 +78,19 @@ export default connect(
     constructor(props) {
       super(props);
       this.checkSelected = this.checkSelected.bind(this);
+      this.mergeSelectCount = this.mergeSelectCount.bind(this);
+    }
+    mergeSelectCount(key) {
+      var highlight_count = 0;
+      for (var ci of _.values(this.props.model.coding_instances)) {
+        if (
+          ci.coding_values?.categoryHighlights?.[
+            this.props.localState.selectedCategoryIdentifier
+          ]?.[key] == true
+        )
+          highlight_count++;
+      }
+      return highlight_count;
     }
     checkSelected(key) {
       return (
@@ -87,13 +100,21 @@ export default connect(
       );
     }
     render() {
-      const { idx, paragraph, doc, sectionCounter } = this.props;
-      const selected = this.checkSelected(`${doc.ordinal}-${idx}`);
+      const {
+        idx,
+        paragraph,
+        doc,
+        sectionCounter,
+        localState: { merge_mode },
+      } = this.props;
+      const paragraph_lookup_key = `${doc.ordinal}-${idx}`;
+      const selected = this.checkSelected(paragraph_lookup_key);
+      let classes = ["policy-browser-paragraph"];
+      classes.push(`selected-${selected}`);
+      const merge_count = merge_mode ? this.mergeSelectCount(paragraph_lookup_key) : 0;
+      if (merge_count) classes.push(`selected-count selected-count-${Math.min(5, merge_count)}`);
       return (
-        <div
-          className={`policy-browser-paragraph selected-${selected}`}
-          id={`paragraph-${doc.ordinal}-${idx}`}
-        >
+        <div className={classes.join(" ")} id={`paragraph-${doc.ordinal}-${idx}`}>
           <div className="policy-browser-paragraph-num">{idx + 1}</div>
           <div className="paragraph-content">
             {{

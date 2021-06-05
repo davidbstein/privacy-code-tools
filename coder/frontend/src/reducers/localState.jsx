@@ -22,6 +22,10 @@ function get_default_question() {
   };
 }
 
+function _updateState(state, updateDict) {
+  return { ...state, ...updateDict };
+}
+
 function changeValues(state, { question_identifier, values }) {
   return overwrite_stored_value(state, [LOCAL_CODING_INSTANCE, question_identifier], {
     ...(state.localCodingInstance[question_identifier] ?? get_default_question()),
@@ -39,20 +43,19 @@ function changeQuestionMeta(state, { payload: { question_identifier, field, valu
 }
 
 function toggleParagraph(state, { paragraph_idx, doc_ordinal }) {
+  if (state.selectedQuestionIdentifier == "-1") return state;
   const current =
     state.localCodingInstance?.categoryHighlights?.[state.selectedCategoryIdentifier] ?? {};
   const key = `${doc_ordinal}-${paragraph_idx}`;
   return overwrite_stored_value(
     state,
     [LOCAL_CODING_INSTANCE, "categoryHighlights", state.selectedCategoryIdentifier],
-    {
-      ...current,
-      ...{ [key]: !current[key] },
-    }
+    { ...current, ...{ [key]: !current[key] } }
   );
 }
 
 function toggleSentence(state, { paragraph_idx, sentence_idx, doc_ordinal }) {
+  if (state.selectedQuestionIdentifier == "-1") return state;
   var current_value =
     state.localCodingInstance[state.selectedQuestionIdentifier] ?? get_default_question();
   var new_policy_sentences = { ...current_value.sentences[doc_ordinal] };
@@ -78,13 +81,10 @@ function toggleSentence(state, { paragraph_idx, sentence_idx, doc_ordinal }) {
 }
 
 function selectQuestion(state, { question_identifier, category_identifier }) {
-  return {
-    ...state,
-    ...{
-      selectedQuestionIdentifier: question_identifier,
-      selectedCategoryIdentifier: category_identifier,
-    },
-  };
+  return _updateState(state, {
+    selectedQuestionIdentifier: question_identifier,
+    selectedCategoryIdentifier: category_identifier,
+  });
 }
 
 function loadSavedCodingInstance(state, { coding_values }) {
@@ -93,21 +93,17 @@ function loadSavedCodingInstance(state, { coding_values }) {
 }
 
 function loadSavedCodings(state, payload) {
-  return {
-    ...state,
+  return _updateState(state, {
     localCodings: _.fromPairs(_.map(payload, (coding) => [coding.id, coding])),
-  };
+  });
 }
 
 function setCurrentView(state, { policy_instance_id, coding_id, merge_mode }) {
-  return {
-    ...state,
-    ...{
-      policyInstanceId: policy_instance_id,
-      codingId: coding_id,
-      merge_mode: merge_mode == true,
-    },
-  };
+  return _updateState(state, {
+    policyInstanceId: policy_instance_id,
+    codingId: coding_id,
+    merge_mode: merge_mode == true,
+  });
 }
 
 function changeCoding(state, { coding }) {
@@ -115,10 +111,10 @@ function changeCoding(state, { coding }) {
 }
 
 export default (state = defaultState, action) => {
-  const new_state = {
-    ...state,
-    ...{ updateSinceLastSave: false, updateHackOccured: "" + new Date() },
-  };
+  const new_state = _updateState(state, {
+    updateSinceLastSave: false,
+    updateHackOccured: "" + new Date(),
+  });
   switch (action.type) {
     // updates that don't mutate user input state.
     case AppActionTypes.SET_CURRENT_VIEW:

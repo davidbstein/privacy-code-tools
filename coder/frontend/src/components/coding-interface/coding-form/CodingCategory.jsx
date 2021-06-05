@@ -16,11 +16,17 @@ export default connect(
     render() {
       const {
         category: { id, label, notes, questions },
+        counterOffset = 0,
+        idx,
       } = this.props;
-      let counter = 0;
+      let counter = counterOffset;
+      const headingStyle = { backgroundColor: randomColor(label, 30, 80), zIndex: idx };
       return (
-        <div className="coding-container" style={{ backgroundColor: randomColor(label, 30, 80) }}>
+        <div className="coding-container" style={headingStyle}>
           <h1>{label}</h1>
+          <div className="coding-form-section-container" style={headingStyle}>
+            <h1>{label}</h1>
+          </div>
           {questions.map((question_content, i) => (
             <QuestionBox
               key={"question-box-" + i}
