@@ -46,6 +46,7 @@
     thead {
       background-color: $nyu-light-grey;
       th {
+        padding: 0 1em;
         &.selected {
           background-color: $nyu-grey;
           &.reversed {
@@ -63,11 +64,17 @@
     }
     tbody {
       tr {
+        &:nth-child(even) {
+          background-color: #eee;
+        }
         &:hover {
           background: $nyu-faint-purple;
         }
       }
       td {
+        text-align: center;
+        white-space: nowrap;
+        line-height: 2em;
         padding: 0 1em;
       }
     }
