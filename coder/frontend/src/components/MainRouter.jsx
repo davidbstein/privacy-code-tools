@@ -58,11 +58,11 @@ const MainURLSwitch = connect(
           <Route path={`${path}/policy`} component={PolicyApp} />
           <Route path={`${path}/coder-status/:coder_email`} component={AssignmentListApp} />
           <Route path={`${path}/coder-status`} component={AssignmentListApp} />
+          {/* CODING STATUS PAGES */}
+          <Route path={`${path}/progress`} component={ProgressViewApp} />
           {/* CODING EDITOR */}
           <Route path={`${path}/coding/:coding_id`} component={CodingEditorApp} />
-          <Route path={`${path}/coding`} component={CodingEditorApp} />
-          {/* CODING STATUS PAGES */}
-          <Route path={`${path}/coding-progress`} component={ProgressViewApp} />
+          <Route path={`${path}/coding/`} component={CodingEditorApp} />
           <Route path={`${path}`} component={HomeApp} />
         </Switch>
       );

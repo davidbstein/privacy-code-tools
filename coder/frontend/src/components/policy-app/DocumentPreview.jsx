@@ -26,7 +26,6 @@ function ParagraphPreview({ content, level, type }, sectionCounter) {
       if (!sectionCounter[level]) sectionCounter[level] = 0;
       for (let _i = level + 1; _i < sectionCounter.length; _i++) sectionCounter[_i] = 0;
       sectionCounter[level] += 1;
-      console.log(sectionCounter);
       return (
         <div className="preview-section">
           {`§${sectionCounter.slice(1, level + 1).join(".")}`} {content.map(PreviewSentence)}
@@ -39,7 +38,10 @@ function ParagraphPreview({ content, level, type }, sectionCounter) {
         <div className="preview-list">
           {content.map(({ bullet, content, depth }, i) => (
             <div key={i} className="preview-list-item">
-              <div className="bullet" style={{ maxWidth: `${depth + 1}em`, minWidth: `${depth + 1}em` }}>
+              <div
+                className="bullet"
+                style={{ maxWidth: `${depth + 1}em`, minWidth: `${depth + 1}em` }}
+              >
                 {bullet}
               </div>
               <div className="content">{content.map(PreviewSentence)}</div>
@@ -53,10 +55,10 @@ function ParagraphPreview({ content, level, type }, sectionCounter) {
 }
 
 export default function DocumentPreview({ title, ordinal, content }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const sectionCounter = [];
   return (
-    <div className="policy-doc-preview" key={ordinal}>
+    <div className="policy-doc-preview">
       <h3 className="doc-preview-title" onClick={() => setExpanded(!expanded)}>
         {title}
       </h3>

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PolicyInfoBox from "src/components/policy-app/PolicyInfoBox";
@@ -5,7 +6,6 @@ import PolicyInstanceList from "src/components/policy-app/PolicyInstanceList";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Logger from "src/Logger";
-
 const log = Logger("policy-admin", "blue");
 
 class PolicyAdminOverview extends Component {
@@ -28,7 +28,10 @@ class PolicyAdminOverview extends Component {
         </div>
         <div id="policy-snapshot-list">
           <h1> Snapshots </h1>
-          <PolicyInstanceList policy_instances={policy_instances} />
+          <PolicyInstanceList
+            policy_instances={policy_instances}
+            coding_instances={coding_instances}
+          />
         </div>
       </div>
     );

@@ -31,7 +31,7 @@ class HomeApp extends Component {
                 <a href={`/c/${project_prefix}/coder-status`}>Everyone's tasks</a>
               </li>
               <li>
-                <a href={`/c/${project_prefix}/coding-progrss`}>Project Progress</a>
+                <a href={`/c/${project_prefix}/progress`}>Project Progress</a>
               </li>
             </ul>
           </div>

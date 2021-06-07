@@ -20,7 +20,9 @@ const log = Logger("SortableTable", "white");
 export default function SortableTable({ id, items, columns, id_fn = (item) => item.id }) {
   const [sortColumn, setSortColumn] = useState(columns[0]);
   const [reverseColumn, setReverseColumn] = useState(false);
-  const sorted_items = (reverseColumn ? _.reverse : (e) => e)(_.sortBy(items, sortColumn.sort_fn));
+  const sorted_items = (reverseColumn ? _.reverse : (e) => e)(
+    _.sortBy(items, sortColumn.sort_fn ?? sortColumn.display_fn)
+  );
   return (
     <table id={id} className="sortable-table">
       <thead>
@@ -36,9 +38,10 @@ export default function SortableTable({ id, items, columns, id_fn = (item) => it
                 }
               }}
               key={column.name}
-              className={[column.name == sortColumn.name ? "selected" : "", reverseColumn ? "reversed" : "normal"].join(
-                " "
-              )}
+              className={[
+                column.name == sortColumn.name ? "selected" : "",
+                reverseColumn ? "reversed" : "normal",
+              ].join(" ")}
             >
               {column.name}
             </th>
@@ -46,8 +49,8 @@ export default function SortableTable({ id, items, columns, id_fn = (item) => it
         </tr>
       </thead>
       <tbody>
-        {sorted_items.map((item) => (
-          <tr key={id_fn(item)}>
+        {sorted_items.map((item, tr_idx) => (
+          <tr id={`tr-${id_fn(item)}`} key={tr_idx}>
             {columns.map((column) => (
               <td key={column.name}>{column.display_fn(item)}</td>
             ))}
