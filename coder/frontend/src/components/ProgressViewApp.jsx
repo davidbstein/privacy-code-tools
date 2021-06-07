@@ -125,7 +125,7 @@ class ProgressViewApp extends Component {
       },
       {
         name: "policy downloaded",
-        display_fn: (policy) => policy.progress.loaded?.status ?? "👉 . Stein",
+        display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
       },
       { name: "coder 1", display_fn: (policy) => policy.progress.coding_1?.email ?? "unassigned" },
       { name: "coder 2", display_fn: (policy) => policy.progress.coding_2?.email ?? "unassigned" },
