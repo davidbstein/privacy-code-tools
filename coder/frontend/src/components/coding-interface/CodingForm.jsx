@@ -87,11 +87,17 @@ export default connect(
       this.props.userNullOp();
     }
     render() {
-      const { coding_id } = this.props;
+      const {
+        coding_id,
+        localState: { localCodingInstance },
+        model: { coding_instances },
+      } = this.props;
       const coding = this.props.model?.codings[coding_id];
       if (!coding || !coding?.categories) {
         return <div id="coding-form-pane">loading...</div>;
       }
+      const serverCodingInstance = _.values(coding_instances)?.[0]?.coding_values;
+      const saved = JSON.stringify(serverCodingInstance) == JSON.stringify(localCodingInstance);
       let counter = 0;
       let questionCounter = 0;
       return (
@@ -124,6 +130,9 @@ export default connect(
               <button onClick={this.fun} className="coding-form-submit-button">
                 fun button
               </button>
+            </div>
+            <div id="save-alert" className={saved ? "progress-saved" : "progress-unsaved"}>
+              there are unsaved changes.
             </div>
             <ProgressBar coding={coding} />
             <FloatingControls userSubmit={this.userSubmit} />

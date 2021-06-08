@@ -194,14 +194,14 @@ const _apiAutoSave =
   (override = false) =>
   async (dispatch) => {
     const cur_time = new Date().getTime();
-    if (override || _LAST_AUTO_SAVE + _JUMP < cur_time) {
-      _LAST_AUTO_SAVE = cur_time;
-    } else {
-      console.log("not saving...");
-      return;
-    }
-    console.log("saving...");
-    _save_fn(store, dispatch, APIActionTypes.AUTO_SAVE);
+    // if (override || _LAST_AUTO_SAVE + _JUMP < cur_time) {
+    //   _LAST_AUTO_SAVE = cur_time;
+    // } else {
+    //   console.log("not saving...");
+    //   return;
+    // }
+    // console.log("saving...");
+    _limited_save_fn(store, dispatch, APIActionTypes.AUTO_SAVE);
   };
 
 const _save_fn = async function (store, dispatch, actionName = APIActionTypes.AUTO_SAVE) {
@@ -224,7 +224,7 @@ const _save_fn = async function (store, dispatch, actionName = APIActionTypes.AU
     payload: res.data,
   });
 };
-const _limited_save_fn = _.debounce(_save_fn, 500);
+const _limited_save_fn = _.debounce(_save_fn, 5000, { leading: true, trailing: true });
 //AUTO SAVE MAGIC!
 setInterval(
   function () {

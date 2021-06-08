@@ -58,7 +58,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path("me/", login_required(get_current_user)),
-    re_path(r'^static/(?P<path>.css)$', get_static),
+    re_path(r'^static/(?P<path>.*css)$', get_static),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
 
     path('notifications/', include('django_nyt.urls')),

@@ -337,6 +337,30 @@
   .coding-form-submit-button:active {
     box-shadow: 0 0 0 0;
   }
+  #save-alert {
+    width: 50%;
+    background: red;
+    border-radius: 1em;
+    position: fixed;
+    height: 1em;
+    text-align: center;
+    border: 1px solid darkred;
+    margin-left: -8px;
+    z-index: 999999;
+    box-shadow: 0px 0px 5px 4px maroon;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: bottom 1s;
+    opacity: 0.9;
+    &.progress-unsaved {
+      bottom: 2.5em;
+      transition-delay: 5s;
+    }
+    &.progress-saved {
+      bottom: -3.5em;
+    }
+  }
   #progress-bar-container {
     width: 50%;
     background: #fff1ff;
@@ -424,7 +448,8 @@
     align-items: center;
     padding: 8px;
   }
-  .coding-form-control-buttons .scroll-to-note {
+  .coding-form-button-container {
+    padding-bottom: 6em;
   }
   .coding-form-action-button {
     border: 1px solid #571a8c;

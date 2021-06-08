@@ -119,7 +119,6 @@ export default (state = defaultState, action) => {
     // updates that don't mutate user input state.
     case AppActionTypes.SET_CURRENT_VIEW:
       return setCurrentView(state, action.payload);
-    case APIActionTypes.AUTO_SAVE:
     case APIActionTypes.POST_CODING_INSTANCE:
       new_state.updateSinceLastSave = true;
       return new_state;

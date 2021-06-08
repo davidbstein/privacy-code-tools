@@ -56,6 +56,7 @@ export default (state = defaultState, action) => {
         { [action.payload.id]: action.payload },
         "codings"
       );
+    case APIActionTypes.AUTO_SAVE:
     case APIActionTypes.GET_CODING_INSTANCE:
       return overwrite_stored_object_copies(
         state,

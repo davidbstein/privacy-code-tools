@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import CodingOverview from "src/components/coding-interface/coding-form/CodingOverview";
-import CodingCategory from "src/components/coding-interface/coding-form/CodingCategory";
-import FloatingControls from "src/components/coding-interface/coding-form/FloatingControls";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 
@@ -15,7 +12,6 @@ export default connect(
       document.getElementById(question_id).scrollIntoView({ behavior: "smooth", block: "center" });
     }
     questionToProgressClass(question, localCodingInstance) {
-      console.log(localCodingInstance?.[question.id]);
       const questionCoding = localCodingInstance?.[question.id];
       if (!questionCoding) return "not-started";
       if (!questionCoding.confidence) return "not-finished";
