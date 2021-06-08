@@ -6,7 +6,7 @@ from django.template.loader import get_template
 from django.template import Context
 from coder.api.models import Policy, PolicyInstance, RawPolicyInstance
 from coder import settings
-from scripts import scraper
+# from scripts import scraper
 import requests
 import pathlib
 import mimetypes
@@ -47,8 +47,8 @@ def get_unsafe_raw(request, policy_instance_id, field):
                   {"raw_data": raw_html, "policy_instance_id": policy_instance_id, "site_name": p.company_name, 'scan_dt': pi.scan_dt})
 
 
-def process_raw(request):
-    return JsonResponse(scraper.get_paragraphs_from_html(request.body.decode('utf-8')), content_type="text/JSON")
+# def process_raw(request):
+#     return JsonResponse(scraper.get_paragraphs_from_html(request.body.decode('utf-8')), content_type="text/JSON")
 
 
 def get_current_user(request):
@@ -62,5 +62,5 @@ def get_current_user(request):
     })
 
 
-def get_uri_text(request):
-    return requests.get(request.body.decode('utf-8')).text()
+# def get_uri_text(request):
+#     return requests.get(request.body.decode('utf-8')).text()

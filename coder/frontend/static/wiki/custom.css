@@ -1,0 +1,114 @@
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-dark.bg-dark {
+    background: #57068c;
+    background-color: #57068c !important;
+}
+
+.navbar-dark .active a {
+  color: white;
+}
+
+.navbar-dark a {
+  color: white;
+}
+
+.navbar-dark li {
+  color: white;
+  margin-left: 16px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: #57068c;
+  border-radius: 0;
+}
+.nav-pills .nav-link {
+  border-radius: 0;
+}
+a {
+  color: #57068c;
+}
+a:hover {
+  color: #8510d2;
+  background-color: #f8edff;
+}
+
+.btn-info {
+  background-color: #57068c;
+  border-color: #57068c;
+}
+.wiki-article pre {
+  max-height: fit-content;
+}
+code {
+  color: #0f8e3d;
+  background-color: #eee;
+  padding: 0 4px;
+}
+.codehilite span {
+  color: #0f8e3d !important;
+  background-color: #eee !important;
+  font-weight: 100 !important;
+  white-space: pre-wrap;
+}
+
+#wiki-footer {
+  opacity: 20%;
+}
+
+.wiki-article {
+  max-width: 720px;
+}
+
+#article-container {
+  margin-top: 0px;
+}
+
+.heading-nav {
+  display: none;
+}
+
+#article-menu .nav-item {
+  line-height: 1;
+  border-radius: 0;
+}
+
+#article-menu .nav-link {
+  padding: 8px 8px !important;
+}
+
+#article-breadcrumbs nav {
+  flex-grow: 1;
+}
+#article-breadcrumbs .btn {
+  padding: 0 8px;
+  margin: 0 4px;
+  border-radius: 0;
+}
+.breadcrumb {
+  padding: 4px 8px;
+  border-radius: 0;
+}
+
+body {
+  background: #f8edff;
+}
+
+.container {
+  background: white;
+  min-height: 100vh;
+  box-shadow: 0px 0px 5px 0px #8a46b7;
+}
+
+
+@media (min-width: 768px) {
+  .navbar-expand-md {
+    flex-flow: wrap;
+  }
+}
+
+.wiki-label label {
+  color: #57068c;
+}
