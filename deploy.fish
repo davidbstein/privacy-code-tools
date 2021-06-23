@@ -1,3 +1,5 @@
 #!/usr/bin/env fish
-cp -r coder/frontend/static/ .static/; cp -r coder/static/ .static/
+npm run build
+npm run dev
+yes | pipenv run python manage.py collectstatic
 pipenv run eb deploy

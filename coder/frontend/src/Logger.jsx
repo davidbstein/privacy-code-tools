@@ -2,7 +2,8 @@ import { get } from "lodash";
 
 function getStackTrace() {
   const obj = {};
-  Error.captureStackTrace(obj, getStackTrace);
+  try {Error.captureStackTrace(obj, getStackTrace); }
+  catch (err) {}
   return `${obj.stack}`.substr(6);
 }
 

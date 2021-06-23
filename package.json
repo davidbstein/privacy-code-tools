@@ -11,7 +11,6 @@
     "react-redux": "",
     "react-router-dom": "",
     "redux": "",
-    "redux-devtools-extension": "",
     "redux-form": "",
     "redux-thunk": ""
   },
@@ -29,12 +28,13 @@
     "sass": "",
     "sass-loader": "",
     "style-loader": "",
+    "redux-devtools-extension": "",
     "typescript": "^4.2.4",
     "webpack": "",
     "webpack-cli": ""
   },
   "scripts": {
-    "dev": "webpack --mode development --watch ./coder/frontend/src/index.jsx --output-path ./coder/frontend/static/frontend/",
+    "dev": "webpack --mode development ./coder/frontend/src/index.jsx --output-path ./coder/frontend/static/frontend/",
     "devwatch": "webpack --mode development --watch ./coder/frontend/src/index.jsx --output-path ./coder/frontend/static/frontend/",
     "build": "webpack --mode production ./coder/frontend/src/index.jsx --output-path ./coder/frontend/static/frontend/",
     "buildts": "tsc",
