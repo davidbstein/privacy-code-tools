@@ -7,6 +7,12 @@ def _two_weeks_from_now():
     return datetime.datetime.now() + datetime.timedelta(days=14)
 
 
+class KVStore(models.Model):
+    project = models.BigIntegerField(default=1)
+    k = models.CharField(max_length=255, db_index=True)
+    v = models.JSONField(default=dict)
+
+
 class Assignment(models.Model):
     project = models.BigIntegerField(default=1)
     created_dt = models.DateTimeField(default=datetime.datetime.now)

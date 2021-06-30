@@ -26,6 +26,7 @@ from coder.frontend.views import (
     get_raw,
     get_unsafe_raw,
     get_current_user,
+    get_status,
 )
 
 from coder import settings
@@ -60,7 +61,7 @@ urlpatterns = [
     path("me/", login_required(get_current_user)),
     re_path(r'^static/(?P<path>.*css)$', get_static),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
-
+    path('status/', login_required(get_status)),
     path('notifications/', include('django_nyt.urls')),
     path('wiki/', decorator_include(login_required, 'wiki.urls')),
 ]

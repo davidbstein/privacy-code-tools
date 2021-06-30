@@ -13,6 +13,7 @@ aws-requests-auth = "*"
 html2markdown = "*"
 nltk = "*"
 ipython = "*"
+google-api-python-client = "*"
 
 [packages]
 django = "*"

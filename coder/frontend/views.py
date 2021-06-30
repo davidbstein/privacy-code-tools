@@ -64,3 +64,7 @@ def get_current_user(request):
 
 # def get_uri_text(request):
 #     return requests.get(request.body.decode('utf-8')).text()
+
+def get_status(request):
+    from coder.api.util import format_progress_email
+    return HttpResponse(format_progress_email())
