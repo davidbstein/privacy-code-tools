@@ -19,7 +19,7 @@ const _COLUMNS = [
   },
   {
     name: "progress",
-    display_fn: (assignment) => "(coming soon)",
+    display_fn: (assignment) => `${Math.round((100 * assignment.notes?.progress) / 65)}%`,
     sort_fn: (assignment) => assignment.notes?.progress,
   },
   {

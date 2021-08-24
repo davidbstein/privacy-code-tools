@@ -22,6 +22,20 @@
         border-radius: 0.2em;
         border: 1px solid $nyu-dark-purple;
       }
+      .progress-bar-below-text {
+        width: 100%;
+        position: relative;
+        .progress-bar {
+          position: absolute;
+          background: $nyu-lighter-purple;
+          height: 100%;
+          z-index: 0;
+        }
+        .progress-bar-text {
+          color: $nyu-dark-purple;
+          z-index: 0;
+        }
+      }
     }
   }
 }

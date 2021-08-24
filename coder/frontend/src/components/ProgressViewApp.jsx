@@ -80,6 +80,28 @@ function _policies_to_coder_progress(policies) {
   return _.toPairs(to_ret).map(([k, v]) => ({ ...v, email: k }));
 }
 
+/**
+ * @param {number} progress the progress, as a number between 0 and 1
+ * @param {String} text the text to display
+ * @returns {object} a JSX div containing the text with a progress bar behind it
+ */
+function _progress_bar_below_text(progress, text) {
+  const progress_bar_width = progress * 100;
+  return (
+    <div className="progress-bar-below-text">
+      <div className="progress-bar-text">{text}</div>
+      <div className="progress-bar" style={{ width: progress_bar_width + "%" }}></div>
+    </div>
+  );
+}
+
+function _coder_progress_display_function(policy_coding_infos, idx) {
+  return _progress_bar_below_text(
+    policy_coding_infos[idx].progress / 65,
+    policy_coding_infos[idx].coder
+  );
+}
+
 class ProgressViewApp extends Component {
   constructor(props) {
     super(props);
@@ -127,8 +149,22 @@ class ProgressViewApp extends Component {
         name: "policy downloaded",
         display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
       },
-      { name: "coder 1", display_fn: (policy) => policy.progress.coding_1?.email ?? "unassigned" },
-      { name: "coder 2", display_fn: (policy) => policy.progress.coding_2?.email ?? "unassigned" },
+      {
+        name: "coder 1",
+        display_fn: (policy) =>
+          policy.progress.codings
+            ? _coder_progress_display_function(policy.progress.codings, 0)
+            : "unassigned",
+        sort_fn: (policy) => policy.progress.codings?.[0].progress,
+      },
+      {
+        name: "coder 2",
+        display_fn: (policy) =>
+          policy.progress.codings
+            ? _coder_progress_display_function(policy.progress.codings, 1)
+            : "unassigned",
+        sort_fn: (policy) => policy.progress.codings?.[1].progress,
+      },
       { name: "merged", display_fn: (policy) => "🔜" },
       {
         name: "coded_2018",
