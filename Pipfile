@@ -29,6 +29,7 @@ wiki = "*"
 django-decorator-include = "*"
 psycopg2 = "*"
 nltk = "*"
+html2text = "*"
 
 [requires]
 python_version = "3"

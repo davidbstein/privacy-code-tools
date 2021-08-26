@@ -61,24 +61,9 @@ def assign_completed_policies_to_grader(grader_emails):
     for policy_id, assignments in policy_id_to_assignments_map.items():
         if any(assignment.status == "COMPLETE" for assignment in assignments):
             if not any(assignment.coder_email in grader_emails for assignment in assignments):
-                _assign_policy_to_grader(policy_id, grader_emails)
-
-
-def _assign_policy_to_grader(policy_id, grader_emails):
-    policy = models.Policy.objects.get(id=policy_id)
-    policy_instance = get_most_recent_policy_instance_for_policy(policy)
-    if policy_instance is None:
-        return
-    assignment = models.Assignment.objects.create(
-        coder_email=grader_emails[0],
-        status="PENDING",
-        url=f"/c/2021_PP/code-merge/{policy_id}-{policy.site_name}/6/",
-        notes={},
-        label=f"{policy.company_name}",
-        type=2
-    )
-    assignment.save()
-    return assignment
+                policy = models.Policy.objects.get(id=policy_id)
+                assign_policy_to_coders(
+                    policy, grader_emails, action="code-merge")
 
 
 """
@@ -109,6 +94,15 @@ def update_policy_scan_times():
         policy.last_scan_time = get_most_recent_policy_instance_for_policy(
             policy).scan_dt
         policy.save()
+
+
+def update_policy_loaded_status():
+    for policy in models.Policy.objects.all():
+        policy_instance = get_most_recent_policy_instance_for_policy(policy)
+        if policy_instance:
+            policy.progress['loaded'] = {
+                "status": len(policy_instance.content)}
+            policy.save()
 
 
 def get_coding_progress_for_policy(policy):

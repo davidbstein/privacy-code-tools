@@ -30,6 +30,7 @@ django-rest-framework==0.1.0
 django-sekizai==2.0.0
 django==3.2.6
 djangorestframework==3.12.4
+html2text==2020.1.16
 idna==3.2; python_version >= '3'
 joblib==1.0.1; python_version >= '3.6'
 markdown==3.2.2; python_version >= '3.5'
