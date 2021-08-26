@@ -2,6 +2,10 @@ from coder.api import models
 from collections import defaultdict
 import datetime
 from coder import settings
+import json
+import pickle
+import time
+import base64
 
 _CODING_ASSIGNMENT_TYPE = 2
 
@@ -226,6 +230,49 @@ def kv_set(k, v):
     except models.KVStore.DoesNotExist:
         obj = models.KVStore(k=k, v=v)
     obj.save()
+
+
+def _object_to_pickle_b64_string(obj):
+    return base64.b64encode(pickle.dumps(obj)).decode('utf-8')
+
+
+def _pickle_b64_string_to_object(b64_string):
+    return pickle.loads(base64.b64decode(b64_string))
+
+
+def cached_in_kv(ttl=None, use_pickle=False):
+    """ 
+    this decorator uses the kv_get and kv_set to cache the output of a function. it does not 
+    access the database directly.
+
+    the output is stored in a key which combines the function name and a json-serialized 
+    sorted list of args , and a sorted list of kwargs as key-value pairs.
+
+    the cache contains storage time, the ttl, the "use_pickle" flag, and the computed value.
+    If the use_pickle flag is set, the function's return value is stored pickled.
+    """
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            key = f"fncache-{func.__name__}-{json.dumps(sorted(args))}-{json.dumps(sorted(kwargs.items()))}"
+            obj = kv_get(key)
+            if obj and (obj.get("ts", 0) + (obj.get("ttl") or 14*24*60*60)) > time.time():
+                value = obj.get("value")
+                if obj.get("pickle"):
+                    return _pickle_b64_string_to_object(value)
+                else:
+                    return json.loads(value)
+            else:
+                value = func(*args, **kwargs)
+                obj = {
+                    "ts": time.time(),
+                    "ttl": ttl,
+                    "pickle": use_pickle,
+                    "value": _object_to_pickle_b64_string(value) if use_pickle else json.dumps(value),
+                }
+                kv_set(key, obj)
+                return value
+        return wrapper
+    return decorator
 
 
 """

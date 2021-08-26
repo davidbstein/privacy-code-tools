@@ -31,6 +31,7 @@ class PolicyAdminOverview extends Component {
           <PolicyInstanceList
             policy_instances={policy_instances}
             coding_instances={coding_instances}
+            policy_id={policy_id}
           />
         </div>
       </div>

@@ -19,6 +19,38 @@
       > div {
         margin-bottom: 2em;
       }
+      .policy-doc-input-container {
+        @include nested-layer-box();
+        input.title-box {
+          width: 100%;
+          font-size: 1.5em;
+          border: 1px solid grey;
+          padding: 4px;
+        }
+        .RichEditor-root {
+          border: 1px solid black;
+          padding: 8px;
+        }
+        .RichEditor-controls {
+          display: flex;
+          justify-content: left;
+          align-content: space-around;
+        }
+        .RichEditor-styleButton {
+          border: 1px solid #ccc;
+          width: 3em;
+          padding: 3px;
+          margin: 3px;
+          text-align: center;
+          font-weight: bolder;
+          &:hover {
+            background-color: #ddd;
+          }
+        }
+        .RichEditor-activeButton {
+          background-color: #ccc;
+        }
+      }
       .policy-doc-preview {
         @include nested-layer-box();
         margin-bottom: 0.25em;

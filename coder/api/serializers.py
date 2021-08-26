@@ -51,6 +51,12 @@ class PolicyInstanceSerializer(serializers.HyperlinkedModelSerializer):
         fields = _field_list(api_models.PolicyInstance, to_omit=[])
 
 
+class PolicyInstanceDocumentSerializer(serializers.Serializer):
+    class Meta:
+        model = api_models.PolicyInstance
+        fields = []
+
+
 class PolicyInstanceInfoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = api_models.PolicyInstance

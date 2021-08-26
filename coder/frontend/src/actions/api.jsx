@@ -184,6 +184,48 @@ api.apiPostCodingInstance = () => async (dispatch) => {
   _save_fn(store, dispatch, APIActionTypes.POST_CODING_INSTANCE);
 };
 
+api.apiPostPolicyInstanceDocument = (policy_instance_id, title, content) => async (dispatch) => {
+  log(`called apiPostPolicyInstanceDocument`);
+  const res = await axios.post(
+    `/api/policy_instance_document/`,
+    { policy_instance_id, title, content },
+    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+  );
+  store.dispatch({
+    type: APIActionTypes.POST_POLICY_INSTANCE_DOCUMENT,
+    payload: res.data,
+  });
+  const res2 = await axios.get(`/api/policy_instance/${res.data.id}/`);
+  dispatch({
+    type: APIActionTypes.GET_POLICY_INSTANCE,
+    payload: res2.data,
+  });
+  const res3 = await axios.get(`/api/policy/${res.data.policy_id}/`);
+  dispatch({
+    type: APIActionTypes.GET_POLICY,
+    payload: res3.data,
+  });
+};
+
+api.apiPostPolicyInstance = (policy_id) => async (dispatch) => {
+  log(`called createNewPolicyInstance`);
+  const res = await axios.post(
+    `/api/policy_instance/`,
+    { policy_id },
+    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+  );
+  store.dispatch({
+    type: APIActionTypes.POST_POLICY_INSTANCE,
+    payload: res.data,
+  });
+  const res2 = await axios.get(`/api/policy_instance/${res.data.id}/`);
+  dispatch({
+    type: APIActionTypes.GET_POLICY_INSTANCE,
+    payload: res2.data,
+  });
+};
+
+api.apiUpdatePolicy;
 /*
  * AUTO SAVE FUNCTION AND BACKGROUND LISTENERS
  */
@@ -201,6 +243,7 @@ const _apiAutoSave =
     //   return;
     // }
     // console.log("saving...");
+    if (!store.getState().localState.codingId) return;
     _limited_save_fn(store, dispatch, APIActionTypes.AUTO_SAVE);
   };
 

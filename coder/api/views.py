@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django_filters.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework import generics
@@ -10,6 +11,7 @@ from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.response import Response
+from coder.api.document_cleaner import to_coding_doc
 # from rest_framework import generics
 
 from coder.api.models import (
@@ -31,6 +33,7 @@ from coder.api.serializers import (
     PolicyInstanceSerializer,
     PolicySerializer,
     PolicyInstanceInfoSerializer,
+    PolicyInstanceDocumentSerializer,
     ProjectSerializer,
     RawPolicyInstanceSerializer,
     TimingSessionSerializer,
@@ -133,6 +136,81 @@ class PolicyInstanceViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'scan_dt']
+
+    def create(self, request):
+        instance = PolicyInstance(
+            policy_id=request.data['policy_id'],
+            content=[]
+        )
+        instance.save()
+        return Response(PolicyInstanceSerializer(instance).data)
+
+
+class PolicyInstanceDocumentViewSet(viewsets.ViewSet):
+    """
+    PolicyInstance objects have a "content" field that is a JSON list 
+    of PolicyInstanceDocument objects, each of which has three fields: title, content, 
+    and ordinal.
+
+    The content of a PolicyInstanceDocument is provided as html object, which this
+    module converts into a list of PolicyInstanceDocumentParagraph objects using the
+    to_coding_doc document cleaning utility.
+
+    Document ordinals are assigned sequentially, starting with "A". Document titles are 
+    prepended with the ordinal, e.g. "DOCUMENT A - <title>"
+
+    This ViewSet is used to add and modify individual PolicyInstanceDocument objects, given
+    the id of their parent PolicyInstance, the ordinal of the document, and the title 
+    and content of the document. If the ordinal is not specified, the document is added at 
+    the end of the list and assigned the next ordinal after the last document.
+    """
+    queryset = PolicyInstance.objects.all()
+    serializer_class = PolicyInstanceDocumentSerializer
+    permission_classes = [GroupPermission]
+
+    def list(self, request):
+        return Response([])
+
+    def create(self, request):
+        instance = PolicyInstance.objects.get(
+            id=request.data['policy_instance_id'])
+        if 'ordinal' in request.data:
+            return Response({"error": "Cannot create document with ordinal"}, status=400)
+        ordinal = chr(
+            ord(instance.content[-1]['ordinal']) + 1) if instance.content else 'A'
+        new_document = {
+            "title": "DOCUMENT " + ordinal + " - " + request.data['title'],
+            "content": to_coding_doc(request.data['content']),
+            "ordinal": ordinal
+        }
+        instance.content.append(new_document)
+        instance.save()
+        return Response(PolicyInstanceSerializer(instance).data)
+
+    def update(self, request, pk=None):
+        instance = PolicyInstance.objects.get(
+            id=request.data['policy_instance_id'])
+        for document in instance.content:
+            if document['ordinal'] == request.data['ordinal']:
+                document['title'] = "DOCUMENT " + \
+                    request.data['ordinal'] + " - " + request.data['title']
+                document['content'] = to_coding_doc(
+                    request.data['content'])
+                instance.save()
+                return Response(PolicyInstanceSerializer(instance).data)
+        return Response({"error": "Document not found"}, status=404)
+
+    def partial_update(self, request, pk=None):
+        return self.update(request, pk)
+
+    def destroy(self, request, pk=None):
+        instance = PolicyInstance.objects.get(id=request.data['policy_id'])
+        for document in instance.content:
+            if document['ordinal'] == request.data['ordinal']:
+                instance.content.remove(document)
+                instance.save()
+                return Response(PolicyInstanceSerializer(instance).data)
+        return Response({"error": "Document not found"}, status=404)
 
 
 class PolicyInstanceInfoViewSet(viewsets.ModelViewSet):

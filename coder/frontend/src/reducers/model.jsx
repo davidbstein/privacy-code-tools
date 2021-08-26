@@ -76,6 +76,10 @@ export default (state = defaultState, action) => {
         ...state,
         ...{},
       };
+    case APIActionTypes.POST_POLICY_INSTANCE_DOCUMENT:
+      return state;
+    case APIActionTypes.POST_POLICY_INSTANCE:
+      return state;
     default:
       return state;
   }

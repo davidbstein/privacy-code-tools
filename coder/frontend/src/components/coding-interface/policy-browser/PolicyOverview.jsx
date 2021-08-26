@@ -8,6 +8,11 @@ export default connect(
   {}
 )(
   class PolicyOverview extends Component {
+    scrollToPolicy(ordinal) {
+      document
+        .getElementById(`policy-doc-${ordinal}`)
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     render() {
       const policy = this.props.model.policies[this.props.policy_id];
       if (!policy) {
@@ -23,7 +28,12 @@ export default connect(
           <div>
             Policies Included:
             {_.map(_.values(this.props.content), (doc, i) => (
-              <div className="policy-browser-overview-token" key={i}>
+              <div
+                className="policy-browser-overview-token"
+                key={i}
+                id={`document-${doc.ordinal}`}
+                onClick={() => this.scrollToPolicy(doc.ordinal)}
+              >
                 {doc.title}
               </div>
             ))}

@@ -4,6 +4,7 @@ import DocumentPreview from "src/components/policy-app/DocumentPreview";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import SortableTable from "src/components/widgets/SortableTable";
+import PolicyInstanceDocumentEntry from "src/components/policy-app/PolicyInstanceDocumentEntry";
 import Logger from "src/Logger";
 const log = Logger("policy-admin", "blue");
 
@@ -43,6 +44,13 @@ const CodingInstanceList = connect(
 );
 
 class PolicyInstanceList extends Component {
+  constructor(props) {
+    super(props);
+    this.createNewSnapshot = this.createNewSnapshot.bind(this);
+  }
+  createNewSnapshot() {
+    this.props.apiPostPolicyInstance(this.props.policy_id);
+  }
   render() {
     const { policy_instances, coding_instances } = this.props;
     return (
@@ -62,8 +70,12 @@ class PolicyInstanceList extends Component {
                 content={doc.content}
               />
             ))}
+            <PolicyInstanceDocumentEntry policy_instance_id={id} />
           </div>
         ))}
+        <button id="create-snapshot-button" onClick={this.createNewSnapshot}>
+          Create New Snapshot
+        </button>
       </div>
     );
   }

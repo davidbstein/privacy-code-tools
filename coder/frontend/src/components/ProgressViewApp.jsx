@@ -96,6 +96,10 @@ function _progress_bar_below_text(progress, text) {
 }
 
 function _coder_progress_display_function(policy_coding_infos, idx) {
+  console.log(
+    `policy_coding_infos - ${JSON.stringify(policy_coding_infos)} ${policy_coding_infos ? 1 : 0}`
+  );
+  console.log(`idx - ${idx}`);
   return _progress_bar_below_text(
     policy_coding_infos[idx].progress / 65,
     policy_coding_infos[idx].coder
@@ -152,18 +156,18 @@ class ProgressViewApp extends Component {
       {
         name: "coder 1",
         display_fn: (policy) =>
-          policy.progress.codings
+          policy.progress.codings?.[0] != undefined
             ? _coder_progress_display_function(policy.progress.codings, 0)
             : "unassigned",
-        sort_fn: (policy) => policy.progress.codings?.[0].progress,
+        sort_fn: (policy) => policy.progress.codings?.[0]?.progress,
       },
       {
         name: "coder 2",
         display_fn: (policy) =>
-          policy.progress.codings
+          policy.progress.codings?.[1] != undefined
             ? _coder_progress_display_function(policy.progress.codings, 1)
             : "unassigned",
-        sort_fn: (policy) => policy.progress.codings?.[1].progress,
+        sort_fn: (policy) => policy.progress.codings?.[1]?.progress,
       },
       { name: "merged", display_fn: (policy) => "🔜" },
       {

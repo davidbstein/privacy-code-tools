@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PolicyOverview from "src/components/coding-interface/policy-browser/PolicyOverview";
+import PolicyQuicknav from "src/components/coding-interface/policy-browser/PolicyQuicknav";
 import PolicyPage from "src/components/coding-interface/policy-browser/PolicyPage";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 
@@ -66,6 +67,11 @@ export default connect(
             />
           ))}
           <div id="scrollbar-dots"></div>
+          <PolicyQuicknav
+            policy_id={policy.id}
+            policy_instance={policy_instance}
+            content={policy_instance.content}
+          />
         </div>
       );
     }

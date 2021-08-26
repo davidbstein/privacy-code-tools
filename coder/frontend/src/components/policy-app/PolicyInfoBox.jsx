@@ -42,8 +42,10 @@ export default function PolicyInfoBox({ policy }) {
         <div className="info-item" id="categories-info">
           <div className="info-name">Tags</div>
           <div className="info-value">
-            {policy.categories.map((category) => (
-              <div className="category">{category}</div>
+            {policy.categories.map((category, i) => (
+              <div className="category" key={i}>
+                {category}
+              </div>
             ))}
           </div>
         </div>
