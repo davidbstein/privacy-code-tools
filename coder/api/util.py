@@ -52,6 +52,35 @@ def assign_unassigned_policies():
         )
 
 
+def assign_completed_policies_to_grader(grader_emails):
+    """
+        for each policy with at least one assignment in the "COMPLETE" state, 
+        if it isn't already assigned to a grader, assign it a grader
+    """
+    policy_id_to_assignments_map = get_policy_id_to_assignments_map()
+    for policy_id, assignments in policy_id_to_assignments_map.items():
+        if any(assignment.status == "COMPLETE" for assignment in assignments):
+            if not any(assignment.coder_email in grader_emails for assignment in assignments):
+                _assign_policy_to_grader(policy_id, grader_emails)
+
+
+def _assign_policy_to_grader(policy_id, grader_emails):
+    policy = models.Policy.objects.get(id=policy_id)
+    policy_instance = get_most_recent_policy_instance_for_policy(policy)
+    if policy_instance is None:
+        return
+    assignment = models.Assignment.objects.create(
+        coder_email=grader_emails[0],
+        status="PENDING",
+        url=f"/c/2021_PP/code-merge/{policy_id}-{policy.site_name}/6/",
+        notes={},
+        label=f"{policy.company_name}",
+        type=2
+    )
+    assignment.save()
+    return assignment
+
+
 """
 POLICY UTILS
 """

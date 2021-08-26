@@ -66,5 +66,5 @@ def get_current_user(request):
 #     return requests.get(request.body.decode('utf-8')).text()
 
 def get_status(request):
-    from coder.api.util import format_progress_email
+    from coder.api.scripts import format_progress_email
     return HttpResponse(format_progress_email())
