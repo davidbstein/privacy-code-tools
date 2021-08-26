@@ -28,6 +28,7 @@ bs4 = "*"
 wiki = "*"
 django-decorator-include = "*"
 psycopg2 = "*"
+nltk = "*"
 
 [requires]
 python_version = "3"
