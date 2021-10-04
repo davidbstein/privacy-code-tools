@@ -321,10 +321,13 @@ def coding_status(coding_instance):
 
 
 def get_policy_from_coding_instance(coding_instance):
-    policy_instace = models.PolicyInstance.objects.get(
-        id=coding_instance.policy_instance_id)
-    policy = models.Policy.objects.get(id=policy_instace.policy_id)
-    return policy
+    try:
+        policy_instace = models.PolicyInstance.objects.get(
+            id=coding_instance.policy_instance_id)
+        policy = models.Policy.objects.get(id=policy_instace.policy_id)
+        return policy
+    except models.PolicyInstance.DoesNotExist:
+        return None
 
 
 """
@@ -358,6 +361,7 @@ def get_coder_progress_map(email_filter=None):
         coder_email: {
             get_policy_from_coding_instance(ci).site_name: coding_status(ci)
             for ci in ci_list
+            if get_policy_from_coding_instance(ci)
         }
         for coder_email, ci_list in coder_to_cis.items()
         if not email_filter or email_filter in coder_email

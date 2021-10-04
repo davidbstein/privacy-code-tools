@@ -6,7 +6,11 @@ import re
 @cached_in_kv(use_pickle=True)
 def _get_tokenizer():
     import nltk.data
-    return nltk.data.load('tokenizers/punkt/english.pickle')
+    try:
+        return nltk.data.load('tokenizers/punkt/english.pickle')
+    except LookupError as e:
+        nltk.download('nltk')
+        return nltk.data.load('tokenizers/punkt/english.pickle')
 
 
 TOKENIZER = _get_tokenizer()
