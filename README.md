@@ -14,3 +14,5 @@ run:
 
 to deploy new code:
   - `deploy.fish`
+
+follow the instructions on [setting up the environment variables](env_variables.md)
