@@ -9,7 +9,7 @@ def _get_tokenizer():
     try:
         return nltk.data.load('tokenizers/punkt/english.pickle')
     except LookupError as e:
-        nltk.download('nltk')
+        nltk.download('punkt')
         return nltk.data.load('tokenizers/punkt/english.pickle')
 
 
