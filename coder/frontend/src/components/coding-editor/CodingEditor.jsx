@@ -18,6 +18,75 @@ function defaultCategory() {
   };
 }
 
+class SidebarPreview extends Component {
+  // show a sidebar with categories and questions, and highlight the current onscreen category
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentCategory: 0,
+    };
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll() {
+    // get the ID of any "question-edit-form" currently onscreen
+    const question_id = Array.from(document.getElementsByClassName("question-edit-form"))
+      .filter((el) => {
+        const rect = el.getBoundingClientRect();
+        return rect.top >= -64 && rect.top <= window.innerHeight;
+      }).map((e) => (e.id))[0];
+    Array.from(document.getElementsByClassName("sidebar-link"))
+      .map((el) => {
+        el.classList.remove("selected");
+        if (el.id === `link-to-${question_id}`) {
+          el.classList.add("selected");
+          el.scrollIntoView({behavior: "smooth", block: "center", inline: "start"});
+        }
+      })
+  }
+
+  handleClick(event) {
+    const question_id = event.target.id.split("-")[2];
+    console.log(document.getElementById(question_id), question_id);
+    document.getElementById(question_id)
+      .scrollIntoView({behavior: "smooth"});
+  }
+
+  render() {
+    if (!this.props.coding) {
+      return <Loading />;
+    }
+    const {
+      coding : { categories },
+    } = this.props;
+    return <div id='coding-editor-sidebar'> 
+      {categories.map((category, idx) => {
+        return <div key={idx}> 
+          <h2>{category.label}</h2>
+          {category.questions.map((question, idx) => (
+            <div 
+            className='sidebar-link' 
+            id={`link-to-${question.id}`}
+            key={idx}
+            onClick={this.handleClick}>  
+              {question.label} 
+            </div>
+          ))}
+        </div>
+      })}
+    </div>
+  }
+}    
+
 class CodingEditor extends Component {
   constructor(props) {
     super(props);
@@ -64,11 +133,12 @@ class CodingEditor extends Component {
     const equalityTest = JSON.stringify(serverCoding) == JSON.stringify(coding);
     return (
       <div>
+        <div id="coding-edit-sidebar-preview"><SidebarPreview coding={coding}/></div>
         <div id="coding-edit-area">
           {coding.categories.map((category, categoryIdx) => {
             return (
               <div className="category-edit-holder" key={categoryIdx}>
-                <button onClick={() => this.addCat(categoryIdx)}> insert new category here </button>
+                <button onClick={() => this.addCat(categoryIdx)}> insert new category at this location </button>
                 <CategoryEditor
                   category={category}
                   categoryChanged={(newCategoryContent) =>
@@ -81,7 +151,7 @@ class CodingEditor extends Component {
           })}
           <button onClick={() => this.addCat(coding.categories.length)}>
             {" "}
-            insert new category here{" "}
+            insert new category at this location{" "}
           </button>
         </div>
         <div id="save-buttons">

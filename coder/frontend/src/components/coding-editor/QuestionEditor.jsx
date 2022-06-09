@@ -15,7 +15,7 @@ const _QUESTION_TYPES = [
  */
 export default function QuestionEditor({ question, questionChanged, deleteQuestion }) {
   return (
-    <div className="question-edit-form">
+    <div className="question-edit-form" id={`${question.id}`}>
       <InputBox
         className="question-edit-id"
         value={question.id}

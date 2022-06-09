@@ -21,7 +21,7 @@ export default function QuestionOptionListEditor({ questionOptions, questionOpti
   }
   return (
     <div className="question-option-list-editor">
-      <div className="value-list-heading">options:</div>
+      <div className="value-list-heading">[multiple choice] choices:</div>
       {questionOptions.map((questionOption, optionIdx) => (
         <div className="question-option-editor" key={optionIdx}>
           <InputBox
@@ -46,14 +46,14 @@ export default function QuestionOptionListEditor({ questionOptions, questionOpti
             className="delete-button"
             onClick={() => questionOptionsChanged(deleteItem(questionOptions, optionIdx))}
           >
-            remove option
+            remove
           </button>
         </div>
       ))}
       <button
         onClick={() => questionOptionsChanged(insert(questionOptions, defaultQuestionOption(), questionOptions.length))}
       >
-        add option
+        add choice
       </button>
     </div>
   );

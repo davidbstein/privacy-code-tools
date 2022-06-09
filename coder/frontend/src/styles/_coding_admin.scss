@@ -7,6 +7,29 @@
     align-items: center;
     justify-content: space-around;
     padding-top: 5vh;
+    margin-left: 15vw;
+    #coding-edit-sidebar-preview {
+      position: fixed;
+      left: 0;
+      top: 4em;
+      bottom: 0px;
+      width: 15vw;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      overflow-y: scroll;
+      .sidebar-link{
+        &:hover {
+          background-color: $nyu-faint-purple;
+          cursor: pointer;
+        }
+        &.selected {
+          font-weight: bold;
+          border: 1px solid purple;
+          margin: -1px;
+        }
+      }
+    }
     #coding-table-container {
       @include nested-layer-box();
       #coding-list-table {

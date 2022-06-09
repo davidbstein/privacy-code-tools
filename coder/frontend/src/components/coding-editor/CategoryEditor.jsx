@@ -90,7 +90,7 @@ export default function CategoryEditor({ category, categoryChanged, deleteCatego
       </h1>
       {category.questions.map((question, questionIdx) => (
         <div className="question-edit-container" key={questionIdx}>
-          <button onClick={() => categoryChanged(insertQuestion(category, questionIdx))}>insert Question here</button>
+          <button onClick={() => categoryChanged(insertQuestion(category, questionIdx))}>insert question at this location</button>
           <QuestionEditor
             question={question}
             questionChanged={(newQuestionContent) =>
@@ -101,7 +101,7 @@ export default function CategoryEditor({ category, categoryChanged, deleteCatego
         </div>
       ))}
       <button onClick={() => categoryChanged(insertQuestion(category, category.questions.length))}>
-        insert Question here
+        insert question at this location
       </button>
       <button className="delete-button" onClick={() => deleteCategory}>
         delete category (CAREFUL - WILL DELETE ALL QUESTIONS)
