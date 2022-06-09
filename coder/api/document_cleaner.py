@@ -15,7 +15,7 @@ def _get_tokenizer():
 
 try:
     TOKENIZER = _get_tokenizer()
-except Excpetion as e:
+except Exception as e:
     class TokenizerStub:
         def tokenize(paragraph):
             return paragraph.split()
