@@ -13,7 +13,13 @@ def _get_tokenizer():
         return nltk.data.load('tokenizers/punkt/english.pickle')
 
 
-TOKENIZER = _get_tokenizer()
+try:
+    TOKENIZER = _get_tokenizer()
+except Excpetion as e:
+    class TokenizerStub:
+        def tokenize(paragraph):
+            return paragraph.split()
+    TOKENIZER = TokenizerStub()
 
 
 CLEANING_ARTIFACTS = [
