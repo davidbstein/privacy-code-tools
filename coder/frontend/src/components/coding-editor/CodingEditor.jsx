@@ -68,6 +68,7 @@ class SidebarPreview extends Component {
     const {
       coding : { categories },
     } = this.props;
+
     return <div id='coding-editor-sidebar'> 
       {categories.map((category, idx) => {
         return <div key={idx}> 
