@@ -1,6 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
-import { CURRENT_USER } from "src/constants";
+import { CURRENT_USER, PROJECT_NAME } from "src/constants";
 
 function getCookie(name) {
   var cookieValue = null;
@@ -134,12 +134,12 @@ export default class SessionTimer {
     };
   }
   _post_update() {
-    axios.post(`/api/timing_session/`, this._get_post_values(), {
+    axios.post(`/api/${PROJECT_NAME}/timing_session/`, this._get_post_values(), {
       headers: { "X-CSRFToken": CSRF_TOKEN },
     });
   }
   async _post_update_async() {
-    await axios.post(`/api/timing_session/`, this._get_post_values(), {
+    await axios.post(`/api/${PROJECT_NAME}/timing_session/`, this._get_post_values(), {
       headers: { "X-CSRFToken": CSRF_TOKEN },
     });
   }

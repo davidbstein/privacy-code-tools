@@ -1,6 +1,6 @@
 import React from "react";
-
-export default function Heading({ coder_email, project_prefix, title }) {
+import { PROJECT_NAME } from "src/constants";
+export default function Heading({ coder_email, title }) {
   return (
     <div id="title">
       <div>
@@ -8,7 +8,7 @@ export default function Heading({ coder_email, project_prefix, title }) {
       </div>
       <div>
         <a href="..">back</a>
-        <a href={`/c/${project_prefix}/`}>home</a>
+        <a href={`/c/${PROJECT_NAME}/`}>home</a>
         <a href="/accounts/logout">logout</a>
       </div>
     </div>

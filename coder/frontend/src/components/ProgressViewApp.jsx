@@ -80,31 +80,31 @@ function _policies_to_coder_progress(policies) {
   return _.toPairs(to_ret).map(([k, v]) => ({ ...v, email: k }));
 }
 
-/**
- * @param {number} progress the progress, as a number between 0 and 1
- * @param {String} text the text to display
- * @returns {object} a JSX div containing the text with a progress bar behind it
- */
-function _progress_bar_below_text(progress, text) {
-  const progress_bar_width = progress * 100;
-  return (
-    <div className="progress-bar-below-text">
-      <div className="progress-bar-text">{text}</div>
-      <div className="progress-bar" style={{ width: progress_bar_width + "%" }}></div>
-    </div>
-  );
-}
+// /**
+//  * @param {number} progress the progress, as a number between 0 and 1
+//  * @param {String} text the text to display
+//  * @returns {object} a JSX div containing the text with a progress bar behind it
+//  */
+// function _progress_bar_below_text(progress, text) {
+//   const progress_bar_width = progress * 100;
+//   return (
+//     <div className="progress-bar-below-text">
+//       <div className="progress-bar-text">{text}</div>
+//       <div className="progress-bar" style={{ width: progress_bar_width + "%" }}></div>
+//     </div>
+//   );
+// }
 
-function _coder_progress_display_function(policy_coding_infos, idx) {
-  console.log(
-    `policy_coding_infos - ${JSON.stringify(policy_coding_infos)} ${policy_coding_infos ? 1 : 0}`
-  );
-  console.log(`idx - ${idx}`);
-  return _progress_bar_below_text(
-    policy_coding_infos[idx].progress / 65,
-    policy_coding_infos[idx].coder
-  );
-}
+// function _coder_progress_display_function(policy_coding_infos, idx) {
+//   console.log(
+//     `policy_coding_infos - ${JSON.stringify(policy_coding_infos)} ${policy_coding_infos ? 1 : 0}`
+//   );
+//   console.log(`idx - ${idx}`);
+//   return _progress_bar_below_text(
+//     policy_coding_infos[idx].progress / 65,
+//     policy_coding_infos[idx].coder
+//   );
+// }
 
 class ProgressViewApp extends Component {
   constructor(props) {
@@ -122,19 +122,18 @@ class ProgressViewApp extends Component {
     const _OVERVIEW_COLUMNS = [
       { name: "category", display_fn: (policy) => policy.category },
       { name: "loaded", display_fn: (policy) => policy.loaded },
-      { name: "coding_1", display_fn: (policy) => policy.coding_1 },
-      { name: "coding_2", display_fn: (policy) => policy.coding_2 },
+      { name: "codings", display_fn: (policy) => "TODO" },
       { name: "merged", display_fn: (policy) => policy.merged },
       { name: "count", display_fn: (policy) => policy.count },
       { name: "complete", display_fn: (policy) => policy.complete },
     ];
     const _POLICY_COLUMNS = [
       {
-        name: "Site",
+        name: "Document Collection",
         display_fn: (policy) => (
-          <a href={`/c/${project_prefix}/policy/${policy.id}`}>{policy.site_name}</a>
+          <a href={`/c/${project_prefix}/policy/${policy.id}`}>{policy.company_name}</a>
         ),
-        sort_fn: (policy) => policy.site_name,
+        sort_fn: (policy) => policy.company_name,
       },
       {
         name: "Categories",
@@ -150,39 +149,12 @@ class ProgressViewApp extends Component {
         sort_fn: (policy) => JSON.stringify(policy.categories),
       },
       {
-        name: "policy downloaded",
+        name: "documents downloaded",
         display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
         sort_fn: (policy) => policy.progress.loaded?.status ?? -1,
       },
-      {
-        name: "coder 1",
-        display_fn: (policy) =>
-          policy.progress.codings?.[0] != undefined
-            ? _coder_progress_display_function(policy.progress.codings, 0)
-            : "unassigned",
-        sort_fn: (policy) => policy.progress.codings?.[0]?.progress,
-      },
-      {
-        name: "coder 2",
-        display_fn: (policy) =>
-          policy.progress.codings?.[1] != undefined
-            ? _coder_progress_display_function(policy.progress.codings, 1)
-            : "unassigned",
-        sort_fn: (policy) => policy.progress.codings?.[1]?.progress,
-      },
-      { name: "merged", display_fn: (policy) => "🔜" },
-      {
-        name: "coded_2018",
-        display_fn: (policy) => (policy.progress.coded_2018 ? "✅" : ""),
-      },
-      {
-        name: "coded_2020",
-        display_fn: (policy) => (policy.progress.coded_2020 ? "✅" : ""),
-      },
-      {
-        name: "complete",
-        display_fn: (policy) => (_complete_test(policy.progress) ? "✅" : ""),
-      },
+      { name: "coded", display_fn: (policy) => "🔜" },
+      { name: "reviewed", display_fn: (policy) => "🔜" }
     ];
 
     const {
@@ -196,11 +168,11 @@ class ProgressViewApp extends Component {
       <div id="progress-view" className="page-root">
         <Heading title={`Project Status`} project_prefix={project_prefix} />
         <div id="project-progress-container" className="page-container">
-          <SortableTable items={_policies_to_coder_progress(policies)} columns={_CODER_COLUMNS} />
-          <SortableTable
+          {/* <SortableTable items={_policies_to_coder_progress(policies)} columns={_CODER_COLUMNS} /> */}
+          {/* <SortableTable
             items={_policies_to_category_progress(policies)}
             columns={_OVERVIEW_COLUMNS}
-          />
+          /> */}
           <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} />
         </div>
       </div>

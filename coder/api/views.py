@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework.response import Response
 from coder.api.document_cleaner import to_coding_doc
 # from rest_framework import generics
+import logging
 
 from coder.api.models import (
     Assignment,
@@ -40,22 +41,66 @@ from coder.api.serializers import (
 )
 
 
+def _get_requested_project_prefix(request):
+    path = request.path.split('/')
+    project_prefix = path[2]
+    return project_prefix
+
+
+def _get_project_id(request):
+    project_prefix = _get_requested_project_prefix(request)
+    return Project.objects.get(prefix=project_prefix).id
+
+
 class GroupPermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        # if request.user.email:
-        #     return True
-        print(request.user.groups.all())
-        return request.user.groups.filter(name="API_ACCESS").exists()
+        if not request.user.email:
+            return False
+        has_api_access = request.user.groups.filter(name="API_ACCESS").exists()
+        project_name = _get_requested_project_prefix(request)
+        has_project_access = request.user.groups.filter(
+            name=f"PROJECT__{project_name}").exists()
+        if not has_api_access or not has_project_access:
+            print(
+                f"{request.user} does not have permission to access {project_name}."
+                f"Has API access: {has_api_access}, Has project access: {has_project_access}"
+            )
+            return False
+        return True
 
     def has_object_permission(self, request, view, obj):
+        if type(obj) == Project:
+            has_project_access = _get_project_id(request) == obj.id
+        else:
+            has_project_access = obj.project == _get_project_id(request)
+        if not has_project_access:
+            print(
+                f"{request.user} does not have permission to access {obj} in project {obj.project}.\n"
+                f"Has project access for object: {has_project_access}"
+            )
+            return False
+        return has_project_access
         # if request.method in permissions.SAFE_METHODS:
         #     return True
         # # some sort of ORM test
         # return obj.owner == request.user
-        return True
 
 
-class AssignmentViewSet(viewsets.ModelViewSet):
+class ProjectFilteredViewSet(viewsets.ModelViewSet):
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(
+            self.get_queryset().filter(project=_get_project_id(request)))
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class AssignmentViewSet(ProjectFilteredViewSet):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
     permission_classes = [GroupPermission]
@@ -64,7 +109,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id']
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
+class ProjectViewSet(ProjectFilteredViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [GroupPermission]
@@ -74,7 +119,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     lookup_field = "prefix"
 
 
-class AssignmentTypeViewSet(viewsets.ModelViewSet):
+class AssignmentTypeViewSet(ProjectFilteredViewSet):
     queryset = AssignmentType.objects.all()
     serializer_class = AssignmentTypeSerializer
     permission_classes = [GroupPermission]
@@ -83,7 +128,7 @@ class AssignmentTypeViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id']
 
 
-class CodingViewSet(viewsets.ModelViewSet):
+class CodingViewSet(ProjectFilteredViewSet):
     queryset = Coding.objects.all()
     serializer_class = CodingSerializer
     permission_classes = [GroupPermission]
@@ -92,7 +137,7 @@ class CodingViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id', 'parent', 'created_dt']
 
 
-class PolicyViewSet(viewsets.ModelViewSet):
+class PolicyViewSet(ProjectFilteredViewSet):
     queryset = Policy.objects.all()
     serializer_class = PolicySerializer
     permission_classes = [GroupPermission]
@@ -106,7 +151,7 @@ class PolicyViewSet(viewsets.ModelViewSet):
     search_fields = ['company_name', 'site_name']
 
 
-class CodingInstanceViewSet(viewsets.ModelViewSet):
+class CodingInstanceViewSet(ProjectFilteredViewSet):
     queryset = CodingInstance.objects.all()
     serializer_class = CodingInstanceSerializer
     permission_classes = [GroupPermission]
@@ -115,21 +160,25 @@ class CodingInstanceViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id', 'coder_email',
                         'policy_instance_id', 'coding_id', 'created_dt']
 
-    def create(self, validated_data):
+    def create(self, validated_data, **kw):
         instance = CodingInstance.objects.filter(
             coder_email=validated_data.data['coder_email'],
             coding_id=validated_data.data['coding_id'],
             policy_instance_id=validated_data.data['policy_instance_id'],
+
         ).first()  # uniqueness avoids needs for limit
         if instance:
             instance.coding_values = validated_data.data['coding_values']
         else:
-            instance = CodingInstance.objects.create(**validated_data.data)
+            instance = CodingInstance.objects.create(
+                project=_get_project_id(validated_data),
+                **validated_data.data
+            )
         instance.save()
         return Response(CodingInstanceSerializer(instance).data)
 
 
-class PolicyInstanceViewSet(viewsets.ModelViewSet):
+class PolicyInstanceViewSet(ProjectFilteredViewSet):
     queryset = PolicyInstance.objects.all()
     serializer_class = PolicyInstanceSerializer
     permission_classes = [GroupPermission]
@@ -137,10 +186,11 @@ class PolicyInstanceViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ['id', 'policy_id', 'scan_dt']
 
-    def create(self, request):
+    def create(self, request, project_id):
         instance = PolicyInstance(
             policy_id=request.data['policy_id'],
-            content=[]
+            content=[],
+            project=_get_project_id(request),
         )
         instance.save()
         return Response(PolicyInstanceSerializer(instance).data)
@@ -171,7 +221,7 @@ class PolicyInstanceDocumentViewSet(viewsets.ViewSet):
     def list(self, request):
         return Response([])
 
-    def create(self, request):
+    def create(self, request, **kw):
         instance = PolicyInstance.objects.get(
             id=request.data['policy_instance_id'])
         if 'ordinal' in request.data:
@@ -239,18 +289,21 @@ class TimingSessionViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ['id']
 
-    def create(self, validated_data):
+    def create(self, validated_data, **kw):
         instance = TimingSession.objects.filter(
-            session_identifier=validated_data.data['session_identifier']).first()
+            session_identifier=validated_data.data['session_identifier']
+        ).first()
         if instance:
             for k, v in validated_data.data.items():
                 setattr(instance, k, v)
         else:
-            instance = TimingSession.objects.create(**validated_data.data)
+            instance = TimingSession.objects.create(
+                project=_get_project_id(validated_data), **validated_data.data)
         instance.save()
         return Response(TimingSessionSerializer(instance).data)
 
 
+# TO REMOVE!
 class CodingProgressViewSet(viewsets.ViewSet):
     permission_classes = [GroupPermission]
 
@@ -258,14 +311,24 @@ class CodingProgressViewSet(viewsets.ViewSet):
     def list(self, request):
         pi_id2ci = defaultdict(list)
         coding = Coding.objects.get(id=settings.CURRENT_CODING_ID)
-        for ci in CodingInstance.objects.all().exclude(coder_email__in=["davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID):
-            u = User.objects.get(email=ci.coder_email)
-            ci_qs = set(cvk.split("(")[0]
-                        for cvk in ci.coding_values.keys() if '_' in cvk)
-            identifiers = set([q['identifier'].split("(")[0]
-                              for q in coding.questions])
+        all_coding_instances = CodingInstance.objects.all().exclude(
+            coder_email__in=["davidbstein@gmail.com"]).filter(coding_id=settings.CURRENT_CODING_ID)
+        for ci in all_coding_instances:
+            coder = User.objects.get(email=ci.coder_email)
+            # throw out subanswers.
+            ci_qs = set(
+                coding_question_key.split("(")[0]
+                for coding_question_key in ci.coding_values.keys()
+                if '_' in coding_question_key
+            )
+            # find the number of answers that correspond to questions in the current coding
+            identifiers = set([
+                q['identifier'].split("(")[0]
+                for q in coding.questions]
+            )
             response_count = sum(
-                identifier in ci_qs for identifier in identifiers)
+                identifier in ci_qs for identifier in identifiers
+            )
             pi_id2ci[ci.policy_instance_id].append({
                 "email": ci.coder_email,
                 "response_count": response_count,

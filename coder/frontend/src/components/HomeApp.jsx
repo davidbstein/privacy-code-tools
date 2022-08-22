@@ -50,12 +50,12 @@ export default connect(
               <ul>
                 <li>
                   <a target="_blank" href={question_info}>
-                    Clarifying notes on Questions
+                    Coding Notes
                   </a>
                 </li>
                 <li>
                   <a target="_blank" href={coding_documentation}>
-                    How to code policies on this site.
+                    How to use this tool
                   </a>
                 </li>
                 <li>
@@ -69,10 +69,10 @@ export default connect(
               <h2> Utilities </h2>
               <ul>
                 <li>
-                  <a href={`/c/${project_prefix}/coding`}>Coding Editor</a>
+                  <a href={`/c/${project_prefix}/coding`}>Question Editor</a>
                 </li>
                 <li>
-                  <a href={`/c/${project_prefix}/policy`}>Policy Downloads</a>
+                  <a href={`/c/${project_prefix}/policy`}>View Documents</a>
                 </li>
                 <li>
                   <a href={`#`}>[coming soon] Data Explorer</a>

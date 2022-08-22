@@ -26,29 +26,14 @@ class PolicyList extends Component {
         sort_fn: (policy) => policy.id,
       },
       {
-        name: "Global Rank",
-        display_fn: (policy) => `${policy.alexa_rank}`,
-        sort_fn: (policy) => policy.alexa_rank,
-      },
-      {
-        name: "US Rank",
-        display_fn: (policy) => `${policy.alexa_rank_US || "--"}`,
-        sort_fn: (policy) => policy.alexa_rank_US,
-      },
-      {
-        name: "site",
-        display_fn: (policy) => `${policy.site_name}`,
-        sort_fn: (policy) => policy.site_name,
-      },
-      {
-        name: "registered name",
+        name: "name",
         display_fn: (policy) => `${policy.company_name}`,
         sort_fn: (policy) => policy.company_name,
       },
       {
-        name: "language",
-        display_fn: (policy) => `${policy.locale}`,
-        sort_fn: (policy) => policy.locale,
+        name: "short name",
+        display_fn: (policy) => `${policy.site_name}`,
+        sort_fn: (policy) => policy.site_name,
       },
       {
         name: "policy snapshot taken",
@@ -65,34 +50,14 @@ class PolicyList extends Component {
         display_fn: (policy) => `TODO`,
         sort_fn: (policy) => 1,
       },
-      {
-        name: "(self-reported) adult content",
-        display_fn: (policy) =>
-          policy.meta.contentdata.adultcontent == "yes" ? (
-            <span className="adult-yes">yes</span>
-          ) : policy.meta.contentdata.adultcontent == "no" ? (
-            <span className="adult-no">no</span>
-          ) : (
-            <span className="adult-maybe">unlabeled</span>
-          ),
-        sort_fn: (policy) => policy.meta.contentdata.adultcontent,
-      },
     ];
 
     return (
       <div id="policies-table-container">
-        <h1> Websites to code </h1>
-        <div className="info-box">
-          {" "}
-          Follow the links below to:{" "}
-          <ul>
-            <li>view website details downloaded from Alexa</li>{" "}
-            <li>view policy snapshots and download new snapshots</li>{" "}
-            <li>assign coders to policies and view progress</li>
-            <li>or merge completed codings</li>
-          </ul>
+        <h1> Document List </h1>
+        <div id="policies-table-subcontainer">
+          <SortableTable id="policies-list-table" items={_.values(policies)} columns={_COLUMNS} />
         </div>
-        <SortableTable id="policies-list-table" items={_.values(policies)} columns={_COLUMNS} />
       </div>
     );
   }
