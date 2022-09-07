@@ -98,7 +98,7 @@
     white-space: pre;
   } */
   .policy-browser-section-container {
-    padding-top: 145px;
+    padding-top: 96px;
     position: relative;
     background: #eee;
     &.active-policy {
@@ -119,6 +119,12 @@
       position: absolute;
       top: 0px;
       white-space: nowrap;
+      .policy-browser-go-to-top {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        cursor: pointer;
+      }
     }
     .policy-browser-paragraph {
       padding: 8px 0;
