@@ -29,7 +29,7 @@ export default connect(
               key={i}
               onClick={() => this.scrollToPolicy(doc.ordinal)}
             >
-              <div classname="policy-quicknav-ordinal">
+              <div className="policy-quicknav-ordinal">
                 {doc.ordinal}
                 <div className="policy-quicknav-title">{doc.title}</div>
               </div>

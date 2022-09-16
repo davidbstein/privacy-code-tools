@@ -54,18 +54,37 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='frontend/home.html')),
     re_path(r'^c/(.*)$',
             login_required(TemplateView.as_view(template_name='frontend/index.html'))),
-    path('raw-policy/<int:policy_instance_id>/<str:field>', get_raw),
-    path('unsafe-raw-policy/<int:policy_instance_id>/<str:field>', get_unsafe_raw),
-    path('api/', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path("me/", login_required(get_current_user)),
+    path(
+        'r/<str:project_id>/raw-policy/<int:policy_instance_id>/<str:field>',
+        login_required(get_raw)),
+    path(
+        'r/<str:project_id>/unsafe-raw-policy/<int:policy_instance_id>/<str:field>',
+        login_required(get_unsafe_raw)),
+    path(
+        'api/<str:project_id>/',
+        include(router.urls)),
+    path(
+        'admin/',
+        admin.site.urls),
+    path(
+        'accounts/',
+        include('allauth.urls')),
+    path(
+        'api-auth/',
+        include('rest_framework.urls', namespace='rest_framework')),
+    path(
+        "me/",
+        login_required(get_current_user)),
+    # path(
+    #     'status/',
+    #     login_required(get_status)),
+    # path('notifications/', include('django_nyt.urls')),
+    # path('wiki/', decorator_include(login_required, 'wiki.urls')),
+]
+
+urlpatterns.extend([
     re_path(r'^static/(?P<path>.*css)$', get_static),
     re_path(r'^static/(?P<path>.*)$', login_required(get_static)),
-    path('status/', login_required(get_status)),
-    path('notifications/', include('django_nyt.urls')),
-    path('wiki/', decorator_include(login_required, 'wiki.urls')),
-]
+])
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

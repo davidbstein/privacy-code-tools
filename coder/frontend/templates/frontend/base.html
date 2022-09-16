@@ -21,7 +21,9 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-      <script> var CURRENT_USER = "{{ user.email }}"; </script>
+      <script> 
+        var CURRENT_USER = "{{ user.email }}"; 
+      </script>
     {% endif %}
   </head>
 

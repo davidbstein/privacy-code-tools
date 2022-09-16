@@ -24,12 +24,16 @@ class SectionCounter {
     return this.current;
   }
 }
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   class PolicyPage extends Component {
+    scrollToTop() {
+      document
+        .querySelector(`.policy-browser-overview`)
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     render() {
       const {
         policy_id,
@@ -47,7 +51,8 @@ export default connect(
         <div className="policy-browser-section-container">
           <div className="policy-browser-section-overview">
             <h3 id={`policy-doc-${policy_doc.ordinal}`}> {policy_doc.title} </h3>
-            <div>
+            <div className='policy-browser-go-to-top' onClick={() => this.scrollToTop()}> top </div>
+            {/* <div>
               URL of source document:
               <a href={href} target="_blank">
                 {href}
@@ -55,10 +60,10 @@ export default connect(
             </div>
             <div>
               Reference Snapshot (turned off for now)
-              {/* <a href={`/raw-policy/${this.props.policy_instance.id}/${policy_doc.ordinal}`}>
+              <a href={`/raw-policy/${this.props.policy_instance.id}/${policy_doc.ordinal}`}>
                 View Original Snapshot
-              </a> */}
-            </div>
+              </a>
+            </div> */}
           </div>
           <div className="policy-browser-major-section">
             {policy_doc.content.map((paragraph, i) => (

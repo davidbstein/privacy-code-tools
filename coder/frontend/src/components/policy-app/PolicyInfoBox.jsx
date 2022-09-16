@@ -36,7 +36,7 @@ export default function PolicyInfoBox({ policy }) {
       </div>
       <div className="info-item" id="contentdata-sitedata-info">
         <div className="info-name">Site Description</div>
-        <div className="info-value">{policy.meta.contentdata.sitedata.description}</div>
+        <div className="info-value">{policy.meta.contentdata?.sitedata?.description}</div>
       </div>
       {policy.categories.length > 0 ? (
         <div className="info-item" id="categories-info">
@@ -52,38 +52,43 @@ export default function PolicyInfoBox({ policy }) {
       ) : (
         ""
       )}
-      <div className="info-item" id="trafficdata-contributingsubdomains-info">
-        <div className="info-name">contribution to traffic by subdomain</div>
-        <div className="info-value">
-          <PartBar
-            category_pairs={policy.meta.trafficdata.contributingsubdomains.map(
-              ({ pageviews: { percentage }, dataurl }) => [dataurl, percentage]
-            )}
-          />
-        </div>
-      </div>
-      <div className="info-item" id="trafficdata-rankbycountry-traffic-info">
-        <div className="info-name">Traffic by country</div>
-        <div className="info-value">
-          <PartBar
-            category_pairs={_.toPairs(policy.meta.trafficdata.rankbycountry).map(([k, v], i) => [
-              k == "O" ? "unknown" : k,
-              v.contribution.pageviews,
-            ])}
-          />
-        </div>
-      </div>
-      <div className="info-item" id="trafficdata-rankbycountry-users-info">
-        <div className="info-name">Users by country</div>
-        <div className="info-value">
-          <PartBar
-            category_pairs={_.toPairs(policy.meta.trafficdata.rankbycountry).map(([k, v], i) => [
-              k == "O" ? "unknown" : k,
-              v.contribution.users,
-            ])}
-          />
-        </div>
-      </div>
-    </div>
-  );
+      {policy.meta.contentdata ? (
+        <div>
+          <div className="info-item" id="trafficdata-contributingsubdomains-info">
+            <div className="info-name">contribution to traffic by subdomain</div>
+            <div className="info-value">
+              <PartBar
+                category_pairs={policy.meta.trafficdata.contributingsubdomains.map(
+                  ({ pageviews: { percentage }, dataurl }) => [dataurl, percentage]
+                )}
+              />
+            </div>
+          </div>
+          <div className="info-item" id="trafficdata-rankbycountry-traffic-info">
+            <div className="info-name">Traffic by country</div>
+            <div className="info-value">
+              <PartBar
+                category_pairs={_.toPairs(policy.meta.trafficdata.rankbycountry).map(([k, v], i) => [
+                  k == "O" ? "unknown" : k,
+                  v.contribution.pageviews,
+                ])}
+              />
+            </div>
+          </div>
+          <div className="info-item" id="trafficdata-rankbycountry-users-info">
+            <div className="info-name">Users by country</div>
+            <div className="info-value">
+              <PartBar
+                category_pairs={_.toPairs(policy.meta.trafficdata.rankbycountry).map(([k, v], i) => [
+                  k == "O" ? "unknown" : k,
+                  v.contribution.users,
+                ])}
+              />
+            </div>
+            </div>
+          </div>
+        ) : ("")
+      }
+    </div> 
+  ) 
 }
