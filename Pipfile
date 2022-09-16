@@ -14,6 +14,8 @@ html2markdown = "*"
 nltk = "*"
 ipython = "*"
 google-api-python-client = "*"
+elasticsearch = "*"
+matplotlib = "*"
 
 [packages]
 django = "*"
@@ -30,6 +32,10 @@ django-decorator-include = "*"
 psycopg2 = "*"
 nltk = "*"
 html2text = "*"
+ipython = "*"
+django-shell-plus = "*"
+jupyter = "*"
+textchart = "*"
 
 [requires]
 python_version = "3"

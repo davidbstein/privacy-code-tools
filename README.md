@@ -60,4 +60,4 @@ The core concept of Redux is a careful separation of rendering and state modific
 **note:** I break the standard Redux model and allow actions to shoot off API calls.
 
 
-If you install [redux toolkit](https://redux-toolkit.js.org/) in your browser, you can rewind, replay, and edit actions in the browser during testing and development.
+If you install [redux toolkit](https://redux-toolkit.js.org/) in your browser, you can rewind, replay, and edit actions in the browser during testing and development.apt install libpq-dev
