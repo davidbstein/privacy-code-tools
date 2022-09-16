@@ -52,7 +52,7 @@ class PolicyInstanceList extends Component {
     this.props.apiPostPolicyInstance(this.props.policy_id);
   }
   render() {
-    const { policy_instances, coding_instances } = this.props;
+    const { policy_instances, coding_instances, model: {project: {prefix, settings: {default_coding}}} } = this.props;
     return (
       <div id="policy-instance-list">
         {_.toPairs(policy_instances).map(([idx, { id, content: document_list, scan_dt }]) => (
@@ -60,6 +60,9 @@ class PolicyInstanceList extends Component {
             <h1>
               Snapshot Taken on {new Date(scan_dt).toLocaleDateString()} (policy snapshot id: {id})
             </h1>
+            <div id="policy-snapshot-start-coding-button">
+              <a href={`/c/${prefix}/code-document/${id}/${default_coding}`}> Start Coding! </a>
+            </div>
             <CodingInstanceList policy_instance_id={id} coding_instances={coding_instances} />
             <h2>documents</h2>
             {document_list.map((doc) => (

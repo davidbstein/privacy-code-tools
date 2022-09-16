@@ -23,7 +23,7 @@ class PolicyAdminOverview extends Component {
     return (
       <div id="policy-instance-admin-container">
         <div id="policy-info-box">
-          <h1> Website Information </h1>
+          <h1> Overview </h1>
           <PolicyInfoBox policy={policy} />
         </div>
         <div id="policy-snapshot-list">

@@ -25,7 +25,6 @@ class PolicyApp extends Component {
       },
     } = this.props;
     if (_.isEmpty(policies) || _.isEmpty(project_settings)) return <Loading />;
-
     return (
       <div id="policy-admin" className="page-root">
         <Heading title="Policy Admin Panel" project_prefix={project_prefix} />

@@ -26,6 +26,9 @@ function _wrapObjectList(objectList) {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case APIActionTypes.ERROR:
+      alert(`ERROR loading ${action.payload.config.url}\n${action.payload.data.detail}`);
+      return { ...state };
     case APIActionTypes.GET_PROJECT_SETTINGS:
       return { ...state, ...{ project: action.payload } };
     case APIActionTypes.GET_POLICY:

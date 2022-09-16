@@ -2,11 +2,11 @@ import _ from "lodash";
 import axios from "axios";
 import { APIActionTypes } from "src/actions/types";
 import store from "src/store";
-import { CURRENT_USER } from "src/constants";
+import { CURRENT_USER, PROJECT_NAME } from "src/constants";
 import Logger from "src/Logger";
 const log = Logger("api", "cyan");
 
-function getCookie(name) {
+async function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie !== "") {
     var cookies = document.cookie.split(";");
@@ -21,88 +21,80 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-const CSRF_TOKEN = getCookie("csrftoken");
+async function get_CSRF_token() {
+  return await getCookie("csrftoken");
+}
+const API_PREFIX = `/api/${PROJECT_NAME}`
 
 const api = {};
 
+async function doAPIGet(path, dispatch, actionType, res_fn=(res)=>res.data) {
+  try {
+    const res = await axios.get(`${API_PREFIX}/${path}`);
+    let result = res_fn(res);
+    dispatch({
+      type: actionType,
+      payload: result,
+    });
+    return result;
+  } catch (e) {
+    console.error(e);
+    console.log(actionType);
+    if (e?.data) throwError(dispatch, e);
+    else throw(e);
+  }
+}
+
+function throwError(dispatch, error) {
+  dispatch({
+    type: APIActionTypes.ERROR,
+    payload: error.response,
+  });
+}
+
 api.apiGetAssignments = () => async (dispatch) => {
   log(`called apiGetAssignments`);
-  const res = await axios.get(`/api/assignment/`);
-  dispatch({
-    type: APIActionTypes.GET_ASSIGNMENT_LIST,
-    payload: res.data.results || [],
-  });
+  await doAPIGet(`assignment/`, dispatch, APIActionTypes.GET_ASSIGNMENT_LIST, (res)=>(res.data.results || []));
 };
 
 api.apiGetPolicies = () => async (dispatch) => {
   log(`called apiGetPolicies`);
-  const res = await axios.get(`/api/policy/`);
-  dispatch({
-    type: APIActionTypes.GET_POLICIES,
-    payload: res.data.results,
-  });
+  await doAPIGet(`policy/`, dispatch, APIActionTypes.GET_POLICIES, (res)=>res.data.results);
 };
 
 api.apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => {
   log(`called apiGetPolicyInstance`);
-  const res = await axios.get(`/api/policy_instance/${policy_instance_id}/`);
-  dispatch({
-    type: APIActionTypes.GET_POLICY_INSTANCE,
-    payload: res.data,
-  });
-  const res2 = await axios.get(`/api/policy/${res.data.policy_id}/`);
-  dispatch({
-    type: APIActionTypes.GET_POLICY,
-    payload: res2.data,
-  });
+  const policy_instance = await doAPIGet(`policy_instance/${policy_instance_id}/`, dispatch, APIActionTypes.GET_POLICY_INSTANCE, (res)=>res.data);
+  await doAPIGet(`policy/${policy_instance.policy_id}`, dispatch, APIActionTypes.GET_POLICY, (res)=>res.data);
 };
 
 api.apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
   log(`called apiGetPolicyInstance`);
-  const res = await axios.get(`/api/policy_instance/?policy_id=${policy_id}`);
-  dispatch({
-    type: APIActionTypes.GET_POLICY_INSTANCES,
-    payload: res.data.results,
-  });
-  dispatch({
-    type: APIActionTypes.GET_POLICY,
-    payload: (await axios.get(`/api/policy/${policy_id}/`)).data,
-  });
+  const policy_instance_list = await doAPIGet(`policy_instance/?policy_id=${policy_id}`, dispatch, APIActionTypes.GET_POLICY_INSTANCES, (res)=>res.data.results);
+  await doAPIGet(`policy/${policy_id}/`, dispatch, APIActionTypes.GET_POLICY, (res)=>res.data);
   for (
-    let _i = 0, policy_instance = res.data.results[_i++];
-    _i < res.data.results.length;
-    policy_instance = res.data.results[_i++]
+    let _i = 0, policy_instance = policy_instance_list[_i++];
+    _i < policy_instance_list.length;
+    policy_instance = policy_instance_list[_i++]
   ) {
-    dispatch({
-      type: APIActionTypes.GET_ALL_CODING_INSTANCE,
-      payload: (await axios.get(`/api/coding_instance/policy_instance_id=${policy_instace.id}`))
-        .data.results,
-    });
+    await doAPIGet(`coding_instance/?policy_instance_id=${policy_instance.id}`, dispatch, APIActionTypes.GET_ALL_CODING_INSTANCE);
   }
 };
 
 api.apiGetCodingList = () => async (dispatch) => {
   log(`called apiGetCodingList`);
-  const res = await axios.get(`/api/coding/`);
-  dispatch({
-    type: APIActionTypes.GET_CODING_LIST,
-    payload: res.data.results,
-  });
+  doAPIGet(`coding/`, dispatch, APIActionTypes.GET_CODING_LIST, (res)=>res.data.results);
 };
 
 api.apiGetCoding = (coding_id) => async (dispatch) => {
   log(`called apiGetCoding`);
-  const res = await axios.get(`/api/coding/${coding_id}/`);
-  dispatch({
-    type: APIActionTypes.GET_CODING,
-    payload: res.data,
-  });
+  doAPIGet(`coding/${coding_id}/`, dispatch, APIActionTypes.GET_CODING)
 };
 
 api.apiGetProjectSettings = (project_prefix) => async (dispatch) => {
   log(`called apiGetProjectSettings`);
   const me = await axios.get(`/me`);
-  const res = await axios.get(`/api/project/${project_prefix}/`);
+  const res = await axios.get(`${API_PREFIX}/project/${project_prefix}/`);
   dispatch({
     type: APIActionTypes.GET_PROJECT_SETTINGS,
     payload: { ...res.data, me: me.data },
@@ -111,7 +103,7 @@ api.apiGetProjectSettings = (project_prefix) => async (dispatch) => {
 
 api.apiGetCodingProgress = () => async (dispatch) => {
   log(`called apiGetCodingProgress`);
-  const res = await axios.get(`/api/coding_progress/`);
+  const res = await axios.get(`${API_PREFIX}/coding_progress/`);
   dispatch({
     type: APIActionTypes.GET_CODING_PROGRESS,
     payload: res.data,
@@ -121,10 +113,10 @@ api.apiGetCodingProgress = () => async (dispatch) => {
 api.apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) => {
   log(`called apiGetCodingInstance`);
   const coder_email = CURRENT_USER;
-  const res = await axios.get(`/api/coding_instance/`, {
+  const res = await axios.get(`${API_PREFIX}/coding_instance/`, {
     params: { policy_instance_id, coding_id, coder_email },
   });
-  if (res.data.results)
+  if (res.data.results?.length > 0)
     dispatch({
       type: APIActionTypes.GET_CODING_INSTANCE,
       payload: res.data.results[0],
@@ -133,7 +125,7 @@ api.apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) =
 
 api.apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatch) => {
   log(`called apiGetAllCodingInstances`);
-  const res = await axios.get(`/api/coding_instance/`, {
+  const res = await axios.get(`${API_PREFIX}/coding_instance/`, {
     params: { policy_instance_id, coding_id },
   });
   dispatch({
@@ -145,9 +137,9 @@ api.apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatc
 api.apiUpdateProjectSettings = (project_prefix, settings) => async (dispatch) => {
   log(`called apiUpdateProjectSettings`);
   const res = await axios.patch(
-    `/api/project/${project_prefix}/`,
+    `${API_PREFIX}/project/${project_prefix}/`,
     { project_settings: settings },
-    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+    { headers: { "X-CSRFToken": await get_CSRF_token() } }
   );
   store.dispatch({
     type: APIActionTypes.GET_PROJECT_SETTINGS,
@@ -158,9 +150,9 @@ api.apiUpdateProjectSettings = (project_prefix, settings) => async (dispatch) =>
 api.apiSaveCoding = (coding) => async (dispatch) => {
   log(`called apiSaveCoding`);
   const res = await axios.post(
-    `/api/coding/`,
+    `${API_PREFIX}/coding/`,
     { ...coding, id: undefined },
-    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+    { headers: { "X-CSRFToken": await get_CSRF_token() } }
   );
   store.dispatch({
     type: APIActionTypes.GET_CODING,
@@ -170,8 +162,8 @@ api.apiSaveCoding = (coding) => async (dispatch) => {
 
 api.apiUpdateCoding = (coding_id, coding) => async (dispatch) => {
   log(`called apiUpdateCoding`);
-  const res = await axios.patch(`/api/coding/${coding_id}/`, coding, {
-    headers: { "X-CSRFToken": CSRF_TOKEN },
+  const res = await axios.patch(`${API_PREFIX}/coding/${coding_id}/`, coding, {
+    headers: { "X-CSRFToken": await get_CSRF_token() },
   });
   store.dispatch({
     type: APIActionTypes.GET_CODING,
@@ -187,20 +179,20 @@ api.apiPostCodingInstance = () => async (dispatch) => {
 api.apiPostPolicyInstanceDocument = (policy_instance_id, title, content) => async (dispatch) => {
   log(`called apiPostPolicyInstanceDocument`);
   const res = await axios.post(
-    `/api/policy_instance_document/`,
+    `${API_PREFIX}/policy_instance_document/`,
     { policy_instance_id, title, content },
-    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+    { headers: { "X-CSRFToken": await get_CSRF_token() } }
   );
   store.dispatch({
     type: APIActionTypes.POST_POLICY_INSTANCE_DOCUMENT,
     payload: res.data,
   });
-  const res2 = await axios.get(`/api/policy_instance/${res.data.id}/`);
+  const res2 = await axios.get(`${API_PREFIX}/policy_instance/${res.data.id}/`);
   dispatch({
     type: APIActionTypes.GET_POLICY_INSTANCE,
     payload: res2.data,
   });
-  const res3 = await axios.get(`/api/policy/${res.data.policy_id}/`);
+  const res3 = await axios.get(`${API_PREFIX}/policy/${res.data.policy_id}/`);
   dispatch({
     type: APIActionTypes.GET_POLICY,
     payload: res3.data,
@@ -210,15 +202,15 @@ api.apiPostPolicyInstanceDocument = (policy_instance_id, title, content) => asyn
 api.apiPostPolicyInstance = (policy_id) => async (dispatch) => {
   log(`called createNewPolicyInstance`);
   const res = await axios.post(
-    `/api/policy_instance/`,
+    `${API_PREFIX}/policy_instance/`,
     { policy_id },
-    { headers: { "X-CSRFToken": CSRF_TOKEN } }
+    { headers: { "X-CSRFToken": await get_CSRF_token() } }
   );
   store.dispatch({
     type: APIActionTypes.POST_POLICY_INSTANCE,
     payload: res.data,
   });
-  const res2 = await axios.get(`/api/policy_instance/${res.data.id}/`);
+  const res2 = await axios.get(`${API_PREFIX}/policy_instance/${res.data.id}/`);
   dispatch({
     type: APIActionTypes.GET_POLICY_INSTANCE,
     payload: res2.data,
@@ -259,8 +251,8 @@ const _save_fn = async function (store, dispatch, actionName = APIActionTypes.AU
     coder_email,
     coding_values,
   };
-  const res = await axios.post(`/api/coding_instance/`, request_params, {
-    headers: { "X-CSRFToken": CSRF_TOKEN },
+  const res = await axios.post(`${API_PREFIX}/coding_instance/`, request_params, {
+    headers: { "X-CSRFToken": await get_CSRF_token() },
   });
   store.dispatch({
     type: actionName,
