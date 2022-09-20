@@ -17,8 +17,8 @@ const log = Logger("SortableTable", "white");
  * @param {(T)=>string|number} params.id_fn - a function that gets some unique value for the item (for React keys)
  * @returns
  */
-export default function SortableTable({ id, items, columns, id_fn = (item) => item.id }) {
-  const [sortColumn, setSortColumn] = useState(columns[0]);
+export default function SortableTable({ id, items, columns, sortColumnIdx, id_fn = (item) => item.id }) {
+  const [sortColumn, setSortColumn] = useState(columns[sortColumnIdx || 0]);
   const [reverseColumn, setReverseColumn] = useState(false);
   const sorted_items = (reverseColumn ? _.reverse : (e) => e)(
     _.sortBy(items, sortColumn.sort_fn ?? sortColumn.display_fn)

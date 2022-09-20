@@ -128,35 +128,45 @@ class ProgressViewApp extends Component {
       { name: "complete", display_fn: (policy) => policy.complete },
     ];
     const _POLICY_COLUMNS = [
-      {
-        name: "Document Collection",
-        display_fn: (policy) => (
-          <a href={`/c/${project_prefix}/policy/${policy.id}`}>{policy.company_name}</a>
-        ),
-        sort_fn: (policy) => policy.company_name,
-      },
-      {
-        name: "Categories",
-        display_fn: (policy) => (
-          <div>
-            {policy.categories.map((cat, i) => (
-              <span key={i} className="site-category">
-                {cat}
-              </span>
-            ))}
-          </div>
-        ),
-        sort_fn: (policy) => JSON.stringify(policy.categories),
-      },
+      // {
+      //   name: "Document Collection",
+      //   display_fn: (policy) => (
+      //     <a href={`/c/${project_prefix}/policy/${policy.id}`}>{policy.company_name}</a>
+      //   ),
+      //   sort_fn: (policy) => policy.company_name,
+      // },
+      // {
+      //   name: "Categories",
+      //   display_fn: (policy) => (
+      //     <div>
+      //       {policy.categories.map((cat, i) => (
+      //         <span key={i} className="site-category">
+      //           {cat}
+      //         </span>
+      //       ))}
+      //     </div>
+      //   ),
+      //   sort_fn: (policy) => JSON.stringify(policy.categories),
+      // },
+      { name: "Policy", display_fn: (policy) => policy.site_name },
       {
         name: "documents downloaded",
         display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
         sort_fn: (policy) => policy.progress.loaded?.status ?? -1,
       },
-      { name: "coded", display_fn: (policy) => "🔜" },
-      { name: "reviewed", display_fn: (policy) => "🔜" }
+      { name: "Coders Done", display_fn: (policy) => policy.progress.coded < 2 ? "🔄" : "✅ " },
+      { 
+        name: "Fully Reviewed", 
+        display_fn: (policy) => policy.progress.reviewed == 0 ? (policy.progress.coded < 2 ? "":"🔄") : "✅ ", 
+        sort_fn: (policy) => `${policy.progress.reviewed} - ${9-policy.progress.coded}`
+      },
+      { name: "links", display_fn: (policy) => (
+        <div>
+          <a href={`/c/2022_PP/code-policy/${policy.progress.coding_link}/8`}>Code</a> | 
+          <a href={`/c/2022_PP/code-merge/${policy.progress.coding_link}/8`}>Review</a>
+        </div>
+      )},
     ];
-
     const {
       model: { policies },
       match: {
@@ -173,7 +183,7 @@ class ProgressViewApp extends Component {
             items={_policies_to_category_progress(policies)}
             columns={_OVERVIEW_COLUMNS}
           /> */}
-          <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} />
+          <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} sortColumnIdx={3} />
         </div>
       </div>
     );
