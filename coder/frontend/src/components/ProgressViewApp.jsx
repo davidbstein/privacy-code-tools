@@ -162,17 +162,21 @@ class ProgressViewApp extends Component {
       },
       { name: "links", display_fn: (policy) => (
         <div>
-          <a href={`/c/2022_PP/code-policy/${policy.progress.coding_link}/8`}>Code</a> | 
-          <a href={`/c/2022_PP/code-merge/${policy.progress.coding_link}/8`}>Review</a>
+          <a href={`/c/2022_PP/code-policy/${policy.progress.coding_link}/${default_coding}`}>Code</a> | 
+          <a href={`/c/2022_PP/code-merge/${policy.progress.coding_link}/${default_coding}`}>Review</a>
         </div>
       )},
     ];
     const {
-      model: { policies },
+      model: { 
+        policies,
+        project: { settings },
+      },
       match: {
         params: { project_prefix },
       },
     } = this.props;
+    const default_coding = settings?.default_coding || 8;
     if (_.isEmpty(policies)) return <Loading />;
     return (
       <div id="progress-view" className="page-root">
