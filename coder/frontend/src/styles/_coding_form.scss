@@ -39,29 +39,40 @@
     border: 1px solid #ff84ff;
     display: inline-block;
   }
+
   .coding-form-uncoded-marker {
     margin: 4px;
     padding: 0 4px;
     background-color: #ffa5a5;
   }
-
-  .coding-form-confidence-unspecified {
-    background-color: #ffa8a8;
-  }
-  .coding-form-confidence-1 {
-    background-color: #ffd2a8;
-  }
-  .coding-form-confidence-2 {
-    background-color: #ffeaa7;
-  }
-  .coding-form-confidence-3 {
-    background-color: #efed75;
-  }
-  .coding-form-confidence-4 {
-    background-color: none;
-  }
-  .coding-form-confidence-5 {
-    background-color: none;
+  .coding-form-header-info {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    &.coding-form-has-answers-yes {
+      background-color: none;
+    }
+    &.coding-form-has-answers-no {
+      background-color: #ffa8a8;
+    }
+    &.coding-form-confidence-unspecified {
+      border-color: red;
+    }
+    &.coding-form-confidence-1 {
+      border-color: #ffd2a8;
+    }
+    &.coding-form-confidence-2 {
+      border-color: #ffeaa7;
+    }
+    &.coding-form-confidence-3 {
+      border-color: #efed75;
+    }
+    &.coding-form-confidence-4 {
+      border: none;
+    }
+    &.coding-form-confidence-5 {
+      border: none;
+    }
   }
   #coding-form-container {
     padding: 8px;
@@ -134,10 +145,6 @@
   .coding-form-question-container .inactive-question {
   }
 
-  .coding-form-header-info {
-    display: flex;
-    justify-content: space-between;
-  }
 
   .coding-form-sentence-count-header,
   .coding-form-answers-header,

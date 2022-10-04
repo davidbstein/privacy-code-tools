@@ -8,7 +8,7 @@ import { CONFIDENCE_LEVELS } from "src/constants";
 export default class QuestionBoxHeader extends Component {
   render() {
     return (
-      <div className={`coding-form-header-info coding-form-confidence-${this.props.confidence}`}>
+      <div className={`coding-form-header-info coding-form-has-answers-${this.props.value_strings.length > 0 ? 'yes': 'no'} coding-form-confidence-${this.props.confidence}`}>
         <div className="coding-form-sentence-count-header">
           {this.props.number_of_sentences} sentence{this.props.number_of_sentences == 1 ? "" : "s"}
         </div>
