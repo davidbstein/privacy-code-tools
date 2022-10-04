@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { PROJECT_NAME } from "src/constants";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
@@ -162,8 +163,8 @@ class ProgressViewApp extends Component {
       },
       { name: "links", display_fn: (policy) => (
         <div>
-          <a href={`/c/2022_PP/code-policy/${policy.progress.coding_link}/${default_coding}`}>Code</a> | 
-          <a href={`/c/2022_PP/code-merge/${policy.progress.coding_link}/${default_coding}`}>Review</a>
+          <a href={`/c/${PROJECT_NAME}/code-policy/${policy.progress.coding_link}/${default_coding}`}>Code</a> | 
+          <a href={`/c/${PROJECT_NAME}/code-merge/${policy.progress.coding_link}/${default_coding}`}>Review</a>
         </div>
       )},
     ];

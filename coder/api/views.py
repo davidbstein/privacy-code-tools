@@ -69,13 +69,14 @@ class GroupPermission(permissions.BasePermission):
         return True
 
     def has_object_permission(self, request, view, obj):
+        project_id = _get_project_id(request)
         if type(obj) == Project:
-            has_project_access = _get_project_id(request) == obj.id
+            has_project_access = project_id == obj.id
         else:
-            has_project_access = obj.project == _get_project_id(request)
+            has_project_access = project_id == obj.project
         if not has_project_access:
             print(
-                f"{request.user} does not have permission to access {obj} in project {obj.project}.\n"
+                f"{request.user} does not have permission to access {type(obj)} {obj} in project {project_id}.\n"
                 f"Has project access for object: {has_project_access}"
             )
             return False
