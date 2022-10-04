@@ -155,7 +155,7 @@ class ProgressViewApp extends Component {
         display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
         sort_fn: (policy) => policy.progress.loaded?.status ?? -1,
       },
-      { name: "Coders Done", display_fn: (policy) => policy.progress.coded < 2 ? "🔄" : "✅ " },
+      { name: "Coders Done", display_fn: (policy) => policy.progress.coded < 2 ? ["❌","🔄"][policy.progress.coded] : "✅ " },
       { 
         name: "Fully Reviewed", 
         display_fn: (policy) => policy.progress.reviewed == 0 ? (policy.progress.coded < 2 ? "":"🔄") : "✅ ", 

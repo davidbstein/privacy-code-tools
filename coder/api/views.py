@@ -228,7 +228,7 @@ class PolicyInstanceDocumentViewSet(viewsets.ViewSet):
         if 'ordinal' in request.data:
             return Response({"error": "Cannot create document with ordinal"}, status=400)
         ordinal = chr(
-            ord(instance.content[-1]['ordinal']) + 1) if instance.content else 'A'
+            ord(instance.content[-1]['ordinal'][0]) + 1) if instance.content and 'ordinal' in instance.content[-1] else 'A'
         new_document = {
             "title": "DOCUMENT " + ordinal + " - " + request.data['title'],
             "content": to_coding_doc(request.data['content']),
