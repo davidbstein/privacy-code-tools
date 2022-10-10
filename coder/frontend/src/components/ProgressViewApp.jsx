@@ -7,6 +7,7 @@ import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
 import Loading from "src/components/widgets/Loading";
 import SortableTable from "src/components/widgets/SortableTable";
+import withParams from "src/components/utils/withParams";
 
 /**
  * @typedef PolicyAssignmentEntry
@@ -195,4 +196,4 @@ class ProgressViewApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProgressViewApp);
+export default withParams(connect(mapStateToProps, mapDispatchToProps)(ProgressViewApp));

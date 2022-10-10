@@ -1,0 +1,5 @@
+version: 1
+cron:
+ - name: "update-progress"
+   url: "/scripts/update-progress"
+   schedule: "*/10 * * * *"

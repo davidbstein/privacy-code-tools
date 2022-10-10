@@ -6,6 +6,7 @@ import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
 import Loading from "src/components/widgets/Loading";
+import withParams from "src/components/utils/withParams";
 
 class PolicyApp extends Component {
   constructor(props) {
@@ -40,4 +41,4 @@ class PolicyApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PolicyApp);
+export default withParams(connect(mapStateToProps, mapDispatchToProps)(PolicyApp));

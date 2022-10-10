@@ -12,6 +12,7 @@
     "react": "",
     "react-dom": "",
     "react-redux": "",
+    "react-router": "^6.4.2",
     "react-router-dom": "",
     "redux": "",
     "redux-form": "",

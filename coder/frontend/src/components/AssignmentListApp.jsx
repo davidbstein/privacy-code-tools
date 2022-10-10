@@ -6,6 +6,7 @@ import SortableAssignmentTable from "src/components/assignment-list/SortableAssi
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
 import Loading from "src/components/widgets/Loading";
+import withParams from "src/components/utils/withParams";
 
 class AssignmentListApp extends Component {
   constructor(props) {
@@ -48,4 +49,4 @@ class AssignmentListApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssignmentListApp);
+export default withParams(connect(mapStateToProps, mapDispatchToProps)(AssignmentListApp));

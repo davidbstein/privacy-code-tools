@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom";
 import AssignmentListApp from "src/components/AssignmentListApp";
 import CodingEditorApp from "src/components/CodingEditorApp";
 import CodingInterfaceApp from "src/components/CodingInterfaceApp";
@@ -10,9 +10,11 @@ import PolicyInstanceApp from "src/components/PolicyInstanceApp";
 import ProgressViewApp from "src/components/ProgressViewApp";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
+import withParams from "src/components/utils/withParams";
+
 const PREFIX = `/c/:project_prefix`;
 
-const MainURLSwitch = connect(
+const MainURLSwitch = withParams(connect(
   mapStateToProps,
   mapDispatchToProps
 )(
@@ -24,56 +26,57 @@ const MainURLSwitch = connect(
     render() {
       const {
         model: { project },
-        match: { path, url },
       } = this.props;
       if (!project) {
         return <div>one sec...</div>;
       }
       return (
-        <Switch>
+        <Routes>
           {/* CODING TOOL */}
           <Route
-            path={`${path}/code-:mode/policy-:policy_instance_id/coding-:coding_id`}
-            component={CodingInterfaceApp}
+            path={`code-:mode/policy-:policy_instance_id/coding-:coding_id`}
+            element={<CodingInterfaceApp />}
           />
           <Route
-            path={`${path}/code-:mode/:policy_instance_id-:policy_name/:coding_id`}
-            component={CodingInterfaceApp}
+            path={`code-:mode/:policy_instance_id-:policy_name/:coding_id`}
+            element={<CodingInterfaceApp />}
           />
           <Route
-            path={`${path}/code-:mode/:policy_instance_id-:policy_name`}
-            component={CodingInterfaceApp}
+            path={`code-:mode/:policy_instance_id-:policy_name`}
+            element={<CodingInterfaceApp />}
           />
           <Route
-            path={`${path}/code-:mode/:policy_instance_id/:coding_id`}
-            component={CodingInterfaceApp}
+            path={`code-:mode/:policy_instance_id/:coding_id`}
+            element={<CodingInterfaceApp />}
           />
-          <Route path={`${path}/code-:mode/:policy_instance_id`} component={CodingInterfaceApp} />
+          <Route path={`code-:mode/:policy_instance_id`} element={<CodingInterfaceApp />} />
           {/* DOWNLOADING TOOLS */}
           <Route
-            path={`${path}/policy/:policy_id/:policy_instance_id`}
-            component={PolicyInstanceApp}
+            path={`policy/:policy_id/:policy_instance_id`}
+            element={<PolicyInstanceApp />}
           />
-          <Route path={`${path}/policy/:policy_id`} component={PolicyApp} />
-          <Route path={`${path}/policy`} component={PolicyApp} />
-          <Route path={`${path}/coder-status/:coder_email`} component={AssignmentListApp} />
-          <Route path={`${path}/coder-status`} component={AssignmentListApp} />
+          <Route path={`policy/:policy_id`} element={<PolicyApp />} />
+          <Route path={`policy`} element={<PolicyApp />} />
+          <Route path={`coder-status/:coder_email`} element={<AssignmentListApp />} />
+          <Route path={`coder-status`} element={<AssignmentListApp />} />
           {/* CODING STATUS PAGES */}
-          <Route path={`${path}/progress`} component={ProgressViewApp} />
+          <Route path={`progress`} element={<ProgressViewApp />} />
           {/* CODING EDITOR */}
-          <Route path={`${path}/coding/:coding_id`} component={CodingEditorApp} />
-          <Route path={`${path}/coding/`} component={CodingEditorApp} />
-          <Route path={`${path}`} component={HomeApp} />
-        </Switch>
+          <Route path={`coding/:coding_id`} element={<CodingEditorApp />} />
+          <Route path={`coding/`} element={<CodingEditorApp />} />
+        </Routes>
       );
     }
   }
-);
+));
 export default class MainRouter extends Component {
   render() {
     return (
       <Router>
-        <Route path="/c/:project_prefix" component={MainURLSwitch} />
+        <Routes>
+          <Route path="/c/:project_prefix/*" element={<MainURLSwitch />} />
+          <Route path="/c/:project_prefix/" element={<HomeApp />} />
+	</Routes>
       </Router>
     );
   }

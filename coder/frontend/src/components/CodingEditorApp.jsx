@@ -7,6 +7,7 @@ import CodingList from "src/components/coding-editor/CodingList";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
 import Loading from "src/components/widgets/Loading";
+import withParams from "src/components/utils/withParams";
 
 class CodingEditorApp extends Component {
   constructor(props) {
@@ -46,4 +47,4 @@ class CodingEditorApp extends Component {
 }
 
 log(mapDispatchToProps);
-export default connect(mapStateToProps, mapDispatchToProps)(CodingEditorApp);
+export default withParams(connect(mapStateToProps, mapDispatchToProps)(CodingEditorApp));

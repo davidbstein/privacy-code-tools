@@ -8,6 +8,7 @@ import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import SessionTimer from "src/components/utils/SessionTimer";
 import Logger from "src/Logger";
+import withParams from "src/components/utils/withParams";
 const log = Logger("coding_interface", "pink");
 
 class CodingInterfaceApp extends Component {
@@ -46,4 +47,4 @@ class CodingInterfaceApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CodingInterfaceApp);
+export default withParams(connect(mapStateToProps, mapDispatchToProps)(CodingInterfaceApp));
