@@ -109,6 +109,11 @@
         width: calc(50% - var(--scrollbar-width));
       }
     }
+    &.hide-section-numbers {
+      .section-num {
+        display: none;
+      }
+    }
     .policy-browser-section-overview {
       border: 1px solid #63749e;
       width: 100%;

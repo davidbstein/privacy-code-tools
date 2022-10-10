@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { PROJECT_NAME } from "src/constants";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import Heading from "src/components/widgets/Heading";
@@ -128,41 +129,55 @@ class ProgressViewApp extends Component {
       { name: "complete", display_fn: (policy) => policy.complete },
     ];
     const _POLICY_COLUMNS = [
-      {
-        name: "Document Collection",
-        display_fn: (policy) => (
-          <a href={`/c/${project_prefix}/policy/${policy.id}`}>{policy.company_name}</a>
-        ),
-        sort_fn: (policy) => policy.company_name,
-      },
-      {
-        name: "Categories",
-        display_fn: (policy) => (
-          <div>
-            {policy.categories.map((cat, i) => (
-              <span key={i} className="site-category">
-                {cat}
-              </span>
-            ))}
-          </div>
-        ),
-        sort_fn: (policy) => JSON.stringify(policy.categories),
-      },
+      // {
+      //   name: "Document Collection",
+      //   display_fn: (policy) => (
+      //     <a href={`/c/${project_prefix}/policy/${policy.id}`}>{policy.company_name}</a>
+      //   ),
+      //   sort_fn: (policy) => policy.company_name,
+      // },
+      // {
+      //   name: "Categories",
+      //   display_fn: (policy) => (
+      //     <div>
+      //       {policy.categories.map((cat, i) => (
+      //         <span key={i} className="site-category">
+      //           {cat}
+      //         </span>
+      //       ))}
+      //     </div>
+      //   ),
+      //   sort_fn: (policy) => JSON.stringify(policy.categories),
+      // },
+      { name: "Policy", display_fn: (policy) => policy.site_name },
       {
         name: "documents downloaded",
         display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
         sort_fn: (policy) => policy.progress.loaded?.status ?? -1,
       },
-      { name: "coded", display_fn: (policy) => "🔜" },
-      { name: "reviewed", display_fn: (policy) => "🔜" }
+      { name: "Coders Done", display_fn: (policy) => policy.progress.coded < 2 ? ["❌","🔄"][policy.progress.coded] : "✅ " },
+      { 
+        name: "Fully Reviewed", 
+        display_fn: (policy) => policy.progress.reviewed == 0 ? (policy.progress.coded < 2 ? "":"🔄") : "✅ ", 
+        sort_fn: (policy) => `${policy.progress.reviewed} - ${9-policy.progress.coded}`
+      },
+      { name: "links", display_fn: (policy) => (
+        <div>
+          <a href={`/c/${PROJECT_NAME}/code-policy/${policy.progress.coding_link}/${default_coding}`}>Code</a> | 
+          <a href={`/c/${PROJECT_NAME}/code-merge/${policy.progress.coding_link}/${default_coding}`}>Review</a>
+        </div>
+      )},
     ];
-
     const {
-      model: { policies },
+      model: { 
+        policies,
+        project: { settings },
+      },
       match: {
         params: { project_prefix },
       },
     } = this.props;
+    const default_coding = settings?.default_coding || 8;
     if (_.isEmpty(policies)) return <Loading />;
     return (
       <div id="progress-view" className="page-root">
@@ -173,7 +188,7 @@ class ProgressViewApp extends Component {
             items={_policies_to_category_progress(policies)}
             columns={_OVERVIEW_COLUMNS}
           /> */}
-          <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} />
+          <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} sortColumnIdx={3} />
         </div>
       </div>
     );

@@ -9,7 +9,7 @@ const log = Logger("policyPage", "light-blue");
 
 class SectionCounter {
   constructor() {
-    this.state = [0, 0, 0, 0, 0];
+    this.state = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.current = "1";
   }
   get_next(level) {
@@ -46,9 +46,10 @@ export default connect(
         return <div> not loaded </div>;
       }
       const href = policy_doc?.href;
+      const pageSettings = policy_doc?.settings || {};
       const counter = new SectionCounter();
       return (
-        <div className="policy-browser-section-container">
+        <div className={`policy-browser-section-container ${pageSettings.hideSectionNumbers ? "hide-section-numbers" : ""}`}>
           <div className="policy-browser-section-overview">
             <h3 id={`policy-doc-${policy_doc.ordinal}`}> {policy_doc.title} </h3>
             <div className='policy-browser-go-to-top' onClick={() => this.scrollToTop()}> top </div>
