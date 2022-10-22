@@ -10,6 +10,7 @@ zappa_settings.json
 *.zip
 node_modules
 .static
+*~
 .prodenv
 # Byte-compiled / optimized / DLL files
 __pycache__/
