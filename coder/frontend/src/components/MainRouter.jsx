@@ -19,10 +19,6 @@ const MainURLSwitch = withParams(connect(
   mapDispatchToProps
 )(
   class MainURLSwitch extends Component {
-    constructor(props) {
-      super(props);
-      this.props.apiGetProjectSettings(this.props.match.params.project_prefix);
-    }
     render() {
       const {
         model: { project },
@@ -70,13 +66,17 @@ const MainURLSwitch = withParams(connect(
   }
 ));
 export default class MainRouter extends Component {
+  constructor(props) {
+    super(props);
+    this.props.apiGetProjectSettings(this.props.match.params.project_prefix);
+  }
   render() {
     return (
       <Router>
         <Routes>
           <Route path="/c/:project_prefix/*" element={<MainURLSwitch />} />
           <Route path="/c/:project_prefix/" element={<HomeApp />} />
-	</Routes>
+        </Routes>
       </Router>
     );
   }

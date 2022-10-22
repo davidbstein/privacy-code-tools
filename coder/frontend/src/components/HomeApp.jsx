@@ -9,7 +9,7 @@ class HomeApp extends Component {
   render() {
     const {
       model: {
-        project: { settings: { meeting_notes, coding_documentation, question_info } = {} },
+        project: { settings: { meeting_notes, coding_documentation, question_info, name: project_name } = {} },
       },
       match: {
         params: {project_prefix}
@@ -19,7 +19,7 @@ class HomeApp extends Component {
       <div id="home-app">
         <div id="homepage-heading">
           <h1> Policy Coding Project</h1>
-          <h2>Summer 2021 </h2>
+          <h2> {project_name} </h2>
         </div>
         <div id="annoucements">
           <div className="annoucement">
