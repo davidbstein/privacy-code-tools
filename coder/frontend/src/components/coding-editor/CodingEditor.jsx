@@ -62,9 +62,7 @@ class SidebarPreview extends Component {
   }
 
   render() {
-    if (!this.props.coding) {
-      return <Loading />;
-    }
+    if (this.props.coding._unloaded) return <Loading />;
     const {
       coding : { categories },
     } = this.props;
@@ -128,7 +126,7 @@ class CodingEditor extends Component {
   render() {
     const { coding_id } = this.props;
     const coding = this.props.localState.localCodings[coding_id];
-    if (coding == undefined) return <Loading />;
+    if (coding._unloaded) return <Loading />;
 
     const serverCoding = this.props.model.codings[coding_id];
     const equalityTest = JSON.stringify(serverCoding) == JSON.stringify(coding);

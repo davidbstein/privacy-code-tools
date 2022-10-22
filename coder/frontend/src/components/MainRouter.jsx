@@ -6,7 +6,6 @@ import CodingEditorApp from "src/components/CodingEditorApp";
 import CodingInterfaceApp from "src/components/CodingInterfaceApp";
 import HomeApp from "src/components/HomeApp";
 import PolicyApp from "src/components/PolicyApp";
-import PolicyInstanceApp from "src/components/PolicyInstanceApp";
 import ProgressViewApp from "src/components/ProgressViewApp";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
@@ -47,10 +46,6 @@ const MainURLSwitch = withParams(connect(
           />
           <Route path={`code-:mode/:policy_instance_id`} element={<CodingInterfaceApp />} />
           {/* DOWNLOADING TOOLS */}
-          <Route
-            path={`policy/:policy_id/:policy_instance_id`}
-            element={<PolicyInstanceApp />}
-          />
           <Route path={`policy/:policy_id`} element={<PolicyApp />} />
           <Route path={`policy`} element={<PolicyApp />} />
           <Route path={`coder-status/:coder_email`} element={<AssignmentListApp />} />

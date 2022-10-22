@@ -93,9 +93,10 @@ export default connect(
         model: { coding_instances },
       } = this.props;
       const coding = this.props.model?.codings[coding_id];
-      if (!coding || !coding?.categories) {
+      if (coding == undefined || !coding?.categories) {
         return <div id="coding-form-pane">loading...</div>;
       }
+      if (coding_instances._unloaded) return <div id="coding-form-pane"> coding instance not loaded.</div>
       const serverCodingInstance = _.values(coding_instances)?.[0]?.coding_values;
       const saved = JSON.stringify(serverCodingInstance) == JSON.stringify(localCodingInstance);
       let counter = 0;

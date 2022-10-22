@@ -43,7 +43,7 @@ export default connect(
           policies: { [policy_instance?.policy_id]: policy },
         },
       } = this.props;
-      if (policy_instance == undefined || policy == undefined) {
+      if (policy == undefined || policy_instance == undefined) {
         return (
           <div className="policy-browser-container" id="policy-browser-container">
             loading...
