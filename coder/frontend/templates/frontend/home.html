@@ -4,12 +4,9 @@
     <h1>Document Coding Tools</h1>
     <h3>(login required)</h3>
     <ul>
-      <li><a href="/c/2022_GDPR/"> [2022] GDPR Enforcement Actions </a></li>
-      <li><a href="/c/FTC_COMPLAINTS/"> [2022] FTC Complaints </a></li>
-      <li><a href="/c/STATE_DBNR/"> [2022] State Data Security Rules </a></li>
-      <li><a href="/c/2021_PP/"> Summer 2021 privacy policies </a></li>
-      <li><a href="//policycoding.com"> Summer 2020 privacy policies </a></li>
-      <li><a href="/404"> Fall 2019 page scraper </a></li>
+      {% for project in projects %}
+        <li><a href="/c/{{ project.prefix }}/"> {{ project.name }} </a></li>
+      {% endfor %}
     </ul>
   </div>
 </div>

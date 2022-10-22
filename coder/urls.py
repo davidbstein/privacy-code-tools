@@ -51,7 +51,7 @@ router.register(r'raw_policy_instance',   views.RawPolicyInstanceViewSet)
 router.register(r'timing_session',        views.TimingSessionViewSet)
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='frontend/home.html')),
+    path('', views.HomePage.as_view()),
     re_path(r'^c/(.*)$',
             login_required(TemplateView.as_view(template_name='frontend/index.html'))),
     path(

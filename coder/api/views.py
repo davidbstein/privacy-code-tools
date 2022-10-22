@@ -1,10 +1,12 @@
 from collections import defaultdict
+from django_filters.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django_filters.filters import OrderingFilter
-from django_filters.rest_framework import DjangoFilterBackend
+from django.views.generic.base import TemplateView
+
 from rest_framework import filters
 from rest_framework import generics
 from rest_framework import permissions
@@ -12,6 +14,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.response import Response
 from coder.api.document_cleaner import to_coding_doc
+
 # from rest_framework import generics
 import logging
 
@@ -50,6 +53,22 @@ def _get_requested_project_prefix(request):
 def _get_project_id(request):
     project_prefix = _get_requested_project_prefix(request)
     return Project.objects.get(prefix=project_prefix).id
+
+class HomePage(TemplateView):
+    template_name = 'frontend/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePage, self).get_context_data(**kwargs)    
+        context['message'] = "hello world" #self.request.GET.get('message', '')
+        projects = Project.objects.all()
+        context['projects'] = reversed(sorted([
+            {
+                'name': project.name,
+                'prefix': project.prefix,
+            } for project in projects
+        ], key=lambda x: f' {x["name"]}' if x['name'].startswith('[') else x['name'].lower()))
+        return context
+
 
 
 class GroupPermission(permissions.BasePermission):
