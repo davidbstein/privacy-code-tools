@@ -2,12 +2,12 @@ import { APIActionTypes } from "src/actions/types";
 import { overwrite_stored_object_copies } from "./utils";
 
 const defaultState = {
-  policies: {}, // id: <policyinfo>
-  policy_instances: {}, // id: <policyinstance>
-  codings: {}, // id: <coding>
-  coding_instances: {}, // id: <codinginstance>
-  assignments: {}, // id: <coding>
-  project: {}, // key: value
+  policies: {"_unloaded": true}, // id: <policyinfo>
+  policy_instances: {"_unloaded": true}, // id: <policyinstance>
+  codings: {"_unloaded": true}, // id: <coding>
+  coding_instances: {"_unloaded": true}, // id: <codinginstance>
+  assignments: {"_unloaded": true}, // id: <coding>
+  project: {"_unloaded": true}, // key: value
 };
 
 /**

@@ -23,7 +23,8 @@ class AssignmentListApp extends Component {
         params: { coder_email = undefined, project_prefix },
       },
     } = this.props;
-    if (_.isEmpty(assignments)) return <Loading />;
+    console.log("ASSIGNMENTS", assignments);
+    if (assignments._unloaded) return <Loading />;
 
     const coder_assignments = _.groupBy(assignments, "coder_email");
     const coder_emails = coder_email ? [coder_email] : _.sortBy(_.keys(coder_assignments));

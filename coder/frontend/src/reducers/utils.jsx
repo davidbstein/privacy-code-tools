@@ -7,7 +7,7 @@
  * @returns the next state
  */
 export function overwrite_stored_object_copies(state, object_copies, object_type) {
-  return {
+  const to_ret = {
     ...state,
     ...{
       [object_type]: {
@@ -16,6 +16,8 @@ export function overwrite_stored_object_copies(state, object_copies, object_type
       },
     },
   };
+  delete to_ret[object_type]._unloaded;
+  return to_ret;
 }
 
 /**

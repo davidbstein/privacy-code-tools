@@ -19,14 +19,13 @@ class CodingEditorApp extends Component {
     const {
       model: {
         codings,
-        project: { settings: project_settings },
+        project: { settings: project_settings = {_unloaded: true} },
       },
       match: {
         params: { coding_id = undefined, project_prefix },
       },
     } = this.props;
-    if (_.isEmpty(codings) || _.isEmpty(project_settings)) return <Loading />;
-
+    if (codings._unloaded || project_settings?._unloaded) return <Loading />;
     return (
       <div id="coding-editor-list" className="page-root">
         <Heading title="Coding Editor" project_prefix={project_prefix} />

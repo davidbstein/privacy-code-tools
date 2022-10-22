@@ -188,7 +188,7 @@ class ProgressViewApp extends Component {
         )
       },
     ];
-    if (_.isEmpty(policies)) return <Loading />;
+    if (policies._unloaded) return <Loading />;
     const polArray = _.valuesIn(policies);
     return (
       <div id="progress-view" className="page-root">
