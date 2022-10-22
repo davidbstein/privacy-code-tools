@@ -4,9 +4,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autopep8 = "*"
 aws-requests-auth = "*"
 awsebcli = "*"
+boto3 = "*"
+bs4 = "*"
 django-shell-plus = "*"
+elasticsearch = "*"
+google-api-python-client = "*"
+html2markdown = "*"
+html2text = "*"
+ipykernel = "*"
+ipython = "*"
 jupyter = "*"
 matplotlib = "*"
 nltk = "*"
@@ -14,6 +23,7 @@ textchart = "*"
 tqdm = "*"
 
 [packages]
+aws-psycopg2 = "*"
 django = "*"
 django-allauth = "*"
 django-decorator-include = "*"
@@ -22,9 +32,7 @@ django-extensions = "*"
 django-filter = "*"
 django-rest-framework = "*"
 djangorestframework = "*"
-
-aws-psycopg2 = "*"
-
+psycopg2 = "*"
 
 [requires]
 python_version = "3"
