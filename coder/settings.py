@@ -47,10 +47,6 @@ CURRENT_CODING_ID = 6  # this also exists in /frontent/templates/index.html
 DEBUG = env('DEBUG')
 
 
-WIKI_ACCOUNT_HANDLING = False
-WIKI_ACCOUNT_SIGNUP_ALLOWED = False
-
-
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
@@ -139,19 +135,6 @@ INSTALLED_APPS = [
 
     # shellplus, ect.
     'django_extensions',
-
-    # wiki
-    # 'django.contrib.sites.apps.SitesConfig',
-    'django.contrib.humanize.apps.HumanizeConfig',
-    'django_nyt.apps.DjangoNytConfig',
-    'mptt',
-    'sekizai',
-    'sorl.thumbnail',
-    'wiki.apps.WikiConfig',
-    'wiki.plugins.attachments.apps.AttachmentsConfig',
-    'wiki.plugins.notifications.apps.NotificationsConfig',
-    'wiki.plugins.images.apps.ImagesConfig',
-    'wiki.plugins.macros.apps.MacrosConfig',
 ]
 
 MIDDLEWARE = [
@@ -184,7 +167,6 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
-                "sekizai.context_processors.sekizai",
             ],
         },
     },

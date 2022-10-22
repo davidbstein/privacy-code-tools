@@ -24,11 +24,6 @@ export default connect(
       return (
         <div className={is_active ? "active-selection-area" : "inactive-selection-area"}>
           <hr />
-          <div className="question-box-wiki-link">
-            <a href={`/wiki/questions/${identifier?.replace(".", "_")}`} target="_blank">
-              View additional help on the question
-            </a>
-          </div>
           <div className="coding-form-question-info">{details ?? ""}</div>
           {merge_mode ? (
             <MergeTool question_identifier={identifier} mergeData={mergeData} />

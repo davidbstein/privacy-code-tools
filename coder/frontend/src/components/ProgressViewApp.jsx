@@ -108,6 +108,7 @@ function _policies_to_coder_progress(policies) {
 //   );
 // }
 
+
 class ProgressViewApp extends Component {
   constructor(props) {
     super(props);
@@ -115,6 +116,17 @@ class ProgressViewApp extends Component {
   }
 
   render() {
+    const {
+      model: { 
+        policies,
+        project: { settings },
+      },
+      match: {
+        params: { project_prefix },
+      },
+    } = this.props;
+    const default_coding = settings?.default_coding || 8;
+
     const _CODER_COLUMNS = [
       { name: "coder", display_fn: (coder) => coder.email },
       { name: "assigned", display_fn: (coder) => coder.assigned },
@@ -150,46 +162,55 @@ class ProgressViewApp extends Component {
       //   ),
       //   sort_fn: (policy) => JSON.stringify(policy.categories),
       // },
-      { name: "Policy", display_fn: (policy) => policy.site_name },
-      {
-        name: "documents downloaded",
+      { 
+        name: "Policy", display_fn: (policy) => policy.site_name 
+      }, {
+        name: "Docs Loaded",
         display_fn: (policy) => policy.progress.loaded?.status ?? "👉 Pending",
         sort_fn: (policy) => policy.progress.loaded?.status ?? -1,
-      },
-      { name: "Coders Done", display_fn: (policy) => policy.progress.coded < 2 ? ["❌","🔄"][policy.progress.coded] : "✅ " },
-      { 
+      }, { 
+        name: "Coders Done", 
+        display_fn: (policy) => policy.progress.coded < 2 ? ["❌","🔄"][policy.progress.coded] : "✅ ",
+        sort_fn: (policy) => `${policy.progress.reviewed} - ${9-policy.progress.coded}`,
+        completed_fn: (policy) => policy.progress.coded >= 2
+      }, { 
         name: "Fully Reviewed", 
         display_fn: (policy) => policy.progress.reviewed == 0 ? (policy.progress.coded < 2 ? "":"🔄") : "✅ ", 
-        sort_fn: (policy) => `${policy.progress.reviewed} - ${9-policy.progress.coded}`
+        sort_fn: (policy) => `${policy.progress.reviewed} - ${9-policy.progress.coded}`,
+        completed_fn: (policy) => policy.progress.reviewed >= 1
+      }, { 
+        name: "links", 
+        display_fn: (policy) => (
+          <div>
+            <a href={`/c/${PROJECT_NAME}/code-policy/${policy.progress.coding_link}/${default_coding}`}>Code</a> | 
+            <a href={`/c/${PROJECT_NAME}/code-merge/${policy.progress.coding_link}/${default_coding}`}>Review</a>
+          </div>
+        )
       },
-      { name: "links", display_fn: (policy) => (
-        <div>
-          <a href={`/c/${PROJECT_NAME}/code-policy/${policy.progress.coding_link}/${default_coding}`}>Code</a> | 
-          <a href={`/c/${PROJECT_NAME}/code-merge/${policy.progress.coding_link}/${default_coding}`}>Review</a>
-        </div>
-      )},
     ];
-    const {
-      model: { 
-        policies,
-        project: { settings },
-      },
-      match: {
-        params: { project_prefix },
-      },
-    } = this.props;
-    const default_coding = settings?.default_coding || 8;
     if (_.isEmpty(policies)) return <Loading />;
+    const polArray = _.valuesIn(policies);
     return (
       <div id="progress-view" className="page-root">
         <Heading title={`Project Status`} project_prefix={project_prefix} />
         <div id="project-progress-container" className="page-container">
-          {/* <SortableTable items={_policies_to_coder_progress(policies)} columns={_CODER_COLUMNS} /> */}
-          {/* <SortableTable
-            items={_policies_to_category_progress(policies)}
-            columns={_OVERVIEW_COLUMNS}
-          /> */}
-          <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} sortColumnIdx={3} />
+        <div id="progress-bars">
+          {_POLICY_COLUMNS.map(({name, display_fn, sort_fn, completed_fn}, idx) => {
+            if (completed_fn) {
+              const total = polArray.length;
+              const completed = _.filter(polArray, completed_fn).length;
+              return (
+                <div className="progress-bar-below-text" key={idx}>
+                  <div className="progress-bar-text">{name} - {completed}/{total}</div>
+                  <div className="progress-bar" style={{ width: (completed / total) * 100 + "%" }}></div>
+                </div>
+              );              
+            } else {
+              return "";
+            }
+          })}
+        </div>
+        <SortableTable items={_.values(policies)} columns={_POLICY_COLUMNS} sortColumnIdx={3} />
         </div>
       </div>
     );

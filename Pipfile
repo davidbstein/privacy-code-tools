@@ -14,6 +14,7 @@ textchart = "*"
 tqdm = "*"
 
 [packages]
+aws-psycopg2 = "*"
 django = "*"
 django-allauth = "*"
 django-decorator-include = "*"
@@ -22,9 +23,8 @@ django-extensions = "*"
 django-filter = "*"
 django-rest-framework = "*"
 djangorestframework = "*"
-
-aws-psycopg2 = "*"
-
+html2text = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3"

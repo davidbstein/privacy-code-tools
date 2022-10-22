@@ -65,19 +65,25 @@ const MainURLSwitch = withParams(connect(
     }
   }
 ));
-export default class MainRouter extends Component {
-  constructor(props) {
-    super(props);
-    this.props.apiGetProjectSettings(this.props.match.params.project_prefix);
+
+export default withParams(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  class MainRouter extends Component {
+    constructor(props) {
+      super(props);
+      this.props.apiGetProjectSettings(window.location.pathname.match(/^\/c\/([^\/]+)/)[1]);
+    }
+    render() {
+      return (
+        <Router>
+          <Routes>
+            <Route path="/c/:project_prefix/*" element={<MainURLSwitch />} />
+            <Route path="/c/:project_prefix/" element={<HomeApp />} />
+          </Routes>
+        </Router>
+      );
+    }
   }
-  render() {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/c/:project_prefix/*" element={<MainURLSwitch />} />
-          <Route path="/c/:project_prefix/" element={<HomeApp />} />
-        </Routes>
-      </Router>
-    );
-  }
-}
+));

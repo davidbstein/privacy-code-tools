@@ -75,11 +75,6 @@ urlpatterns = [
     path(
         "me/",
         login_required(get_current_user)),
-    # path(
-    #     'status/',
-    #     login_required(get_status)),
-    # path('notifications/', include('django_nyt.urls')),
-    # path('wiki/', decorator_include(login_required, 'wiki.urls')),
 ]
 
 urlpatterns.extend([
