@@ -122,7 +122,7 @@ export default (state = defaultState, action) => {
     case APIActionTypes.POST_CODING_INSTANCE:
       new_state.updateSinceLastSave = true;
       return new_state;
-    case APIActionTypes.GET_CODING_INSTANCE:
+    case APIActionTypes.SERVER_CODING_INSTANCE:
       return loadSavedCodingInstance(new_state, action.payload);
     case APIActionTypes.GET_CODING_LIST:
       return loadSavedCodings(new_state, action.payload);

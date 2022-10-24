@@ -120,6 +120,12 @@ api.apiGetCodingInstance = (policy_instance_id, coding_id) => async (dispatch) =
     type: APIActionTypes.GET_CODING_INSTANCE,
     payload: res.data.results ?? [{}],
   });
+  if (res.data.results?.length > 0) {
+    dispatch({
+      type: APIActionTypes.SERVER_CODING_INSTANCE,
+      payload: res.data.results[0],
+    });
+  }
 };
 
 api.apiGetAllCodingInstances = (policy_instance_id, coding_id) => async (dispatch) => {
