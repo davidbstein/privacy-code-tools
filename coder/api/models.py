@@ -24,7 +24,7 @@ class Assignment(models.Model):
     completed_dt = models.DateTimeField(null=True)
     type = models.BigIntegerField()
     status = models.CharField(max_length=31, default="TRIAGE")
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class AssignmentType(models.Model):
@@ -39,14 +39,14 @@ class Coding(models.Model):
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     categories = models.JSONField(default=list)
     meta = models.JSONField(default=dict)
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class Project(models.Model):
     prefix = models.CharField(max_length=255, db_index=True)
     name = models.CharField(max_length=255)
     settings = models.JSONField(default=dict)
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class CodingInstance(models.Model):
@@ -57,7 +57,7 @@ class CodingInstance(models.Model):
     coding_id = models.BigIntegerField(db_index=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)
     coding_values = models.JSONField()
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('coder_email', 'coding_id', 'policy_instance_id')
@@ -78,7 +78,7 @@ class Policy(models.Model):
     categories = models.JSONField(default=list)
     meta = models.JSONField(default=dict)
     progress = models.JSONField(default=dict)
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class PolicyInstance(models.Model):
@@ -87,7 +87,7 @@ class PolicyInstance(models.Model):
     raw_policy_id = models.BigIntegerField(null=True)
     scan_dt = models.DateTimeField(default=datetime.datetime.now)
     content = models.JSONField()
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class RawPolicyInstance(models.Model):
@@ -106,4 +106,4 @@ class TimingSession(models.Model):
     question_timings = models.JSONField()
     session_timing = models.JSONField()
     session_identifier = models.BigIntegerField(unique=True)
-    last_updated = models.TimeField(auto_now=True)
+    last_updated = models.DateTimeField(auto_now=True)

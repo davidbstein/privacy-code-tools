@@ -4,6 +4,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 
 from coder.api.models import Project, Policy, PolicyInstance, CodingInstance
+import datetime
 
 from tqdm import tqdm
 
@@ -31,6 +32,13 @@ def update_project_statuses(project):
     policies = []
     project = Project.objects.filter(id=project)[0]
     print(project.prefix)
+    last_coding_instance_to_update = CodingInstance.objects.filter(project=project.id).order_by('-last_updated').first()
+    if not last_coding_instance_to_update:
+        print("No coding instances for this project.")
+        return
+    if last_coding_instance_to_update.last_updated < project.last_updated:
+        print("already up to date")
+        return
     for policy in tqdm(Policy.objects.filter(project=project.id)):
         policy.progress['loaded'] = {"status": "done"}
         policy.progress['coded'] = policy_is_coded(policy, project.id)
