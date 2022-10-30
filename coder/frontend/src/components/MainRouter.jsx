@@ -7,6 +7,7 @@ import CodingInterfaceApp from "src/components/CodingInterfaceApp";
 import HomeApp from "src/components/HomeApp";
 import PolicyApp from "src/components/PolicyApp";
 import ProgressViewApp from "src/components/ProgressViewApp";
+import DataApp from "src/components/DataApp";
 import mapDispatchToProps from "src/components/utils/mapDispatchToProps";
 import mapStateToProps from "src/components/utils/mapStateToProps";
 import withParams from "src/components/utils/withParams";
@@ -55,6 +56,7 @@ const MainURLSwitch = withParams(connect(
           {/* CODING EDITOR */}
           <Route path={`coding/:coding_id`} element={<CodingEditorApp />} />
           <Route path={`coding/`} element={<CodingEditorApp />} />
+          <Route path={`data/`} element={<DataApp />} />
         </Routes>
       );
     }

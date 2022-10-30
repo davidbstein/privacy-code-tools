@@ -2,12 +2,13 @@ import { APIActionTypes } from "src/actions/types";
 import { overwrite_stored_object_copies } from "./utils";
 
 const defaultState = {
-  policies: {"_unloaded": true}, // id: <policyinfo>
-  policy_instances: {"_unloaded": true}, // id: <policyinstance>
-  codings: {"_unloaded": true}, // id: <coding>
-  coding_instances: {"_unloaded": true}, // id: <codinginstance>
-  assignments: {"_unloaded": true}, // id: <coding>
-  project: {"_unloaded": true}, // key: value
+  policies: { "_unloaded": true }, // id: <policyinfo>
+  policy_instances: { "_unloaded": true }, // id: <policyinstance>
+  codings: { "_unloaded": true }, // id: <coding>
+  coding_instances: { "_unloaded": true }, // id: <codinginstance>
+  assignments: { "_unloaded": true }, // id: <coding>
+  project: { "_unloaded": true }, // key: value
+  report: { "_unloaded": true }, // [project: <project_id>, answers: {<question_id>: {<coder_email>: <Answer>}}, ...]
 };
 
 /**
@@ -75,6 +76,8 @@ export default (state = defaultState, action) => {
         ...state,
         ...{},
       };
+    case APIActionTypes.GET_REPORT:
+      return { ...state, ...{ report: action.payload } };
     case APIActionTypes.POST_POLICY_INSTANCE_DOCUMENT:
       return state;
     case APIActionTypes.POST_POLICY_INSTANCE:

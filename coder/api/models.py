@@ -53,6 +53,7 @@ class CodingInstance(models.Model):
     project = models.BigIntegerField(default=1)
     coder_email = models.CharField(
         max_length=255, db_index=True, default="unknown")
+    policy_id = models.BigIntegerField(db_index=True)
     policy_instance_id = models.BigIntegerField(db_index=True)
     coding_id = models.BigIntegerField(db_index=True)
     created_dt = models.DateTimeField(default=datetime.datetime.now)

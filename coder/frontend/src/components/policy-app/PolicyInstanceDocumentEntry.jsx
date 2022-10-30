@@ -81,9 +81,9 @@ class EditorBox extends React.Component {
           <Editor
             ref="editor"
             editorState={this.props.editorState}
+            onChange={this.props.onEditorChange}
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={this.mapKeyToEditorCommand}
-            onChange={this.props.onEditorChange}
             placeholder="Copy your policy document here."
           />
         </div>

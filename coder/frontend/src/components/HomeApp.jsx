@@ -71,7 +71,7 @@ class HomeApp extends Component {
                 <a href={`/c/${project_prefix}/policy`}>View Documents</a>
               </li>
               <li>
-                <a href={`#`}>[coming soon] Data Explorer</a>
+                <a href={`/c/${project_prefix}/data`}>Data Explorer</a>
               </li>
             </ul>
           </div>

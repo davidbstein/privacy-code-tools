@@ -12,7 +12,6 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.response import Response
 from coder.api.document_cleaner import to_coding_doc
 
 # from rest_framework import generics
@@ -54,12 +53,14 @@ def _get_project_id(request):
     project_prefix = _get_requested_project_prefix(request)
     return Project.objects.get(prefix=project_prefix).id
 
+
 class HomePage(TemplateView):
     template_name = 'frontend/home.html'
 
     def get_context_data(self, **kwargs):
-        context = super(HomePage, self).get_context_data(**kwargs)    
-        context['message'] = "hello world" #self.request.GET.get('message', '')
+        context = super(HomePage, self).get_context_data(**kwargs)
+        # self.request.GET.get('message', '')
+        context['message'] = "hello world"
         projects = Project.objects.all()
         context['projects'] = reversed(sorted([
             {
@@ -68,7 +69,6 @@ class HomePage(TemplateView):
             } for project in projects
         ], key=lambda x: f' {x["name"]}' if x['name'].startswith('[') else x['name'].lower()))
         return context
-
 
 
 class GroupPermission(permissions.BasePermission):
@@ -185,7 +185,8 @@ class CodingInstanceViewSet(ProjectFilteredViewSet):
             coder_email=validated_data.data['coder_email'],
             coding_id=validated_data.data['coding_id'],
             policy_instance_id=validated_data.data['policy_instance_id'],
-
+            policy_id=PolicyInstance.objects.get(
+                id=validated_data.data['policy_instance_id']).policy_id,
         ).first()  # uniqueness avoids needs for limit
         if instance:
             instance.coding_values = validated_data.data['coding_values']
@@ -321,6 +322,32 @@ class TimingSessionViewSet(viewsets.ModelViewSet):
                 project=_get_project_id(validated_data), **validated_data.data)
         instance.save()
         return Response(TimingSessionSerializer(instance).data)
+
+
+class ReportViewSet(viewsets.ViewSet):
+    permission_classes = [GroupPermission]
+    queryset = CodingInstance.objects.all()
+
+    @method_decorator(cache_page(60 if not settings.DEBUG else 1))
+    def list(self, request, project_id=None):
+        assert project_id is not None, "Project ID is required"
+        project_id = Project.objects.get(prefix=project_id).id
+        ci_list = CodingInstance.objects.filter(project=project_id)
+        p_list = Policy.objects.filter(project=project_id)
+        policy2ci_list = defaultdict(list)
+        for ci in ci_list:
+            policy2ci_list[ci.policy_id].append(ci)
+        policy2answers = {}
+        for policy, ci_list in policy2ci_list.items():
+            policy2answers[policy] = defaultdict(dict)
+            for ci in ci_list:
+                question_id2answer = ci.coding_values
+                for question_id, answer in question_id2answer.items():
+                    policy2answers[policy][question_id][ci.coder_email] = answer
+
+        return Response([
+            {"policy": policy, "answers": answers} for policy, answers in policy2answers.items()
+        ])
 
 
 # TO REMOVE!

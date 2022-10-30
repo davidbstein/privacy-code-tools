@@ -50,6 +50,7 @@ function ParagraphPreview({ content, level, type }, sectionCounter) {
         </div>
       );
     default:
+      return <div> ERROR </div>
       break;
   }
 }

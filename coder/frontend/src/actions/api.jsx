@@ -28,7 +28,7 @@ const API_PREFIX = `/api/${PROJECT_NAME}`
 
 const api = {};
 
-async function doAPIGet(path, dispatch, actionType, res_fn=(res)=>res.data) {
+async function doAPIGet(path, dispatch, actionType, res_fn = (res) => res.data) {
   try {
     const res = await axios.get(`${API_PREFIX}/${path}`);
     let result = res_fn(res);
@@ -41,7 +41,7 @@ async function doAPIGet(path, dispatch, actionType, res_fn=(res)=>res.data) {
     console.error(e);
     console.log(actionType);
     if (e?.data) throwError(dispatch, e);
-    else throw(e);
+    else throw (e);
   }
 }
 
@@ -54,24 +54,28 @@ function throwError(dispatch, error) {
 
 api.apiGetAssignments = () => async (dispatch) => {
   log(`called apiGetAssignments`);
-  await doAPIGet(`assignment/`, dispatch, APIActionTypes.GET_ASSIGNMENT_LIST, (res)=>(res.data.results || []));
+  await doAPIGet(`assignment/`, dispatch, APIActionTypes.GET_ASSIGNMENT_LIST, (res) => (res.data.results || []));
+};
+api.apiGetReport = () => async (dispatch) => {
+  log(`called apiGetReport`);
+  await doAPIGet(`report/`, dispatch, APIActionTypes.GET_REPORT, (res) => res.data);
 };
 
 api.apiGetPolicies = () => async (dispatch) => {
   log(`called apiGetPolicies`);
-  await doAPIGet(`policy/`, dispatch, APIActionTypes.GET_POLICIES, (res)=>res.data.results);
+  await doAPIGet(`policy/`, dispatch, APIActionTypes.GET_POLICIES, (res) => (res.data.results));
 };
 
 api.apiGetPolicyInstance = (policy_instance_id) => async (dispatch) => {
   log(`called apiGetPolicyInstance`);
-  const policy_instance = await doAPIGet(`policy_instance/${policy_instance_id}/`, dispatch, APIActionTypes.GET_POLICY_INSTANCE, (res)=>res.data);
-  await doAPIGet(`policy/${policy_instance.policy_id}`, dispatch, APIActionTypes.GET_POLICY, (res)=>res.data);
+  const policy_instance = await doAPIGet(`policy_instance/${policy_instance_id}/`, dispatch, APIActionTypes.GET_POLICY_INSTANCE, (res) => res.data);
+  await doAPIGet(`policy/${policy_instance.policy_id}`, dispatch, APIActionTypes.GET_POLICY, (res) => res.data);
 };
 
 api.apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
   log(`called apiGetPolicyInstance`);
-  const policy_instance_list = await doAPIGet(`policy_instance/?policy_id=${policy_id}`, dispatch, APIActionTypes.GET_POLICY_INSTANCES, (res)=>res.data.results);
-  await doAPIGet(`policy/${policy_id}/`, dispatch, APIActionTypes.GET_POLICY, (res)=>res.data);
+  const policy_instance_list = await doAPIGet(`policy_instance/?policy_id=${policy_id}`, dispatch, APIActionTypes.GET_POLICY_INSTANCES, (res) => res.data.results);
+  await doAPIGet(`policy/${policy_id}/`, dispatch, APIActionTypes.GET_POLICY, (res) => res.data);
   for (
     let _i = 0, policy_instance = policy_instance_list[_i++];
     _i < policy_instance_list.length;
@@ -83,7 +87,7 @@ api.apiGetPolicyAssociatedData = (policy_id) => async (dispatch) => {
 
 api.apiGetCodingList = () => async (dispatch) => {
   log(`called apiGetCodingList`);
-  doAPIGet(`coding/`, dispatch, APIActionTypes.GET_CODING_LIST, (res)=>res.data.results);
+  doAPIGet(`coding/`, dispatch, APIActionTypes.GET_CODING_LIST, (res) => res.data.results);
 };
 
 api.apiGetCoding = (coding_id) => async (dispatch) => {
@@ -231,18 +235,18 @@ const _JUMP = 10000;
 
 const _apiAutoSave =
   (override = false) =>
-  async (dispatch) => {
-    const cur_time = new Date().getTime();
-    // if (override || _LAST_AUTO_SAVE + _JUMP < cur_time) {
-    //   _LAST_AUTO_SAVE = cur_time;
-    // } else {
-    //   console.log("not saving...");
-    //   return;
-    // }
-    // console.log("saving...");
-    if (!store.getState().localState.codingId) return;
-    _limited_save_fn(store, dispatch, APIActionTypes.AUTO_SAVE);
-  };
+    async (dispatch) => {
+      const cur_time = new Date().getTime();
+      // if (override || _LAST_AUTO_SAVE + _JUMP < cur_time) {
+      //   _LAST_AUTO_SAVE = cur_time;
+      // } else {
+      //   console.log("not saving...");
+      //   return;
+      // }
+      // console.log("saving...");
+      if (!store.getState().localState.codingId) return;
+      _limited_save_fn(store, dispatch, APIActionTypes.AUTO_SAVE);
+    };
 
 const _save_fn = async function (store, dispatch, actionName = APIActionTypes.AUTO_SAVE) {
   const state = store.getState();

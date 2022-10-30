@@ -19,7 +19,7 @@ class PolicyApp extends Component {
     const {
       model: {
         policies,
-        project: { settings: project_settings },
+        project: { settings: project_settings = {} },
       },
       match: {
         params: { policy_id = undefined, project_prefix },
