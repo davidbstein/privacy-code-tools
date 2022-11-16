@@ -14,6 +14,7 @@ function SentenceList({ sentences, idxOffset = 0, paragraph_idx, doc }) {
       paragraph_idx={paragraph_idx}
       content={sentence}
       doc_ordinal={doc.ordinal}
+      doc_title={doc.title}
     />
   ));
 }
@@ -85,7 +86,7 @@ export default connect(
       for (var ci of _.values(this.props.model.coding_instances)) {
         if (
           ci.coding_values?.categoryHighlights?.[
-            this.props.localState.selectedCategoryIdentifier
+          this.props.localState.selectedCategoryIdentifier
           ]?.[key] == true
         )
           highlight_count++;
@@ -95,7 +96,7 @@ export default connect(
     checkSelected(key) {
       return (
         this.props.localState.localCodingInstance.categoryHighlights?.[
-          this.props.localState.selectedCategoryIdentifier
+        this.props.localState.selectedCategoryIdentifier
         ]?.[key] == true
       );
     }
@@ -115,6 +116,7 @@ export default connect(
       if (merge_count) classes.push(`selected-count selected-count-${Math.min(5, merge_count)}`);
       return (
         <div className={classes.join(" ")} id={`paragraph-${doc.ordinal}-${idx}`}>
+          <div id={`paragraph-${doc.title}-${idx}`} />
           <div className="policy-browser-paragraph-num">{idx + 1}</div>
           <div className="paragraph-content">
             {{

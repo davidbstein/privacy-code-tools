@@ -54,7 +54,9 @@ export default connect(
       for (var ci of _.values(this.props.model.coding_instances)) {
         count++;
         const sentences = this._get_selected_sentences(ci.coding_values, this.props.doc_ordinal);
+        const old_sentences = this._get_selected_sentences(ci.coding_values, this.props.doc_title);
         if (this._checkSentence(sentences)) highlight_count++;
+        else if (this._checkSentence(old_sentences)) highlight_count++;
       }
       var extra_class = "";
       if (highlight_count > 0) {
