@@ -34,7 +34,7 @@ idna==3.3; python_version >= '3'
 joblib==1.1.0; python_version >= '3.6'
 markdown==3.2.2; python_version >= '3.5'
 nltk==3.6.2
-oauthlib==3.2.0; python_version >= '3.6'
+oauthlib==3.2.2; python_version >= '3.6'
 packaging==21.3; python_version >= '3.6'
 pillow==9.1.1; python_version >= '3.7'
 psycopg2==2.9.1
