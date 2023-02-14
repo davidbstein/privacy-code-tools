@@ -32,11 +32,11 @@ const MainURLSwitch = withParams(connect(
           {/* CODING TOOL */}
           <Route
             path={`code-policy/:_policy_instance_info/:_coding_info`}
-            element={<CodingInterfaceApp />}
+            element={<CodingInterfaceApp mode="policy" />}
           />
           <Route
             path={`code-merge/:_policy_instance_info/:_coding_info`}
-            element={<CodingInterfaceApp />}
+            element={<CodingInterfaceApp mode="merge" />}
           />
           <Route path={`code-policy/:policy_instance_info`} element={<CodingInterfaceApp />} />
           <Route path={`code-merge/:policy_instance_info`} element={<CodingInterfaceApp />} />

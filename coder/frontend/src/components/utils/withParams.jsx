@@ -6,6 +6,9 @@ export default function withParams(MyElement) {
     const match = {
       params: useParams(),
     }
+    if (props.mode) {
+      match.params.mode = props.mode;
+    }
     if (match.params._policy_instance_info) {
       if (match.params._policy_instance_info.startsWith('policy-')) {
         match.params.policy_instance_id = match.params._policy_instance_info.slice(6)
@@ -26,3 +29,22 @@ export default function withParams(MyElement) {
     return <MyElement match={match} {...props} />
   }
 }
+
+/*
+          <Route
+            path={`code-policy/policy-:policy_instance_id/coding-:coding_id`}
+            element={<CodingInterfaceApp />}
+          />
+          <Route
+            path={`code-merge/:policy_instance_id-:policy_name/:coding_id`}
+            element={<CodingInterfaceApp />}
+          />
+          <Route
+            path={`code-:mode/:policy_instance_id-:policy_name`}
+            element={<CodingInterfaceApp />}
+          />
+          <Route
+            path={`code-:mode/:policy_instance_id/:coding_id`}
+            element={<CodingInterfaceApp />}
+          />
+*/
