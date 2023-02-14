@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 import AssignmentListApp from "src/components/AssignmentListApp";
 import CodingEditorApp from "src/components/CodingEditorApp";
 import CodingInterfaceApp from "src/components/CodingInterfaceApp";
@@ -26,26 +26,20 @@ const MainURLSwitch = withParams(connect(
       if (!project) {
         return <div>one sec...</div>;
       }
+      const path = this.props.match.params["*"];
       return (
         <Routes>
           {/* CODING TOOL */}
           <Route
-            path={`code-:mode/policy-:policy_instance_id/coding-:coding_id`}
+            path={`code-policy/:_policy_instance_info/:_coding_info`}
             element={<CodingInterfaceApp />}
           />
           <Route
-            path={`code-:mode/:policy_instance_id-:policy_name/:coding_id`}
+            path={`code-merge/:_policy_instance_info/:_coding_info`}
             element={<CodingInterfaceApp />}
           />
-          <Route
-            path={`code-:mode/:policy_instance_id-:policy_name`}
-            element={<CodingInterfaceApp />}
-          />
-          <Route
-            path={`code-:mode/:policy_instance_id/:coding_id`}
-            element={<CodingInterfaceApp />}
-          />
-          <Route path={`code-:mode/:policy_instance_id`} element={<CodingInterfaceApp />} />
+          <Route path={`code-policy/:policy_instance_info`} element={<CodingInterfaceApp />} />
+          <Route path={`code-merge/:policy_instance_info`} element={<CodingInterfaceApp />} />
           {/* DOWNLOADING TOOLS */}
           <Route path={`policy/:policy_id`} element={<PolicyApp />} />
           <Route path={`policy`} element={<PolicyApp />} />
@@ -74,12 +68,12 @@ export default withParams(connect(
     }
     render() {
       return (
-        <Router>
+        <BrowserRouter>
           <Routes>
             <Route path="/c/:project_prefix/*" element={<MainURLSwitch />} />
             <Route path="/c/:project_prefix/" element={<HomeApp />} />
           </Routes>
-        </Router>
+        </BrowserRouter>
       );
     }
   }
