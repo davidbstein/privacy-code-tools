@@ -33,6 +33,7 @@ class EditorBox extends React.Component {
   }
 
   _handleKeyCommand(command, editorState) {
+    console.log("handle key command: " + command)
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       this.props.onEditorChange(newState);
@@ -42,6 +43,7 @@ class EditorBox extends React.Component {
   }
 
   _mapKeyToEditorCommand(e) {
+    console.log("map key to editor command: " + e.keyCode)
     if (e.keyCode === 9 /* TAB */) {
       const newEditorState = RichUtils.onTab(e, this.props.editorState, 4 /* maxDepth */);
       if (newEditorState !== this.props.editorState) {
@@ -53,10 +55,12 @@ class EditorBox extends React.Component {
   }
 
   _toggleBlockType(blockType) {
+    console.log("toggle block type: " + blockType)
     this.props.onEditorChange(RichUtils.toggleBlockType(this.props.editorState, blockType));
   }
 
   _toggleInlineStyle(inlineStyle) {
+    console.log("toggle inline style: " + inlineStyle)
     this.props.onEditorChange(RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle));
   }
 
@@ -69,7 +73,7 @@ class EditorBox extends React.Component {
         className += " RichEditor-hidePlaceholder";
       }
     }
-
+    console.log("rendering editor box")
     return (
       <div className="RichEditor-root">
         <StyleControls

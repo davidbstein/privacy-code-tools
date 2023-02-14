@@ -251,11 +251,13 @@ const _apiAutoSave =
 const _save_fn = async function (store, dispatch, actionName = APIActionTypes.AUTO_SAVE) {
   const state = store.getState();
   const policy_instance_id = state.localState.policyInstanceId;
+  const policy_id = state.model.policy_instances[policy_instance_id].policy_id;
   const coding_id = state.localState.codingId;
   const coding_values = state.localState.localCodingInstance;
   const coder_email = CURRENT_USER;
   const request_params = {
     policy_instance_id,
+    policy_id,
     coding_id,
     coder_email,
     coding_values,
