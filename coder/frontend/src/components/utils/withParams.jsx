@@ -25,26 +25,6 @@ export default function withParams(MyElement) {
         match.params.coding_id = match.params._coding_info.split('-')[0];
       }
     }
-    console.log('withParams', match)
     return <MyElement match={match} {...props} />
   }
 }
-
-/*
-          <Route
-            path={`code-policy/policy-:policy_instance_id/coding-:coding_id`}
-            element={<CodingInterfaceApp />}
-          />
-          <Route
-            path={`code-merge/:policy_instance_id-:policy_name/:coding_id`}
-            element={<CodingInterfaceApp />}
-          />
-          <Route
-            path={`code-:mode/:policy_instance_id-:policy_name`}
-            element={<CodingInterfaceApp />}
-          />
-          <Route
-            path={`code-:mode/:policy_instance_id/:coding_id`}
-            element={<CodingInterfaceApp />}
-          />
-*/
